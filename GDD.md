@@ -13,7 +13,7 @@
     * [Descripción detallada del concepto de juego](#descripción-detallada-del-concepto-de-juego)
     * [Descripción de mecánicas de juego](#descripción-de-mecánicas-de-juego)
     * [Controles](#controles)
-    * [Niveles y misiones](#niveles-y-misiones)
+    * [Objetivo](#objetivo)
     * [Objetos, armas y power ups](#objetos-armas-y-power-ups)
  5. [Arte](#arte)
     * [Estética general del juego](#estética-general-del-juego)
@@ -41,10 +41,6 @@
      * [Estimación temporal del desarrollo](#estimación-temporal-del-desarrollo)
      * [Costes asociados](#costes-asociados)
      * [Hoja de ruta del desarrollo](#hoja-de-ruta-del-desarrollo)
-     * [Hito 1](#hito-1)
-     * [Hito 2](#hito-2)
-     * [Hito 3](#hito-3)
-     * [Fecha de lanzamiento](#fecha-de-lanzamiento)
  18. [Post mortem (lecciones aprendidas)](#post-mortem-lecciones-aprendidas)
      * [Trabajo individual realizado](#trabajo-individual-realizado)
          * [Anastasia Ihnatsenka Shakhova](#anastasia-ihnatsenka-shakhova)
@@ -73,26 +69,49 @@ Con este juego se buscará ocupar el tiempo muerto de cualquier jugador en momen
 # Mecánicas y elementos del juego
 ---
 ## Descripción detallada del concepto de juego
-Content
+Space Combat Rush 3D se basará fuertemente en el juego ya creado previamente Space Combat Rush. Se podría considerar como la transferencia de la versión original a un mundo 3D; pero con algunas diferencias. El juego buscará destacar por su sencillez donde, a parte de los menús a través de los que puede navegar el jugador, solamente habrá una única pantalla de juego.
+
+La pantalla de juego consistirá en un entorno cerrado (un mundo con límites) que simulará el espacio. Aquí el jugador podrá encontrar al enemigo al que tendrá que enfrentarse (el otro jugador con el que ha sido emparejado en un 1vs1, se replanteará en un futuro si aumentarlo a batallas por equipos) y elementos como meteoritos y debris espacial (elementos que el jugador podrá destruir disparándoles).
+
+El usuario jugará en tercera persona desde una vista cenital controlando una nave. Podrá personalizar su nave con las skins básicas o adquiriendo, con los pases de batalla, skins especiales. En un principio estas skins serán meramente estéticas, pero se reevaluará en el futuro si añadir efectos especiales que puedan tener algunas.
+
+Además, el jugador podrá adquirir power-ups a base de la destrucción de los meteoritos que le puedan prestar una boost o ayuda temporal para luchar contra su enemigo. Se plantea también, para revisiones futuras, la adición de boosters especiales que aparezcan en el mapa como drops con aviso para obligar una lucha más encarecida entre los jugadors.
 ## Descripción de mecánicas de juego
-Content
+El juego principalmente tendrá como mecánicas la destrucción de la nave enemiga y la de meteoritos o debris del entorno para quitarlos del medio y/o conseguir boosters. El jugador controlará su nave en movimiento y disparo.
 ## Controles
-Content
-## Niveles y misiones
-Content
+Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WAD (donde W es para acelerar y AD es para el control de la dirección, no se puede volar hacia atrás) o flechas arriba, izquierda y derecha. Para la versión en móvil **--completar--**
+
+En cuanto a los disparos, en versión ordenador se utilizará la barra espaciadora. En cuanto a la versión dispositivo táctil **--completar--**
+
+Y, finalmente, para navegar entre las distintas pantallas, se utilizará el ratón para clickar sobre los distintos botones. En versión móvil se hará utilizando la funcionalidad táctil de esta.
+## Objetivo
+El objetivo en este juego es simple, conseguir matar a todo jugador al que te enfrentes para ascender en el ranking que se visualizará al terminar una partida. Se apelará a la competitividad de los jugadores para que busquen conseguir estar en el top entre todos los usuarios.
 ## Objetos, armas y power ups
 Content
 
 # Arte
 ---
 ## Estética general del juego
-Content
+El juego buscará simular una estética arcade en 3D. Por lo que se apelará a una mezcla futurista/retro con modelos low poly. Buscaremos tener una mezcla de diseños que recuerden a los tiempos de antaño, pero con detalles de luces neón y elementos futurísticos para dar la sensación de que nos encontramos ante una sociedad más desarrollada de lo que fueron esos tiempos.
 ## Referencias del arte Space Combar Rush 2D
-Content
+El juego original se diseñó para una estética pixelar apelando en su totalidad a los juegos retro del pasado. A continuación se podrá ver algunas imágenes de dicho juego y se pondrá el enlace al juego para poder probarlo.
+
+<p align="center">
+ <img width=145 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/50e92bb3f19423b47d032f11a80fe288.jpg">
+ <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/raf%2C360x360%2C075%2Ct%2Cfafafa_ca443f4786.jpg">
+ <img width=400 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/retrofuturyzm-5.jpeg"> <br>
+</p>
+<p align="center">
+ <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/thumbnail_8b978dc5-9927-441c-85ba-44224c1fe562.jpg.256x256_q85.jpg">
+ <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/77a7a10aca1740618fa4ad57e0c7eed9.jpg">
+ <img width=355 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/1.jpg"> <br>
+</p>
+
 ## Concepts
-Content
+Principalmente nos centraremos en los diseños de las naves, pero elementos del entorno como los meteoritos y el debris espacial también deberán ser diseñados. Así como los distintos boostes y elementos 2D como la interfaz. A continaución se presentan los diseños.
+
 ## Modelos 3D
-Content
+En este apartado se mostrarán las versiones 3D de los concepts para tener una clara comprensión del contenido visual dentro del juego.
 
 # Sonido
 ---
@@ -131,7 +150,7 @@ El usuario destinatario de nuestro juego tendrá las siguientes características
 Conociendo las características base de quienes serán nuestros principales jugadores, procedemos a estudiarlo más de cerca con un mapa de empatía.
 
 <p align="center">
- <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/MapaEmpatia.png"> <br>
+ <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Mapa%20Empat%C3%ADa%20SCR3D.png"> <br>
 </p>
 
 ## Modelo de caja de herramientas
@@ -183,15 +202,27 @@ El coste del desarrollo se estima en unos **50.000€**. Esto equivaldría a 4 m
 
 # Hoja de ruta del desarrollo
 ---
-## Hito 1
-Content
-## Hito 2
-Content
-## Hito 3
-Content
-## Fecha de lanzamiento
-Content
+A continuación se detallan las fechas estimadas.
 
+| Fecha | Información |
+|-------|-------------|
+| 23/09/2024 | Inicio del proyecto |
+| 14/10/2024 | Inicio del desarrollo del prototipo |
+| 27/10/2024 | Entrega del primer prototipo jugable |
+| 24/11/2024 | Entrega de la beta con todos los sistemas del videojuego funcionales |
+| 08/12/2024 | Entrega de la versión gold master |
+| 18/12/2024 | Lanzamiento del juego y del primer battle pass |
+| 01/04/2025 | Lanzamiento del segundo battle pass |
+| 15/06/2025 - 30/06/2025 | Primer Torneo de SCR 3D |
+| 01/07/2025 | Lanzamiento del tercer battle pass |
+| 01/10/2025 | Lanzamiento del cuarto battle pass |
+| 15/12/2025 - 31/12/2025 | Segundo Torneo de SCR 3D |
+| 01/01/2026 | Lanzamiento del quinto battle pass |
+| 01/04/2026 | Lanzamiento del sexto battle pass |
+| 15/06/2026 - 30/06/2026 | Tercer Torneo de SCR 3D |
+| 01/07/2026 | Lanzamiento del séptimo battle pass |
+| 01/10/2026 | Lanzamiento del octavo battle pass |
+| 15/12/2026 - 31/12/2026 | Cuarto Torneo de SCR 3D |
 # Post mortem (lecciones aprendidas)
 ---
 ## Trabajo individual realizado
