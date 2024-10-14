@@ -1,9 +1,10 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class UI : NetworkBehaviour
+public class UI : MonoBehaviour
 {
-    [SerializeField] private bool ActivarUI = true;
+    
+    [SerializeField] private ControladorDelJugador CJugador;
     
     [SerializeField]private GameObject LogIn;
     [SerializeField]private GameObject Personalizacion;
@@ -17,14 +18,15 @@ public class UI : NetworkBehaviour
     
     void Start()
     {
-        //SI ES EL DUEÑO, SE ACTIVA LA PANTALLA DE LOGIN
-        if (IsOwner)
-            if(ActivarUI)
-                LogIn.SetActive(true);
     }
 
     //TODAS ESTAS FUNCIONES NECESITAN MÁS FUNCIONALIDAD, ESTO ES UN PLACEHOLDER
-    
+
+    public void ActivarUI()
+    {
+        LogIn.SetActive(true);
+    }
+
     //RELACIONADAS CON LOGIN////////////////////
 
     public void IniciarSesion()
@@ -65,6 +67,7 @@ public class UI : NetworkBehaviour
     {
         BuscandoPartida.SetActive(false);
         EnPartida.SetActive(true);
+        CJugador.activarMovimiento = true;
     }
 
     ////////////////////////////////////////////
@@ -75,12 +78,16 @@ public class UI : NetworkBehaviour
     {
         EnPartida.SetActive(false);
         Victoria.SetActive(true);
+        CJugador.activarMovimiento = false;
+        CJugador.GameEndServerRpc();
     }
     
     public void Perder()
     {
         EnPartida.SetActive(false);
         Derrota.SetActive(true);
+        CJugador.activarMovimiento = false;
+        CJugador.GameEndServerRpc();
     }
 
     public void VolverAPersonalizacionDesdePartida()

@@ -53,7 +53,10 @@ namespace Test
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
                 if (isHost)
+                {
                     NetworkManager.Singleton.StartHost();
+                    OcultarUIServidor();
+                }
                 else
                     NetworkManager.Singleton.StartServer();
                 

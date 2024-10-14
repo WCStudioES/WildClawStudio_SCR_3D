@@ -27,6 +27,11 @@ public class CController : MonoBehaviour
     {
         direccion = new Vector3(input.x, 0f, input.y);
     }
+    
+    public void Stop()
+    {
+        direccion = new Vector3(0f, 0f, 0f);
+    }
 
     public void SetToSpawn()
     {

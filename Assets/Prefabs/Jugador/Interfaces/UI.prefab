@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485db1df302b9f747a2a08dfbb062bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActivarUI: 1
+  CJ: {fileID: 0}
   LogIn: {fileID: 2791656811550534270}
   Personalizacion: {fileID: 8615367621880965376}
   BuscandoPartida: {fileID: 6158680203427380961}

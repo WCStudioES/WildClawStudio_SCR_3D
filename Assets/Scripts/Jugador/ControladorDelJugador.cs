@@ -8,23 +8,21 @@ public class ControladorDelJugador : NetworkBehaviour
 
     //ASIGNAR EL CONTROLADOR DE LA NAVE
     [SerializeField] private CController nave;
+    public bool activarMovimiento = false;
     
     private void Start()
     {
-        
         if (IsOwner)
         {
             OnPlayerStartServerRpc();
             nave.AssignMainCamera();
         }
-
-        
     }
 
     //RECOGE LOCALMENTE EL INPUT DE MOVIMIENTO
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (IsOwner)
+        if (IsOwner && activarMovimiento)
             OnMoveServerRpc(context.ReadValue<Vector2>());
     }
     
@@ -40,6 +38,13 @@ public class ControladorDelJugador : NetworkBehaviour
     private void OnPlayerStartServerRpc()
     {
         nave.SetToSpawn();
+    }
+    
+    //PARA AL JUGADOR
+    [ServerRpc]
+    public void GameEndServerRpc()
+    {
+        nave.Stop();
     }
 
 
