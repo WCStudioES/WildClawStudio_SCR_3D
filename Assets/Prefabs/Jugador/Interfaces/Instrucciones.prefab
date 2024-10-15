@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 2131413530375742806}
   - component: {fileID: 3963937898874568901}
   - component: {fileID: 3023380420392873229}
+  - component: {fileID: 6059333595977602577}
   m_Layer: 5
   m_Name: Instrucciones
   m_TagString: Untagged
@@ -424,7 +425,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -447,6 +448,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6059333595977602577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747113093542526089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0992c59923a7a47a177b59025de49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8814105122010571023
 GameObject:
   m_ObjectHideFlags: 0

@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 6166858855747138136}
   - component: {fileID: 5945603348282297775}
   - component: {fileID: 7368529627094495468}
+  - component: {fileID: 1391593411894337737}
   m_Layer: 5
   m_Name: Login
   m_TagString: Untagged
@@ -353,7 +354,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -376,6 +377,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1391593411894337737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782140174279389622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0992c59923a7a47a177b59025de49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1367255848480061039
 GameObject:
   m_ObjectHideFlags: 0

@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 2379990216206090265}
   - component: {fileID: 4678617154269205134}
   - component: {fileID: 6927700483602543487}
+  - component: {fileID: -807813469508561487}
   m_Layer: 5
   m_Name: BuscandoPartida
   m_TagString: Untagged
@@ -559,7 +560,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -582,6 +583,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-807813469508561487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4529674867175922045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0992c59923a7a47a177b59025de49a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5305089144381667048
 GameObject:
   m_ObjectHideFlags: 0
