@@ -83,7 +83,7 @@ Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WA
 
 En cuanto a los disparos, en versión ordenador se utilizará la barra espaciadora. En cuanto a la versión dispositivo táctil **--completar--**
 
-Y, finalmente, para navegar entre las distintas pantallas, se utilizará el ratón para clickar sobre los distintos botones. En versión móvil se hará utilizando la funcionalidad táctil de esta.
+Y, finalmente, para navegar entre las distintas pantallas, se utilizará el ratón para clickar sobre los distintos botones. En versión móvil se hará utilizando la funcionalidad táctil de esta o el mando.
 ## Objetivo
 El objetivo en este juego es simple, conseguir matar a todo jugador al que te enfrentes para ascender en el ranking que se visualizará al terminar una partida. Se apelará a la competitividad de los jugadores para que busquen conseguir estar en el top entre todos los usuarios.
 ## Objetos, armas y power ups
@@ -110,6 +110,11 @@ El juego original se diseñó para una estética pixelar apelando en su totalida
 ## Concepts
 Principalmente nos centraremos en los diseños de las naves, pero elementos del entorno como los meteoritos y el debris espacial también deberán ser diseñados. Así como los distintos boostes y elementos 2D como la interfaz. A continaución se presentan los diseños.
 
+Diseño de la nave **RAVAGER**:
+<p align="center">
+ <img width=800 heigth=800 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/RavagerCD.png"> <br>
+</p>
+
 ## Modelos 3D
 En este apartado se mostrarán las versiones 3D de los concepts para tener una clara comprensión del contenido visual dentro del juego.
 
@@ -123,11 +128,65 @@ Content
 # Interfaz
 ---
 ## Referencias de interfaz
-Content
+Aunque este juego se basa en su versión arcade, para adaptarlo al nuevo público y añadir el toque futurista que  buscamos en el concepto del juego en su versión 3D, las interfaces tomarán referencia de juegos con mayor tendencia a lo tecnológico-futurista. Sin embargo, buscaremos mantener la idea del arcade en cuanto a los colores utilizados; por lo que habrá una tendencia a añadir colores fosforitos y chillones.
+
+Además, al ser un juego competitivo con la necesidad de tener buen manejo o control de la nave y la mayor velocidad posible para acabar con el enemigo, tomará influencias también de las interfaces de juegos de carreras. Algunas de estas referencias, de forma general, son las siguientes:
+
+<p align="center">
+ <img width=320 heigth=320 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/login-form-page-on-blue-background-technology-futuristic-interface-background-vector.jpg">
+ <img width=210 heigth=210 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/sign-form-on-hud-futuristic-260nw-2341185149.jpg">
+ <img width=360 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/blastonui24.png"> <br>
+</p>
+<p align="center">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/598f6625615359.57cc2076364ef.png">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ff34f1da872e07410f4bd1a0ef3f4743.jpg">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/z4dyiyu6amb71.jpg"> <br>
+</p>
+
 ## Diseños de menús
-Content
+Antes de diseñar los distintos elementos finales de los menús, se realizan unos concepts para visualizar de manera rápida y sencilla la navegación visual de cada una de ellas. Estos diseños son los siguientes:
+
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/1.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/2.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/3.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/4.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/5.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/8.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/6.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/7.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/13.jpg">
+ <img width=500 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/15.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/16.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/12.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/14.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/9.jpg">  <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/11.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/10.jpg"> <br>
+</p>
+
+A partir de estos diseños conceptuales, se procede a crear el material necesario para traducirlo a interfaces visuales atractivas.
+
 ## Diagrama de flujo
-Content
+Teniendo el diseño de las interfaces conceptuales, se diseña además cómo se pasa dentre las distintas pantallas. Para ello, creamos el siguiente flujograma.
+
+<p align="center">
+ <img width=100% heigth=100% src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Flujograma%20SCR3D.png"> <br>
+</p>
 
 # Monetización
 ---
