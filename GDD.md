@@ -104,7 +104,7 @@ El juego original se diseñó para una estética pixelar apelando en su totalida
 <p align="center">
  <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/thumbnail_8b978dc5-9927-441c-85ba-44224c1fe562.jpg.256x256_q85.jpg">
  <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/77a7a10aca1740618fa4ad57e0c7eed9.jpg">
- <img width=355 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/1.jpg"> <br>
+ <img width=355 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/scifi_spaceship_1_preview_5.jpg"> <br>
 </p>
 
 ## Concepts
