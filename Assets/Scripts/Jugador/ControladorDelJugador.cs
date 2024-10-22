@@ -13,6 +13,7 @@ public class ControladorDelJugador : NetworkBehaviour
 
     private bool isMoving = false; // Indica si la tecla de movimiento está presionada
     private float rotationInput = 0f; // Almacena el input de rotación
+    public NetworkVariable<int> hp = new NetworkVariable<int>(100);
 
     private void Start()
     {
@@ -45,7 +46,7 @@ public class ControladorDelJugador : NetworkBehaviour
     // RECOGE LOCALMENTE EL INPUT DEL JUGADOR
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log(context.action.name);
+        //Debug.Log(context.action.name);
         if (IsOwner && activarMovimiento)
         {
             switch (context.action.name)
@@ -84,6 +85,19 @@ public class ControladorDelJugador : NetworkBehaviour
         }
     }
 
+    // Función que aplica daño a la nave
+    public void GetDamage(int dmg)
+    {
+        hp.Value -= dmg;  // Resta la cantidad de daño a la vida de la nave
+        Debug.Log("Vida actual de la nave: " + hp);
+
+        // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
+        if (hp.Value <= 0)
+        {
+            //Pierdes;
+        }
+    }
+
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
     [ServerRpc]
     private void OnMoveServerRpc()
@@ -116,21 +130,32 @@ public class ControladorDelJugador : NetworkBehaviour
     [ServerRpc]
     private void OnShootServerRpc()
     {
-        // Instanciar el proyectil en el servidor
+        // Crear el proyectil solo en el servidor
         GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo.position, puntoDisparo.rotation);
 
-        // Propagar la instancia del proyectil a todos los clientes
-        NetworkObject proyectilNetworkObject = proyectil.GetComponent<NetworkObject>();
-        proyectilNetworkObject.Spawn();
+        // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
+        Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+        proyectilScript.Inicializar(puntoDisparo.forward);
 
-        Rigidbody rb = proyectil.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            // Aplica una fuerza en la dirección 'forward' del proyectil para que se mueva
-            rb.AddForce(proyectil.transform.forward * 20f, ForceMode.Impulse); // Ajusta la magnitud de la fuerza según sea necesario
-        }
+        // El proyectil se destruirá automáticamente tras 2 segundos
+        Destroy(proyectil, 2f);
 
-        // Destruir el proyectil después de 2 segundos
+        SpawnProyectilClientRpc(puntoDisparo.position, puntoDisparo.rotation, puntoDisparo.forward);
+    }
+
+
+    // GESTIONA LA REPLICACIÓN DE CADA DISPARO EN LOS CLIENTES
+    [ClientRpc]
+    private void SpawnProyectilClientRpc(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
+    {
+        // Crear el proyectil en el cliente
+        GameObject proyectil = Instantiate(proyectilPrefab, posicion, rotacion);
+
+        // Configurar la dirección del proyectil en el cliente
+        Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+        proyectilScript.Inicializar(direccion);
+
+        // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);
     }
 }

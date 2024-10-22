@@ -51,7 +51,7 @@ public class CController : MonoBehaviour
 
     public void Move()
     {
-        Debug.Log("Se mueve con: " + this.transform.rotation);
+        //Debug.Log("Se mueve con: " + this.transform.rotation);
         direccionMovimiento = new Vector3(0f, 0f, 1);
     }
 
