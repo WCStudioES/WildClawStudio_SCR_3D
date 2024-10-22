@@ -119,11 +119,30 @@ Diseño de la nave **RAVAGER**:
 En este apartado se mostrarán las versiones 3D de los concepts para tener una clara comprensión del contenido visual dentro del juego.
 
 # Sonido
----
+Para el apartado sonoro del juego, se buscará que todos los elementos de sonido tengan coherencia dentro del tema espacial.
+
 ## Música de ambiente
-Content
+   ### Menús
+   - Música de fondo: Se utilizará una melodía suave y envolvente, inspirada en el estilo de la banda sonora de "Interestellar", para crear una atmósfera relajante y contemplativa. La música debe incluir elementos electrónicos y orquestales que inviten al jugador a explorar el menú sin prisas.
+
+   ### In-game
+   - Música de fondo: Durante las partidas, se reproducirá una música animada con un estilo de rock espacial. Esta música debe ser energética, con guitarras eléctricas y sintetizadores que transmitan una sensación de acción y aventura en el espacio. La mezcla de ritmos acelerados y melodías pegajosas mantendrá a los jugadores inmersos y motivados mientras compiten.
+
 ## SFX
-Content
+   ### Interfaz
+   - Sonido “pop” mecánico al pulsar un botón.
+   - Efecto de sonido de ganar partida.
+   - Efecto de sonido de perder partida.
+
+   ### Naves
+   - Sonido de propulsión al acelerar.
+   - Sonido de destrucción de nave.
+   - Sonido de colisión de nave con meteorito/muro/nave.
+   - Sonido de disparo (dependiente del tipo de proyectil).
+   - Sonido de colisión de disparo (dependiente del proyectil también).
+
+   ### Meteoritos
+   - Sonido de destrucción.
 
 # Interfaz
 ---
