@@ -5,9 +5,17 @@ using UnityEngine.InputSystem;
 
 public class ControladorDelJugador : NetworkBehaviour
 {
-    // ASIGNAR EL CONTROLADOR DE LA NAVE
-    [SerializeField] private CController nave;
-    public bool activarMovimiento = false;
+    //CONTROLADOR DE LA NAVE
+    [SerializeField] public CController nave;
+    
+    //CONTIENE LAS OPCIONES DE CONFIGURACION DEL JUGADOR
+    public OpcionesJugador opcionesJugador;
+    
+    //INDICA SI LA NAVE HA SIDO DESTRUIDA O NO
+    //TODO AÚN SIN UTILIZAR, UTILIZAR CUANDO SE IMPLEMENTE PERDER VIDA
+    public bool naveDestruida = false;
+    
+    
     [SerializeField] private GameObject proyectilPrefab; // Prefab del proyectil
     [SerializeField] private Transform puntoDisparo; // Lugar donde se instancia el proyectil
 
@@ -26,7 +34,7 @@ public class ControladorDelJugador : NetworkBehaviour
 
     private void Update()
     {
-        if (IsOwner && activarMovimiento)
+        if (IsOwner && opcionesJugador.movimientoActivado)
         {
             // Llama a la función de movimiento continuamente si la tecla de movimiento está presionada
             if (isMoving)
@@ -47,7 +55,7 @@ public class ControladorDelJugador : NetworkBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         //Debug.Log(context.action.name);
-        if (IsOwner && activarMovimiento)
+        if (IsOwner && opcionesJugador.movimientoActivado)
         {
             switch (context.action.name)
             {
@@ -116,7 +124,7 @@ public class ControladorDelJugador : NetworkBehaviour
     [ServerRpc]
     private void OnPlayerStartServerRpc()
     {
-        nave.SetToSpawn();
+        //nave.SetToSpawn();
     }
 
     // PARA AL JUGADOR
@@ -158,4 +166,20 @@ public class ControladorDelJugador : NetworkBehaviour
         // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);
     }
+    
+    //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
+    //TODO RESTAURAR EXPERIENCIA Y NIVEL DEL ARMA
+    public void restaurarNaves(GameObject spawnPosition)
+    {
+        if (IsServer)
+        {
+            //DEVUELVE LA NAVE A LA POSICION DE SPAWN
+            nave.SetToSpawn(spawnPosition);
+
+            //RESTAURA LA VIDA DE LA NAVE
+        
+            hp.Value = 100;
+        }
+    }
+
 }

@@ -1,21 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
-using Unity.VisualScripting;
+using Unity.Netcode.Components;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class OpcionesJugador : NetworkBehaviour
+public class OpcionesJugador : MonoBehaviour
 {
-    [SerializeField] private bool ActivarUI = true;
+    //ACTIVA O DESACTIVA LA UI
+    public bool ActivarUI = true;
 
-    [SerializeField]private UI UIJugador;
+    //UI DEL JUGADOR
+    public UI UIJugador;
     
-    //AL INICIAR, BUSCA LA UI Y SE ASIGNA COMO JUGADOR
-    void Start()
+    //ACTIVA O DESACTIVA EL MOVIMIENTO DEL JUGADOR
+    public bool movimientoActivado = false;
+
+    //CONTROLADOR DEL JUGADOR
+    public ControladorDelJugador controladorDelJugador;
+
+    //CHARACTER CONTROLLER DE LA NAVE
+    public CharacterController controladorDeLaNave;
+    
+    //NETWORK TRANSFORM DE LA NAVE
+    public NetworkTransform networkTransformNave;
+
+    public void desactivarMovimiento()
     {
-        //SI ES EL DUEÑO, SE ACTIVA LA PANTALLA DE LOGIN
-        if (IsOwner && ActivarUI)
-                UIJugador.ActivarUI();
+        movimientoActivado = false;
+        controladorDeLaNave.enabled = false;
+        networkTransformNave.Interpolate = false;
+    }
+    
+    public void reactivarMovimiento()
+    {
+        movimientoActivado = true;
+        controladorDeLaNave.enabled = true;
+        networkTransformNave.Interpolate = true;
     }
 
 }

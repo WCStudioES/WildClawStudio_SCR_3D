@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class CController : MonoBehaviour
+public class CController : NetworkBehaviour
 {
-    private CharacterController controller;
-    private Vector3 direccionMovimiento = Vector3.zero; // Direcci髇 del movimiento (hacia adelante)
-    private float rotacion = 0f; // Valor para la rotaci髇 sobre el eje Y (izquierda/derecha)
+    public CharacterController controller;
+    private Vector3 direccionMovimiento = Vector3.zero; // Direcci贸n del movimiento (hacia adelante)
+    private float rotacion = 0f; // Valor para la rotaci贸n sobre el eje Y (izquierda/derecha)
     [SerializeField] private Transform CameraPosition;
 
-    public float speed = 5f; // Velocidad m醲ima de movimiento
-    public float rotationSpeed = 100f; // Velocidad de rotaci髇
-    public float acceleration = 2f; // Aceleraci髇
-    public float deceleration = 1f; // Desaceleraci髇 (fricci髇)
-    public float maxSpeed = 10f; // Velocidad m醲ima alcanzable
+    public float speed = 5f; // Velocidad m谩xima de movimiento
+    public float rotationSpeed = 100f; // Velocidad de rotaci贸n
+    public float acceleration = 2f; // Aceleraci贸n
+    public float deceleration = 1f; // Desaceleraci贸n (fricci贸n)
+    public float maxSpeed = 10f; // Velocidad m谩xima alcanzable
     public float currentSpeed = 0f; // Velocidad actual
+
+    [SerializeField] private OpcionesJugador opcionesJugador;
 
     void Start()
     {
@@ -25,28 +28,31 @@ public class CController : MonoBehaviour
 
     void Update()
     {
-        // Aplicar la rotaci髇
-        transform.Rotate(0, rotacion * Time.deltaTime, 0);
-
-        // Movimiento con inercia
-        if (direccionMovimiento.z != 0)
+        if (opcionesJugador.movimientoActivado)
         {
-            // Si hay input, acelera la nave
-            currentSpeed += acceleration * Time.deltaTime;
-            direccionMovimiento.z = 0;
-        }
-        else
-        {
-            // Si no hay input, desacelera la nave lentamente (simula fricci髇)
-            currentSpeed -= deceleration * Time.deltaTime;
-        }
+            // Aplicar la rotaci贸n
+            transform.Rotate(0, rotacion * Time.deltaTime, 0);
 
-        // Limitar la velocidad actual para que no exceda el m醲imo
-        currentSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
+            // Movimiento con inercia
+            if (direccionMovimiento.z != 0)
+            {
+                // Si hay input, acelera la nave
+                currentSpeed += acceleration * Time.deltaTime;
+                direccionMovimiento.z = 0;
+            }
+            else
+            {
+                // Si no hay input, desacelera la nave lentamente (simula fricci贸n)
+                currentSpeed -= deceleration * Time.deltaTime;
+            }
 
-        // Movimiento hacia adelante en la direcci髇 que mira la nave
-        Vector3 movimiento = transform.forward * currentSpeed * Time.deltaTime;
-        controller.Move(movimiento);
+            // Limitar la velocidad actual para que no exceda el m谩ximo
+            currentSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
+
+            // Movimiento hacia adelante en la direcci贸n que mira la nave
+            Vector3 movimiento = currentSpeed * Time.deltaTime * transform.forward;
+            controller.Move(movimiento);
+        }
     }
 
     public void Move()
@@ -65,15 +71,21 @@ public class CController : MonoBehaviour
         direccionMovimiento = Vector3.zero;
         rotacion = 0f;
     }
-
-    public void SetToSpawn()
+    
+    public void SetToSpawn(GameObject spawnPoint)
     {
-        this.transform.position = GameObject.Find("PuntoDeSpawn").transform.position;
+        if (IsServer)
+        {
+            this.transform.position = spawnPoint.transform.position;
+            this.transform.rotation = spawnPoint.transform.rotation;
+        }
+
+        
     }
 
     public void AssignMainCamera()
     {
-        Debug.Log("Busca la c醡ara");
+        Debug.Log("Busca la c谩mara");
         CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
         VC.Follow = CameraPosition;
         VC.LookAt = this.transform;
