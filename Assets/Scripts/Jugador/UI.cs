@@ -55,6 +55,8 @@ public class UI : MonoBehaviour
     {
         Personalizacion.SetActive(false);
         BuscandoPartida.SetActive(true);
+
+        FindObjectOfType<MatchmakingManager>().UnirseALaColaServerRpc();
     }
     
     public void DejarDeBuscarPartida()
