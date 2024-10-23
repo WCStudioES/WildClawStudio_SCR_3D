@@ -1,9 +1,10 @@
 using System;
+using DefaultNamespace;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ControladorDelJugador : NetworkBehaviour
+public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 {
     //CONTROLADOR DE LA NAVE
     [SerializeField] public CController nave;
@@ -17,19 +18,28 @@ public class ControladorDelJugador : NetworkBehaviour
     
     
     [SerializeField] private GameObject proyectilPrefab; // Prefab del proyectil
-    [SerializeField] private Transform puntoDisparo; // Lugar donde se instancia el proyectil
+    [SerializeField] private Transform[] puntoDisparo; // Lugar donde se instancia el proyectil
+    private bool isShooting = false;
+    private float cadenciaDeDisparo; // cadencia de disparo del proyectil
+    private int tipoProyectil; // tipo de proyectil del prefab
+    private float shotTimer = 0f; // Temporizador para la cadencia
 
     private bool isMoving = false; // Indica si la tecla de movimiento está presionada
     private float rotationInput = 0f; // Almacena el input de rotación
     public NetworkVariable<int> hp = new NetworkVariable<int>(100);
+    
+    //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
     private void Start()
     {
+        cadenciaDeDisparo = proyectilPrefab.GetComponent<Proyectil>().cadencia;
+        tipoProyectil = proyectilPrefab.GetComponent<Proyectil>().tipo;
         if (IsOwner)
         {
             OnPlayerStartServerRpc();
             nave.AssignMainCamera();
         }
+        
     }
 
     private void Update()
@@ -49,6 +59,12 @@ public class ControladorDelJugador : NetworkBehaviour
                 OnRotateServerRpc(rotationInput);
             }
         }
+
+        if (isShooting)
+        {
+            OnShootServerRpc();
+        }
+        shotTimer += Time.deltaTime;
     }
 
     // RECOGE LOCALMENTE EL INPUT DEL JUGADOR
@@ -73,7 +89,11 @@ public class ControladorDelJugador : NetworkBehaviour
                 case "Shoot":
                     if (context.performed)
                     {
-                        OnShootServerRpc();
+                        isShooting = true;
+                    }
+                    else if (context.canceled)
+                    {
+                        isShooting = false;
                     }
                     break;
 
@@ -135,20 +155,67 @@ public class ControladorDelJugador : NetworkBehaviour
     }
 
     // GESTIONA EL DISPARO DE PROYECTILES
+
+    private bool ComprobadorDeCadencia()
+    {
+        //Debug.Log("Cadencia");
+
+        // Verificar si ya ha pasado el tiempo suficiente para disparar nuevamente
+        if (shotTimer >= cadenciaDeDisparo)
+        {
+            // Reiniciar el temporizador
+            shotTimer = 0f;
+            
+            // Llamar a la función para disparar
+            //Debug.Log("ComprobadorCadencia aceptado");
+            return true;
+        }
+        else
+        {
+            //Debug.Log("ComprobadorCadencia denegado");
+            return false;
+        }
+    }
     [ServerRpc]
     private void OnShootServerRpc()
     {
-        // Crear el proyectil solo en el servidor
-        GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo.position, puntoDisparo.rotation);
+        //Si no puede disparar hace return
+        if (ComprobadorDeCadencia() == false) { return;}
 
-        // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
-        Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-        proyectilScript.Inicializar(puntoDisparo.forward);
+        if (tipoProyectil == 2)
+        {
+            // Crear el proyectil solo en el servidor
+            GameObject proyectil1 = Instantiate(proyectilPrefab, puntoDisparo[1].position, puntoDisparo[1].rotation);
+            GameObject proyectil2 = Instantiate(proyectilPrefab, puntoDisparo[2].position, puntoDisparo[2].rotation);
 
-        // El proyectil se destruirá automáticamente tras 2 segundos
-        Destroy(proyectil, 2f);
+            // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
+            Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
+            proyectilScript1.Inicializar(puntoDisparo[1].forward, this);
+            
+            Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
+            proyectilScript2.Inicializar(puntoDisparo[2].forward, this);
 
-        SpawnProyectilClientRpc(puntoDisparo.position, puntoDisparo.rotation, puntoDisparo.forward);
+            // El proyectil se destruirá automáticamente tras 2 segundos
+            Destroy(proyectil1, 2f);
+            Destroy(proyectil2, 2f);
+
+            SpawnProyectilClientRpc(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
+            SpawnProyectilClientRpc(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
+        }
+        else
+        {
+            // Crear el proyectil solo en el servidor
+            GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo[0].position, puntoDisparo[0].rotation);
+
+            // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
+            Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+            proyectilScript.Inicializar(puntoDisparo[0].forward, this);
+
+            // El proyectil se destruirá automáticamente tras 2 segundos
+            Destroy(proyectil, 2f);
+
+            SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
+        }
     }
 
 
@@ -161,7 +228,7 @@ public class ControladorDelJugador : NetworkBehaviour
 
         // Configurar la dirección del proyectil en el cliente
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-        proyectilScript.Inicializar(direccion);
+        proyectilScript.Inicializar(direccion, this);
 
         // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);

@@ -1991,6 +1991,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3420811714600659586, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3420811714600659586, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6180826812384448898, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3658150314
@@ -2002,8 +2010,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3754077117360729848, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1937216028}
   m_SourcePrefab: {fileID: 100100000, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+--- !u!1 &1937216027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3754077117360729848, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+  m_PrefabInstance: {fileID: 1937216026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1937216028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937216027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a3d76b791d81344aaa546b6b79fe9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp:
+    m_InternalValue: 100
 --- !u!1 &2116252837
 GameObject:
   m_ObjectHideFlags: 0
@@ -2483,6 +2513,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6459805748923249283, guid: 9a163768100919548971e090283cb3ab, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2900620355
+      objectReference: {fileID: 0}
     - target: {fileID: 6647835220853481769, guid: 9a163768100919548971e090283cb3ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

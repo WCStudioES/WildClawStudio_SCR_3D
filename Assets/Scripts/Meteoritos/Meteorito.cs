@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Meteorito : NetworkBehaviour
+public class Meteorito : NetworkBehaviour, ICanGetDamage
 {
     public NetworkVariable<int> hp = new NetworkVariable<int>(100); // Vida inicial del meteorito
 
@@ -15,7 +16,7 @@ public class Meteorito : NetworkBehaviour
         }
     }
 
-    // Método para recibir daño en el meteorito
+    // Mï¿½todo para recibir daï¿½o en el meteorito
     public void GetDamage(int dmg)
     {
         if (IsServer)
@@ -31,10 +32,18 @@ public class Meteorito : NetworkBehaviour
         }
     }
 
-    // Método para destruir el meteorito
+    // Metodo para destruir el meteorito
     private void DestruirMeteorito()
     {
-        Debug.Log("Meteorito destruido");
-        Destroy(this.gameObject);
+        
+        gameObject.SetActive(false);
+        DestruirMeteoritoClientRpc();
+    }
+
+    [ClientRpc]
+    private void DestruirMeteoritoClientRpc()
+    {
+        
+        gameObject.SetActive(false);
     }
 }
