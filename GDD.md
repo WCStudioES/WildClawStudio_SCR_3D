@@ -87,23 +87,20 @@ Y, finalmente, para navegar entre las distintas pantallas, se utilizará el rat�
 ## Objetivo
 El objetivo en este juego es simple, conseguir matar a todo jugador al que te enfrentes para ascender en el ranking que se visualizará al terminar una partida. Se apelará a la competitividad de los jugadores para que busquen conseguir estar en el top entre todos los usuarios.
 ## Objetos, armas y power ups
-*Componentes de arma*
-- Ametralladora: Cañón con mayor cadencia de disparo.
-- Dobleyectil: Cañón que dispara 2 proyectiles en vez de 1.
+**Componentes de arma**
+- **Ametralladora:** Cañón con mayor cadencia de disparo.
+- **Dobleyectil:** Cañón que dispara 2 proyectiles en vez de 1.
 - Lanzamisiles: Cañón de baja cadencia de disparo que lanza misiles de gran daño.
 
-*Componentes de apoyo*
-- Rotador mejorado: Permite a la nave girar sí misma más rápido.
-- Escudo: Incorpora un escudo que actua como vida adicional no recargable.
+**Componentes de apoyo**
+- **Rotador mejorado:** Permite a la nave girar sí misma más rápido.
+- **Escudo:** Incorpora un escudo que actua como vida adicional no recargable.
     
 
 # Arte
 ---
 ## Estética general del juego
 El juego buscará simular una estética arcade en 3D. Por lo que se apelará a una mezcla futurista/retro con modelos low poly. Buscaremos tener una mezcla de diseños que recuerden a los tiempos de antaño, pero con detalles de luces neón y elementos futurísticos para dar la sensación de que nos encontramos ante una sociedad más desarrollada de lo que fueron esos tiempos.
-## Referencias del arte Space Combar Rush 2D
-El juego original se diseñó para una estética pixelar apelando en su totalidad a los juegos retro del pasado. A continuación se podrá ver algunas imágenes de dicho juego y se pondrá el enlace al juego para poder probarlo.
-
 <p align="center">
  <img width=145 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/50e92bb3f19423b47d032f11a80fe288.jpg">
  <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/raf%2C360x360%2C075%2Ct%2Cfafafa_ca443f4786.jpg">
@@ -114,6 +111,17 @@ El juego original se diseñó para una estética pixelar apelando en su totalida
  <img width=200 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/77a7a10aca1740618fa4ad57e0c7eed9.jpg">
  <img width=355 heigth=200 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/scifi_spaceship_1_preview_5.jpg"> <br>
 </p>
+
+## Referencias del arte Space Combar Rush 2D
+El juego original se diseñó para una estética pixelar apelando en su totalidad a los juegos retro del pasado. A continuación se podrá ver algunas imágenes de dicho juego y se pondrá el enlace al juego para poder probarlo.
+
+<p align="center">
+ <img width=400 heigth=400 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Capturas%20de%20Pantalla/Menu%20Principal.JPG">
+ <img width=400 heigth=400 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Capturas%20de%20Pantalla/Pantalla%20Principal.JPG">
+</p>
+Link al GDD de Space Combat Rush:(https://github.com/JesusBL24/JeR-SCR)
+
+Link al juego de Space Combat Rush: (https://tasiatas.itch.io/space-combat-rush)
 
 ## Concepts
 Principalmente nos centraremos en los diseños de las naves, pero elementos del entorno como los meteoritos y el debris espacial también deberán ser diseñados. Así como los distintos boostes y elementos 2D como la interfaz. A continaución se presentan los diseños.
@@ -127,14 +135,14 @@ Diseño de la nave **RAVAGER**:
 En este apartado se mostrarán las versiones 3D de los concepts para tener una clara comprensión del contenido visual dentro del juego.
 
 # Sonido
-Para el apartado sonoro del juego, se buscará que todos los elementos de sonido tengan coherencia dentro del tema espacial.
+Para el apartado sonoro del juego, se buscará que todos los elementos de sonido tengan coherencia dentro del tema espacial. Ello buscará transmitir las sensaciones del espacio para dar una mejor inmersión al jugador. Para ello, a continuación, se describen las prinipales melodías y los efectos sonoros planteados para el juego.
 
 ## Música de ambiente
    ### Menús
-   - Música de fondo: Se utilizará una melodía suave y envolvente, inspirada en el estilo de la banda sonora de "Interestellar", para crear una atmósfera relajante y contemplativa. La música debe incluir elementos electrónicos y orquestales que inviten al jugador a explorar el menú sin prisas.
+   - **Música de fondo:** Se utilizará una melodía suave y envolvente, inspirada en el estilo de la banda sonora de "Interestellar", para crear una atmósfera relajante y contemplativa. La música debe incluir elementos electrónicos y orquestales que inviten al jugador a explorar el menú sin prisas.
 
    ### In-game
-   - Música de fondo: Durante las partidas, se reproducirá una música animada con un estilo de rock espacial. Esta música debe ser energética, con guitarras eléctricas y sintetizadores que transmitan una sensación de acción y aventura en el espacio. La mezcla de ritmos acelerados y melodías pegajosas mantendrá a los jugadores inmersos y motivados mientras compiten.
+   - **Música de fondo:** Durante las partidas, se reproducirá una música animada con un estilo de rock espacial. Esta música debe ser energética, con guitarras eléctricas y sintetizadores que transmitan una sensación de acción y aventura en el espacio. La mezcla de ritmos acelerados y melodías pegajosas mantendrá a los jugadores inmersos y motivados mientras compiten.
 
 ## SFX
    ### Interfaz
@@ -222,7 +230,16 @@ Se plantea un modelo Freemium ya que daremos el juego con acceso gratuito para t
 
 Además, se realizarán tornos bianuales de pago como eventos que mantengan la base de nuetra comunidad activa constantemente y fidelizada.
 ## Roadmap
-Content
+En este apartado, en primer lugar, se presenta un diagrama visual inicial de cara al planteamiento de trabajo durante el desarrollo del producto. En él dividimos en los sectores de trabajo existentes en el equipo y las tareas mas importantes que engloban los paquetes de trabajo, además de indicar las fechas de duración de cada tarea.
+<p align="center">
+ <img width=100% heigth=100% src="https://github.com/jagonmes/Imagenes-JeR/blob/main/RoadmapDesarrollo.jpg"> <br>
+</p>
+
+Y, seguido a ello, presentamos un roadmap simplificado para visualizar el mantenimiento del juego en los próximos dos años para generar ganancias.
+<p align="center">
+ <img width=100% heigth=100% src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Roadmap2A%C3%B1osVistaCorrecto.jpg"> <br>
+</p>
+
 ## Información del usuario
 El usuario destinatario de nuestro juego tendrá las siguientes características:
 
@@ -313,14 +330,44 @@ A continuación se detallan las fechas estimadas.
 ---
 ## Trabajo individual realizado
 ### Anastasia Ihnatsenka Shakhova
+#### Versión Alfa
+Content
+#### Versión Beta
+Content
+#### Versión Gold
 Content
 ### José Antonio González Mesado
+#### Versión Alfa
+Content
+#### Versión Beta
+Content
+#### Versión Gold
 Content
 ### Jesús Bastante López
+#### Versión Alfa
+Content
+#### Versión Beta
+Content
+#### Versión Gold
 Content
 ### Jorge Juán Xuclá Esparza
+#### Versión Alfa
+Content
+#### Versión Beta
+Content
+#### Versión Gold
 Content
 ### Miguel Ángel Jimenez Montemayor
+#### Versión Alfa
+Content
+#### Versión Beta
+Content
+#### Versión Gold
 Content
 ## Trabajo colectivo realizado
+#### Versión Alfa
+Content
+#### Versión Beta
+Content
+#### Versión Gold
 Content
