@@ -270,7 +270,12 @@ Gracias al modelo de lienzo, podemos representar nuetra infraestructura orientad
 </p>
 
 ## Modelo de monetización
-Space Combat Rush se centrará en el modelo de Battle Pass y la generación de torneos bianuales con entrada de pago.
+Space Combat Rush se centrará en el modelo de Battle Pass y la generación de torneos bianuales con entrada de pago. Para poder conocer el nivel de éxito de nuestro juego, se establecen unas métricas para saber en qué situación se encuentra nuestro producto:
+
+- **Caso pesimista:** se da una base de jugadores pequeña. Por lo que únicamente se gana lo suficiente para recuperar los costes y mantener los servidores.
+- **Caso normal:** hay una base de jugadores amplia. Con ello se consiguen ganancias suficientes para el mantenimiento del juego y poder seguir desarrollándolo (o permitir costear un nuevo proyecto).
+- **Caso optimista:** la base de jugadores es extensa. El juego consigue ser uno de los populares del momento pudiendo llegar a vender el propio juego a otros interesados.
+
 ## Tabla de productos y precios
 | Producto | Precio |
 |--------|-------|
