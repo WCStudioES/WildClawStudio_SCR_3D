@@ -126,11 +126,29 @@ Link al GDD de Space Combat Rush:(https://github.com/JesusBL24/JeR-SCR)
 Link al juego de Space Combat Rush: (https://tasiatas.itch.io/space-combat-rush)
 
 ## Concepts
-Principalmente nos centraremos en los diseños de las naves, pero elementos del entorno como los meteoritos y el debris espacial también deberán ser diseñados. Así como los distintos boostes y elementos 2D como la interfaz. A continaución se presentan los diseños.
+Principalmente nos centraremos en los diseños de las naves, pero elementos del entorno como los meteoritos y el debris espacial también deberán ser diseñados. Así como los distintos boostes y escenarios.
+
+A continuación, se presentan los diseños de las naves.
 
 Diseño de la nave **RAVAGER**:
 <p align="center">
- <img width=800 heigth=800 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/RavagerCD.png"> <br>
+ <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/RavagerCD.png"> <br>
+</p>
+
+Diseño de la nave **ALBATROSS**:
+<p align="center">
+ <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Albatross.png"> <br>
+</p>
+
+Diseño de la nave **CARGO QUEEN**:
+<p align="center">
+ <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/CargoQueen.png"> <br>
+</p>
+
+Seguidamente, se pueden visualizar dos diseños sencillos de los dos entornos importantes (ring de combate y hangar para personalizar la nave):
+<p align="center">
+ <img width=400 heigth=400 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/RingCombate.png">
+ <img width=400 heigth=400 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Hangar.png"> <br>
 </p>
 
 ## Modelos 3D
