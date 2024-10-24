@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 5885389955668711114}
   - component: {fileID: -4469014341038946469}
   - component: {fileID: 4444886098121531734}
-  - component: {fileID: 8293641650054176796}
+  - component: {fileID: 7157839167841471926}
   m_Layer: 0
   m_Name: Misil
   m_TagString: Untagged
@@ -188,7 +188,7 @@ MonoBehaviour:
   SpawnWithObservers: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 0
---- !u!114 &8293641650054176796
+--- !u!114 &7157839167841471926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,10 +197,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2900116416517425973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4735eb033dc87448a6972005d680f81, type: 3}
+  m_Script: {fileID: 11500000, guid: 3592362304b68164c90cdddbd58ddc51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 50
+  dmg: 20
   speed: 10
   cadencia: 1.75
   tipo: 3
+  explosion: {fileID: 5690783214778163400, guid: bd30ca28cf609dd43b3b62d5055c6882, type: 3}

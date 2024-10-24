@@ -27,6 +27,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     private bool isMoving = false; // Indica si la tecla de movimiento está presionada
     private float rotationInput = 0f; // Almacena el input de rotación
     public NetworkVariable<int> hp = new NetworkVariable<int>(100);
+
+    public GameObject cuerpoNave;
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
@@ -190,10 +192,10 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
             // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
             Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
-            proyectilScript1.Inicializar(puntoDisparo[1].forward, this);
+            proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave);
             
             Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
-            proyectilScript2.Inicializar(puntoDisparo[2].forward, this);
+            proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave);
 
             // El proyectil se destruirá automáticamente tras 2 segundos
             Destroy(proyectil1, 2f);
@@ -209,7 +211,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
             // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-            proyectilScript.Inicializar(puntoDisparo[0].forward, this);
+            proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave);
 
             // El proyectil se destruirá automáticamente tras 2 segundos
             Destroy(proyectil, 2f);
@@ -228,7 +230,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
         // Configurar la dirección del proyectil en el cliente
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-        proyectilScript.Inicializar(direccion, this);
+        proyectilScript.Inicializar(direccion, cuerpoNave);
 
         // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);

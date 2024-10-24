@@ -151,13 +151,14 @@ MonoBehaviour:
   nave: {fileID: 6893683827849856983}
   opcionesJugador: {fileID: 8943799741961390412}
   naveDestruida: 0
-  proyectilPrefab: {fileID: 2900116416517425973, guid: 78aeb277a4258a948a3b97cc00582f20, type: 3}
+  proyectilPrefab: {fileID: 2900116416517425973, guid: a4c03c78995c3b14aaa4526342211c61, type: 3}
   puntoDisparo:
   - {fileID: 4659522520920837505}
   - {fileID: 1582086189015376860}
   - {fileID: 673124637891359343}
   hp:
     m_InternalValue: 100
+  cuerpoNave: {fileID: 8856583009241601091}
 --- !u!114 &8943799741961390412
 MonoBehaviour:
   m_ObjectHideFlags: 0
