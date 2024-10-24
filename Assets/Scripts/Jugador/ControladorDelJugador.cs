@@ -187,8 +187,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
         if (tipoProyectil == 2)
         {
             // Crear el proyectil solo en el servidor
-            GameObject proyectil1 = Instantiate(proyectilPrefab, puntoDisparo[1].position, puntoDisparo[1].rotation);
-            GameObject proyectil2 = Instantiate(proyectilPrefab, puntoDisparo[2].position, puntoDisparo[2].rotation);
+            GameObject proyectil1 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[1].position, puntoDisparo[1].rotation);
+            GameObject proyectil2 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[2].position, puntoDisparo[2].rotation);
 
             // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
             Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
@@ -226,7 +226,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     private void SpawnProyectilClientRpc(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
     {
         // Crear el proyectil en el cliente
-        GameObject proyectil = Instantiate(proyectilPrefab, posicion, rotacion);
+        GameObject proyectil = NetworkManager.Instantiate(proyectilPrefab, posicion, rotacion);
 
         // Configurar la dirección del proyectil en el cliente
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();

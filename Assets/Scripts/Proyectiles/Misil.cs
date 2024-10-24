@@ -23,30 +23,29 @@ public class Misil : Proyectil
     protected void DestruirProyectil()
     {
         Debug.Log("Entro a destruir proyectil papa");
-        if (NetworkManager.IsServer)
+        //if (NetworkManager.IsServer)
         {
             Debug.Log("Entro a la explosion Server");
             //Creo una instancia de explosion
-            var explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
+            var explosionObject = NetworkManager.Instantiate(explosion, transform.position, Quaternion.identity);
             Explosion explosionScript = explosionObject.GetComponent<Explosion>();
             //Cargamos la explosion
             explosionScript.Crear(dmg);
             //Manda destruir al cliente
             DestruirProyectilClientRpc();
-            
-            Destroy(gameObject, 0.1f);
+            NetworkManager.Destroy(gameObject, 0.1f);
         }
     }
     
     // GESTIONA LA REPLICACIÓN DE CADA EXPLOSION EN LOS CLIENTES
-    [ClientRpc]
+    /*[ClientRpc]
     protected void DestruirProyectilClientRpc() 
     {
         Debug.Log("Entro a la explosion Cliente");
-        var explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
+        var explosionObject = NetworkManager.Instantiate(explosion, transform.position, Quaternion.identity);
         Explosion explosionScript = explosionObject.GetComponent<Explosion>();
         explosionScript.Crear(dmg);
-        Destroy(gameObject, 0.1f);
-    }
+        NetworkManager.Destroy(gameObject, 0.1f);
+    }*/
         
 }

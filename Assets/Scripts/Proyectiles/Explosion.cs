@@ -19,7 +19,9 @@ namespace DefaultNamespace.Proyectiles
         {
             Debug.Log(other.gameObject.name);
             //Al colisionar comprueba si el otro ente puede recibir daño
-            ICanGetDamage target = other.GetComponentInParent<ICanGetDamage>();
+            ICanGetDamage target = other.gameObject.GetComponentInParent<ICanGetDamage>();
+            if (target == null)
+                { other.gameObject.GetComponent<ICanGetDamage>();}
             Debug.Log(target);
             if (target != null)
             {
@@ -31,15 +33,15 @@ namespace DefaultNamespace.Proyectiles
         protected void DestruirMisilServer()
         {
             Debug.Log("Explosion destruida");
-            gameObject.SetActive(false);
-            DestruirMisilClientRpc();
+            //DestruirMisilClientRpc();
+            Destroy(gameObject);
         }
         
-        [ClientRpc]
+        /*[ClientRpc]
         protected void DestruirMisilClientRpc()
         {
             //Debug.Log("Explosion destruida");
             gameObject.SetActive(false);
-        }
+        }*/
     }
 }
