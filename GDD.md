@@ -79,9 +79,11 @@ Además, el jugador podrá adquirir power-ups a base de la destrucción de los m
 ## Descripción de mecánicas de juego
 El juego principalmente tendrá como mecánicas la destrucción de la nave enemiga y la de meteoritos o debris del entorno para quitarlos del medio y/o conseguir boosters. El jugador controlará su nave en movimiento y disparo.
 ## Controles
-Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WAD (donde W es para acelerar y AD es para el control de la dirección, no se puede volar hacia atrás) o flechas arriba, izquierda y derecha. Para la versión en móvil se utilzan un joystick para girar la nave y un botón cercano al joystick para avanzar.
+Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WAD (donde W es para acelerar y AD es para el control de la dirección, no se puede volar hacia atrás). Para la versión en móvil se utilzan dos botones táctiles para girar a izquierda y derecha y un tercer botón para acelerar. 
 
 En cuanto a los disparos, en versión ordenador se utilizará la barra espaciadora. En cuanto a la versión dispositivo táctil se dispone de un botón en la pantalla.
+
+Ambas versiones soportan controles con mando, que utilizan el D-Pad para girar (botones izquierdo y derecho), botón "A" en mando de XBOX (boton inferior) para acelerar y botón "X" en mando de XBOX (botón izquierdo) para disparar.
 
 Y, finalmente, para navegar entre las distintas pantallas, se utilizará el ratón para clickar sobre los distintos botones. En versión móvil se hará utilizando la funcionalidad táctil de esta o el mando.
 ## Objetivo
