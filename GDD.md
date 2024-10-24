@@ -200,8 +200,12 @@ Antes de diseñar los distintos elementos finales de los menús, se realizan uno
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/7.jpg"> <br>
 </p>
 <p align="center">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/13.jpg">
- <img width=500 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/15.jpg"> <br>
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/9.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/17.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/10.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/11.jpg"> <br>
 </p>
 <p align="center">
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/16.jpg">
@@ -209,11 +213,10 @@ Antes de diseñar los distintos elementos finales de los menús, se realizan uno
 </p>
 <p align="center">
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/14.jpg">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/9.jpg">  <br>
+ <img width=500 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/15.jpg"> <br>
 </p>
 <p align="center">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/11.jpg">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/10.jpg"> <br>
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/13.jpg"> <br>
 </p>
 
 A partir de estos diseños conceptuales, se procede a crear el material necesario para traducirlo a interfaces visuales atractivas.
