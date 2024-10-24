@@ -46,6 +46,13 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
     private void Update()
     {
+        if (!opcionesJugador.movimientoActivado)
+        {
+            isMoving = false;
+            rotationInput = 0.0f;
+            isShooting = false;
+        }
+
         if (IsOwner && opcionesJugador.movimientoActivado)
         {
             // Llama a la función de movimiento continuamente si la tecla de movimiento está presionada
@@ -181,43 +188,47 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     [ServerRpc]
     private void OnShootServerRpc()
     {
-        //Si no puede disparar hace return
-        if (ComprobadorDeCadencia() == false) { return;}
+        //TODO CAMBIAR ESTO DESPUES
+        //hp.Value = 0;
 
-        if (tipoProyectil == 2)
-        {
-            // Crear el proyectil solo en el servidor
-            GameObject proyectil1 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[1].position, puntoDisparo[1].rotation);
-            GameObject proyectil2 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[2].position, puntoDisparo[2].rotation);
+            //Si no puede disparar hace return
+            if (ComprobadorDeCadencia() == false) { return;}
 
-            // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
-            Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
-            proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave);
+            if (tipoProyectil == 2)
+            {
+                // Crear el proyectil solo en el servidor
+                GameObject proyectil1 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[1].position, puntoDisparo[1].rotation);
+                GameObject proyectil2 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[2].position, puntoDisparo[2].rotation);
+
+                // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
+                Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
+                proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave);
             
-            Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
-            proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave);
+                Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
+                proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave);
 
-            // El proyectil se destruirá automáticamente tras 2 segundos
-            Destroy(proyectil1, 2f);
-            Destroy(proyectil2, 2f);
+                // El proyectil se destruirá automáticamente tras 2 segundos
+                Destroy(proyectil1, 2f);
+                Destroy(proyectil2, 2f);
 
-            SpawnProyectilClientRpc(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
-            SpawnProyectilClientRpc(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
-        }
-        else
-        {
-            // Crear el proyectil solo en el servidor
-            GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo[0].position, puntoDisparo[0].rotation);
+                SpawnProyectilClientRpc(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
+                SpawnProyectilClientRpc(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
+            }
+            else
+            {
+                // Crear el proyectil solo en el servidor
+                GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo[0].position, puntoDisparo[0].rotation);
 
-            // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
-            Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-            proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave);
+                // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
+                Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+                proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave);
 
-            // El proyectil se destruirá automáticamente tras 2 segundos
-            Destroy(proyectil, 2f);
+                // El proyectil se destruirá automáticamente tras 2 segundos
+                Destroy(proyectil, 2f);
 
-            SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
-        }
+                SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
+            }
+        
     }
 
 
@@ -246,9 +257,9 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             nave.SetToSpawn(spawnPosition);
 
             //RESTAURA LA VIDA DE LA NAVE
-        
             hp.Value = 100;
         }
     }
+
 
 }

@@ -15,7 +15,7 @@ public class Partida : NetworkBehaviour
     [SerializeField] private int maximoNumeroDeRondas = 3;
     
     //CONTROLA EN QUE RONDA ESTA LA PARTIDA
-    private int ronda = 1;
+    public int ronda = 1;
     
     //JUGADORES
     [SerializeField] public List<ControladorDelJugador> jugadores;
@@ -36,10 +36,10 @@ public class Partida : NetworkBehaviour
         
         if (partidaEnMarcha && !partidaFinalizada)
         {
-            int estadoDeLosJugadores = comprobarEstadoDeLosJugadores();
-            if (estadoDeLosJugadores != -1)
+            if (comprobarEstadoDeLosJugadores())
             {
-                finalizarRonda(estadoDeLosJugadores);
+                partidaEnMarcha = false;
+                finalizarRonda();
             }
         }
     }
@@ -55,6 +55,7 @@ public class Partida : NetworkBehaviour
                 jugadores[i].opcionesJugador.desactivarMovimiento();
                 if(IsServer)
                     jugadores[i].restaurarNaves(puntosDeSpawn[i]);
+                jugadores[i].naveDestruida = false;
             }
         }
     }
@@ -69,29 +70,33 @@ public class Partida : NetworkBehaviour
     void finalizarPartida()
     {
         //RESTAURAMOS NAVES Y METEORITOS
-        restaurarNaves();
-        restaurarMeteoritos();
+        prepararEscenario();
         //MOSTRAMOS EL RESULTADO A PARTIR DE LA INTERFAZ
         mostrarResultadoFinal();
+        //DEVOLVEMOS LAS NAVES A SU ESTADO ORIGINAL
+        foreach (var jugador in jugadores)
+        {
+            if(jugador != null)
+                jugador.opcionesJugador.resetToInitialState();
+        }
         //ELIMINAMOS LAS NAVES DE LA LISTA Y SUS PUNTUACIONES
         partidaEnMarcha = false;
+        partidaFinalizada = true;
         jugadores.Clear();
         rondasGanadas[0] = 0;
         rondasGanadas[1] = 0;
+        ronda = 1;
     }
 
     //FINALIZA LA RONDA
-    void finalizarRonda(int estadoDeLosJugadores)
+    void finalizarRonda()
     {
-        //PARAMOS A LOS JUGADORES
-        detenerElMovimientoDeLosJugadores();
-        
         //APUNTAMOS LA VICTORIA
         for (int i = 0; i < jugadores.Count;i++)
         {
             if (jugadores[i] != null)
             {
-                if (i != estadoDeLosJugadores)
+                if (!jugadores[i].naveDestruida)
                     rondasGanadas[i]++;
             }
         }
@@ -100,17 +105,20 @@ public class Partida : NetworkBehaviour
         if (ronda < maximoNumeroDeRondas)
         {
             ronda++;
-            mostrarResultado(estadoDeLosJugadores);
-            partidaEnMarcha = false;
+            mostrarResultado();
+            Invoke("iniciarRonda", 3.0f);
         }
         else
         {
-            finalizarPartida();
+            mostrarResultado();
+            Invoke("finalizarPartida", 3.0f);
         }
     }
+    
+    
 
     //COMPRUEBA EL ESTADO DE LOS JUGADORES
-    int comprobarEstadoDeLosJugadores()
+    bool comprobarEstadoDeLosJugadores()
     {
         //INDICA SI UNO DE LOS JUGADORES HA SIDO DESTRUIDO
         for (int i = 0; i < jugadores.Count;i++)
@@ -118,36 +126,31 @@ public class Partida : NetworkBehaviour
             if (jugadores[i] != null)
             {
                 if (jugadores[i].hp.Value <= 0)
+                {
                     jugadores[i].naveDestruida = true;
+                    jugadores[i].opcionesJugador.deshabilitarNave();
+                }
                 
                 if (jugadores[i].naveDestruida)
                 {
-                    return i;
+                    return true;
                 }
             }
         }
 
-        return -1;
+        return false;
     }
     
-    //DETIENE EL MOVIMIENTO DE LOS JUGADORES
-    void detenerElMovimientoDeLosJugadores()
-    {
-        foreach (var jugador in jugadores)
-        {
-            jugador.GameEndServerRpc();
-        }
-    }
 
     //ACTIVA LAS PANTALLAS DE VICTORIA O DERROTA EN LOS JUGADORES
     //TODO (HAY QUE HACER VERSIÓN DISTINTA PARA GANAR Y PERDER RONDAS)
-    void mostrarResultado(int estadoDeLosJugadores)
+    void mostrarResultado()
     {
         for (int i = 0; i < jugadores.Count;i++)
         {
             if (jugadores[i] != null)
             {
-                jugadores[i].opcionesJugador.UIJugador.mostrarResultado(estadoDeLosJugadores == i, false);
+                jugadores[i].opcionesJugador.UIJugador.mostrarResultado(!jugadores[i].naveDestruida, false);
             }
         }
     }
@@ -172,12 +175,7 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
-        //INDICA QUE LA PARTIDA HA EMPEZADO
-        partidaEnMarcha = true;
-        partidaFinalizada = false;
-        
-        //PREPARA EL ESCENARIO
-        prepararEscenario();
+        iniciarRonda();
         
         //CARGA LA UI CORRESPONDIENTE
         foreach (var jugador in jugadores)
@@ -185,45 +183,60 @@ public class Partida : NetworkBehaviour
             if(jugador != null)
                 jugador.opcionesJugador.UIJugador.PartidaEncontrada();
         }
+
+        partidaFinalizada = false;
+    }
+    
+    //EMPEZAR SIGUIENTE RONDA
+    void iniciarRonda()
+    {
+        //PREPARA EL ESCENARIO
+        prepararEscenario();
         
-        //HABILITA EL MOVIMIENTO Y LAS NAVES EN EL SERVIDOR
+        //HABILITA EL MOVIMIENTO Y LAS NAVES
+        Invoke("reactivarNaves", 3.0f);
+        
+        //LANZA LA CUENTA ATRAS PARA INICIAR LA PARTIDA
         foreach (var jugador in jugadores)
         {
-            if (jugador != null && IsServer && !IsHost)
+            if (jugador != null)
             {
-                jugador.opcionesJugador.rehabilitarNave();
-                jugador.opcionesJugador.reactivarMovimiento();
-            }
-        }
-        
-        //HABILITA EL MOVIMIENTO LAS NAVES EN EL CLIENTE
-        foreach (var jugador in jugadores)
-        {
-            if (jugador != null && IsClient)
-            {
-                jugador.opcionesJugador.rehabilitarNave();
-                //jugador.opcionesJugador.reactivarMovimiento();
-            }
-        }
-        
-        //LANZA LA CUENTA ATRAS
-        foreach (var jugador in jugadores)
-        {
-            if(jugador != null)
                 jugador.opcionesJugador.UIJugador.iniciarCuentaAtras();
+                jugador.opcionesJugador.rehabilitarNave();
+            }
+
         }
+        
+        //INICIAMOS LA RONDA
+        Invoke("ponerPartidaEnMarcha", 3.0f);
     }
     
     //PREPARAR COMPONENTES
     private void prepararEscenario()
     {
-        if (IsServer)
+        //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
+        Invoke("restaurarNaves", 0.2f);
+        //RESTAURA LOS METEORITOS A SU ESTADO INICIAL
+        restaurarMeteoritos();
+    }
+    
+
+    //REACTIVA EL MOVIMIENTO DE LAS NAVES
+    private void reactivarNaves()
+    {
+        foreach (var jugador in jugadores)
         {
-            //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
-            restaurarNaves();
-            //RESTAURA LOS METEORITOS A SU ESTADO INICIAL
-            restaurarMeteoritos();
+            if (jugador != null)
+            {
+                jugador.opcionesJugador.reactivarMovimiento();
+            }
         }
+    }
+
+    private void ponerPartidaEnMarcha()
+    {
+        //INDICA QUE LA PARTIDA HA EMPEZADO
+        partidaEnMarcha = true;
     }
 
 }

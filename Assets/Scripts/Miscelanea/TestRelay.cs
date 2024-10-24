@@ -61,6 +61,8 @@ namespace Test
                     NetworkManager.Singleton.StartServer();
                 
                 codigo.text = joinCode;
+                setFrameLimit(true);
+
             }
             catch (RelayServiceException e)
             {
@@ -84,6 +86,7 @@ namespace Test
                 codigo.text = joinCode;
                 
                 OcultarUIServidor();
+                setFrameLimit(false);
             }
             catch (RelayServiceException e)
             {
@@ -110,6 +113,18 @@ namespace Test
         private void OcultarUIServidor()
         {
             UIServidor.SetActive(false);
+        }
+        
+        //ESTABLECE EL LIMITE DE FPS
+        public static void setFrameLimit(bool server)
+        {
+
+            if (server)
+            {
+                QualitySettings.vSyncCount = 0;
+                Application.targetFrameRate = 120;
+            }
+
         }
     }
 }

@@ -13,7 +13,9 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Instrucciones;
     [SerializeField]private GameObject EnPartida;
     [SerializeField]private GameObject Victoria;
+    [SerializeField]private GameObject VictoriaRonda;
     [SerializeField]private GameObject Derrota;
+    [SerializeField]private GameObject DerrotaRonda;
     [SerializeField]private GameObject Creditos;
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
@@ -117,7 +119,17 @@ public class UI : NetworkBehaviour
                     Perder();
                 }
             }
-            //TODO METER AQUI PARA CUANDO GANES UNA RONDA
+            else
+            {
+                if (ganador)
+                {
+                    GanarRonda();
+                }
+                else
+                {
+                    PerderRonda();
+                }
+            }
         }
     }
     public void Ganar()
@@ -131,6 +143,16 @@ public class UI : NetworkBehaviour
         }
     }
     
+    public void GanarRonda()
+    {
+        if (IsOwner)
+        {
+            VictoriaRonda.SetActive(true);
+            CJugador.GameEndServerRpc();
+            Invoke("desactivarResultadoRonda", 3.25f);
+        }
+    }
+    
     public void Perder()
     {
         if (IsOwner)
@@ -141,6 +163,16 @@ public class UI : NetworkBehaviour
             CJugador.GameEndServerRpc();
         }
     }
+    
+    public void PerderRonda()
+    {
+        if (IsOwner)
+        {
+            DerrotaRonda.SetActive(true);
+            CJugador.GameEndServerRpc();
+            Invoke("desactivarResultadoRonda", 3.25f);
+        }
+    }
 
     public void VolverAPersonalizacionDesdePartida()
     {
@@ -149,7 +181,14 @@ public class UI : NetworkBehaviour
             Victoria.SetActive(false);
             Derrota.SetActive(false);
             Personalizacion.SetActive(true);
+            opcionesJugador.rehabilitarNave();
         }
+    }
+
+    public void desactivarResultadoRonda()
+    {
+        VictoriaRonda.SetActive(false);
+        DerrotaRonda.SetActive(false);
     }
 
     ////////////////////////////////////////////
@@ -260,7 +299,7 @@ public class UI : NetworkBehaviour
             NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
             CuentaAtras.SetActive(false);
             posicionCuentaAtras = 0;
-            opcionesJugador.reactivarMovimiento();
+            //opcionesJugador.reactivarMovimiento();
         }
     }
 
