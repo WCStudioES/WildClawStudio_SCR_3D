@@ -10,11 +10,11 @@ public class KeepAspectRatio : MonoBehaviour
     private float targetaspect = 16.0f / 9.0f;
     private float lastScreenHeight = 0;
     private float lastScreenWidth = 0;
-    private Camera camera;
+    private Camera camara;
 
     private void Start()
     {
-        camera = GetComponent<Camera>();
+        camara = GetComponent<Camera>();
     }
 
     void Update()
@@ -38,14 +38,14 @@ public class KeepAspectRatio : MonoBehaviour
         // if scaled height is less than current height, add letterbox
         if (scaleheight < 1.0f)
         {
-            Rect rect = camera.rect;
+            Rect rect = camara.rect;
 
             rect.width = 1.0f;
             rect.height = scaleheight;
             rect.x = 0;
             rect.y = (1.0f - scaleheight) / 2.0f;
 
-            camera.rect = rect;
+            camara.rect = rect;
             letterBox = true;
         }
 
@@ -53,14 +53,14 @@ public class KeepAspectRatio : MonoBehaviour
         {
             float scalewidth = 1.0f / scaleheight;
 
-            Rect rect = camera.rect;
+            Rect rect = camara.rect;
 
             rect.width = scalewidth;
             rect.height = 1.0f;
             rect.x = (1.0f - scalewidth) / 2.0f;
             rect.y = 0;
 
-            camera.rect = rect;
+            camara.rect = rect;
             letterBox = false;
         }
     }

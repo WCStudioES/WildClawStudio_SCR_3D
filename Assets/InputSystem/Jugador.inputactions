@@ -46,6 +46,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "100e0f4d-147b-4d22-8516-fe6e0c79f6a6",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee4e6bab-cad3-4062-b062-67ee788373c6",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Keyboard",
                     "id": "b1521d7d-36ce-4600-82db-38073b5d9c13",
                     "path": "1DAxis",
@@ -79,9 +101,64 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Gamepad",
+                    "id": "e83b7a18-6b6f-4acd-8a3f-1e20e508fa1d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "6e76840e-6a2a-4b6c-920d-b68c6f9aebf1",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "d5e3c8a6-d3aa-4ace-a116-51a44f72c597",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "61dd82d5-feed-47c6-bd59-b41a7a172adb",
                     "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "105d709c-9679-4035-8c9b-f576c48b844a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ddbf9a59-3bcb-4d73-a513-b37a35ec668d",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
