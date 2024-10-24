@@ -15,10 +15,12 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Victoria;
     [SerializeField]private GameObject Derrota;
     [SerializeField]private GameObject Creditos;
-    
+
+    MatchmakingManager matchmakingManager;
     
     void Start()
     {
+        matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
         if(IsOwner && opcionesJugador.ActivarUI)
             ActivarUI();
     }
@@ -70,7 +72,8 @@ public class UI : NetworkBehaviour
         {
             Personalizacion.SetActive(false);
             BuscandoPartida.SetActive(true);
-            MeterJugadorEnLaPartidaServerRpc();
+            //MeterJugadorEnLaPartidaServerRpc();
+            UnirseALaColaServerRpc();
         }
     }
     
@@ -187,15 +190,25 @@ public class UI : NetworkBehaviour
             Personalizacion.SetActive(true);
         }
     }
-    
+
     ////////////////////////////////////////////
-    
-    
+
+    // El cliente llama a esto para unirse a la cola de matchmaking
+    [ServerRpc]
+    public void UnirseALaColaServerRpc(ServerRpcParams rpcParams = default)
+    {
+        ulong jugadorId = rpcParams.Receive.SenderClientId;
+        Debug.Log("Jugador añadido a la cola: " + jugadorId);
+
+        matchmakingManager.colaJugadores.Add(opcionesJugador.UIJugador);
+    }
+
     //AÑADIR JUGADOR A PARTIDA
     //TODO (APAÑAR ESTO CON EL MATCHMAKER)
-    [ServerRpc]
-    public void MeterJugadorEnLaPartidaServerRpc()
+    //[ServerRpc]
+    public void MeterJugadorEnLaPartida()
     {
+        Debug.Log("Meter jugador en partida (Server)");
         Partida partida = FindObjectOfType<Partida>();
         if (IsServer)
         {
@@ -207,6 +220,7 @@ public class UI : NetworkBehaviour
     [ClientRpc]
     public void MeterJugadorEnLaPartidaClientRpc()
     {
+        Debug.Log("Meter jugador en partida (Client)");
         Partida partida = FindObjectOfType<Partida>();
         if (IsClient && !IsHost)
         {
