@@ -764,7 +764,6 @@ GameObject:
   - component: {fileID: 4325531453962584219}
   - component: {fileID: 5165318996060286125}
   - component: {fileID: -3198933866904872680}
-  - component: {fileID: 1123373981737222685}
   m_Layer: 5
   m_Name: EnPartida
   m_TagString: Untagged
@@ -871,19 +870,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0992c59923a7a47a177b59025de49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1123373981737222685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5939291669453432156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b855234b662cbd34b8485403835f30e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ControlesTactiles: {fileID: 4751607397707979551}
 --- !u!1 &6033699178740039128
 GameObject:
   m_ObjectHideFlags: 0

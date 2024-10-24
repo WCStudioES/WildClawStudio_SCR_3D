@@ -1,8 +1,9 @@
+using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class OpcionesJugador : MonoBehaviour
+
+public class OpcionesJugador : NetworkBehaviour
 {
     //ACTIVA O DESACTIVA LA UI
     public bool ActivarUI = true;
@@ -21,6 +22,22 @@ public class OpcionesJugador : MonoBehaviour
     
     //NETWORK TRANSFORM DE LA NAVE
     public NetworkTransform networkTransformNave;
+    
+    //NAVE
+    public GameObject nave;
+
+    void Start()
+    {
+        desactivarMovimiento();
+        if (IsServer)
+        {
+            controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"));
+        }
+        if (IsClient && !IsOwner)
+        {
+            deshabilitarNave();
+        }
+    }
 
     public void desactivarMovimiento()
     {
@@ -34,6 +51,16 @@ public class OpcionesJugador : MonoBehaviour
         movimientoActivado = true;
         controladorDeLaNave.enabled = true;
         networkTransformNave.Interpolate = true;
+    }
+
+    public void deshabilitarNave()
+    {
+        nave.SetActive(false);
+    }
+
+    public void rehabilitarNave()
+    {
+        nave.SetActive(true);
     }
 
 }

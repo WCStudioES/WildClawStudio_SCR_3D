@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class MostrarControlesMoviles : MonoBehaviour
+public class MostrarControlesMoviles : NetworkBehaviour
 {
     private bool esMovil = false;
     [SerializeField] private GameObject ControlesTactiles;
@@ -8,7 +9,7 @@ public class MostrarControlesMoviles : MonoBehaviour
     void Start()
     {
         esMovil = Application.isMobilePlatform && Application.platform == RuntimePlatform.WebGLPlayer;
-        if(esMovil)
+        if(esMovil && IsOwner)
             ControlesTactiles.SetActive(true);
     }
     

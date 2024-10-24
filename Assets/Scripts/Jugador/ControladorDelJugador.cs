@@ -24,7 +24,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     private int tipoProyectil; // tipo de proyectil del prefab
     private float shotTimer = 0f; // Temporizador para la cadencia
 
-    private bool isMoving = false; // Indica si la tecla de movimiento está presionada
+    public bool isMoving = false; // Indica si la tecla de movimiento está presionada
     private float rotationInput = 0f; // Almacena el input de rotación
     public NetworkVariable<int> hp = new NetworkVariable<int>(100);
 
@@ -57,7 +57,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             // Llama a la función de rotación si hay input de rotación
             if (rotationInput != 0f)
             {
-                Debug.Log("ROTANDO");
+                //Debug.Log("ROTANDO");
                 OnRotateServerRpc(rotationInput);
             }
         }

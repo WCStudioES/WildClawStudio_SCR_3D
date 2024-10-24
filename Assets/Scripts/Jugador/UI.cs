@@ -15,6 +15,9 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Victoria;
     [SerializeField]private GameObject Derrota;
     [SerializeField]private GameObject Creditos;
+    [SerializeField]private GameObject CuentaAtras;
+    [SerializeField]private GameObject[] NumerosCuentaAtras;
+    private int posicionCuentaAtras = 0;
 
     MatchmakingManager matchmakingManager;
     
@@ -99,18 +102,22 @@ public class UI : NetworkBehaviour
     
     //RELACIONADAS CON LA PARTIDA///////////////
 
-    public void mostrarResultado(bool ganador)
+    public void mostrarResultado(bool ganador, bool partidaFinalizada)
     {
         if (IsOwner)
         {
-            if (ganador)
+            if (partidaFinalizada)
             {
-                Ganar();
+                if (ganador)
+                {
+                    Ganar();
+                }
+                else
+                {
+                    Perder();
+                }
             }
-            else
-            {
-                Perder();
-            }
+            //TODO METER AQUI PARA CUANDO GANES UNA RONDA
         }
     }
     public void Ganar()
@@ -227,4 +234,36 @@ public class UI : NetworkBehaviour
             partida.jugadores.Add(opcionesJugador.controladorDelJugador);
         }
     }
+    
+    //CUENTA ATRAS///////////////////////////////
+    public void iniciarCuentaAtras()
+    {
+        if (IsOwner)
+        {
+            CuentaAtras.SetActive(true);
+            contadorCuentaAtras();
+        }
+    }
+
+    private void contadorCuentaAtras()
+    {
+        if (posicionCuentaAtras < NumerosCuentaAtras.Length)
+        {
+            if(posicionCuentaAtras != 0)
+                NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
+            NumerosCuentaAtras[posicionCuentaAtras].SetActive(true);
+            posicionCuentaAtras++;
+            Invoke("contadorCuentaAtras", 1.0f);
+        }
+        else
+        {
+            NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
+            CuentaAtras.SetActive(false);
+            posicionCuentaAtras = 0;
+            opcionesJugador.reactivarMovimiento();
+        }
+    }
+
+
+    ////////////////////////////////////////////
 }

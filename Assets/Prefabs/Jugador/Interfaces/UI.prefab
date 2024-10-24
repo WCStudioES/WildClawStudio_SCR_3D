@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2821357982528877240}
   - component: {fileID: 938684737601573286}
+  - component: {fileID: 4875884337069297103}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -52,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485db1df302b9f747a2a08dfbb062bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivarUI: 1
-  CJ: {fileID: 0}
+  CJugador: {fileID: 0}
+  opcionesJugador: {fileID: 0}
   LogIn: {fileID: 2791656811550534270}
   Personalizacion: {fileID: 8615367621880965376}
   BuscandoPartida: {fileID: 6158680203427380961}
@@ -62,6 +63,19 @@ MonoBehaviour:
   Victoria: {fileID: 3628144333800616894}
   Derrota: {fileID: 5286241815133312378}
   Creditos: {fileID: 5563168425198822543}
+--- !u!114 &4875884337069297103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706838084829829444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b855234b662cbd34b8485403835f30e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlesTactiles: {fileID: 0}
 --- !u!1001 &1011248431507454399
 PrefabInstance:
   m_ObjectHideFlags: 0

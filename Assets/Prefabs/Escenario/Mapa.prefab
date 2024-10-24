@@ -272,6 +272,7 @@ MonoBehaviour:
   partidaEnMarcha: 0
   maximoNumeroDeRondas: 3
   jugadores: []
+  rondasGanadas: 0000000000000000
   puntosDeSpawn:
   - {fileID: 1134132246064413066}
   - {fileID: 2024448090543063930}
