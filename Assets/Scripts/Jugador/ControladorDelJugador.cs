@@ -202,10 +202,10 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
                 // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
                 Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
-                proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave);
+                proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave, IsServer);
             
                 Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
-                proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave);
+                proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave, IsServer);
 
                 // El proyectil se destruirá automáticamente tras 2 segundos
                 Destroy(proyectil1, 2f);
@@ -221,7 +221,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
                 // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
                 Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-                proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave);
+                proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave, IsServer);
 
                 // El proyectil se destruirá automáticamente tras 2 segundos
                 Destroy(proyectil, 2f);
@@ -241,7 +241,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
         // Configurar la dirección del proyectil en el cliente
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-        proyectilScript.Inicializar(direccion, cuerpoNave);
+        proyectilScript.Inicializar(direccion, cuerpoNave, IsServer);
 
         // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);
