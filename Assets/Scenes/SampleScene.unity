@@ -637,6 +637,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpTotal: 100
+  hpMaximo: 100
+  hpMinimo: 100
+  escalaMaxima: 100
+  escalaMinima: 100
   hpActual:
     m_InternalValue: 100
   xpADar:
@@ -2838,6 +2842,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpTotal: 100
+  hpMaximo: 100
+  hpMinimo: 100
+  escalaMaxima: 100
+  escalaMinima: 100
   hpActual:
     m_InternalValue: 100
   xpADar:
@@ -3467,6 +3475,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2965922677204162651, guid: 9a163768100919548971e090283cb3ab, type: 3}
+      propertyPath: meteoritos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2965922677204162651, guid: 9a163768100919548971e090283cb3ab, type: 3}
+      propertyPath: meteoritos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1937216028}
+    - target: {fileID: 2965922677204162651, guid: 9a163768100919548971e090283cb3ab, type: 3}
+      propertyPath: meteoritos.Array.data[1]
+      value: 
+      objectReference: {fileID: 262069060}
     - target: {fileID: 6459805748923249283, guid: 9a163768100919548971e090283cb3ab, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2900620355

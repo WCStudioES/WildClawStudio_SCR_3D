@@ -48,6 +48,10 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
         
     }
 
+    public void ResetPrePartida()
+    {
+        xp.Value = 0;
+    }
     private void Update()
     {
         if (!opcionesJugador.movimientoActivado)

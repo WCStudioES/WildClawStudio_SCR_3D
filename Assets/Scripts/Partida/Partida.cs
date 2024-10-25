@@ -20,6 +20,9 @@ public class Partida : NetworkBehaviour
     //JUGADORES
     [SerializeField] public List<ControladorDelJugador> jugadores;
     
+    //METEORITOS
+    [SerializeField] public List<Meteorito> meteoritos;
+    
     //RONDAS GANADAS
     [SerializeField] public int[] rondasGanadas;
 
@@ -63,7 +66,10 @@ public class Partida : NetworkBehaviour
     //RESTAURA LA VIDA DE LOS METEORITOS Y LOS REHABILITA
     void restaurarMeteoritos()
     {
-        //TODO
+        foreach (var meteorito in meteoritos)
+        {
+            meteorito.RestaurarMeteorito();
+        }
     }
 
     //FINALIZA LA PARTIDA
@@ -175,13 +181,17 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
+        
         iniciarRonda();
         
-        //CARGA LA UI CORRESPONDIENTE
+        //CARGA LA UI CORRESPONDIENTE Y REINICIA A LOS JUGADORES
         foreach (var jugador in jugadores)
         {
-            if(jugador != null)
+            if (jugador != null)
+            {
                 jugador.opcionesJugador.UIJugador.PartidaEncontrada();
+                jugador.ResetPrePartida();
+            }
         }
 
         partidaFinalizada = false;
