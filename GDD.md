@@ -214,10 +214,6 @@ Antes de diseñar los distintos elementos finales de los menús, se realizan uno
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/8.jpg"> <br>
 </p>
 <p align="center">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/6.editada.jpg">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/7.editada.jpg"> <br>
-</p>
-<p align="center">
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/9.jpg">
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/17.jpg"> <br>
 </p>
@@ -226,15 +222,20 @@ Antes de diseñar los distintos elementos finales de los menús, se realizan uno
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/11.jpg"> <br>
 </p>
 <p align="center">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/16.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/14.editado2.jpg">
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/12.jpg"> <br>
 </p>
 <p align="center">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/14.jpg">
- <img width=500 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/15.jpg"> <br>
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/13.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/14.jpg"> <br>
 </p>
 <p align="center">
- <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/13.jpg"> <br>
+ <img width=500 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/15.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/6.editado3.jpg"> <br>
+</p>
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/7.editado3.jpg">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/17.editado3.jpg"> <br>
 </p>
 
 A partir de estos diseños conceptuales, se procede a crear el material necesario para traducirlo a interfaces visuales atractivas.
@@ -243,7 +244,7 @@ A partir de estos diseños conceptuales, se procede a crear el material necesari
 Teniendo el diseño de las interfaces conceptuales, se diseña además cómo se pasa dentre las distintas pantallas. Para ello, creamos el siguiente flujograma.
 
 <p align="center">
- <img width=100% heigth=100% src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Flujograma%20SCR3D.png"> <br>
+ <img width=100% heigth=100% src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Flujograma%20SCR3D.editado3.png"> <br>
 </p>
 
 # Monetización
@@ -276,14 +277,14 @@ El usuario destinatario de nuestro juego tendrá las siguientes características
 Conociendo las características base de quienes serán nuestros principales jugadores, procedemos a estudiarlo más de cerca con un mapa de empatía.
 
 <p align="center">
- <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Mapa%20Empat%C3%ADa%20SCR3D.png"> <br>
+ <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Mapa%20Empat%C3%ADa%20SCR3D_editado2.png"> <br>
 </p>
 
 ## Modelo de caja de herramientas
 Utilizando este modelo, construimos nuestra empresa en base a una serie de bloques y las relaciones existentes entre ellos. Esto nos permite visualizar la estructura general del funcionamiento de Wild Claw Estudio (específicamente basado en el juego de Space Combat Rush 3D).
 
 <p align="center">
- <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/CajaHerramientas.png"> <br>
+ <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Caja%20de%20Herramientas%20SCR3D_editado2.png"> <br>
 </p>
 
 ## Modelo de canvas o lienzo
@@ -293,7 +294,7 @@ Gracias al modelo de lienzo, podemos representar nuetra infraestructura orientad
 </p>
 
 ## Modelo de monetización
-Space Combat Rush se centrará en el modelo de Battle Pass y la generación de torneos bianuales con entrada de pago. Para poder conocer el nivel de éxito de nuestro juego, se establecen unas métricas para saber en qué situación se encuentra nuestro producto:
+Space Combat Rush se centrará en el modelo de Battle Pass (estos contendrán nuevas naves con skins distintas que puede coleccionar el jugador, pudiendo realizar colaboraciones con otras empresas que pagen por poner skins especiales en nuestro juego) y la generación de torneos bianuales con entrada de pago. Para poder conocer el nivel de éxito de nuestro juego, se establecen unas métricas para saber en qué situación se encuentra nuestro producto:
 
 - **Caso pesimista:** se da una base de jugadores pequeña. Por lo que únicamente se gana lo suficiente para recuperar los costes y mantener los servidores.
 - **Caso normal:** hay una base de jugadores amplia. Con ello se consiguen ganancias suficientes para el mantenimiento del juego y poder seguir desarrollándolo (o permitir costear un nuevo proyecto).
