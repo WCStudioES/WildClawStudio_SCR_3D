@@ -3,6 +3,7 @@ using DefaultNamespace;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 {
@@ -16,21 +17,31 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     //TODO AÚN SIN UTILIZAR, UTILIZAR CUANDO SE IMPLEMENTE PERDER VIDA
     public bool naveDestruida = false;
     
+    //VARIABLES DE DISPARO
+    [SerializeField] private GameObject proyectilBasicoPrefab; // Prefab del proyectil basico
+    [SerializeField] private GameObject proyectilMejoradoPrefab; // Prefab del proyectil escogido
+    private GameObject proyectilEnUso; // Prefab del proyectil escogido
     
-    [SerializeField] private GameObject proyectilPrefab; // Prefab del proyectil
     [SerializeField] private Transform[] puntoDisparo; // Lugar donde se instancia el proyectil
-    private bool isShooting = false;
+    
+    private bool isShooting = false; //Booleano para saber si el jugador esta disparando
     private float cadenciaDeDisparo; // cadencia de disparo del proyectil
     private int tipoProyectil; // tipo de proyectil del prefab
     private float shotTimer = 0f; // Temporizador para la cadencia
-
+    
+    
+    //VARIABLES DE MOVIMIENTO
     public bool isMoving = false; // Indica si la tecla de movimiento está presionada
     private float rotationInput = 0f; // Almacena el input de rotación
     
+    //VARIABLES DE ESTADISTICAS
+    public int armaduraInicial; //Armadura para empezar la partida
+    public int vidaInicial; //Vida para empezar cada ronda
     public NetworkVariable<int> hp = new NetworkVariable<int>(100); //Vida de la nave
+    public NetworkVariable<int> armadura = new NetworkVariable<int>(10); //Armadura de la nave
     public NetworkVariable<int> xp = new NetworkVariable<int>(00); //Experiencia de la nave
-    
-    [SerializeField] private int xpADar = 200; //Experiencia que da al otro jugador al destruir la nave
+    public NetworkVariable<int> lvl = new NetworkVariable<int>(1); //Nivel de la nave
+    [SerializeField] NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
 
     public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
     
@@ -38,8 +49,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
     private void Start()
     {
-        cadenciaDeDisparo = proyectilPrefab.GetComponent<Proyectil>().cadencia;
-        tipoProyectil = proyectilPrefab.GetComponent<Proyectil>().tipo;
+        CambiarArma(proyectilBasicoPrefab);
         if (IsOwner)
         {
             OnPlayerStartServerRpc();
@@ -48,10 +58,33 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
         
     }
 
+    //Funcion para resetear los valores predefinidos antes de empezar partida
     public void ResetPrePartida()
     {
-        xp.Value = 0;
+        if (IsServer)
+        {
+            armadura.Value = armaduraInicial;
+            xp.Value = 0;
+            lvl.Value = 1;
+        }
+        
+        CambiarArma(proyectilBasicoPrefab);
     }
+    
+    //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
+    //TODO RESTAURAR EXPERIENCIA Y NIVEL DEL ARMA
+    public void resetDeRonda(GameObject spawnPosition)
+    {
+        if (IsServer)
+        {
+            //DEVUELVE LA NAVE A LA POSICION DE SPAWN
+            nave.SetToSpawn(spawnPosition);
+
+            //RESTAURA LA VIDA DE LA NAVE
+            hp.Value = vidaInicial;
+        }
+    }
+
     private void Update()
     {
         if (!opcionesJugador.movimientoActivado)
@@ -133,16 +166,51 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     // Función que aplica daño a la nave
     public void GetDamage(int dmg, ControladorDelJugador dueñoDaño)
     {
-        hp.Value -= dmg;  // Resta la cantidad de daño a la vida de la nave
+        hp.Value -= (dmg - armadura.Value);  // Resta la cantidad de daño a la vida de la nave
         Debug.Log("Vida actual de la nave: " + hp);
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (hp.Value <= 0)
         {
-            dueñoDaño.xp.Value += xpADar;
+            dueñoDaño.GetXP(xp.Value);
             Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             //Pierdes;
         }
+    }
+    
+    //Funcion que gestiona la obtención de xp del jugador
+    public void GetXP(int xpRecibida)
+    {
+        //Sumar experiencia
+        xp.Value += xpRecibida;
+
+        //Lvl 3, aplicar mejoras
+        if (xp.Value >= 900 && lvl.Value < 3 )
+        {
+            Debug.Log("Level 3");
+            armadura.Value += armadura.Value;
+            xpADar.Value += 50;
+            lvl.Value++;
+
+        }
+        //Lvl 2, aplicar mejoras
+        else if (xp.Value >= 300 && lvl.Value < 2)
+        {
+            Debug.Log("Level 2");
+            CambiarArma(proyectilMejoradoPrefab);
+            armadura.Value += armadura.Value;
+            xpADar.Value += 50;
+            lvl.Value++;
+        } 
+        
+    }
+
+    //Funcion que cambia el arma de la nave y aplica sus estdisticas
+    private void CambiarArma(GameObject proyectilNuevo)
+    {
+        proyectilEnUso = proyectilNuevo;
+        cadenciaDeDisparo = proyectilNuevo.GetComponent<Proyectil>().cadencia;
+        tipoProyectil = proyectilNuevo.GetComponent<Proyectil>().tipo;
     }
 
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
@@ -208,8 +276,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             if (tipoProyectil == 2)
             {
                 // Crear el proyectil solo en el servidor
-                GameObject proyectil1 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[1].position, puntoDisparo[1].rotation);
-                GameObject proyectil2 = NetworkManager.Instantiate(proyectilPrefab, puntoDisparo[2].position, puntoDisparo[2].rotation);
+                GameObject proyectil1 = NetworkManager.Instantiate(proyectilEnUso, puntoDisparo[1].position, puntoDisparo[1].rotation);
+                GameObject proyectil2 = NetworkManager.Instantiate(proyectilEnUso, puntoDisparo[2].position, puntoDisparo[2].rotation);
 
                 // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
                 Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
@@ -229,7 +297,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             else
             {
                 // Crear el proyectil solo en el servidor
-                GameObject proyectil = Instantiate(proyectilPrefab, puntoDisparo[0].position, puntoDisparo[0].rotation);
+                GameObject proyectil = Instantiate(proyectilEnUso, puntoDisparo[0].position, puntoDisparo[0].rotation);
 
                 // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
                 Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
@@ -250,7 +318,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     private void SpawnProyectilClientRpc(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
     {
         // Crear el proyectil en el cliente
-        GameObject proyectil = NetworkManager.Instantiate(proyectilPrefab, posicion, rotacion);
+        GameObject proyectil = NetworkManager.Instantiate(proyectilEnUso, posicion, rotacion);
 
         // Configurar la dirección del proyectil en el cliente
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
@@ -259,20 +327,5 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
         // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);
     }
-    
-    //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
-    //TODO RESTAURAR EXPERIENCIA Y NIVEL DEL ARMA
-    public void restaurarNaves(GameObject spawnPosition)
-    {
-        if (IsServer)
-        {
-            //DEVUELVE LA NAVE A LA POSICION DE SPAWN
-            nave.SetToSpawn(spawnPosition);
-
-            //RESTAURA LA VIDA DE LA NAVE
-            hp.Value = 100;
-        }
-    }
-
 
 }

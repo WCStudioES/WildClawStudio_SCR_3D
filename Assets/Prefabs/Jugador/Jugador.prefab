@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1046820652
+  GlobalObjectIdHash: 128322121
   InScenePlacedSourceGlobalObjectIdHash: 1574068614
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -151,17 +151,25 @@ MonoBehaviour:
   nave: {fileID: 6893683827849856983}
   opcionesJugador: {fileID: 8943799741961390412}
   naveDestruida: 0
-  proyectilPrefab: {fileID: 2900116416517425973, guid: e0aa555c5b3d610459948179998b42c8, type: 3}
+  proyectilBasicoPrefab: {fileID: 2900116416517425973, guid: 9f0998e7a4d79534baeca8dda1512221, type: 3}
+  proyectilMejoradoPrefab: {fileID: 2900116416517425973, guid: 78aeb277a4258a948a3b97cc00582f20, type: 3}
   puntoDisparo:
   - {fileID: 4659522520920837505}
   - {fileID: 1582086189015376860}
   - {fileID: 673124637891359343}
   isMoving: 0
+  armaduraInicial: 1
+  vidaInicial: 100
   hp:
     m_InternalValue: 100
+  armadura:
+    m_InternalValue: 10
   xp:
     m_InternalValue: 0
-  xpADar: 200
+  lvl:
+    m_InternalValue: 1
+  xpADar:
+    m_InternalValue: 200
   cuerpoNave: {fileID: 3855516087868537012}
 --- !u!114 &8943799741961390412
 MonoBehaviour:
@@ -328,14 +336,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.0559299
-  m_Height: 2.9067783
+  m_Height: 3.4541054
   m_Direction: 2
-  m_Center: {x: 0.0023311377, y: -0.13627744, z: 0.5841329}
+  m_Center: {x: 0.0023311377, y: -0.13627744, z: 0.85779643}
 --- !u!143 &6079410260767502783
 CharacterController:
   m_ObjectHideFlags: 0
@@ -378,7 +386,7 @@ MonoBehaviour:
   CameraPosition: {fileID: 1168139979959700487}
   speed: 5
   rotationSpeed: 100
-  acceleration: 2
+  acceleration: 3
   deceleration: 1
   maxSpeed: 10
   currentSpeed: 0

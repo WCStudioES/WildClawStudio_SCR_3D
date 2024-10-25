@@ -17,8 +17,8 @@ public class Meteorito : NetworkBehaviour, ICanGetDamage
     public float escalaMaxima = 4f;
     public float escalaMinima = 2f;
     
-    [FormerlySerializedAs("hp")] public NetworkVariable<int> hpActual = new NetworkVariable<int>(100); // Vida actual del meteorito
-    [FormerlySerializedAs("xpDada")] public NetworkVariable<int> xpADar = new NetworkVariable<int>(100); // Experiencia que da el meteorito al destruirlo
+    public NetworkVariable<int> hpActual = new NetworkVariable<int>(100); // Vida actual del meteorito
+    public NetworkVariable<int> xpADar = new NetworkVariable<int>(100); // Experiencia que da el meteorito al destruirlo
 
     private void Start()
     {
@@ -50,7 +50,7 @@ public class Meteorito : NetworkBehaviour, ICanGetDamage
     {
         if (IsServer)
         {
-            dueñoDaño.xp.Value += xpADar.Value;
+            dueñoDaño.GetXP(xpADar.Value);
             Debug.Log("XpDada del meteorito: " + xpADar.Value);
             Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             gameObject.SetActive(false);
@@ -84,6 +84,7 @@ public class Meteorito : NetworkBehaviour, ICanGetDamage
         if (IsServer)
         {
             //int hpAponer
+            
             hpActual.Value = hpTotal;
             RestaurarMeteoritoClientRpc();
         }

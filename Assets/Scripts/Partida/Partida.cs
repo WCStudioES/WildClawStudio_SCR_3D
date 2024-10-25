@@ -21,7 +21,8 @@ public class Partida : NetworkBehaviour
     [SerializeField] public List<ControladorDelJugador> jugadores;
     
     //METEORITOS
-    [SerializeField] public List<Meteorito> meteoritos;
+    public GameObject EmptyContenedorDeMeteoritos; //Empty contenedor de los meteoritos en la escena
+    [SerializeField] public Meteorito[] meteoritos; //Lista con los meteoritos
     
     //RONDAS GANADAS
     [SerializeField] public int[] rondasGanadas;
@@ -57,7 +58,7 @@ public class Partida : NetworkBehaviour
             {
                 jugadores[i].opcionesJugador.desactivarMovimiento();
                 if(IsServer)
-                    jugadores[i].restaurarNaves(puntosDeSpawn[i]);
+                    jugadores[i].resetDeRonda(puntosDeSpawn[i]);
                 jugadores[i].naveDestruida = false;
             }
         }
@@ -181,6 +182,9 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
+        //Obtener todos los meteoritos del propio mapa
+        meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
+        //Debug.Log(meteoritos.Length);
         
         iniciarRonda();
         
