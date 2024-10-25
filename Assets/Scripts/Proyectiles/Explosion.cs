@@ -26,7 +26,7 @@ namespace DefaultNamespace.Proyectiles
             if (target != null)
             {
                 //Debug.Log("Entro al if de target");
-                target.GetDamage(dmg);
+                //target.GetDamage(dmg);
             }
         }
         

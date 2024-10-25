@@ -3,47 +3,73 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Meteorito : NetworkBehaviour, ICanGetDamage
 {
-    public NetworkVariable<int> hp = new NetworkVariable<int>(100); // Vida inicial del meteorito
+    public int hpTotal = 100;
+    [FormerlySerializedAs("hp")] public NetworkVariable<int> hpActual = new NetworkVariable<int>(100); // Vida actual del meteorito
+    [FormerlySerializedAs("xpDada")] public NetworkVariable<int> xpADar = new NetworkVariable<int>(100); // Experiencia que da el meteorito al destruirlo
 
     private void Start()
     {
         if (IsServer)
         {
-            hp.Value = 100;
+            hpActual.Value = 100;
+            xpADar.Value = 100;
         }
     }
 
     // M�todo para recibir da�o en el meteorito
-    public void GetDamage(int dmg)
+    public void GetDamage(int dmg, ControladorDelJugador dueñoDaño)
     {
         if (IsServer)
         {
-            hp.Value -= dmg;
-            Debug.Log("Vida del meteorito: " + hp.Value);
+            hpActual.Value -= dmg;
+            Debug.Log("Vida del meteorito: " + hpActual.Value);
 
             // Si la vida llega a 0, destruir el meteorito
-            if (hp.Value <= 0)
+            if (hpActual.Value <= 0)
             {
-                DestruirMeteorito();
+                DestruirMeteorito(dueñoDaño);
             }
         }
     }
 
     // Metodo para destruir el meteorito
-    private void DestruirMeteorito()
+    private void DestruirMeteorito(ControladorDelJugador dueñoDaño)
     {
-        
-        gameObject.SetActive(false);
-        DestruirMeteoritoClientRpc();
+        if (IsServer)
+        {
+            dueñoDaño.xp.Value += xpADar.Value;
+            Debug.Log("XpDada del meteorito: " + xpADar.Value);
+            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
+            gameObject.SetActive(false);
+            DestruirMeteoritoClientRpc();
+            Invoke("RestaurarMeteorito", 1f); 
+        }
     }
 
     [ClientRpc]
     private void DestruirMeteoritoClientRpc()
     {
-        
         gameObject.SetActive(false);
+    }
+
+    public void RestaurarMeteorito()
+    {
+        gameObject.SetActive(true);
+        if (IsServer)
+        {
+            hpActual.Value = hpTotal;
+            RestaurarMeteoritoClientRpc();
+        }
+    }
+    
+    [ClientRpc]
+    private void RestaurarMeteoritoClientRpc()
+    {
+        
+        gameObject.SetActive(true);
     }
 }

@@ -4,6 +4,6 @@ namespace DefaultNamespace
 {
     public interface ICanGetDamage
     {
-        public void GetDamage(int damage);
+        public void GetDamage(int damage, ControladorDelJugador jugador);
     }
 }

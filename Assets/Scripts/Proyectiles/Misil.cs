@@ -12,7 +12,7 @@ public class Misil : Proyectil
     protected void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
-        if (other.gameObject != NaveDueña && NaveDueña != null && activo == false)
+        if (other.gameObject != CuerpoNaveDueña && CuerpoNaveDueña != null && activo == false)
         {
             Debug.Log("Dentro del if diferente");
             activo = true;
@@ -32,7 +32,7 @@ public class Misil : Proyectil
             //Cargamos la explosion
             explosionScript.Crear(dmg);
             //Manda destruir al cliente
-            DestruirProyectilClientRpc();
+            //DestruirProyectilClientRpc();
             NetworkManager.Destroy(gameObject, 0.1f);
         }
     }

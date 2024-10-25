@@ -26,9 +26,13 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
     public bool isMoving = false; // Indica si la tecla de movimiento está presionada
     private float rotationInput = 0f; // Almacena el input de rotación
-    public NetworkVariable<int> hp = new NetworkVariable<int>(100);
+    
+    public NetworkVariable<int> hp = new NetworkVariable<int>(100); //Vida de la nave
+    public NetworkVariable<int> xp = new NetworkVariable<int>(00); //Experiencia de la nave
+    
+    [SerializeField] private int xpADar = 200; //Experiencia que da al otro jugador al destruir la nave
 
-    public GameObject cuerpoNave;
+    public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
@@ -123,7 +127,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     }
 
     // Función que aplica daño a la nave
-    public void GetDamage(int dmg)
+    public void GetDamage(int dmg, ControladorDelJugador dueñoDaño)
     {
         hp.Value -= dmg;  // Resta la cantidad de daño a la vida de la nave
         Debug.Log("Vida actual de la nave: " + hp);
@@ -131,6 +135,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (hp.Value <= 0)
         {
+            dueñoDaño.xp.Value += xpADar;
+            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             //Pierdes;
         }
     }
@@ -194,6 +200,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             //Si no puede disparar hace return
             if (ComprobadorDeCadencia() == false) { return;}
 
+            //Si es el dobleyectil, dispara por los dos cañones asociados
             if (tipoProyectil == 2)
             {
                 // Crear el proyectil solo en el servidor
@@ -202,15 +209,16 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
                 // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
                 Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
-                proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave, IsServer);
+                proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave, this, IsServer);
             
                 Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
-                proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave, IsServer);
+                proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave, this, IsServer);
 
                 // El proyectil se destruirá automáticamente tras 2 segundos
                 Destroy(proyectil1, 2f);
                 Destroy(proyectil2, 2f);
-
+                
+                //Spawnea proyectil en el cliente
                 SpawnProyectilClientRpc(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
                 SpawnProyectilClientRpc(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
             }
@@ -221,11 +229,12 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
                 // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
                 Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-                proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave, IsServer);
+                proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave, this, IsServer);
 
                 // El proyectil se destruirá automáticamente tras 2 segundos
                 Destroy(proyectil, 2f);
 
+                //Spawnea proyectil en el cliente
                 SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
             }
         
@@ -241,7 +250,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 
         // Configurar la dirección del proyectil en el cliente
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-        proyectilScript.Inicializar(direccion, cuerpoNave, IsServer);
+        proyectilScript.Inicializar(direccion, cuerpoNave,this , IsServer);
 
         // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
         Destroy(proyectil, 2f);
