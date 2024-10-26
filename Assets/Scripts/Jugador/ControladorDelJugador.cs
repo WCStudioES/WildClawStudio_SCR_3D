@@ -1,9 +1,12 @@
 using System;
 using DefaultNamespace;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
 {
@@ -43,6 +46,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     public NetworkVariable<int> lvl = new NetworkVariable<int>(1); //Nivel de la nave
     [SerializeField] NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
 
+
+    public Image barraDeVida; //Gameobject de la barra de vida
     public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
@@ -83,7 +88,17 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             //RESTAURA LA VIDA DE LA NAVE
             hp.Value = vidaInicial;
         }
+        UpdateHealthBarClientRpc(hp.Value);
     }
+    //Funcion que maneja la barra de vida
+    [ClientRpc]
+    public void UpdateHealthBarClientRpc(int vida)
+    {
+        float healthPercentage = vida / (float) vidaInicial;
+        Debug.Log(healthPercentage);
+        barraDeVida.fillAmount = healthPercentage;
+    }
+    
 
     private void Update()
     {
@@ -168,7 +183,6 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     public void GetDamage(int dmg, ControladorDelJugador dueñoDaño)
     {
         hp.Value -= (dmg - armadura.Value);  // Resta la cantidad de daño a la vida de la nave
-        Debug.Log("Vida actual de la nave: " + hp);
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (hp.Value <= 0)
@@ -177,6 +191,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
             Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             //Pierdes;
         }
+        UpdateHealthBarClientRpc(hp.Value); //Actualizar barra de vida
+        Debug.Log("Vida actual de la nave: " + hp);
     }
     
     //Funcion que gestiona la obtención de xp del jugador
@@ -308,8 +324,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
                 Destroy(proyectil, 2f);
 
                 //Spawnea proyectil en el cliente
-                if(!IsHost)
-                    SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
+                SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
             }
         
     }
@@ -319,15 +334,18 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     [ClientRpc]
     private void SpawnProyectilClientRpc(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
     {
-        // Crear el proyectil en el cliente
-        GameObject proyectil = NetworkManager.Instantiate(proyectilEnUso, posicion, rotacion);
+        if(!IsServer)
+        {
+            // Crear el proyectil en el cliente
+            GameObject proyectil = NetworkManager.Instantiate(proyectilEnUso, posicion, rotacion);
 
-        // Configurar la dirección del proyectil en el cliente
-        Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-        proyectilScript.Inicializar(direccion, cuerpoNave,this , IsServer);
+            // Configurar la dirección del proyectil en el cliente
+            Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+            proyectilScript.Inicializar(direccion, cuerpoNave,this , IsServer);
 
-        // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
-        Destroy(proyectil, 2f);
+            // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
+            Destroy(proyectil, 2f);
+        }
     }
 
 }

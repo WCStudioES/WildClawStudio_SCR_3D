@@ -202,5 +202,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 20
   speed: 10
-  cadencia: 0.25
+  cadencia: 1.75
   tipo: 2
