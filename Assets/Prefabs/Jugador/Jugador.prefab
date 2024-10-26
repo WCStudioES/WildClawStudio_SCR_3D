@@ -921,7 +921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6723531352860989920, guid: 0f5906f284d183345be509410435e234, type: 3}
       propertyPath: m_text
-      value: RONDA GANADA
+      value: ROUND WON
       objectReference: {fileID: 0}
     - target: {fileID: 6723531352860989920, guid: 0f5906f284d183345be509410435e234, type: 3}
       propertyPath: m_margin.z
@@ -1040,7 +1040,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 680438376769043922, guid: c584cafe6d98ea04dabeb41a4c2f5990, type: 3}
       propertyPath: m_text
-      value: RONDA PERDIDA
+      value: ROUND LOST
       objectReference: {fileID: 0}
     - target: {fileID: 680438376769043922, guid: c584cafe6d98ea04dabeb41a4c2f5990, type: 3}
       propertyPath: m_margin.x
