@@ -1068,6 +1068,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nave1SCR3D
       objectReference: {fileID: 0}
+    - target: {fileID: 928614289835047176, guid: 013c2c7fe5ef43b4893df75d3e9ba3df, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f05e618c29861e47bafb3cd1b5f1886, type: 2}
+    - target: {fileID: 3539348963703470615, guid: 013c2c7fe5ef43b4893df75d3e9ba3df, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0f05e618c29861e47bafb3cd1b5f1886, type: 2}
+    - target: {fileID: 3539348963703470615, guid: 013c2c7fe5ef43b4893df75d3e9ba3df, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 55793e7e4675a684e8b3a4c371023660, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
