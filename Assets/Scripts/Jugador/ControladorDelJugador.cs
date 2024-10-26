@@ -129,6 +129,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
                     if (context.performed)
                     {
                         isMoving = true;  // Activa el movimiento continuo cuando la tecla se presiona
+                        Debug.Log("");
                     }
                     else if (context.canceled)
                     {
@@ -307,7 +308,8 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
                 Destroy(proyectil, 2f);
 
                 //Spawnea proyectil en el cliente
-                SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
+                if(!IsHost)
+                    SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
             }
         
     }
