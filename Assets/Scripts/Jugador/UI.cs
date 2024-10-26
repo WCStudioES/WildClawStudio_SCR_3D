@@ -6,11 +6,13 @@ public class UI : NetworkBehaviour
     
     [SerializeField] private ControladorDelJugador CJugador;
     [SerializeField] private OpcionesJugador opcionesJugador;
+    [SerializeField] private CustomizationManager customizationManager;
     
     [SerializeField]private GameObject LogIn;
     [SerializeField]private GameObject Personalizacion;
     [SerializeField]private GameObject BuscandoPartida;
     [SerializeField]private GameObject Instrucciones;
+    [SerializeField]private GameObject Build;
     [SerializeField]private GameObject EnPartida;
     [SerializeField]private GameObject Victoria;
     [SerializeField]private GameObject VictoriaRonda;
@@ -238,6 +240,24 @@ public class UI : NetworkBehaviour
     }
 
     ////////////////////////////////////////////
+
+    // RELACIONADAS CON LA PERSONALIZACIÓN ////
+
+    public void AbrirPopUpBuild()
+    {
+        if (IsOwner)
+        {
+            Build.SetActive(true);
+        }
+    }
+
+    public void CerrarPopUpBuild()
+    {
+        if (IsOwner)
+        {
+            Build.SetActive(false);
+        }
+    }
 
     // El cliente llama a esto para unirse a la cola de matchmaking
     [ServerRpc]
