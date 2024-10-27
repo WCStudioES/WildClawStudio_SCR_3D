@@ -159,6 +159,11 @@ Diseño de la nave **CARGO QUEEN**:
  <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/CargoQueen.png"> <br>
 </p>
 
+Diseño de otras naves múltiples:
+<p align="center">
+ <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Concept_coloresNaves.png"> <br>
+</p>
+
 Seguidamente, se pueden visualizar dos diseños sencillos de los dos entornos importantes (ring de combate y hangar para personalizar la nave):
 <p align="center">
  <img width=400 heigth=400 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/RingCombate.png">
