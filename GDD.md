@@ -1,6 +1,7 @@
 <p align="center">
  <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/SCRLogoNegro.png"> <br>
 </p>
+LinkTree con los enlaces del proyecto:(https://linktr.ee/wildclawstudio)
 
 # Índice
 ---
