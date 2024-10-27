@@ -46,9 +46,10 @@
          * [Anastasia Ihnatsenka Shakhova](#anastasia-ihnatsenka-shakhova)
          * [José Antonio González Mesado](#josé-antonio-gonzález-mesado)
          * [Jesús Bastante López](#jesús-bastante-lópez)
-         * [Jorge Juán Xuclá Esparza](#jorge-juán-xuclá-esparza)
-         * [Miguel Ángel Jimenez Montemayor](#miguel-ángel-jimenez-montemayor)
+         * [Jorge Juan Xuclá Esparza](#jorge-juan-xuclá-esparza)
+         * [Miguel Ángel Jiménez Montemayor](#miguel-ángel-jiménez-montemayor)
      * [Trabajo colectivo realizado](#trabajo-colectivo-realizado)
+ 20. [Control de Versionado](#control-de-versionado)
 
 # Introducción
 ---
@@ -360,43 +361,79 @@ A continuación se detallan las fechas estimadas.
 ## Trabajo individual realizado
 ### Anastasia Ihnatsenka Shakhova
 #### Versión Alfa
-Content
+Mi trabajo ha consistido en generar el matrial audiovisual para las redes sociales, el control de calidad y la estructura del gdd, el control del aspecto final de la página web, la creación de algunos concepts de naves y el diseño inicial de las interfaces.
+
+Considero que he podido plasmar bien la estética que buscábamos del juego. Sin embargo, he de admitir que ha habido fallos de comunicación donde no he comprendido quién formaba parte del equipo de arte a gestionar o ciertos elementos de funcionalidad del juego para generar los diseños de las interfaces y se ha tenido que subsanar cuanto antes.
+
 #### Versión Beta
 Content
 #### Versión Gold
 Content
 ### José Antonio González Mesado
 #### Versión Alfa
-Content
+Me he encargado fundamentalmente de la infraestructura de red, la lógica de la partida y los controles. En menor medida he revisado y parcheado las funcionalidades de movimiento y disparo de la nave, así como el funcionamiento y diseño de las interfaces.
+ 
+Esta forma de trabajar me ha permitido trabajar más rápido en ciertas áreas, pero debido a la falta de comunicación se han tenido que ir adaptando distintas partes para que se diera un correcto funcionamiento del conjunto.
+
+Para las siguientes iteraciones del proyecto habría que mejorar la comunicación o definir mejor las cosas antes de ponerse a trabajar.
+
 #### Versión Beta
 Content
 #### Versión Gold
 Content
 ### Jesús Bastante López
 #### Versión Alfa
-Content
+Me he encargado del game design; la programación proyectiles, la barra de vida, la experiencia y elementos varios sobre la partida; he sido coresponsable de las redes sociales y he ayudadado en la sección del portfolio en la página web.
+
+Aunque se ha mejorado la idea principal del juego a lo largo de esta iteración, me ha faltado comunicación dentro del equipo y el GDD. Además de definir mejor las especificaciones, pues esto ha llevado a confusiones a la hora de trabajar e irregularidades en diferentes secciones. 
+
+Por otra parte, se ha conseguido implementar la gran mayoría de ideas; por lo que, en cuanto a trabajo realizado se refiere, ha sido correcto.
+
 #### Versión Beta
 Content
 #### Versión Gold
 Content
-### Jorge Juán Xuclá Esparza
+### Jorge Juan Xuclá Esparza
 #### Versión Alfa
-Content
+Para esta entrega, he hecho el modelo 3D de la primera nave y he programado el control de esta en ordenador, el matchmaking, la funcionalidad de la pestaña de personalización y el funcionamiento de los proyectiles básicos. También he escrito en el GDD el apartado de música y sonido, y en la página web del portfolio he hecho el footer.
+
+Creo que del trabajo realizado, se mantendrá para futuras entregas tanto el modelo de la nave como lo escrito en el GDD y la página web. Sin embargo, a nivel de programación, tendremos que hacer cambios para mantener el código más limpio, organizado y mejorar el funcionamiento de las mecánicas. Por ejemplo habrá que cambiar los controles de la nave, los cuales se retocarán para que sean más cómodos y suaves
 #### Versión Beta
 Content
 #### Versión Gold
 Content
-### Miguel Ángel Jimenez Montemayor
+### Miguel Ángel Jiménez Montemayor
 #### Versión Alfa
-Content
+Para esta entrega, me he encargado principalmente de realizar varios conceptos de naves; además de aportar mis datos para la página web e ideas para el pase de batalla y otras interfaces. En las siguientes fases, procederé a desarrollar los modelos 3D basados en estos conceptos.
+
+Considero que necesito mejorar mi organización para las próximas etapas, lo cual me permitirá obtener mejores resultados. Me hubiera gustado tener al menos un concepto más pulido y uno o dos modelos completos en esta entrega. Para la siguiente fase, intentaré completar dos naves por semana y pulir mis concept art.
+
 #### Versión Beta
 Content
 #### Versión Gold
 Content
 ## Trabajo colectivo realizado
 #### Versión Alfa
-Content
+Como equipo hemos sido capaces de completar la alfa incluyendo la funcionalidad base del juego para conseguir el flujo principal de este siendo, además, la primera vez en crear un juego multijugador desde cero por completo. Ello incluye toda la programación referente a la batalla interna del juego y las interfaces necesarias para acceder a esta. Además, hemos conseguido pulir la idea del juego que queremos y comprender la dirección que llevará este proyecto.
+
+Por primera vez en esta carrera hemos tenido un problema de comunicación que hemos notado en el equipo y que ha afectado al desarrollo del proyecto. Por suerte, hemos comprendido este fallo y hemos conseguido empezar a arreglarlo justo antes de la entrega del primer prototipo. Ello implica que para las siguientes entregas nos esforzaremos más de cara a mantener una comunicación más abierta y preparar una mejor planificación previa antes de comenzar cada uno de los prototipos siguientes.
+
 #### Versión Beta
 Content
 #### Versión Gold
 Content
+
+# Control de Versionado
+-----------------------
+| Versión | Trabajo |
+|-------|-------------|
+|  0.1.0 | Implementada la infraestructura de red, pueden conectarse dos clienteso |
+|  0.2.0 | Implementada una primera versión de las interfaces |
+|  0.3.0 | Implementado el movimiento y los atributos de las naves |
+|  0.4.0 | Implementado comportamiento de los proyectiles |
+|  0.5.0 | Implementada la lógica de la partida, puede jugarse una partida de principio a fin |
+|  0.6.0 | Implementados controles táctiles y con mando |
+|  0.7.0 | Implementado el comportamiento de los meteoritos |
+|  0.8.0 | Implementada una versión funcional del mapa de juego |
+|  0.9.0 | Implementado el sistema de nivel de las naves en la partida |
+|  0.10.0 | Implementada una primera aproximación a las interfaces de personalización y partida |
