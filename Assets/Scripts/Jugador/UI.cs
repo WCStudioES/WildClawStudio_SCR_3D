@@ -30,6 +30,8 @@ public class UI : NetworkBehaviour
         matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
         if(IsOwner && opcionesJugador.ActivarUI)
             ActivarUI();
+        if(!IsHost)
+            GameObject.Find("FondoTestUI").SetActive(false);
     }
 
     //TODAS ESTAS FUNCIONES NECESITAN MÁS FUNCIONALIDAD, ESTO ES UN PLACEHOLDER

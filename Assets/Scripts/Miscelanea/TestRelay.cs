@@ -20,6 +20,7 @@ namespace Test
         public TextMeshProUGUI codigo;
 
         [SerializeField]private GameObject UIServidor;
+        public GameObject Fondo;
         private async void Start()
         {
             await UnityServices.InitializeAsync();
@@ -55,7 +56,7 @@ namespace Test
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
-                    OcultarUIServidor();
+                    OcultarUIServidor(true);
                 }
                 else
                     NetworkManager.Singleton.StartServer();
@@ -85,7 +86,7 @@ namespace Test
                 
                 codigo.text = joinCode;
                 
-                OcultarUIServidor();
+                OcultarUIServidor(false);
                 setFrameLimit(false);
             }
             catch (RelayServiceException e)
@@ -110,9 +111,11 @@ namespace Test
         }
 
         //OCULTA LA UI DEL SERVIDOR A LOS CLIENTES
-        private void OcultarUIServidor()
+        private void OcultarUIServidor(bool isHost)
         {
             UIServidor.SetActive(false);
+            //if(!isHost)
+                //Fondo.SetActive(false);
         }
         
         //ESTABLECE EL LIMITE DE FPS
