@@ -74,11 +74,23 @@ Space Combat Rush 3D se basará fuertemente en el juego ya creado previamente Sp
 
 La pantalla de juego consistirá en un entorno cerrado (un mundo con límites) que simulará el espacio. Aquí el jugador podrá encontrar al enemigo al que tendrá que enfrentarse (el otro jugador con el que ha sido emparejado en un 1vs1, se replanteará en un futuro si aumentarlo a batallas por equipos) y elementos como meteoritos y debris espacial (elementos que el jugador podrá destruir disparándoles).
 
-El usuario jugará en tercera persona desde una vista cenital controlando una nave. Podrá personalizar su nave con las skins básicas o adquiriendo, con los pases de batalla, skins especiales. En un principio estas skins serán meramente estéticas, pero se reevaluará en el futuro si añadir efectos especiales que puedan tener algunas.
+El usuario jugará en tercera persona desde una vista cenital controlando una nave. Esta nave se personalizará antes de empezar la partida, donde el jugador puede tanto escoger una nave con sus propias habilidades, como personalizar esa propia nave con clases de proyectiles o apoyos. Además, el jugador podrá hacer o uso de las skins básicas para la personalización o adquiriendo, con los pases de batalla, skins especiales. En un principio estas skins serán meramente estéticas, pero se reevaluará en el futuro si añadir efectos especiales que puedan tener algunas.
 
-Además, el jugador podrá adquirir power-ups a base de la destrucción de los meteoritos que le puedan prestar una boost o ayuda temporal para luchar contra su enemigo. Se plantea también, para revisiones futuras, la adición de boosters especiales que aparezcan en el mapa como drops con aviso para obligar una lucha más encarecida entre los jugadors.
+Una vez en partida, el objetivo del jugador es acabar con el enemigo. Para ello, debe destruir meteoritos y enemigos para conseguir experiencia; la cual usará para subir de nivel su nave y conseguir habilidades para poder acabar con su enemigo. A vista de futuro, se plantea la inclusión de boosters especiales que aparezcan en el mapa como drops con aviso para obligar una lucha más encarecida entre los jugadors.
 ## Descripción de mecánicas de juego
-El juego principalmente tendrá como mecánicas la destrucción de la nave enemiga y la de meteoritos o debris del entorno para quitarlos del medio y/o conseguir boosters. El jugador controlará su nave en movimiento y disparo.
+Mecánicas prepartida:
+1. El jugador escoge un personaje/nave, la cual posee sus propias estadísticas y habilidades.
+2. El jugador escoge una skin del personaje.
+3. El jugador escoge una mejora de apoyo.
+4. El jugador escoge una mejora de arma.
+
+Mecánicas en partida:
+1. La victoria de la partida consiste en ganar un mejor de 3 rondas.
+2. Cada ronda la gana quién destruya la nave del rival.
+3. Los jugadores comienzan en extremos opuestos de la arena.
+4. Los jugadores usan su arma para destruir al rival y los meteoritos distribuidos en la arena (ambas les dan experiencia).
+5. La experiencia se traduce en subidas de nivel y este nivel, de cada jugador, se comparte entre rondas.
+6. Las subidas de nivel aportan mejoras de estadísticas, desbloquean habilidades y desbloquean las mejoras elegidas en la pantalla prepartida.
 ## Controles
 Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WAD (donde W es para acelerar y AD es para el control de la dirección, no se puede volar hacia atrás). Para la versión en móvil se utilzan dos botones táctiles para girar a izquierda y derecha y un tercer botón para acelerar. 
 
