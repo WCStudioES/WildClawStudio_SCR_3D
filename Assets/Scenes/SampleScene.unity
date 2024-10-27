@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 65284396}
   - component: {fileID: 65284395}
   m_Layer: 5
-  m_Name: Fondo
+  m_Name: FondoTestUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
