@@ -19,9 +19,9 @@ namespace DefaultNamespace.Proyectiles
         {
             Debug.Log(other.gameObject.name);
             //Al colisionar comprueba si el otro ente puede recibir daño
-            ICanGetDamage target = other.gameObject.GetComponentInParent<ICanGetDamage>();
+            IDamageable target = other.gameObject.GetComponentInParent<IDamageable>();
             if (target == null)
-                { other.gameObject.GetComponent<ICanGetDamage>();}
+                { other.gameObject.GetComponent<IDamageable>();}
             Debug.Log(target);
             if (target != null)
             {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -8,14 +9,22 @@ using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
+public class NetworkedPlayer : NetworkBehaviour, IDamageable
 {
     //CONTROLADOR DE LA NAVE
-    [SerializeField] public CController nave;
+    [SerializeField] public ControladorNave nave;
     
+    //INFORMACIÓN DEL USUARIO
+    public string userName;
+    public int battlePassLevel;
     //CONTIENE LAS OPCIONES DE CONFIGURACION DEL JUGADOR
     public OpcionesJugador opcionesJugador;
-    
+
+    //LISTA CON LAS NAVES Y CUÁLES ESTÁN DESBLOQUEADAS
+    public List<IPlayerShip> allShips;
+    public List<int> unlockedShips;
+    public int actualShip;
+
     //INDICA SI LA NAVE HA SIDO DESTRUIDA O NO
     //TODO AÚN SIN UTILIZAR, UTILIZAR CUANDO SE IMPLEMENTE PERDER VIDA
     public bool naveDestruida = false;
@@ -180,7 +189,7 @@ public class ControladorDelJugador : NetworkBehaviour, ICanGetDamage
     }
 
     // Función que aplica daño a la nave
-    public void GetDamage(int dmg, ControladorDelJugador dueñoDaño)
+    public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
         hp.Value -= (dmg - armadura.Value);  // Resta la cantidad de daño a la vida de la nave
 

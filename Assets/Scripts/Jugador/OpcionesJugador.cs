@@ -15,7 +15,7 @@ public class OpcionesJugador : NetworkBehaviour
     public bool movimientoActivado = false;
 
     //CONTROLADOR DEL JUGADOR
-    public ControladorDelJugador controladorDelJugador;
+    public NetworkedPlayer controladorDelJugador;
 
     //CHARACTER CONTROLLER DE LA NAVE
     public CharacterController controladorDeLaNave;

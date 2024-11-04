@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Meteorito : NetworkBehaviour, ICanGetDamage
+public class Meteorito : NetworkBehaviour, IDamageable
 {
     public int hpTotal = 100;
     
@@ -30,7 +30,7 @@ public class Meteorito : NetworkBehaviour, ICanGetDamage
     }
 
     // M�todo para recibir da�o en el meteorito
-    public void GetDamage(int dmg, ControladorDelJugador dueñoDaño)
+    public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
         if (IsServer)
         {
@@ -46,7 +46,7 @@ public class Meteorito : NetworkBehaviour, ICanGetDamage
     }
 
     // Metodo para destruir el meteorito
-    private void DestruirMeteorito(ControladorDelJugador dueñoDaño)
+    private void DestruirMeteorito(NetworkedPlayer dueñoDaño)
     {
         if (IsServer)
         {

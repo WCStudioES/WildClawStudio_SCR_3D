@@ -18,7 +18,7 @@ public class Partida : NetworkBehaviour
     public int ronda = 1;
     
     //JUGADORES
-    [SerializeField] public List<ControladorDelJugador> jugadores;
+    [SerializeField] public List<NetworkedPlayer> jugadores;
     
     //METEORITOS
     public GameObject EmptyContenedorDeMeteoritos; //Empty contenedor de los meteoritos en la escena

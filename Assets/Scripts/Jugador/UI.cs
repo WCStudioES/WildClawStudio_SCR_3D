@@ -4,7 +4,7 @@ using UnityEngine;
 public class UI : NetworkBehaviour
 {
     
-    [SerializeField] private ControladorDelJugador CJugador;
+    [SerializeField] private NetworkedPlayer CJugador;
     [SerializeField] private OpcionesJugador opcionesJugador;
     [SerializeField] private CustomizationManager customizationManager;
     

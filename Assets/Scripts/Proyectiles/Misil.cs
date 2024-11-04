@@ -9,7 +9,7 @@ public class Misil : Proyectil
 {
     [SerializeField] private GameObject explosion; //Prefab de explosion para instanciar al petar
     private bool activo = false; //Variable apra ver si el misil ha explotado ya
-    protected void OnTriggerEnter(Collider other)
+    new protected void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
         if (other.gameObject != CuerpoNaveDueña && CuerpoNaveDueña != null && activo == false)

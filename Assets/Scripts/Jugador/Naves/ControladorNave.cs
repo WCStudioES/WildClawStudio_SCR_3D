@@ -5,11 +5,11 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class CController : NetworkBehaviour
+public class ControladorNave : NetworkBehaviour
 {
     public CharacterController controller;
-    private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     private float rotacion = 0f; // Valor para la rotación sobre el eje Y (izquierda/derecha)
+    private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     [SerializeField] private Transform CameraPosition;
 
     public float speed = 5f; // Velocidad máxima de movimiento
@@ -20,6 +20,7 @@ public class CController : NetworkBehaviour
     public float currentSpeed = 0f; // Velocidad actual
 
     [SerializeField] private OpcionesJugador opcionesJugador;
+    [SerializeField] public PlayerShip playerShip;
 
     void Start()
     {
@@ -71,7 +72,7 @@ public class CController : NetworkBehaviour
         direccionMovimiento = Vector3.zero;
         rotacion = 0f;
     }
-    
+
     public void SetToSpawn(GameObject spawnPoint)
     {
         if (IsServer)
@@ -80,7 +81,7 @@ public class CController : NetworkBehaviour
             this.transform.rotation = spawnPoint.transform.rotation;
         }
 
-        
+
     }
 
     public void AssignMainCamera()
