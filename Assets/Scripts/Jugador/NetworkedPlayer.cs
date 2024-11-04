@@ -21,7 +21,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public OpcionesJugador opcionesJugador;
 
     //LISTA CON LAS NAVES Y CUÁLES ESTÁN DESBLOQUEADAS
-    public List<IPlayerShip> allShips;
+    public List<GameObject> allShips;
     public List<int> unlockedShips;
     public int actualShip;
 
@@ -125,6 +125,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             {
                 OnMoveServerRpc();
             }
+            else
+            {
+                OnStopMoveServerRpc();
+            }
 
             // Llama a la función de rotación si hay input de rotación
             if (rotationInput != 0f)
@@ -132,13 +136,15 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 //Debug.Log("ROTANDO");
                 OnRotateServerRpc(rotationInput);
             }
-        }
 
-        if (isShooting)
-        {
-            OnShootServerRpc();
+            //Disparos
+            if (isShooting)
+            {
+                Debug.Log("Está disparando");
+                OnShootServerRpc();
+            }
+            shotTimer += Time.deltaTime;
         }
-        shotTimer += Time.deltaTime;
     }
 
     // RECOGE LOCALMENTE EL INPUT DEL JUGADOR
@@ -165,6 +171,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     if (context.performed)
                     {
                         isShooting = true;
+                        Debug.Log("Disparando");
                     }
                     else if (context.canceled)
                     {
@@ -246,6 +253,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         nave.Move(); // Llama a la función de movimiento en la nave
     }
 
+    [ServerRpc]
+    private void OnStopMoveServerRpc()
+    {
+        nave.Stop(); // Llama a la función de movimiento en la nave
+    }
+
     // GESTIONA LA ROTACIÓN DE LA NAVE
     [ServerRpc]
     private void OnRotateServerRpc(float input)
@@ -294,6 +307,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         //TODO CAMBIAR ESTO DESPUES
         //hp.Value = 0;
+        Debug.Log("DISPARANDO EN SERVIDOR");
 
             //Si no puede disparar hace return
             if (ComprobadorDeCadencia() == false) { return;}
@@ -345,6 +359,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if(!IsServer)
         {
+            Debug.Log("DISPARANDO EN CLIENTE");
             // Crear el proyectil en el cliente
             GameObject proyectil = NetworkManager.Instantiate(proyectilEnUso, posicion, rotacion);
 

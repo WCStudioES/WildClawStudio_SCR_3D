@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPlayerShip", menuName = "PlayerShip")]
 public abstract class PlayerShip : ScriptableObject, IPlayerShip
 {
-    public string name;
+    public string shipName;
     public string description;
     public Sprite sprite;
 
@@ -20,12 +20,13 @@ public abstract class PlayerShip : ScriptableObject, IPlayerShip
     public int maxLevel = 10;
 
     public ControladorNave shipController;
+    public List<Transform> proyectileSpawns;
 
     //public IAbility ability;
 
     public GameObject shipModel;
-    List<Sprite> skins;
-    List<Sprite> chromas;
+    public List<Sprite> skins;
+    public List<Sprite> chromas;
 
     public abstract void FireProjectile();
     public abstract void GainExperience();

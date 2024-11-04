@@ -300,15 +300,17 @@ MonoBehaviour:
   userName: 
   battlePassLevel: 0
   opcionesJugador: {fileID: 8943799741961390412}
-  unlockedShips: 
+  allShips:
+  - {fileID: 9009656381970856950, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+  unlockedShips: 00000000
   actualShip: 0
   naveDestruida: 0
   proyectilBasicoPrefab: {fileID: 2900116416517425973, guid: 9f0998e7a4d79534baeca8dda1512221, type: 3}
   proyectilMejoradoPrefab: {fileID: 2900116416517425973, guid: 78aeb277a4258a948a3b97cc00582f20, type: 3}
   puntoDisparo:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8815063865149270246}
+  - {fileID: 8209680016942676799}
+  - {fileID: 6278193102551856835}
   isMoving: 0
   armaduraInicial: 1
   vidaInicial: 100
@@ -340,7 +342,6 @@ MonoBehaviour:
   UIJugador: {fileID: 6638038336228515080}
   movimientoActivado: 1
   controladorDelJugador: {fileID: 8966913476814297344}
-  controladorDeLaNave: {fileID: 3400799042402716164}
   networkTransformNave: {fileID: 267552892726785935}
   nave: {fileID: 6790401246741635552}
 --- !u!1 &1802947082293860187
@@ -770,10 +771,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 7920162123970451669}
     m_Modifications:
     - target: {fileID: 2419646844504898801, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
-      propertyPath: controller
-      value: 
-      objectReference: {fileID: 3400799042402716164}
-    - target: {fileID: 2419646844504898801, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
       propertyPath: CameraPosition
       value: 
       objectReference: {fileID: 1809417803898633385}
@@ -839,7 +836,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9009656381970856950, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 3400799042402716164}
+      addedObject: {fileID: 885753400344126793}
   m_SourcePrefab: {fileID: 100100000, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
 --- !u!114 &189341083263067879 stripped
 MonoBehaviour:
@@ -873,37 +870,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4190798110982055615, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
   m_PrefabInstance: {fileID: 2536902398993209878}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &6278193102551856835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8364446848260943061, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+  m_PrefabInstance: {fileID: 2536902398993209878}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6790401246741635552 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9009656381970856950, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
   m_PrefabInstance: {fileID: 2536902398993209878}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &3400799042402716164
-CharacterController:
+--- !u!54 &885753400344126793
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6790401246741635552}
-  m_Material: {fileID: 0}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Height: 6
-  m_Radius: 1.6
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0.8}
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
+--- !u!4 &8209680016942676799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5970162531689177385, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+  m_PrefabInstance: {fileID: 2536902398993209878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8815063865149270246 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6440577014927274736, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+  m_PrefabInstance: {fileID: 2536902398993209878}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2540918671127752322
 PrefabInstance:
   m_ObjectHideFlags: 0

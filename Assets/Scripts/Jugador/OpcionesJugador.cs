@@ -17,9 +17,6 @@ public class OpcionesJugador : NetworkBehaviour
     //CONTROLADOR DEL JUGADOR
     public NetworkedPlayer controladorDelJugador;
 
-    //CHARACTER CONTROLLER DE LA NAVE
-    public CharacterController controladorDeLaNave;
-    
     //NETWORK TRANSFORM DE LA NAVE
     public NetworkTransform networkTransformNave;
     
@@ -42,14 +39,12 @@ public class OpcionesJugador : NetworkBehaviour
     public void desactivarMovimiento()
     {
         movimientoActivado = false;
-        controladorDeLaNave.enabled = false;
         networkTransformNave.Interpolate = false;
     }
     
     public void reactivarMovimiento()
     {
         movimientoActivado = true;
-        controladorDeLaNave.enabled = true;
         networkTransformNave.Interpolate = true;
     }
 

@@ -9,7 +9,7 @@ public class NaveRavager : PlayerShip
 {
     public override void InitializeStats()
     {
-        name = "Ravager";
+        shipName = "Ravager";
         description = "Está guapa";
         sprite = Resources.Load<Sprite>("Assets/Sprites/Ravager.png");
 

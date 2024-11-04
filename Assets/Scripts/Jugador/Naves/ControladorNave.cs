@@ -1,94 +1,101 @@
 using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class ControladorNave : NetworkBehaviour
 {
-    public CharacterController controller;
-    private float rotacion = 0f; // Valor para la rotación sobre el eje Y (izquierda/derecha)
+    private Rigidbody rb;
     private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     [SerializeField] private Transform CameraPosition;
 
-    public float speed = 5f; // Velocidad máxima de movimiento
     public float rotationSpeed = 100f; // Velocidad de rotación
-    public float acceleration = 2f; // Aceleración
-    public float deceleration = 1f; // Desaceleración (fricción)
+    public float acceleration = 5f; // Aceleración
+    public float deceleration = 50f; // Desaceleración (fricción)
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
     public float currentSpeed = 0f; // Velocidad actual
+    private float targetRotation = 0f; // Rotación deseada en grados
 
     [SerializeField] private OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogError("No se encontró un Rigidbody en el objeto.");
+            return;
+        }
+
+        // Configurar el Rigidbody para evitar rotación automática
+        rb.freezeRotation = true;
+        rb.isKinematic = false;  // Asegúrate de que el Rigidbody no sea cinemático
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (opcionesJugador.movimientoActivado)
         {
-            // Aplicar la rotación
-            transform.Rotate(0, rotacion * Time.deltaTime, 0);
+            // Aplicar rotación suavemente usando Slerp para interpolación suave
+            Quaternion targetRotationQuaternion = Quaternion.Euler(0, targetRotation, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotationQuaternion, rotationSpeed * Time.fixedDeltaTime);
 
-            // Movimiento con inercia
-            if (direccionMovimiento.z != 0)
+            // Movimiento con aceleración y desaceleración
+            if (direccionMovimiento.z > 0)
             {
-                // Si hay input, acelera la nave
-                currentSpeed += acceleration * Time.deltaTime;
-                direccionMovimiento.z = 0;
+                // Acelerar si hay input
+                currentSpeed = Mathf.Min(currentSpeed + acceleration * Time.fixedDeltaTime, maxSpeed);
             }
             else
             {
-                // Si no hay input, desacelera la nave lentamente (simula fricción)
-                currentSpeed -= deceleration * Time.deltaTime;
+                // Desacelerar si no hay input
+                currentSpeed = Mathf.Max(currentSpeed - deceleration * Time.fixedDeltaTime, 0f);
             }
 
-            // Limitar la velocidad actual para que no exceda el máximo
-            currentSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
-
-            // Movimiento hacia adelante en la dirección que mira la nave
-            Vector3 movimiento = currentSpeed * Time.deltaTime * transform.forward;
-            controller.Move(movimiento);
+            // Aplicar la velocidad calculada en la dirección hacia adelante
+            Vector3 movimiento = transform.forward * currentSpeed;
+            rb.MovePosition(rb.position + movimiento * Time.fixedDeltaTime);
         }
     }
 
     public void Move()
     {
-        //Debug.Log("Se mueve con: " + this.transform.rotation);
-        direccionMovimiento = new Vector3(0f, 0f, 1);
+        direccionMovimiento = Vector3.forward; // Apuntar hacia adelante
     }
 
     public void Rotate(float input)
     {
-        rotacion = input * rotationSpeed;
+        targetRotation = transform.eulerAngles.y + input * rotationSpeed * Time.deltaTime;
     }
 
     public void Stop()
     {
         direccionMovimiento = Vector3.zero;
-        rotacion = 0f;
     }
 
     public void SetToSpawn(GameObject spawnPoint)
     {
         if (IsServer)
         {
-            this.transform.position = spawnPoint.transform.position;
-            this.transform.rotation = spawnPoint.transform.rotation;
+            rb.position = spawnPoint.transform.position;
+            rb.rotation = spawnPoint.transform.rotation;
+            currentSpeed = 0f;
+            rb.velocity = Vector3.zero; // Asegurar que el Rigidbody esté detenido al reaparecer
         }
-
-
     }
 
     public void AssignMainCamera()
     {
-        Debug.Log("Busca la cámara");
         CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
-        VC.Follow = CameraPosition;
-        VC.LookAt = this.transform;
+        if (VC != null)
+        {
+            VC.Follow = CameraPosition;
+            VC.LookAt = this.transform;
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró la cámara virtual Cinemachine.");
+        }
     }
 }
