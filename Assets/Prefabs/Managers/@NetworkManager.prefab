@@ -49,7 +49,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 3421170516887555794}
-    PlayerPrefab: {fileID: 7356203947258678736, guid: 60fad35a0b02f1848870e5543afa6be1, type: 3}
+    PlayerPrefab: {fileID: 1333945794948100029, guid: 9fba0f43f5648ad4a9c07d747934d76c, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: eb576c0db4e7ac940b0b1f844c4a2734, type: 2}
@@ -114,3 +114,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputField: {fileID: 0}
   codigo: {fileID: 0}
+  UIServidor: {fileID: 0}
+  Fondo: {fileID: 0}

@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c126c3698ddf844a245f31b63ca3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nave: {fileID: 0}
+  nave: {fileID: 189341083263067879}
   userName: 
   battlePassLevel: 0
   opcionesJugador: {fileID: 8943799741961390412}
@@ -323,7 +323,7 @@ MonoBehaviour:
   xpADar:
     m_InternalValue: 200
   barraDeVida: {fileID: 4257588489607751020}
-  cuerpoNave: {fileID: 0}
+  cuerpoNave: {fileID: 6790401246741635552}
 --- !u!114 &8943799741961390412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,9 +340,9 @@ MonoBehaviour:
   UIJugador: {fileID: 6638038336228515080}
   movimientoActivado: 1
   controladorDelJugador: {fileID: 8966913476814297344}
-  controladorDeLaNave: {fileID: 0}
-  networkTransformNave: {fileID: 0}
-  nave: {fileID: 0}
+  controladorDeLaNave: {fileID: 3400799042402716164}
+  networkTransformNave: {fileID: 267552892726785935}
+  nave: {fileID: 6790401246741635552}
 --- !u!1 &1802947082293860187
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +841,28 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 3400799042402716164}
   m_SourcePrefab: {fileID: 100100000, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+--- !u!114 &189341083263067879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2419646844504898801, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+  m_PrefabInstance: {fileID: 2536902398993209878}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6790401246741635552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38aacc9058cfe941943b372bc9af9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &267552892726785935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2342552104495230361, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
+  m_PrefabInstance: {fileID: 2536902398993209878}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6790401246741635552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &313888919095988852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2841713113847711842, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
