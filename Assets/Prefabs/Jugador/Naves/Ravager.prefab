@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 2342552104495230361}
   - component: {fileID: 1002654504860227124}
   - component: {fileID: 5755541716395267455}
+  - component: {fileID: 1588302312036562570}
   m_Layer: 0
   m_Name: Ravager
   m_TagString: Untagged
@@ -215,7 +216,7 @@ MonoBehaviour:
   maxSpeed: 10
   currentSpeed: 0
   opcionesJugador: {fileID: 0}
-  playerShip: {fileID: 11400000, guid: 0dff127f830de2e468484d1e6599bcae, type: 2}
+  playerShip: {fileID: 1588302312036562570}
 --- !u!114 &2342552104495230361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +298,37 @@ CapsuleCollider:
   m_Height: 5.3529663
   m_Direction: 1
   m_Center: {x: 0.01, y: -0.36679077, z: 0.51}
+--- !u!114 &1588302312036562570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9009656381970856950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0aa40994a675f640a7709c60c611874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipName: Ravager
+  description: 
+  sprite: {fileID: 21300000, guid: 5753d75945cbcb0429cd410a3037c525, type: 3}
+  actualMaxHealth: 0
+  actualHealth: 0
+  movementSpeed: 0
+  rotationSpeed: 0
+  armor: 0
+  actualLevel: 0
+  actualExperience: 0
+  maxLevel: 10
+  shipController: {fileID: 2419646844504898801}
+  proyectileSpawns:
+  - {fileID: 6440577014927274736}
+  - {fileID: 5970162531689177385}
+  - {fileID: 8364446848260943061}
+  shipModel: {fileID: 6076123672636491174}
+  skins: []
+  chromas: []
 --- !u!1001 &6382677748763736311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -370,6 +402,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 013c2c7fe5ef43b4893df75d3e9ba3df, type: 3}
+--- !u!1 &6076123672636491174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 013c2c7fe5ef43b4893df75d3e9ba3df, type: 3}
+  m_PrefabInstance: {fileID: 6382677748763736311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6852625839874858780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 013c2c7fe5ef43b4893df75d3e9ba3df, type: 3}

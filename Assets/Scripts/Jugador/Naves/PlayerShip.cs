@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewPlayerShip", menuName = "PlayerShip")]
-public abstract class PlayerShip : ScriptableObject, IPlayerShip
+public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 {
     public string shipName;
     public string description;
@@ -30,7 +29,7 @@ public abstract class PlayerShip : ScriptableObject, IPlayerShip
 
     public abstract void FireProjectile();
     public abstract void GainExperience();
-    public abstract void GetDamage(int damage, NetworkedPlayer jugador);
+    public abstract void GetDamage(int damage);
     public abstract void InitializeStats();
     public abstract void UseAbility();
 }

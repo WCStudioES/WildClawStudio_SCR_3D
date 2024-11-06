@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-public class NetworkedPlayer : NetworkBehaviour, IDamageable
+public class NetworkedPlayer : NetworkBehaviour
 {
     //CONTROLADOR DE LA NAVE
     [SerializeField] public ControladorNave nave;
@@ -38,7 +38,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     
     private bool isShooting = false; //Booleano para saber si el jugador esta disparando
     private float cadenciaDeDisparo; // cadencia de disparo del proyectil
-    private int tipoProyectil; // tipo de proyectil del prefab
     private float shotTimer = 0f; // Temporizador para la cadencia
     
     
@@ -140,8 +139,11 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //Disparos
             if (isShooting)
             {
-                Debug.Log("Está disparando");
-                OnShootServerRpc();
+                Debug.Log("Disparando");
+                if (ComprobadorDeCadencia()) // Verifica la cadencia en el cliente
+                {
+                    OnShootServerRpc(); // Solo llama a esta función si se cumple la cadencia
+                }
             }
             shotTimer += Time.deltaTime;
         }
@@ -159,7 +161,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     if (context.performed)
                     {
                         isMoving = true;  // Activa el movimiento continuo cuando la tecla se presiona
-                        Debug.Log("");
                     }
                     else if (context.canceled)
                     {
@@ -243,7 +244,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         proyectilEnUso = proyectilNuevo;
         cadenciaDeDisparo = proyectilNuevo.GetComponent<Proyectil>().cadencia;
-        tipoProyectil = proyectilNuevo.GetComponent<Proyectil>().tipo;
     }
 
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
@@ -284,7 +284,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     private bool ComprobadorDeCadencia()
     {
-        //Debug.Log("Cadencia");
+        Debug.Log("Cadencia");
 
         // Verificar si ya ha pasado el tiempo suficiente para disparar nuevamente
         if (shotTimer >= cadenciaDeDisparo)
@@ -293,79 +293,60 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             shotTimer = 0f;
             
             // Llamar a la función para disparar
-            //Debug.Log("ComprobadorCadencia aceptado");
+            Debug.Log("ComprobadorCadencia aceptado");
             return true;
         }
         else
         {
-            //Debug.Log("ComprobadorCadencia denegado");
+            Debug.Log("ComprobadorCadencia denegado: " + shotTimer + ", " + cadenciaDeDisparo);
             return false;
         }
     }
+
     [ServerRpc]
     private void OnShootServerRpc()
     {
-        //TODO CAMBIAR ESTO DESPUES
-        //hp.Value = 0;
-        Debug.Log("DISPARANDO EN SERVIDOR");
-
-            //Si no puede disparar hace return
-            if (ComprobadorDeCadencia() == false) { return;}
-
-            //Si es el dobleyectil, dispara por los dos cañones asociados
-            if (tipoProyectil == 2)
-            {
-                // Crear el proyectil solo en el servidor
-                GameObject proyectil1 = NetworkManager.Instantiate(proyectilEnUso, puntoDisparo[1].position, puntoDisparo[1].rotation);
-                GameObject proyectil2 = NetworkManager.Instantiate(proyectilEnUso, puntoDisparo[2].position, puntoDisparo[2].rotation);
-
-                // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
-                Proyectil proyectilScript1 = proyectil1.GetComponent<Proyectil>();
-                proyectilScript1.Inicializar(puntoDisparo[1].forward, cuerpoNave, this, IsServer);
-            
-                Proyectil proyectilScript2 = proyectil2.GetComponent<Proyectil>();
-                proyectilScript2.Inicializar(puntoDisparo[2].forward, cuerpoNave, this, IsServer);
-
-                // El proyectil se destruirá automáticamente tras 2 segundos
-                Destroy(proyectil1, 2f);
-                Destroy(proyectil2, 2f);
-                
-                //Spawnea proyectil en el cliente
-                SpawnProyectilClientRpc(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
-                SpawnProyectilClientRpc(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
-            }
-            else
-            {
-                // Crear el proyectil solo en el servidor
-                GameObject proyectil = Instantiate(proyectilEnUso, puntoDisparo[0].position, puntoDisparo[0].rotation);
-
-                // Obtener el componente del proyectil y establecer la dirección (forward de la nave)
-                Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-                proyectilScript.Inicializar(puntoDisparo[0].forward, cuerpoNave, this, IsServer);
-
-                // El proyectil se destruirá automáticamente tras 2 segundos
-                Destroy(proyectil, 2f);
-
-                //Spawnea proyectil en el cliente
-                SpawnProyectilClientRpc(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
-            }
-        
+        // Dependiendo del tipo de proyectil, gestiona uno o dos disparos
+        if (proyectilEnUso.GetComponent<Proyectil>().type == Proyectil.Type.Double) // Proyectil doble
+        {
+            CrearYEnviarProyectil(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
+            CrearYEnviarProyectil(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
+        }
+        else // Proyectil único
+        {
+            Debug.Log("DISPARANDO EN SERVIDOR");
+            CrearYEnviarProyectil(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
+        }
     }
 
+    // Método auxiliar para crear el proyectil en el servidor y replicarlo en los clientes
+    private void CrearYEnviarProyectil(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
+    {
+        Debug.Log("Proyectil creado");
+        GameObject proyectil = Instantiate(proyectilEnUso, posicion, rotacion);
+        Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
-    // GESTIONA LA REPLICACIÓN DE CADA DISPARO EN LOS CLIENTES
+        // Inicializamos el proyectil en el servidor
+        proyectilScript.Inicializar(direccion, cuerpoNave, this, IsServer);
+
+        // Programamos la destrucción del proyectil después de 2 segundos
+        Destroy(proyectil, 2f);
+
+        // Enviamos los datos de posición y dirección a los clientes
+        SpawnProyectilClientRpc(posicion, rotacion, direccion);
+    }
+
     [ClientRpc]
     private void SpawnProyectilClientRpc(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
     {
-        if(!IsServer)
+        if (!IsServer) // Solo se ejecuta en los clientes
         {
             Debug.Log("DISPARANDO EN CLIENTE");
-            // Crear el proyectil en el cliente
-            GameObject proyectil = NetworkManager.Instantiate(proyectilEnUso, posicion, rotacion);
+            GameObject proyectil = Instantiate(proyectilEnUso, posicion, rotacion);
 
-            // Configurar la dirección del proyectil en el cliente
+            // Configura la dirección del proyectil en el cliente
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-            proyectilScript.Inicializar(direccion, cuerpoNave,this , IsServer);
+            proyectilScript.Inicializar(direccion, cuerpoNave, this, IsServer);
 
             // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
             Destroy(proyectil, 2f);

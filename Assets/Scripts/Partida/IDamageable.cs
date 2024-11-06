@@ -4,6 +4,6 @@ namespace DefaultNamespace
 {
     public interface IDamageable
     {
-        public void GetDamage(int damage, NetworkedPlayer jugador);
+        public void GetDamage(int damage);
     }
 }
