@@ -23,7 +23,12 @@ public class NetworkedPlayer : NetworkBehaviour
     //LISTA CON LAS NAVES Y CUÁLES ESTÁN DESBLOQUEADAS
     public List<GameObject> allShips;
     public List<int> unlockedShips;
-    public int actualShip;
+    public int selectedShip;
+
+    //LISTA CON LOS PROYECTILES Y LOS QUE ESTÁN DISPONIBLES PARA CADA NAVE
+    public List<GameObject> allProjectiles;
+    public List<int> possibleProjectiles;
+    public int selectedProjectile;
 
     //INDICA SI LA NAVE HA SIDO DESTRUIDA O NO
     //TODO AÚN SIN UTILIZAR, UTILIZAR CUANDO SE IMPLEMENTE PERDER VIDA
@@ -239,13 +244,6 @@ public class NetworkedPlayer : NetworkBehaviour
         
     }
 
-    //Funcion que cambia el arma de la nave y aplica sus estdisticas
-    private void CambiarArma(GameObject proyectilNuevo)
-    {
-        proyectilEnUso = proyectilNuevo;
-        cadenciaDeDisparo = proyectilNuevo.GetComponent<Proyectil>().cadencia;
-    }
-
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
     [ServerRpc]
     private void OnMoveServerRpc()
@@ -291,14 +289,13 @@ public class NetworkedPlayer : NetworkBehaviour
         {
             // Reiniciar el temporizador
             shotTimer = 0f;
-            
-            // Llamar a la función para disparar
-            Debug.Log("ComprobadorCadencia aceptado");
+
+            //Debug.Log("ComprobadorCadencia aceptado");
             return true;
         }
         else
         {
-            Debug.Log("ComprobadorCadencia denegado: " + shotTimer + ", " + cadenciaDeDisparo);
+            //Debug.Log("ComprobadorCadencia denegado: " + shotTimer + ", " + cadenciaDeDisparo);
             return false;
         }
     }
@@ -353,4 +350,71 @@ public class NetworkedPlayer : NetworkBehaviour
         }
     }
 
+
+    //////////////////////////////////
+    /// PERSONALIZACIÓN DE LA NAVE ///
+    //////////////////////////////////
+
+    // Método que el cliente usa para aplicar personalización local y luego notificar al servidor
+    public void ApplyCustomization(int shipIndex, int projectileIndex)
+    {
+        if (!IsOwner) return; // Asegurarse de que solo el propietario pueda aplicar cambios
+
+        // Aplica los cambios visualmente en el cliente propietario
+        ApplyCustomizationLocally(shipIndex, projectileIndex);
+
+        // Notifica al servidor para sincronizar esta personalización con otros clientes
+        ApplyCustomizationServerRpc(shipIndex, projectileIndex);
+    }
+
+    // Aplicación local de la personalización
+    private void ApplyCustomizationLocally(int shipIndex, int projectileIndex)
+    {
+        selectedShip = shipIndex;
+        selectedProjectile = projectileIndex;
+
+        GameObject selectedShipPrefab = allShips[selectedShip];
+        GameObject selectedProjectilePrefab = allProjectiles[selectedProjectile];
+
+        CambiarNave(selectedShipPrefab);
+        CambiarArma(selectedProjectilePrefab);
+
+        Debug.Log($"Personalización aplicada localmente: Nave {selectedShip}, Proyectil {selectedProjectile}");
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex, ServerRpcParams serverRpcParams = default)
+    {
+        Debug.Log("Personalización recibida en el servidor");
+
+        // Reenvía la personalización a todos los clientes
+        UpdateCustomizationClientRpc(shipIndex, projectileIndex);
+    }
+
+    [ClientRpc]
+    private void UpdateCustomizationClientRpc(int shipIndex, int projectileIndex)
+    {
+        Debug.Log("Aplicando personalización en todos los clientes");
+
+        // Aplica los cambios visuales en cada cliente
+        ApplyCustomizationLocally(shipIndex, projectileIndex);
+    }
+
+    // Método para cambiar la nave actual en el juego
+    private void CambiarNave(GameObject navePrefab)
+    {
+        if (cuerpoNave != null)
+        {
+            Destroy(cuerpoNave); // Destruye la nave anterior si existe
+        }
+        cuerpoNave = Instantiate(navePrefab, transform.position, transform.rotation);
+        cuerpoNave.transform.SetParent(this.transform); // Asegura que la nave está vinculada al jugador
+    }
+
+    // Método para cambiar el arma y aplicar sus estadísticas
+    private void CambiarArma(GameObject proyectilNuevo)
+    {
+        proyectilEnUso = proyectilNuevo;
+        cadenciaDeDisparo = proyectilNuevo.GetComponent<Proyectil>().cadencia;
+    }
 }

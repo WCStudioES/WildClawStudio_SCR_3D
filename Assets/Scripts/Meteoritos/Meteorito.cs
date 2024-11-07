@@ -96,9 +96,4 @@ public class Meteorito : NetworkBehaviour, IDamageable
         
         gameObject.SetActive(true);
     }
-
-    public void GetDamage(int damage)
-    {
-        throw new System.NotImplementedException();
-    }
 }

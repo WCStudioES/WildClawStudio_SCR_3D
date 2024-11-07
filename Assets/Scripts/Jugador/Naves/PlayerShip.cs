@@ -23,13 +23,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     //public IAbility ability;
 
-    public GameObject shipModel;
-    public List<Sprite> skins;
-    public List<Sprite> chromas;
+    public List<Sprite> skinSprites;
 
     public abstract void FireProjectile();
     public abstract void GainExperience();
-    public abstract void GetDamage(int damage);
+    public abstract void GetDamage(int damage, NetworkedPlayer dmgDealer);
     public abstract void InitializeStats();
     public abstract void UseAbility();
 }

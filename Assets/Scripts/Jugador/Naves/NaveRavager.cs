@@ -39,7 +39,7 @@ public class NaveRavager : PlayerShip
         throw new NotImplementedException();
     }
 
-    public override void GetDamage(int damage)
+    public override void GetDamage(int damage, NetworkedPlayer dmgDealer)
     {
         throw new NotImplementedException();
     }

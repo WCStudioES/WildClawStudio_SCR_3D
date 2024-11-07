@@ -116,9 +116,9 @@ GameObject:
   - component: {fileID: 5885389955668711114}
   - component: {fileID: -4469014341038946469}
   - component: {fileID: 4444886098121531734}
-  - component: {fileID: 8293641650054176796}
+  - component: {fileID: 5222089699688527509}
   m_Layer: 0
-  m_Name: ProyectilTest
+  m_Name: ProyectilBasico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   SpawnWithObservers: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 0
---- !u!114 &8293641650054176796
+--- !u!114 &5222089699688527509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,10 +197,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2900116416517425973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4735eb033dc87448a6972005d680f81, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ab2d99a62f0b5944b98259182a6a092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 30
-  speed: 15
+  sprite: {fileID: -1249462656, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
+  dmg: 20
+  speed: 10
   cadencia: 1.75
-  tipo: 0
+  type: 0

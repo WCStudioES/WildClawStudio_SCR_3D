@@ -7,18 +7,18 @@ using UnityEngine.UI;
 
 public class CustomizationManager : MonoBehaviour
 {
+    //NETWORKED PLAYER
+    [SerializeField] private NetworkedPlayer networkedPlayer;
+
     // ASPECTO DE LA NAVE
     public Image equippedCraftImage;
     public Image equippedSkinImage;
-    public Image equippedChromaImage;
 
     public int equippedCraftIndex;
     public int equippedSkinIndex;
-    public int equippedChromaIndex;
 
     [SerializeField] private List<Sprite> craftImages;
     [SerializeField] private List<Sprite> skinImages;
-    [SerializeField] private List<Sprite> chromaImages;
 
 
     // BUILD DEL JUGADOR
@@ -41,13 +41,36 @@ public class CustomizationManager : MonoBehaviour
         //PONE TODO A 0 MIENTRAS NO GUARDAMOS LAS OPCIONES
         equippedCraftIndex = 0;
         equippedSkinIndex = 0;
-        equippedChromaIndex = 0;
         equippedAmmoIndex = 0;
         equippedSupportIndex = 0;
 
+        UpdateUILists();
         UpdateImages();
     }
 
+    private void UpdateUILists()
+    {
+        // Carga los sprites de las listas del NetworkedPlayer
+        if (networkedPlayer != null)
+        {
+            Debug.Log("Actualiza las listas de la UI");
+            // Asegúrate de que las listas están vacías antes de cargar los nuevos sprites
+            craftImages.Clear();
+            ammoImages.Clear();
+
+            // Cargar sprites de availableShips en craftImages
+            foreach (var ship in networkedPlayer.allShips)
+            {
+                craftImages.Add(ship.GetComponent<PlayerShip>().sprite);
+            }
+
+            // Cargar sprites de availableAmmo en ammoImages
+            foreach (var ammo in networkedPlayer.allProjectiles)
+            {
+                ammoImages.Add(ammo.GetComponent<Proyectil>().sprite);
+            }
+        }
+    }
 
     //CAMBIA EL ÍNDICE DEL EQUIPAMIENTO (AL PULSAR UN BOTÓN)
     public void ChangeEquipment(int index, bool isNext)
@@ -67,14 +90,10 @@ public class CustomizationManager : MonoBehaviour
                 equippedIndex = equippedSkinIndex;
                 break;
             case 2:
-                maxIndex = chromaImages.Count - 1;
-                equippedIndex = equippedChromaIndex;
-                break;
-            case 3:
                 maxIndex = ammoImages.Count - 1;
                 equippedIndex = equippedAmmoIndex;
                 break;
-            case 4:
+            case 3:
                 maxIndex = supportImages.Count - 1;
                 equippedIndex = equippedSupportIndex;
                 break;
@@ -98,12 +117,9 @@ public class CustomizationManager : MonoBehaviour
                 equippedSkinIndex = equippedIndex;
                 break;
             case 2:
-                equippedChromaIndex = equippedIndex;
-                break;
-            case 3:
                 equippedAmmoIndex = equippedIndex;
                 break;
-            case 4:
+            case 3:
                 equippedSupportIndex = equippedIndex;
                 break;
         }
@@ -121,7 +137,6 @@ public class CustomizationManager : MonoBehaviour
         // Actualiza las imágenes de la nave y de la build del jugador
         equippedCraftImage.sprite = craftImages[equippedCraftIndex];
         equippedSkinImage.sprite = skinImages[equippedSkinIndex];
-        equippedChromaImage.sprite = chromaImages[equippedChromaIndex];
         equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex];
         equippedSupportImage.sprite = supportImages[equippedSupportIndex];
 
@@ -158,6 +173,15 @@ public class CustomizationManager : MonoBehaviour
             popUpImages[0].sprite = equipmentImages[leftIndex];
             popUpImages[1].sprite = equipmentImages[equippedIndex];
             popUpImages[2].sprite = equipmentImages[rightIndex];
+        }
+    }
+
+    public void UpdateNetworkedPlayerEquipment()
+    {
+        // Llama al `NetworkedPlayer` para actualizar la personalización
+        if (networkedPlayer != null && networkedPlayer.IsOwner)
+        {
+            networkedPlayer.ApplyCustomization(equippedCraftIndex, equippedAmmoIndex);
         }
     }
 
