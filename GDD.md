@@ -264,6 +264,11 @@ Tras estos primeros diseños, según van surgiendo necesidades, se rediseñan al
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/6-Modificada.png"> <br>
 </p>
 
+Con ello, generamos su aspecto final y creamos la sprite sheet que usaremos en Unity para montar dichas interfaces:
+<p align="center">
+ <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/UI_SpriteSheet_ConFondo.png"> <br>
+</p>
+
 ## Diagrama de flujo
 Teniendo el diseño de las interfaces conceptuales, se diseña además cómo se pasa dentre las distintas pantallas. Para ello, creamos el siguiente flujograma.
 
