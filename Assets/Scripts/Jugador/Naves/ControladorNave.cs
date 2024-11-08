@@ -1,11 +1,11 @@
 using System.Collections;
 using Cinemachine;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ControladorNave : NetworkBehaviour
 {
-    private Rigidbody rb;
     private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     [SerializeField] private Transform CameraPosition;
 
@@ -15,47 +15,48 @@ public class ControladorNave : NetworkBehaviour
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
     public float currentSpeed = 0f; // Velocidad actual
     private float targetRotation = 0f; // Rotación deseada en grados
+    public Vector3 velocity = new Vector3(0f, 0f, 0f);
 
     [SerializeField] private OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            Debug.LogError("No se encontró un Rigidbody en el objeto.");
-            return;
-        }
-
-        // Configurar el Rigidbody para evitar rotación automática
-        rb.freezeRotation = true;
-        rb.isKinematic = false;  // Asegúrate de que el Rigidbody no sea cinemático
+        opcionesJugador = GetComponentInParent<OpcionesJugador>();
+        AssignMainCamera();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        if (opcionesJugador.movimientoActivado)
+        if (opcionesJugador != null)
         {
-            // Aplicar rotación suavemente usando Slerp para interpolación suave
-            Quaternion targetRotationQuaternion = Quaternion.Euler(0, targetRotation, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotationQuaternion, rotationSpeed * Time.fixedDeltaTime);
-
-            // Movimiento con aceleración y desaceleración
-            if (direccionMovimiento.z > 0)
+            if (opcionesJugador.movimientoActivado && IsServer)
             {
-                // Acelerar si hay input
-                currentSpeed = Mathf.Min(currentSpeed + acceleration * Time.fixedDeltaTime, maxSpeed);
-            }
-            else
-            {
-                // Desacelerar si no hay input
-                currentSpeed = Mathf.Max(currentSpeed - deceleration * Time.fixedDeltaTime, 0f);
-            }
+                // Aplicar rotación suavemente usando Slerp para interpolación suave
+                Quaternion targetRotationQuaternion = Quaternion.Euler(0, targetRotation, 0);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotationQuaternion, rotationSpeed * Time.fixedDeltaTime);
 
-            // Aplicar la velocidad calculada en la dirección hacia adelante
-            Vector3 movimiento = transform.forward * currentSpeed;
-            rb.MovePosition(rb.position + movimiento * Time.fixedDeltaTime);
+                Debug.Log("DIRECCION: " + direccionMovimiento);
+                // Movimiento con aceleración y desaceleración
+                if (direccionMovimiento.z > 0)
+                {
+                    // Acelerar si hay input, pero limitamos a maxSpeed
+                    velocity += acceleration * Time.fixedDeltaTime * transform.forward;
+                    velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+                }
+                else
+                {
+                    // Desacelerar si no hay input, pero no permitimos que la velocidad sea negativa
+                    velocity -= deceleration * Time.fixedDeltaTime * transform.forward;
+                    if (velocity.magnitude < 0.01f)
+                    {
+                        velocity = Vector3.zero; // Detenemos por completo si es muy baja
+                    }
+                }
+
+                // Aplicar la velocidad calculada en la dirección hacia adelante
+                transform.position += velocity * Time.fixedDeltaTime;
+            }
         }
     }
 
@@ -78,10 +79,11 @@ public class ControladorNave : NetworkBehaviour
     {
         if (IsServer)
         {
-            rb.position = spawnPoint.transform.position;
-            rb.rotation = spawnPoint.transform.rotation;
+            Debug.Log("Set To Spawn: " + spawnPoint.transform.position);
+            transform.position = spawnPoint.transform.position;
+            transform.rotation = spawnPoint.transform.rotation;
             currentSpeed = 0f;
-            rb.velocity = Vector3.zero; // Asegurar que el Rigidbody esté detenido al reaparecer
+            //rb.velocity = Vector3.zero; // Asegurar que el Rigidbody esté detenido al reaparecer
         }
     }
 

@@ -143,6 +143,8 @@ public class CustomizationManager : MonoBehaviour
         // Actualiza las imágenes de los pop-ups de soporte y munición
         UpdatePopUpImages(popUpAmmoImages, ammoImages, equippedAmmoIndex);
         UpdatePopUpImages(popUpSupportImages, supportImages, equippedSupportIndex);
+
+        UpdateNetworkedPlayerEquipment();
     }
 
     private void UpdatePopUpImages(List<Image> popUpImages, List<Sprite> equipmentImages, int equippedIndex)

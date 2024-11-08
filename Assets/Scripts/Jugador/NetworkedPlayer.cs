@@ -13,6 +13,7 @@ public class NetworkedPlayer : NetworkBehaviour
 {
     //CONTROLADOR DE LA NAVE
     [SerializeField] public ControladorNave nave;
+    public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
     
     //INFORMACIÓN DEL USUARIO
     public string userName;
@@ -61,7 +62,6 @@ public class NetworkedPlayer : NetworkBehaviour
 
 
     public Image barraDeVida; //Gameobject de la barra de vida
-    public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
@@ -408,7 +408,16 @@ public class NetworkedPlayer : NetworkBehaviour
             Destroy(cuerpoNave); // Destruye la nave anterior si existe
         }
         cuerpoNave = Instantiate(navePrefab, transform.position, transform.rotation);
-        cuerpoNave.transform.SetParent(this.transform); // Asegura que la nave está vinculada al jugador
+        cuerpoNave.transform.SetParent(nave.transform);
+
+        cuerpoNave.GetComponent<PlayerShip>().shipController = nave;
+
+        nave.playerShip = cuerpoNave.GetComponent<PlayerShip>();
+
+        for (int i = 0; i < puntoDisparo.Length; i++)
+        {
+            puntoDisparo[i] = cuerpoNave.GetComponent<PlayerShip>().proyectileSpawns[i].transform;
+        }
     }
 
     // Método para cambiar el arma y aplicar sus estadísticas
