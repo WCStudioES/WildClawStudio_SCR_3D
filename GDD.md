@@ -257,7 +257,12 @@ Antes de diseñar los distintos elementos finales de los menús, se realizan uno
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/17.editado3.jpg"> <br>
 </p>
 
-A partir de estos diseños conceptuales, se procede a crear el material necesario para traducirlo a interfaces visuales atractivas.
+Tras estos primeros diseños, según van surgiendo necesidades, se rediseñan algunas pantallas. Principalmente la pantalla del menú principal donde se personaliza la nave y la pantalla del battle pass ya que no nos convencían los diseños.
+
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/13-Modificada.png">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/6-Modificada.png"> <br>
+</p>
 
 ## Diagrama de flujo
 Teniendo el diseño de las interfaces conceptuales, se diseña además cómo se pasa dentre las distintas pantallas. Para ello, creamos el siguiente flujograma.
