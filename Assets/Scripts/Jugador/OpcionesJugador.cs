@@ -55,7 +55,6 @@ public class OpcionesJugador : NetworkBehaviour
 
     public void rehabilitarNave()
     {
-        controladorDelJugador.nave.currentSpeed = 0;
         nave.SetActive(true);
     }
 

@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-public class NetworkedPlayer : NetworkBehaviour
+public class NetworkedPlayer : NetworkBehaviour, IDamageable
 {
     //CONTROLADOR DE LA NAVE
     [SerializeField] public ControladorNave nave;
@@ -24,7 +24,7 @@ public class NetworkedPlayer : NetworkBehaviour
     //LISTA CON LAS NAVES Y CUÁLES ESTÁN DESBLOQUEADAS
     public List<GameObject> allShips;
     public List<int> unlockedShips;
-    public int selectedShip;
+    public NetworkVariable<int> selectedShip;
 
     //LISTA CON LOS PROYECTILES Y LOS QUE ESTÁN DISPONIBLES PARA CADA NAVE
     public List<GameObject> allProjectiles;
@@ -36,14 +36,12 @@ public class NetworkedPlayer : NetworkBehaviour
     public bool naveDestruida = false;
     
     //VARIABLES DE DISPARO
-    [SerializeField] private GameObject proyectilBasicoPrefab; // Prefab del proyectil basico
-    [SerializeField] private GameObject proyectilMejoradoPrefab; // Prefab del proyectil escogido
-    private GameObject proyectilEnUso; // Prefab del proyectil escogido
+    private int proyectilBasico = 0; // Prefab del proyectil basico
+    private int proyectilMejorado; // Prefab del proyectil escogido
     
     [SerializeField] private Transform[] puntoDisparo; // Lugar donde se instancia el proyectil
     
     private bool isShooting = false; //Booleano para saber si el jugador esta disparando
-    private float cadenciaDeDisparo; // cadencia de disparo del proyectil
     private float shotTimer = 0f; // Temporizador para la cadencia
     
     
@@ -58,6 +56,7 @@ public class NetworkedPlayer : NetworkBehaviour
     public NetworkVariable<int> armadura = new NetworkVariable<int>(10); //Armadura de la nave
     public NetworkVariable<int> xp = new NetworkVariable<int>(00); //Experiencia de la nave
     public NetworkVariable<int> lvl = new NetworkVariable<int>(1); //Nivel de la nave
+    public NetworkVariable<int> projectile = new NetworkVariable<int> (0); //Proyectil usado
     [SerializeField] NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
 
 
@@ -67,13 +66,15 @@ public class NetworkedPlayer : NetworkBehaviour
 
     private void Start()
     {
-        CambiarArma(proyectilBasicoPrefab);
         if (IsOwner)
         {
             OnPlayerStartServerRpc();
             nave.AssignMainCamera();
         }
-        
+        else
+        {
+            CambiarNave(allShips[selectedShip.Value]);
+        }
     }
 
     //Funcion para resetear los valores predefinidos antes de empezar partida
@@ -84,9 +85,8 @@ public class NetworkedPlayer : NetworkBehaviour
             armadura.Value = armaduraInicial;
             xp.Value = 0;
             lvl.Value = 1;
+            projectile.Value = proyectilBasico;
         }
-        
-        CambiarArma(proyectilBasicoPrefab);
     }
     
     //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
@@ -115,6 +115,7 @@ public class NetworkedPlayer : NetworkBehaviour
 
     private void Update()
     {
+        //Debug.Log("Transform NetworkedPlayer: " + this.transform.position);
         if (!opcionesJugador.movimientoActivado)
         {
             isMoving = false;
@@ -224,7 +225,7 @@ public class NetworkedPlayer : NetworkBehaviour
         xp.Value += xpRecibida;
 
         //Lvl 3, aplicar mejoras
-        if (xp.Value >= 900 && lvl.Value < 3 )
+        if (xp.Value >= 900 && lvl.Value < 3)
         {
             Debug.Log("Level 3");
             armadura.Value += armadura.Value;
@@ -236,11 +237,11 @@ public class NetworkedPlayer : NetworkBehaviour
         else if (xp.Value >= 300 && lvl.Value < 2)
         {
             Debug.Log("Level 2");
-            CambiarArma(proyectilMejoradoPrefab);
+            CambiarArma(proyectilMejorado);
             armadura.Value += armadura.Value;
             xpADar.Value += 50;
             lvl.Value++;
-        } 
+        }
         
     }
 
@@ -282,10 +283,10 @@ public class NetworkedPlayer : NetworkBehaviour
 
     private bool ComprobadorDeCadencia()
     {
-        Debug.Log("Cadencia");
+        //Debug.Log("Cadencia");
 
         // Verificar si ya ha pasado el tiempo suficiente para disparar nuevamente
-        if (shotTimer >= cadenciaDeDisparo)
+        if (shotTimer >= allProjectiles[projectile.Value].GetComponent<Proyectil>().cadencia)
         {
             // Reiniciar el temporizador
             shotTimer = 0f;
@@ -304,14 +305,14 @@ public class NetworkedPlayer : NetworkBehaviour
     private void OnShootServerRpc()
     {
         // Dependiendo del tipo de proyectil, gestiona uno o dos disparos
-        if (proyectilEnUso.GetComponent<Proyectil>().type == Proyectil.Type.Double) // Proyectil doble
+        if (allProjectiles[projectile.Value].GetComponent<Proyectil>().type == Proyectil.Type.Double) // Proyectil doble
         {
             CrearYEnviarProyectil(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
             CrearYEnviarProyectil(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
         }
         else // Proyectil único
         {
-            Debug.Log("DISPARANDO EN SERVIDOR");
+            //Debug.Log("DISPARANDO EN SERVIDOR");
             CrearYEnviarProyectil(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
         }
     }
@@ -319,12 +320,12 @@ public class NetworkedPlayer : NetworkBehaviour
     // Método auxiliar para crear el proyectil en el servidor y replicarlo en los clientes
     private void CrearYEnviarProyectil(Vector3 posicion, Quaternion rotacion, Vector3 direccion)
     {
-        Debug.Log("Proyectil creado");
-        GameObject proyectil = Instantiate(proyectilEnUso, posicion, rotacion);
+        //Debug.Log("Proyectil creado");
+        GameObject proyectil = Instantiate(allProjectiles[projectile.Value], posicion, rotacion);
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
         // Inicializamos el proyectil en el servidor
-        proyectilScript.Inicializar(direccion, cuerpoNave, this, IsServer);
+        proyectilScript.Inicializar(direccion, nave.GetComponent<CapsuleCollider>(), this, IsServer);
 
         // Programamos la destrucción del proyectil después de 2 segundos
         Destroy(proyectil, 2f);
@@ -338,12 +339,12 @@ public class NetworkedPlayer : NetworkBehaviour
     {
         if (!IsServer) // Solo se ejecuta en los clientes
         {
-            Debug.Log("DISPARANDO EN CLIENTE");
-            GameObject proyectil = Instantiate(proyectilEnUso, posicion, rotacion);
+            //Debug.Log("DISPARANDO EN CLIENTE");
+            GameObject proyectil = Instantiate(allProjectiles[projectile.Value], posicion, rotacion);
 
             // Configura la dirección del proyectil en el cliente
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-            proyectilScript.Inicializar(direccion, cuerpoNave, this, IsServer);
+            proyectilScript.Inicializar(direccion, nave.GetComponent<CapsuleCollider>(), this, IsServer);
 
             // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
             Destroy(proyectil, 2f);
@@ -355,64 +356,60 @@ public class NetworkedPlayer : NetworkBehaviour
     /// PERSONALIZACIÓN DE LA NAVE ///
     //////////////////////////////////
 
-    // Método que el cliente usa para aplicar personalización local y luego notificar al servidor
-    public void ApplyCustomization(int shipIndex, int projectileIndex)
+    // ServerRpc que registra los cambios y los propaga a otros clientes
+    [ServerRpc]
+    public void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex)
     {
-        if (!IsOwner) return; // Asegurarse de que solo el propietario pueda aplicar cambios
-
-        // Aplica los cambios visualmente en el cliente propietario
-        ApplyCustomizationLocally(shipIndex, projectileIndex);
-
-        // Notifica al servidor para sincronizar esta personalización con otros clientes
-        ApplyCustomizationServerRpc(shipIndex, projectileIndex);
-    }
-
-    // Aplicación local de la personalización
-    private void ApplyCustomizationLocally(int shipIndex, int projectileIndex)
-    {
-        selectedShip = shipIndex;
+        selectedShip.Value = shipIndex;
         selectedProjectile = projectileIndex;
 
-        GameObject selectedShipPrefab = allShips[selectedShip];
-        GameObject selectedProjectilePrefab = allProjectiles[selectedProjectile];
+        ApplyCustomizationLocally(shipIndex, projectileIndex);
 
-        CambiarNave(selectedShipPrefab);
-        CambiarArma(selectedProjectilePrefab);
-
-        Debug.Log($"Personalización aplicada localmente: Nave {selectedShip}, Proyectil {selectedProjectile}");
+        ApplyCustomizationClientRpc(shipIndex, projectileIndex, OwnerClientId);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex, ServerRpcParams serverRpcParams = default)
+    // Aplicación local de la personalización (solo en el propietario)
+    public void ApplyCustomizationLocally(int shipIndex, int projectileIndex)
     {
-        Debug.Log("Personalización recibida en el servidor");
+        GameObject selectedShipPrefab = allShips[shipIndex];
 
-        // Reenvía la personalización a todos los clientes
-        UpdateCustomizationClientRpc(shipIndex, projectileIndex);
+        CambiarNave(selectedShipPrefab);  // Cambia la nave del propietario
+        CambiarArmaMejorada(projectileIndex);  // Cambia el proyectil del propietario
+
+        //Debug.Log($"Personalización aplicada localmente en el propietario: Nave {shipIndex}, Proyectil {projectileIndex}");
     }
 
     [ClientRpc]
-    private void UpdateCustomizationClientRpc(int shipIndex, int projectileIndex)
+    private void ApplyCustomizationClientRpc(int shipIndex, int projectileIndex, ulong ownerClientId)
     {
-        Debug.Log("Aplicando personalización en todos los clientes");
-
-        // Aplica los cambios visuales en cada cliente
-        ApplyCustomizationLocally(shipIndex, projectileIndex);
+        // Verifica si este cliente es el propietario que llamó al ServerRpc
+        if (NetworkManager.Singleton.LocalClientId == ownerClientId)
+        {
+            ApplyCustomizationLocally(shipIndex, projectileIndex);
+            //Debug.Log($"Personalización aplicada en el cliente propietario: Nave {shipIndex}, Proyectil {projectileIndex}");
+        }
+        else if(!IsOwner)
+        {
+            CambiarNave(allShips[shipIndex]);
+        }
     }
 
-    // Método para cambiar la nave actual en el juego
+    // Método para cambiar la nave en el propietario
     private void CambiarNave(GameObject navePrefab)
     {
         if (cuerpoNave != null)
         {
             Destroy(cuerpoNave); // Destruye la nave anterior si existe
         }
-        cuerpoNave = Instantiate(navePrefab, transform.position, transform.rotation);
+        cuerpoNave = Instantiate(navePrefab, nave.transform.position, nave.transform.rotation);
         cuerpoNave.transform.SetParent(nave.transform);
 
         cuerpoNave.GetComponent<PlayerShip>().shipController = nave;
 
-        nave.playerShip = cuerpoNave.GetComponent<PlayerShip>();
+        cuerpoNave.transform.position = Vector3.zero;
+        cuerpoNave.transform.localRotation = Quaternion.identity;
+
+        nave.AssignShip(cuerpoNave);
 
         for (int i = 0; i < puntoDisparo.Length; i++)
         {
@@ -420,10 +417,14 @@ public class NetworkedPlayer : NetworkBehaviour
         }
     }
 
-    // Método para cambiar el arma y aplicar sus estadísticas
-    private void CambiarArma(GameObject proyectilNuevo)
+    private void CambiarArma(int proyectilNuevo)
     {
-        proyectilEnUso = proyectilNuevo;
-        cadenciaDeDisparo = proyectilNuevo.GetComponent<Proyectil>().cadencia;
+        //Cambia la arma
+        projectile.Value = proyectilNuevo;
+    }
+
+    private void CambiarArmaMejorada(int proyectilNuevo)
+    {
+        proyectilMejorado = proyectilNuevo;
     }
 }

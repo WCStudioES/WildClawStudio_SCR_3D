@@ -11,6 +11,12 @@ public class NaveRavager : PlayerShip
         InitializeStats();
     }
 
+    private void Update()
+    {
+        //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
+        transform.localPosition = Vector3.zero;
+    }
+
     public override void InitializeStats()
     {
         shipName = "Ravager";

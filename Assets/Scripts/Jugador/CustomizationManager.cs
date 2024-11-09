@@ -180,10 +180,10 @@ public class CustomizationManager : MonoBehaviour
 
     public void UpdateNetworkedPlayerEquipment()
     {
-        // Llama al `NetworkedPlayer` para actualizar la personalización
         if (networkedPlayer != null && networkedPlayer.IsOwner)
         {
-            networkedPlayer.ApplyCustomization(equippedCraftIndex, equippedAmmoIndex);
+            // Llama al servidor para propagar los cambios a otros clientes
+            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedAmmoIndex);
         }
     }
 
