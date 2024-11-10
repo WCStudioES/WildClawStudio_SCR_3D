@@ -14,6 +14,7 @@ public class ControladorNave : NetworkBehaviour
     public float rotationSpeed = 100f; // Velocidad de rotación
     public float acceleration = 5f; // Aceleración
     public float deceleration = 50f; // Desaceleración (fricción)
+    private float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
 
     [SerializeField] private OpcionesJugador opcionesJugador;
@@ -31,59 +32,33 @@ public class ControladorNave : NetworkBehaviour
 
     void Update()
     {
-        //Debug.Log("Transform ControladorNave: " + this.transform.position);
-        if (opcionesJugador != null)
+        if (opcionesJugador != null && opcionesJugador.movimientoActivado && IsServer)
         {
-            if (opcionesJugador.movimientoActivado && IsServer)
+            // Si hay dirección de movimiento, acelerar
+            if (direccionMovimiento != Vector3.zero)
             {
-                //Debug.Log("VELOCIDAD: " + velocity);
+                Vector3 forwardDirection = transform.forward.normalized;
 
-                // Si hay dirección de movimiento, aceleramos
-                if (direccionMovimiento != Vector3.zero)
+                // Aumenta la velocidad en la dirección de movimiento
+                velocity += forwardDirection * acceleration * Time.deltaTime;
+
+                // Limitar la magnitud de la velocidad a maxSpeed
+                if (velocity.magnitude > maxSpeed)
                 {
-                    //Debug.Log("ACELERANDO");
-
-                    // Descomponer la dirección de movimiento en componentes x y z
-                    Vector3 forwardDirection = transform.forward.normalized;
-                    Vector3 rightDirection = transform.right.normalized;
-
-                    // Acelerar en cada componente x y z basado en la dirección
-                    velocity.x += acceleration * Time.deltaTime * forwardDirection.x;
-                    velocity.z += acceleration * Time.deltaTime * forwardDirection.z;
-
-                    // Limitar la velocidad a maxSpeed en cada componente
-                    velocity.x = Mathf.Clamp(velocity.x, -maxSpeed, maxSpeed);
-                    velocity.z = Mathf.Clamp(velocity.z, -maxSpeed, maxSpeed);
+                    velocity = velocity.normalized * maxSpeed;
                 }
-                else
-                {
-                    //Debug.Log("DECELERANDO");
-
-                    // Aplicar desaceleración en cada componente para que se acerque a 0
-                    if (Mathf.Abs(velocity.x) > 0.01f)
-                    {
-                        velocity.x = Mathf.MoveTowards(velocity.x, 0, deceleration * Time.deltaTime);
-                    }
-                    else
-                    {
-                        velocity.x = 0; // Detenemos completamente si es muy baja
-                    }
-
-                    if (Mathf.Abs(velocity.z) > 0.01f)
-                    {
-                        velocity.z = Mathf.MoveTowards(velocity.z, 0, deceleration * Time.deltaTime);
-                    }
-                    else
-                    {
-                        velocity.z = 0; // Detenemos completamente si es muy baja
-                    }
-                }
-
-                // Aplicar la velocidad calculada a la posición del objeto
-                transform.position += velocity * Time.deltaTime;
             }
+            else
+            {
+                // Decelerar para detenerse si no hay input de movimiento
+                velocity = Vector3.MoveTowards(velocity, Vector3.zero, deceleration * Time.deltaTime);
+            }
+
+            // Aplicar la velocidad calculada a la posición del objeto
+            transform.position += velocity * Time.deltaTime;
         }
     }
+
 
     public void Move()
     {
@@ -93,6 +68,16 @@ public class ControladorNave : NetworkBehaviour
     public void Rotate(float input)
     {
         transform.Rotate(0, input * rotationSpeed * Time.deltaTime, 0);
+
+        if (velocity.magnitude > 0.01f)
+        {
+            float angle = Vector3.Angle(transform.forward, velocity.normalized);
+
+            float reductionFactor = Mathf.Clamp01(1 - (angle / 180f));
+
+            // Multiplica el factor de reducción para hacer que el efecto sea más o menos fuerte
+            velocity *= Mathf.Lerp(1.0f, reductionFactor, reductionMultiplier);
+        }
     }
 
     public void Stop()
