@@ -15,6 +15,9 @@ LinkTree con los enlaces del proyecto:(https://linktr.ee/wildclawstudio)
     * [Descripción de mecánicas de juego](#descripción-de-mecánicas-de-juego)
     * [Controles](#controles)
     * [Objetivo](#objetivo)
+    * [Elementos del mapa](#elementos-del-mapa)
+    * [Mapas](#mapas)
+    * [Personajes](#personajes)
     * [Objetos, armas y power ups](#objetos-armas-y-power-ups)
  5. [Arte](#arte)
     * [Estética general del juego](#estética-general-del-juego)
@@ -57,13 +60,19 @@ LinkTree con los enlaces del proyecto:(https://linktr.ee/wildclawstudio)
 ## Concepto
 "Space Combat Rush" es un juego multijugador con vista cenital en el que dos o más jugadores se enfrentarán en batallas de naves espaciales en un campo de asteroides. Cada jugador controlará una nave y su misión será acabar con el resto de jugadores.
 ## Historia y trama
-Con el avance de la tecnología y la ingeniería espacial, la humanidad ha conseguido extenderse a través del cosmos. La población humana crece exponencialmente, los recursos obtenidos de las colonias son casi infinitos y las naves cada vez más extravagantes y potentes. En este contexto nació Space Combat Rush, el deporte más letal y espectacular a escala galáctica. La gloria y la fama esperan a nuestros pilotos en un emocionante combate 1vs1 lleno de metal, plasma y mucho fuego en el que se lo juegan todo.
+Con el avance de la tecnología y la ingeniería espacial, la humanidad se ha extendido por los vastos confines del cosmos. La población crece exponencialmente y, para subsistir, debe establecer colonias a través de la galaxia, en una constante búsqueda de nuevos y valiosos recursos para seguir esta expansión sin límites.
+
+Pero estos tiempos de prosperidad no han llegado solo a las grandes empresas y naciones que gobiernan la Gran Expansión, como es denominado el proceso de colonización espacial; el espacio también es lugar de piratas y bandidos. Los grupos de saqueadores asedian el comercio en todos los sectores conocidos, y por ello, la UGE (Unión de la Gran Expansión), la asociación terrícola encargada de regular el tránsito y seguridad espacial a lo largo del Dominio, ha declarado la guerra a los piratas, movilizando toda su flota contra ellos con el objetivo de restablecer la ley.
+
+Sin embargo, los bandidos no son su único enemigos; varias cultos a dioses antiguos del Infinito y civilizaciones perdidas del firmamento han surgido a lo largo del nuevo territorio. Con frecuencia, estos oscuros cultos secuestran inocentes para llevarlos a sus antiguos santuarios y sacrificarlos a sus divinidades. 
+
+En este contexto, varios grupos de renegados han encontrado refugio en el borde exterior, formando sus propias colonias y construyendo grandes estaciones. En ellas nació Space Combat Rush, el deporte mortal más famoso y lucrativo del Dominio. Cada piloto lucha en la arena con su propia nave, símbolo de su ferocidad y testimonio de sus combates, dispuestos a jugarselo todo por el oro y la gloria.
 
 ¿Quién caerá?
 
 ¿Quién saldrá victorioso?
 
-Estas preguntas solo se contestan en la arena.
+Las preguntas solo se contestan en la arena.
 
 ## Propósito, público objetivo y plataformas
 Con este juego se buscará ocupar el tiempo muerto de cualquier jugador en momentos como un viaje en el metro, la espera del comienzo de una clase o similar. Principalmente nos centraremos en el público masculino entre las edades de 12 a 18 años, con posibilidad a adultos jóvenes entre los 18 y 25, y se subirá a los navegadores de Google Chrome, Edge y Mozilla Firefox para que tengan fácil acceso al juego.
@@ -87,11 +96,12 @@ Mecánicas prepartida:
 
 Mecánicas en partida:
 1. La victoria de la partida consiste en ganar un mejor de 3 rondas.
-2. Cada ronda la gana quién destruya la nave del rival.
+2. Cada ronda dura 60 segundos y la gana quién destruya la nave del rival o tenga más vida al acabar el tiempo.
 3. Los jugadores comienzan en extremos opuestos de la arena.
 4. Los jugadores usan su arma para destruir al rival y los meteoritos distribuidos en la arena (ambas les dan experiencia).
 5. La experiencia se traduce en subidas de nivel y este nivel, de cada jugador, se comparte entre rondas.
 6. Las subidas de nivel aportan mejoras de estadísticas, desbloquean habilidades y desbloquean las mejoras elegidas en la pantalla prepartida.
+
 ## Controles
 Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WAD (donde W es para acelerar y AD es para el control de la dirección, no se puede volar hacia atrás). Para la versión en móvil se utilzan dos botones táctiles para girar a izquierda y derecha y un tercer botón para acelerar. 
 
@@ -102,15 +112,58 @@ Ambas versiones soportan controles con mando, que utilizan el D-Pad para girar (
 Y, finalmente, para navegar entre las distintas pantallas, se utilizará el ratón para clickar sobre los distintos botones. En versión móvil se hará utilizando la funcionalidad táctil de esta o el mando.
 ## Objetivo
 El objetivo en este juego es simple, conseguir matar a todo jugador al que te enfrentes para ascender en el ranking que se visualizará al terminar una partida. Se apelará a la competitividad de los jugadores para que busquen conseguir estar en el top entre todos los usuarios.
+
+## Elementos del mapa
+### Meteoritos
+Los meteoritos son objetos distribuidos por el mapa que, al destruirlos, dan experiencia al que haya dado el disparo final.
+
+### Debris espacial
+El debris espacial son una pequeña cantidad de objetos distribuido por el mapa. Al hacerles daño regenera vida al jugador, y al destruirlo, da una curación mayor.
+
+## Mapas
+### Centro del Coliseo
+
+### Hangares
+
+### Generador de la Arena
+
+## Personajes
+Space Combat Rush 3D cuenta con varios personajes entre los que el jugador puede escoger para luchar. Cada uno de estos personajes cuenta con diferentes estadísticas, habilidades pasivas y habilidades activas.
+
+### Ravager
+Ravager es símbolo de velocidad, cuenta con una gran movilidad para emboscar a sus enemigos y escapar recibiendo el menor daño posible.
+
+- **Pasiva.** Blindaje antikinético: no recibe daño de choque.
+- **Activa.** Motores turbo: habilidad que no tiene tiempo de enfriamiento, sino que usa energía que se va consumiendo al usarla y se regenera con el tiempo. Al presionar avanzas más rápido que a velocidad normal.
+
+### Cargo Queen
+Cargo Queen es un personaje defensivo y de gran aguante. Es capaz de atacar y defenderse cuando es necesario, llevando el combate en sus propias condiciones.
+
+- **Pasiva.** Experta en reparaciones: el debris espacial restaura más vida.
+- **Activa.** Generador de escudo: genera un escudo horizontal delante de ella durante unos segundos, bloqueando todos los proyectiles que choquen con él. No puede disparar mientras usa esta habilidad.
+
+### Pandora
+Pandora es la elegida de la Plaga, y como tal debe conseguir la aniquilación de sus enemigos a cualquier coste. Es un personaje capaz de causar un daño devastador, pero debe saber cuando retirarse para no morir en el intento.
+
+- **Pasiva.** Nave viviente: posee regeneración de vida pasiva.
+- **Activa.** Rezo atroz: no tiene tiempo de enfriamiento. Al activarlo pasa a un estado en el que sus balas hacen más daño, pero pierde vida cada segundo. Al volver a usarlo vuelve al modo normal.
+
+### Albatross
+Albatross es una nave con un gran control en largas distancias, evita que sus enemigos se acerquen y exploten su poca resistencia mediante un gran daño desde lejos.
+
+- **Pasiva.** Ejecutor: si el enemigo tiene menos de 30% de vida, sus proyectiles y habilidad le aplican más daño.
+- **Activa.** Cañón de riel: lanza un laser que causa daño al primer objetivo que impacta.
 ## Objetos, armas y power ups
+
 **Componentes de arma**
 - **Ametralladora:** Cañón con mayor cadencia de disparo.
 - **Dobleyectil:** Cañón que dispara 2 proyectiles en vez de 1.
-- Lanzamisiles: Cañón de baja cadencia de disparo que lanza misiles de gran daño.
+- **Lanzamisiles:** Cañón de baja cadencia de disparo que lanza misiles de gran daño.
 
 **Componentes de apoyo**
-- **Rotador mejorado:** Permite a la nave girar sí misma más rápido.
-- **Escudo:** Incorpora un escudo que actua como vida adicional no recargable.
+- **Rotador mejorado:** la nave girar sobre sí misma más rápido.
+- **Escudo:** incorpora un escudo que actua como vida adicional no recargable.
+- **Motor mejorado:** incrementa la velocidad de movimiento de la nave.
     
 
 # Arte
