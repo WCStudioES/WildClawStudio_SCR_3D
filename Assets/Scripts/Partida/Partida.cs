@@ -132,7 +132,7 @@ public class Partida : NetworkBehaviour
         {
             if (jugadores[i] != null)
             {
-                if (jugadores[i].hp.Value <= 0)
+                if (jugadores[i].actualHealth.Value <= 0)
                 {
                     jugadores[i].naveDestruida = true;
                     jugadores[i].opcionesJugador.deshabilitarNave();

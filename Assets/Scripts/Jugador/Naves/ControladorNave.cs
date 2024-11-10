@@ -19,7 +19,7 @@ public class ControladorNave : NetworkBehaviour
 
     [SerializeField] private OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
-    public CapsuleCollider collider;
+    public CapsuleCollider colliderNave;
 
     void Start()
     {
@@ -102,9 +102,9 @@ public class ControladorNave : NetworkBehaviour
 
 
         // Eliminamos cualquier CapsuleCollider existente en el padre
-        if (collider != null)
+        if (colliderNave != null)
         {
-            Destroy(collider);
+            Destroy(colliderNave);
         }
 
         // Obtenemos el CapsuleCollider del hijo, asumiendo que siempre estará presente
@@ -112,11 +112,11 @@ public class ControladorNave : NetworkBehaviour
         if (colliderHijo != null)
         {
             // Agregamos un nuevo CapsuleCollider en el padre y copiamos las propiedades del hijo
-            collider = gameObject.AddComponent<CapsuleCollider>();
-            collider.center = colliderHijo.center;
-            collider.radius = colliderHijo.radius;
-            collider.height = colliderHijo.height;
-            collider.direction = colliderHijo.direction;
+            colliderNave = gameObject.AddComponent<CapsuleCollider>();
+            colliderNave.center = colliderHijo.center;
+            colliderNave.radius = colliderHijo.radius;
+            colliderNave.height = colliderHijo.height;
+            colliderNave.direction = colliderHijo.direction;
 
             // Desactivamos el CapsuleCollider en el hijo para evitar duplicidad en colisiones
             colliderHijo.enabled = false;

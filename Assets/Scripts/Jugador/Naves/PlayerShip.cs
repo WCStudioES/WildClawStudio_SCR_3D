@@ -8,15 +8,14 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public string description;
     public Sprite sprite;
 
-    public int actualMaxHealth;
-    public int actualHealth;
-    public int movementSpeed;
-    public int rotationSpeed;
-    public int armor;
+    public int initialHealth;
+    public int initialArmor;
 
-    public int actualLevel;
-    public int actualExperience;
+    public int healthIncrement;
+    public int armorIncrement;
+
     public int maxLevel = 10;
+    public int[] xpByLvl;
 
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
@@ -25,9 +24,29 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     public List<Sprite> skinSprites;
 
+    private void Start()
+    {
+        SetLevels();
+        InitializeStats();
+    }
+
+    private void Update()
+    {
+        //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
+        transform.localPosition = Vector3.zero;
+    }
+
     public abstract void FireProjectile();
-    public abstract void GainExperience();
-    public abstract void GetDamage(int damage, NetworkedPlayer dmgDealer);
     public abstract void InitializeStats();
     public abstract void UseAbility();
+
+    public void SetLevels()
+    {
+        xpByLvl = new int [10];
+
+        for(int i = 0; i < xpByLvl.Length; i++)
+        {
+            xpByLvl[i] = 300 * (i + 1);
+        }
+    }
 }

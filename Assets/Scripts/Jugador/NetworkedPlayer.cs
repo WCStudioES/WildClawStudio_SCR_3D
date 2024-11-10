@@ -50,15 +50,13 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     private float rotationInput = 0f; // Almacena el input de rotación
     
     //VARIABLES DE ESTADISTICAS
-    public int armaduraInicial; //Armadura para empezar la partida
-    public int vidaInicial; //Vida para empezar cada ronda
-    public NetworkVariable<int> hp = new NetworkVariable<int>(100); //Vida de la nave
-    public NetworkVariable<int> armadura = new NetworkVariable<int>(10); //Armadura de la nave
+    public NetworkVariable<int> maxHealth = new NetworkVariable<int>(100);
+    public NetworkVariable<int> actualHealth = new NetworkVariable<int>(100); //Vida de la nave
+    public NetworkVariable<int> armor = new NetworkVariable<int>(10); //Armadura de la nave
     public NetworkVariable<int> xp = new NetworkVariable<int>(00); //Experiencia de la nave
     public NetworkVariable<int> lvl = new NetworkVariable<int>(1); //Nivel de la nave
     public NetworkVariable<int> projectile = new NetworkVariable<int> (0); //Proyectil usado
-    [SerializeField] NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
-
+    public NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
 
     public Image barraDeVida; //Gameobject de la barra de vida
     
@@ -77,12 +75,20 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
     }
 
-    //Funcion para resetear los valores predefinidos antes de empezar partida
+    // Funcion para resetear los valores predefinidos antes de empezar partida
     public void ResetPrePartida()
     {
         if (IsServer)
         {
-            armadura.Value = armaduraInicial;
+            // Se inicializan las estadísticas de la nave elegida
+            cuerpoNave.GetComponent<PlayerShip>().InitializeStats();
+
+            // Se copian dentro del NetworkedPlayer como Network Variables
+            armor.Value = cuerpoNave.GetComponent<PlayerShip>().initialArmor;
+            actualHealth.Value = cuerpoNave.GetComponent<PlayerShip>().initialHealth;
+            maxHealth.Value = actualHealth.Value;
+
+            // Otras inicializaciones
             xp.Value = 0;
             lvl.Value = 1;
             projectile.Value = proyectilBasico;
@@ -99,17 +105,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             nave.SetToSpawn(spawnPosition);
 
             //RESTAURA LA VIDA DE LA NAVE
-            hp.Value = vidaInicial;
+            actualHealth.Value = maxHealth.Value;
         }
-        UpdateHealthBarClientRpc(hp.Value);
+        UpdateHealthBarClientRpc(actualHealth.Value);
     }
+
     //Funcion que maneja la barra de vida
     [ClientRpc]
     public void UpdateHealthBarClientRpc(int vida)
     {
-        float healthPercentage = vida / (float) vidaInicial;
-        Debug.Log(healthPercentage);
+        float healthPercentage = vida / (float) maxHealth.Value;
         barraDeVida.fillAmount = healthPercentage;
+
+        //Debug.Log(healthPercentage);
     }
     
 
@@ -205,17 +213,18 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     // Función que aplica daño a la nave
     public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
-        hp.Value -= (dmg - armadura.Value);  // Resta la cantidad de daño a la vida de la nave
+        actualHealth.Value -= (dmg - armor.Value);  // Resta la cantidad de daño a la vida de la nave
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
-        if (hp.Value <= 0)
+        if (actualHealth.Value <= 0)
         {
             dueñoDaño.GetXP(xp.Value);
             Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             //Pierdes;
         }
-        UpdateHealthBarClientRpc(hp.Value); //Actualizar barra de vida
-        Debug.Log("Vida actual de la nave: " + hp);
+
+        //Debug.Log("Vida actual de la nave: " + actualHealth);
+        UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
     }
     
     //Funcion que gestiona la obtención de xp del jugador
@@ -224,25 +233,38 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         //Sumar experiencia
         xp.Value += xpRecibida;
 
-        //Lvl 3, aplicar mejoras
-        if (xp.Value >= 900 && lvl.Value < 3)
+        // Si no eres nivel máximo y tienes += experiencia necesaria, subes de nivel
+        if (lvl.Value < cuerpoNave.GetComponent<PlayerShip>().maxLevel && 
+            xp.Value >= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1])
         {
-            Debug.Log("Level 3");
-            armadura.Value += armadura.Value;
-            xpADar.Value += 50;
+            // La xp se resta, para que vuelva a estar cerca de 0
+            xp.Value -= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1];
             lvl.Value++;
 
-        }
-        //Lvl 2, aplicar mejoras
-        else if (xp.Value >= 300 && lvl.Value < 2)
-        {
-            Debug.Log("Level 2");
-            CambiarArma(proyectilMejorado);
-            armadura.Value += armadura.Value;
+            // Cambios de estadísticas por nivel
             xpADar.Value += 50;
-            lvl.Value++;
+            armor.Value += cuerpoNave.GetComponent<PlayerShip>().armorIncrement;
+            maxHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
+            actualHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
+
+            // Se actualiza la barra de vida
+            UpdateHealthBarClientRpc(actualHealth.Value); 
+
+            Debug.Log("Level " + lvl.Value);
+
+            // Mejoras de nivel
+            switch(lvl.Value)
+            {
+                default:
+                    break;
+
+                //Proyectil mejorado
+                case 2:
+                    CambiarArma(proyectilMejorado);
+                    break;
+                //...
+            }
         }
-        
     }
 
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
