@@ -8,44 +8,28 @@ using UnityEngine;
 public class Misil : Proyectil
 {
     [SerializeField] private GameObject explosion; //Prefab de explosion para instanciar al petar
-    private bool activo = false; //Variable apra ver si el misil ha explotado ya
-    new protected void OnTriggerEnter(Collider other)
+    private bool activo = true; //Variable apra ver si el misil ha explotado ya
+    private float timeOfEffect = 2;
+
+    void Start()
     {
-        Debug.Log(other.gameObject.name);
-        if (other.gameObject != CuerpoNaveDueña && CuerpoNaveDueña != null && activo == false)
-        {
-            Debug.Log("Dentro del if diferente");
-            activo = true;
-            DestruirProyectil();
-        }
+        dmg = 45;
+        speed = 10f;
+        cadencia = 2f;
+        type = Type.Simple;
     }
-    
-    protected void DestruirProyectil()
+
+    public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
-        Debug.Log("Entro a destruir proyectil papa");
-        //if (NetworkManager.IsServer)
+        if(activo)
         {
-            Debug.Log("Entro a la explosion Server");
-            //Creo una instancia de explosion
-            var explosionObject = NetworkManager.Instantiate(explosion, transform.position, Quaternion.identity);
+            activo = false;
+
+            Debug.Log("Creando explosión en el server");
+
+            var explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
             Explosion explosionScript = explosionObject.GetComponent<Explosion>();
-            //Cargamos la explosion
-            explosionScript.Crear(dmg);
-            //Manda destruir al cliente
-            //DestruirProyectilClientRpc();
-            NetworkManager.Destroy(gameObject, 0.1f);
+            explosionScript.CrearAreaDmg(dmg, timeOfEffect, CuerpoNaveDueña, dmgDealer, IsEnServidor);
         }
     }
-    
-    // GESTIONA LA REPLICACIÓN DE CADA EXPLOSION EN LOS CLIENTES
-    /*[ClientRpc]
-    protected void DestruirProyectilClientRpc() 
-    {
-        Debug.Log("Entro a la explosion Cliente");
-        var explosionObject = NetworkManager.Instantiate(explosion, transform.position, Quaternion.identity);
-        Explosion explosionScript = explosionObject.GetComponent<Explosion>();
-        explosionScript.Crear(dmg);
-        NetworkManager.Destroy(gameObject, 0.1f);
-    }*/
-        
 }

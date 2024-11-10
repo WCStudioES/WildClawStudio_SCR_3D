@@ -14,4 +14,13 @@ public class ProyectilBasico : Proyectil
         type = Type.Simple;
     }
 
+    public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
+    {
+        if (IsEnServidor)
+        {
+            target.GetDamage(this.dmg, dmgDealer);
+            Destroy(gameObject);
+        }
+    }
+
 }

@@ -31,7 +31,7 @@ public class ControladorNave : NetworkBehaviour
 
     void Update()
     {
-        Debug.Log("Transform ControladorNave: " + this.transform.position);
+        //Debug.Log("Transform ControladorNave: " + this.transform.position);
         if (opcionesJugador != null)
         {
             if (opcionesJugador.movimientoActivado && IsServer)
@@ -136,7 +136,7 @@ public class ControladorNave : NetworkBehaviour
             // Desactivamos el CapsuleCollider en el hijo para evitar duplicidad en colisiones
             colliderHijo.enabled = false;
 
-            Debug.Log("CapsuleCollider del hijo copiado al padre y desactivado en el hijo.");
+            //Debug.Log("CapsuleCollider del hijo copiado al padre y desactivado en el hijo.");
         }
         else
         {

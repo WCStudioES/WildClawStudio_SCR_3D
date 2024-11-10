@@ -114,9 +114,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5885389955668711114}
-  - component: {fileID: -4469014341038946469}
-  - component: {fileID: 4444886098121531734}
   - component: {fileID: 5222089699688527509}
+  - component: {fileID: 25356461853773190}
   m_Layer: 0
   m_Name: ProyectilBasico
   m_TagString: Untagged
@@ -140,7 +139,24 @@ Transform:
   - {fileID: 1588737812489806843}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &-4469014341038946469
+--- !u!114 &5222089699688527509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2900116416517425973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab2d99a62f0b5944b98259182a6a092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -1249462656, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
+  dmg: 20
+  speed: 10
+  cadencia: 1.75
+  type: 0
+--- !u!54 &25356461853773190
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,41 +183,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4444886098121531734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2900116416517425973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3564335528
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 0
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 0
---- !u!114 &5222089699688527509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2900116416517425973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ab2d99a62f0b5944b98259182a6a092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: -1249462656, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
-  dmg: 20
-  speed: 10
-  cadencia: 1.75
-  type: 0
