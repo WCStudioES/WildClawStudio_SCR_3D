@@ -212,6 +212,12 @@ Diseño de la nave **CARGO QUEEN**:
  <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/CargoQueen.png"> <br>
 </p>
 
+Diseño de la nave **PANDORA**:
+<p align="center">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/PandoraPA.png">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/PandoraInfeccionPA.png"> <br>
+</p>
+
 Diseño de otras naves múltiples:
 <p align="center">
  <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Concept_coloresNaves.png"> <br>
