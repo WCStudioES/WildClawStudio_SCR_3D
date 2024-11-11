@@ -85,6 +85,15 @@ public class ControladorNave : NetworkBehaviour
         direccionMovimiento = Vector3.zero;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(velocity.magnitude > maxSpeed/4 && collision.gameObject.GetComponent<IProyectil>() == null)
+        {
+            velocity.x = -velocity.x / 2;
+            velocity.y = -velocity.y / 2;
+        }
+    }
+
     public void SetToSpawn(GameObject spawnPoint)
     {
         if (IsServer)
