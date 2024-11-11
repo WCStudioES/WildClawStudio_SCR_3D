@@ -18,7 +18,7 @@ public class Partida : NetworkBehaviour
     public int ronda = 1;
     
     //JUGADORES
-    [SerializeField] public List<ControladorDelJugador> jugadores;
+    [SerializeField] public List<NetworkedPlayer> jugadores;
     
     //METEORITOS
     public GameObject EmptyContenedorDeMeteoritos; //Empty contenedor de los meteoritos en la escena
@@ -132,7 +132,7 @@ public class Partida : NetworkBehaviour
         {
             if (jugadores[i] != null)
             {
-                if (jugadores[i].hp.Value <= 0)
+                if (jugadores[i].actualHealth.Value <= 0)
                 {
                     jugadores[i].naveDestruida = true;
                     jugadores[i].opcionesJugador.deshabilitarNave();

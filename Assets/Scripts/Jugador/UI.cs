@@ -4,7 +4,7 @@ using UnityEngine;
 public class UI : NetworkBehaviour
 {
     
-    [SerializeField] private ControladorDelJugador CJugador;
+    [SerializeField] private NetworkedPlayer CJugador;
     [SerializeField] private OpcionesJugador opcionesJugador;
     [SerializeField] private CustomizationManager customizationManager;
     
@@ -30,7 +30,7 @@ public class UI : NetworkBehaviour
         matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
         if(IsOwner && opcionesJugador.ActivarUI)
             ActivarUI();
-        if(!IsHost)
+        if(!IsHost && IsOwner)
             GameObject.Find("FondoTestUI").SetActive(false);
     }
 

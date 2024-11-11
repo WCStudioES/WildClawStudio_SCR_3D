@@ -15,11 +15,8 @@ public class OpcionesJugador : NetworkBehaviour
     public bool movimientoActivado = false;
 
     //CONTROLADOR DEL JUGADOR
-    public ControladorDelJugador controladorDelJugador;
+    public NetworkedPlayer controladorDelJugador;
 
-    //CHARACTER CONTROLLER DE LA NAVE
-    public CharacterController controladorDeLaNave;
-    
     //NETWORK TRANSFORM DE LA NAVE
     public NetworkTransform networkTransformNave;
     
@@ -42,25 +39,24 @@ public class OpcionesJugador : NetworkBehaviour
     public void desactivarMovimiento()
     {
         movimientoActivado = false;
-        controladorDeLaNave.enabled = false;
         networkTransformNave.Interpolate = false;
+        nave.GetComponent<ControladorNave>().velocity = Vector3.zero;
     }
     
     public void reactivarMovimiento()
     {
         movimientoActivado = true;
-        controladorDeLaNave.enabled = true;
         networkTransformNave.Interpolate = true;
     }
 
     public void deshabilitarNave()
     {
+        nave.GetComponent<ControladorNave>().velocity = Vector3.zero;
         nave.SetActive(false);
     }
 
     public void rehabilitarNave()
     {
-        controladorDelJugador.nave.currentSpeed = 0;
         nave.SetActive(true);
     }
 
