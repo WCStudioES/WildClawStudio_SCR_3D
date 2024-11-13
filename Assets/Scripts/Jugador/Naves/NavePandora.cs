@@ -1,15 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Jugador.Habilidades;
 using UnityEngine;
 
-public class NaveRavager : PlayerShip
+public class NavePandora : PlayerShip
 {
+    public float healthRegenPercent;
     public override void InitializeStats()
     {
-        shipName = "Ravager";
+        shipName = "Pandora";
         description = "Est� guapa";
 
         initialHealth = 100;
@@ -17,24 +15,22 @@ public class NaveRavager : PlayerShip
 
         healthIncrement = 20;
         armorIncrement = 3;
-        
-        Dictionary<string, object> habilidadAtributos = new Dictionary<string, object>();
-        habilidadAtributos.Add("controlador", shipController);
-        ability.AssignAttributes(habilidadAtributos);
-        
+
         //skins;
         //chromas;
     }
-
+    
+    
     public override void FireProjectile()
     {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 
     public override void UseAbility()
     {
         ability.Execute();
     }
-
-
+    
+    // IMPLEMENTACION DE PASIVA:
+    // regeneración de vida pasiva
 }

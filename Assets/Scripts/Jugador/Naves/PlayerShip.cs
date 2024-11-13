@@ -14,13 +14,13 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public int healthIncrement;
     public int armorIncrement;
 
-    public int maxLevel = 10;
+    public int maxLevel = 8;
     public int[] xpByLvl;
 
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
 
-    //public IAbility ability;
+    public IAbility ability;
 
     public List<Sprite> skinSprites;
 
@@ -30,7 +30,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         InitializeStats();
     }
 
-    private void Update()
+    protected void Update()
     {
         //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
         transform.localPosition = Vector3.zero;

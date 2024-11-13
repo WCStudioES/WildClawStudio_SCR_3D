@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6180826812384448898}
   - component: {fileID: 4422666897341407720}
   - component: {fileID: 3531411081918356711}
+  - component: {fileID: 52847098708873642}
   m_Layer: 0
   m_Name: Meteorito
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3754077117360729848}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.8, y: 0, z: -8.5}
   m_LocalScale: {x: 3.68, y: 3.68, z: 3.68}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 4155731351
-  InScenePlacedSourceGlobalObjectIdHash: 1574068614
+  InScenePlacedSourceGlobalObjectIdHash: 4186481614
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -155,6 +156,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!114 &52847098708873642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754077117360729848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a3d76b791d81344aaa546b6b79fe9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpTotal: 50
+  hpMaximo: 100
+  hpMinimo: 100
+  escalaMaxima: 100
+  escalaMinima: 100
+  hpActual:
+    m_InternalValue: 100
+  xpADar:
+    m_InternalValue: 100
 --- !u!1 &7656014100387139726
 GameObject:
   m_ObjectHideFlags: 0

@@ -230,16 +230,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipName: Ravager
-  description: 
+  description: "Ravager es s\xEDmbolo de velocidad, cuenta con una gran movilidad
+    para emboscar a sus enemigos y escapar recibiendo el menor da\xF1o posible."
   sprite: {fileID: 21300000, guid: 5753d75945cbcb0429cd410a3037c525, type: 3}
-  actualMaxHealth: 0
-  actualHealth: 0
-  movementSpeed: 0
-  rotationSpeed: 0
-  armor: 0
-  actualLevel: 0
-  actualExperience: 0
+  initialHealth: 100
+  initialArmor: 0
+  healthIncrement: 3
+  armorIncrement: 0
   maxLevel: 10
+  xpByLvl: 
   shipController: {fileID: 0}
   proyectileSpawns:
   - {fileID: 1699773053242778073}

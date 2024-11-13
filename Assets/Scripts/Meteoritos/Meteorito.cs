@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class Meteorito : NetworkBehaviour, IDamageable
 {
-    public int hpTotal = 100;
+    public int hpTotal = 50;
     
     //Rango de valores de vida que puede tener el meteorito
     public int hpMaximo = 100;
@@ -24,7 +24,7 @@ public class Meteorito : NetworkBehaviour, IDamageable
     {
         if (IsServer)
         {
-            hpActual.Value = 100;
+            hpActual.Value = hpTotal;
             xpADar.Value = 100;
         }
     }

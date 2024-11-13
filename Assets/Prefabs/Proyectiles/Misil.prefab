@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: -293781159, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
-  dmg: 20
+  dmg: 30
   speed: 10
-  cadencia: 1.75
+  cadencia: 2.5
   type: 0
   explosion: {fileID: 5690783214778163400, guid: bd30ca28cf609dd43b3b62d5055c6882, type: 3}
 --- !u!54 &2414274396245629171
