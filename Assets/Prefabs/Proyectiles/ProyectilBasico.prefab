@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: -1249462656, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
-  dmg: 20
+  dmg: 10
   speed: 10
   cadencia: 1.75
   type: 0

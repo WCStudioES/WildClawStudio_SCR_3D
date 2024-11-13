@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3671180715243267312
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1555353790460404929, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2b4e6b6e8441544b9ccf273a2b99a6f, type: 2}
+    - target: {fileID: 2911833275498112990, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2b4e6b6e8441544b9ccf273a2b99a6f, type: 2}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984701182360117565, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: m_Name
+      value: Pandora
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 481222455317425895, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4296834890363185029}
+  m_SourcePrefab: {fileID: 100100000, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+--- !u!4 &1157724097316056602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2514038311123159786, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 3671180715243267312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2694395020660163881 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1699773053242778073, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 3671180715243267312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5497064521286998889 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 3671180715243267312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4296834890363185029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497064521286998889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead87795c3a41d44184dd2a1b6937737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipName: Pandora
+  description: "Pandora es la elegida de la Plaga, y como tal debe conseguir la aniquilaci\xF3n
+    de sus enemigos a cualquier coste. Es un personaje capaz de causar un da\xF1o
+    devastador, pero debe saber cuando retirarse para no morir en el intento."
+  sprite: {fileID: 21300000, guid: bc371b7bc53b8dc48a4dfba69c10c029, type: 3}
+  initialHealth: 110
+  initialArmor: 0
+  healthIncrement: 5
+  armorIncrement: 0
+  maxLevel: 10
+  xpByLvl: 
+  shipController: {fileID: 0}
+  proyectileSpawns:
+  - {fileID: 2694395020660163881}
+  - {fileID: 1157724097316056602}
+  - {fileID: 6613436022634761739}
+  skinSprites: []
+--- !u!4 &6613436022634761739 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7580968215186778875, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 3671180715243267312}
+  m_PrefabAsset: {fileID: 0}

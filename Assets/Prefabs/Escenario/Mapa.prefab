@@ -1771,7 +1771,7 @@ MonoBehaviour:
   jugadores: []
   EmptyContenedorDeMeteoritos: {fileID: 6135518680527570763}
   meteoritos:
-  - {fileID: 3953555013205172770}
+  - {fileID: 4626289115062030660}
   - {fileID: 6762852085436206516}
   rondasGanadas: 0000000000000000
   puntosDeSpawn:
@@ -5161,42 +5161,24 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3754077117360729848, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3953555013205172770}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
---- !u!4 &7459157036100247609 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2813657495567392983, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
-  m_PrefabInstance: {fileID: 4650003278752678126}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8399504022486248982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3754077117360729848, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
-  m_PrefabInstance: {fileID: 4650003278752678126}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3953555013205172770
+--- !u!114 &4626289115062030660 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 52847098708873642, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+  m_PrefabInstance: {fileID: 4650003278752678126}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8399504022486248982}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1a3d76b791d81344aaa546b6b79fe9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpTotal: 100
-  hpMaximo: 100
-  hpMinimo: 100
-  escalaMaxima: 100
-  escalaMinima: 100
-  hpActual:
-    m_InternalValue: 100
-  xpADar:
-    m_InternalValue: 100
+--- !u!4 &7459157036100247609 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2813657495567392983, guid: fbe323814bb692747a079a6e8ce57f65, type: 3}
+  m_PrefabInstance: {fileID: 4650003278752678126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5137024685284766688
 PrefabInstance:
   m_ObjectHideFlags: 0
