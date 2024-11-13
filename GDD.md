@@ -152,7 +152,7 @@ Pandora es la elegida de la Plaga, y como tal debe conseguir la aniquilación de
 Albatross es una nave con un gran control en largas distancias, evita que sus enemigos se acerquen y exploten su poca resistencia mediante un gran daño desde lejos.
 
 - **Pasiva.** Ejecutor: si el enemigo tiene menos de 30% de vida, sus proyectiles y habilidad le aplican más daño.
-- **Activa.** Cañón de riel: lanza un laser que causa daño al primer objetivo que impacta.
+- **Activa.** Granada de tormenta: lanza una granada que estalla en un circulo de rayos que daña cada segundo que alguien está dentro.
 ## Objetos, armas y power ups
 
 **Componentes de arma**
