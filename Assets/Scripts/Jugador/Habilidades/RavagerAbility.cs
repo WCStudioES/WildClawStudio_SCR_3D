@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Jugador.Habilidades
 {
-    public class RavagerAbility: IAbility
+    public class RavagerAbility: BasicAbility    
     {
         //De momento con cooldwon, futuro con energia
         private float cooldownTotal = 15; // Tiempo de recarga de la habilidad
@@ -15,24 +15,24 @@ namespace Jugador.Habilidades
         //private float maxEnergy;
         //private float currentEnergy;
         
-        public ControladorNave controlador; //Controlador de la nave, para poder aumentar la velocidad
+        private ControladorNave controlador; //Controlador de la nave, para poder aumentar la velocidad
         private bool isActivated = false;   //Booleano que indica si está activado
         
         private float duracionTotal= 3; // Tiempo total que se puede usar la habilidad
         private float duracionActual = 0; // Tiempo de uso de la habilidad
         
         //Metodo para asignar atributos necesarios
-        public void AssignAttributes(Dictionary<string, object> attributes)
+        public override void AssignAttributes(List<object> attributes)
         {
-            if (attributes.TryGetValue("controlador", out var controladorAttr) && controladorAttr is ControladorNave)
+            if (attributes[0] is ControladorNave)
             {
-                controlador = (ControladorNave)controladorAttr;
-                Debug.Log("Controlador nave Ravager" + controlador);
+                controlador = (ControladorNave) attributes[0];
             }
+            Debug.Log("Controlador nave Ravager" + controlador);
         }
         
         //Metodo para activar habilidad: impulso de velocidad durante unos segundos
-        public void Execute()
+        public override void Execute()
         {
             if (CheckAvailability())
             {
@@ -43,7 +43,7 @@ namespace Jugador.Habilidades
                     controlador.maxSpeed += 5;
                     controlador.acceleration += 10;
                     cooldownActual = cooldownTotal;
-                    DurationCounter();                  //Activa el contador de duracion de la habilidad
+                    StartCoroutine("DurationCounter"); //Activa el contador de duracion de la habilidad
                 }
                 
                 //Desactivar habilidad
@@ -54,7 +54,7 @@ namespace Jugador.Habilidades
             }
         }
 
-        //Metodo que acaba la habilidad y restaura los valores a su modo inicial
+        //Metodo que acabar la habilidad y restaura los valores a su modo inicial
         private void AcabarHabilidad()
         {
             if (isActivated)
@@ -63,12 +63,14 @@ namespace Jugador.Habilidades
                 controlador.maxSpeed -= 5;
                 controlador.acceleration -= 10;
                 duracionActual = 0;
-                CooldownCounter();
+                StartCoroutine("CooldownCounter");
+                
+                //Si no funciona checkear el StartCorutine
             }
         }
 
         //Metodo para comprobar si se cumplen los requisitios para que se active la habilidad
-        public bool CheckAvailability()
+        public override bool CheckAvailability()
         {
             if(cooldownActual == 0 || isActivated){ return true; }
             return false; 
@@ -97,10 +99,10 @@ namespace Jugador.Habilidades
                 
                 duracionActual++;
                 
-                Debug.Log("Recargando segundos Ravager" + cooldownActual);
+                Debug.Log("Duracion segundos Ravager" + cooldownActual);
             }
             
-            if(isActivated){AcabarHabilidad();}
+            AcabarHabilidad();
             
         }
     }

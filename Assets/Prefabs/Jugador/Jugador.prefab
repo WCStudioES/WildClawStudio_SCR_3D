@@ -304,8 +304,10 @@ MonoBehaviour:
   allShips:
   - {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
   - {fileID: 318131173559936875, guid: de46ce74c0581c947a1fa37720a66716, type: 3}
-  unlockedShips: 0000000001000000
-  selectedShip: 0
+  - {fileID: 5497064521286998889, guid: 7f29f034d833a254fb00126fe494011a, type: 3}
+  unlockedShips: 000000000100000001000000
+  selectedShip:
+    m_InternalValue: 0
   allProjectiles:
   - {fileID: 2900116416517425973, guid: 9f0998e7a4d79534baeca8dda1512221, type: 3}
   - {fileID: 2900116416517425973, guid: 78aeb277a4258a948a3b97cc00582f20, type: 3}
@@ -314,23 +316,23 @@ MonoBehaviour:
   possibleProjectiles: 
   selectedProjectile: 0
   naveDestruida: 0
-  proyectilBasicoPrefab: {fileID: 2900116416517425973, guid: 9f0998e7a4d79534baeca8dda1512221, type: 3}
-  proyectilMejoradoPrefab: {fileID: 2900116416517425973, guid: 78aeb277a4258a948a3b97cc00582f20, type: 3}
   puntoDisparo:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   isMoving: 0
-  armaduraInicial: 1
-  vidaInicial: 100
-  hp:
+  maxHealth:
     m_InternalValue: 100
-  armadura:
+  actualHealth:
+    m_InternalValue: 100
+  armor:
     m_InternalValue: 10
   xp:
     m_InternalValue: 0
   lvl:
     m_InternalValue: 1
+  projectile:
+    m_InternalValue: 0
   xpADar:
     m_InternalValue: 200
   barraDeVida: {fileID: 4257588489607751020}

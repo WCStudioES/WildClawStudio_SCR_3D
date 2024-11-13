@@ -1,42 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jugador.Habilidades;
 using UnityEngine;
 
-public class PandoraAbility : IAbility
+public class PandoraAbility : BasicAbility
 {
     public int hpCost = 5;                  //coste de vida cada segundo
     public int hpThreshold = 20;            //vida mínima para activar
-    private bool isActivated = false;       //Si esta activado o no el estado
-    private NavePandora pandora;            //Referencia a nave, esperar a ver como se asocian habilidades
+    private bool isActivated;               //Si esta activado o no el estado
+    private NetworkedPlayer networkedPlayer;        //Referencia al jugador, usado para restar y sumar vida
     
+    //Metodo para asignar atributos necesarios
+    public override void AssignAttributes(List<object> attributes)
+    {
+        if (attributes[0] is NetworkedPlayer)
+        {
+            networkedPlayer = (NetworkedPlayer)attributes[0];
+        }
 
-    public void Execute()
+        isActivated = false;
+        Debug.Log("Networked de Pandora" + networkedPlayer.name);
+    }
+
+    //Metodo para activar habilidad: más daño a costa de vida cada segundo
+    public override void Execute()
     {
         if (CheckAvailability())
         {
             if (!isActivated)
             {
                 isActivated = true;
-                //Bajar vida(hpCost) cada segundo
+                StartCoroutine("ReduceLife");
+
                 //Aumentar daño
-                //Si baja del threshold desactivar
+
             }
             else
             {
-                isActivated = false;
-                //Desactivar el estado
+                AcabarHabilidad();
             }
         }
     }
 
-    public bool CheckAvailability()
+    //Metodo que acabar la habilidad y restaura los valores a su modo inicial
+    private void AcabarHabilidad()
     {
-        //If(Pandora.vida > hpThreshold)
-        return true;
+        if (isActivated)
+        {
+            isActivated = false;
+            //Disminuir daño
+        }
+    }
+    
+    //Metodo para redsucir la vida cada segundo, se desactiva si llega a la vida minima
+    IEnumerator ReduceLife()
+    {
+        while (isActivated && networkedPlayer.actualHealth.Value > hpThreshold)
+        {
+            yield return new WaitForSeconds(1f); // Esperar un segundo para restar
+                
+            networkedPlayer.GetDamage(hpCost, networkedPlayer);
+                
+            Debug.Log("Vida de Pandora" + networkedPlayer.actualHealth.Value);
+        }
+            
+        AcabarHabilidad();
+            
     }
 
-    public void AssignAttributes(Dictionary<string, object> attributes)
+    //Metodo para comprobar si se cumplen los requisitios para que se active la habilidad
+    public override bool CheckAvailability()
     {
-        throw new System.NotImplementedException();
+        if (networkedPlayer.actualHealth.Value > hpThreshold)
+        {
+            return true;
+        }
+        
+        return false;
     }
+    
+
 }

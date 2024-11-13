@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class NaveRavager : PlayerShip
 {
+    
+    //NOTA: La pasiva de Ravager de no recibir daño de choque esta implementada en ControladorNave
     public override void InitializeStats()
     {
         shipName = "Ravager";
@@ -18,9 +20,12 @@ public class NaveRavager : PlayerShip
         healthIncrement = 20;
         armorIncrement = 3;
         
-        Dictionary<string, object> habilidadAtributos = new Dictionary<string, object>();
-        habilidadAtributos.Add("controlador", shipController);
-        ability.AssignAttributes(habilidadAtributos);
+        //Crear lista de atributos que necesita su habilidad y rellenarla
+        List<object> attributes = new List<object>();
+        attributes.Add(shipName);
+        
+        //Pasar atributos
+        ability.AssignAttributes(attributes);
         
         //skins;
         //chromas;
