@@ -227,6 +227,15 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
     }
     
+    public void GetHeal(int heal, NetworkedPlayer dueñoDaño)
+    {
+        actualHealth.Value = Mathf.Min(actualHealth.Value  + heal,maxHealth.Value);  // Suma la cantidad de daño a la vida de la nave
+        
+        Debug.Log("Vida actual de la nave: " + actualHealth);
+        //Debug.Log("Vida actual de la nave: " + actualHealth);
+        UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
+    }
+    
     //Funcion que gestiona la obtención de xp del jugador
     public void GetXP(int xpRecibida)
     {

@@ -7,6 +7,7 @@ public class NavePandora : PlayerShip
 {
     public float healthRegenPerOne;
     public NetworkedPlayer jugadorPandora;
+    private bool hasASecondPassed = true;
     public override void InitializeStats()
     {
         shipName = "Pandora";
@@ -27,10 +28,7 @@ public class NavePandora : PlayerShip
         
         //Pasar atributos
         ability.AssignAttributes(attributes);
-
-        //Activar Pasiva
-        StartCoroutine("RegenerateHealth");
-
+        
         //skins;
         //chromas;
     }
@@ -48,25 +46,21 @@ public class NavePandora : PlayerShip
     
     // IMPLEMENTACION DE PASIVA:
     // regeneración de vida pasiva
-    
-    IEnumerator RegenerateHealth()
+    protected void Update()
     {
-        while (true)
+        //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
+        transform.localPosition = Vector3.zero;
+
+        if (jugadorPandora.actualHealth.Value < jugadorPandora.maxHealth.Value && hasASecondPassed)
         {
-            yield return new WaitForSeconds(1f); // Esperar un segundo entre cada regeneración
-
-            int vidaActual = jugadorPandora.actualHealth.Value;
-            int vidaMax = jugadorPandora.maxHealth.Value;
-
-            // Regenerar vida si el personaje no está al máximo
-            if (vidaActual < vidaMax)
-            {
-                // Asegurarse de no sobrepasar la vida máxima
-                jugadorPandora.actualHealth.Value  = Mathf.Min(vidaActual  + (int)(healthRegenPerOne * vidaMax), jugadorPandora.maxHealth.Value);
-                jugadorPandora.UpdateHealthBarClientRpc(jugadorPandora.actualHealth.Value);
-            }
-
-            Debug.Log("Vida actual: " + jugadorPandora.actualHealth.Value );
+            jugadorPandora.GetHeal((int)(jugadorPandora.maxHealth.Value * healthRegenPerOne), jugadorPandora);
+            hasASecondPassed = false;
+            Invoke("resetSecond", 1f);
         }
+    }
+
+    private void resetSecond()
+    {
+        hasASecondPassed = true;
     }
 }

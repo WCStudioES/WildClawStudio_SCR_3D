@@ -40,26 +40,28 @@ public class Debris : NetworkBehaviour, IDamageable
             // Si la vida llega a 0, destruir el meteorito
             if (hpActual.Value <= 0)
             {
-                DestruirMeteorito(dueñoDaño);
+                DestruirDebris(dueñoDaño);
                 
             }
             else
             {
-                
+                dueñoDaño.actualHealth.Value += hpADarAlRecibirDaño.Value;
+                Debug.Log("HP al recibir daño debris: " + hpADarAlRecibirDaño.Value);
+                Debug.Log("Hp de jugador: " + dueñoDaño.actualHealth.Value);
             }
         }
     }
 
     // Metodo para destruir el meteorito
-    private void DestruirMeteorito(NetworkedPlayer dueñoDaño)
+    private void DestruirDebris(NetworkedPlayer dueñoDaño)
     {
         if (IsServer)
         {
-            dueñoDaño.GetXP(xpADar.Value);
-            Debug.Log("XpDada del meteorito: " + xpADar.Value);
-            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
+            dueñoDaño.GetXP(hpADarAlDestruir.Value);
+            Debug.Log("HP al morir que da el debris: " + hpADarAlDestruir.Value);
+            Debug.Log("Hp de jugador: " + dueñoDaño.actualHealth.Value);
             gameObject.SetActive(false);
-            DestruirMeteoritoClientRpc();
+            DestruirDebrisClientRpc();
             //Para testear, de moemnto se resetea cada 1 segundo
             //Invoke("RestaurarMeteorito", 1f); 
         }
@@ -67,23 +69,23 @@ public class Debris : NetworkBehaviour, IDamageable
 
     // Metodo para destruir el meteorito en el cliente
     [ClientRpc]
-    private void DestruirMeteoritoClientRpc()
+    private void DestruirDebrisClientRpc()
     {
         gameObject.SetActive(false);
     }
 
     //Funcion para restaurar el meteorito con su hp
-    public void RestaurarMeteorito()
+    public void RestaurarDebris()
     {
         if (IsServer)
         {
             hpActual.Value = hpTotal;
-            RestaurarMeteoritoClientRpc();
+            RestaurarDebrisClientRpc();
         }
         gameObject.SetActive(true);
     }
     //Funcion para restaurar el meteorito con su hp con tamaño y experiencia aleatoria
-    public void RestaurarMeteoritoAleatorio()
+    public void RestaurarDebrisAleatorio()
     {
         gameObject.SetActive(true);
         if (IsServer)
@@ -91,12 +93,12 @@ public class Debris : NetworkBehaviour, IDamageable
             //int hpAponer
             
             hpActual.Value = hpTotal;
-            RestaurarMeteoritoClientRpc();
+            RestaurarDebrisClientRpc();
         }
     }
     
     [ClientRpc]
-    private void RestaurarMeteoritoClientRpc()
+    private void RestaurarDebrisClientRpc()
     {
         
         gameObject.SetActive(true);
