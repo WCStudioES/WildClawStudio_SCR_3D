@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1046820652
+  GlobalObjectIdHash: 128322121
   InScenePlacedSourceGlobalObjectIdHash: 1574068614
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -303,9 +303,8 @@ MonoBehaviour:
   opcionesJugador: {fileID: 8943799741961390412}
   allShips:
   - {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
-  - {fileID: 318131173559936875, guid: de46ce74c0581c947a1fa37720a66716, type: 3}
   - {fileID: 5497064521286998889, guid: 7f29f034d833a254fb00126fe494011a, type: 3}
-  unlockedShips: 000000000100000001000000
+  unlockedShips: 0000000001000000
   selectedShip:
     m_InternalValue: 0
   allProjectiles:

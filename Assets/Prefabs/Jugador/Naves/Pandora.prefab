@@ -117,7 +117,7 @@ MonoBehaviour:
   - {fileID: 6613436022634761739}
   ability: {fileID: -7829255381148620364}
   skinSprites: []
-  healthRegenPerOne: 0.01
+  healthRegen: 1
   jugadorPandora: {fileID: 0}
 --- !u!114 &-7829255381148620364
 MonoBehaviour:

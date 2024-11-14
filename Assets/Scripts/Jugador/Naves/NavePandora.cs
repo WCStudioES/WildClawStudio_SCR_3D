@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class NavePandora : PlayerShip
 {
-    public float healthRegenPerOne;
+    public int healthRegen = 1;
     public NetworkedPlayer jugadorPandora;
     private bool hasASecondPassed = true;
     public override void InitializeStats()
@@ -51,11 +51,12 @@ public class NavePandora : PlayerShip
         //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
         transform.localPosition = Vector3.zero;
 
-        if (jugadorPandora.actualHealth.Value < jugadorPandora.maxHealth.Value && hasASecondPassed)
+        if (hasASecondPassed && jugadorPandora.actualHealth.Value < jugadorPandora.maxHealth.Value)
         {
-            jugadorPandora.GetHeal((int)(jugadorPandora.maxHealth.Value * healthRegenPerOne), jugadorPandora);
+            jugadorPandora.GetHeal(healthRegen, jugadorPandora);
             hasASecondPassed = false;
             Invoke("resetSecond", 1f);
+            Debug.Log( "Pandora" + jugadorPandora.actualHealth.Value);
         }
     }
 

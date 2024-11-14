@@ -22,7 +22,11 @@ public class Partida : NetworkBehaviour
     
     //METEORITOS
     public GameObject EmptyContenedorDeMeteoritos; //Empty contenedor de los meteoritos en la escena
-    [SerializeField] public Meteorito[] meteoritos; //Lista con los meteoritos
+    public Meteorito[] meteoritos; //Lista con los meteoritos
+    
+    //Debris
+    public GameObject EmptyContenedorDeDebris; //Empty contenedor de los meteoritos en la escena
+    [SerializeField] public Debris[] debris; //Lista con los meteoritos
     
     //RONDAS GANADAS
     [SerializeField] public int[] rondasGanadas;
@@ -65,11 +69,16 @@ public class Partida : NetworkBehaviour
     }
 
     //RESTAURA LA VIDA DE LOS METEORITOS Y LOS REHABILITA
-    void restaurarMeteoritos()
+    void restaurarDestructibles()
     {
         foreach (var meteorito in meteoritos)
         {
             meteorito.RestaurarMeteorito();
+        }
+
+        foreach (var unDebris in debris)
+        {
+            unDebris.RestaurarDebris();
         }
     }
 
@@ -184,6 +193,10 @@ public class Partida : NetworkBehaviour
     {
         //Obtener todos los meteoritos del propio mapa
         meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
+        
+        //Obtener todos los meteoritos del propio mapa
+        debris = EmptyContenedorDeDebris.GetComponentsInChildren<Debris>();
+        
         //Debug.Log(meteoritos.Length);
         
         iniciarRonda();
@@ -231,7 +244,7 @@ public class Partida : NetworkBehaviour
         //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
         Invoke("restaurarNaves", 0.2f);
         //RESTAURA LOS METEORITOS A SU ESTADO INICIAL
-        restaurarMeteoritos();
+        restaurarDestructibles();
     }
     
 
