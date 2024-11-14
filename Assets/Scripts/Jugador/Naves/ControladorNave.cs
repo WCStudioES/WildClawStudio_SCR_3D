@@ -17,7 +17,7 @@ public class ControladorNave : NetworkBehaviour
     private float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
 
-    [SerializeField] private OpcionesJugador opcionesJugador;
+    [SerializeField] public OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
     public CapsuleCollider colliderNave;
 
@@ -91,6 +91,13 @@ public class ControladorNave : NetworkBehaviour
         {
             velocity.x = -velocity.x / 2;
             velocity.y = -velocity.y / 2;
+            
+            //Daño por impacto, Ravager no posee por su pasiva
+            if (playerShip is not NaveRavager)
+            {
+                Debug.Log("Daño por choque" + opcionesJugador.controladorDelJugador);
+                opcionesJugador.controladorDelJugador.GetDamage(20, opcionesJugador.controladorDelJugador);
+            }
         }
     }
 

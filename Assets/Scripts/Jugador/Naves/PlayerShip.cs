@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Jugador.Habilidades;
 using UnityEngine;
 
 public abstract class PlayerShip : MonoBehaviour, IPlayerShip
@@ -20,7 +21,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
 
-    public IAbility ability;
+    public BasicAbility ability;
 
     public List<Sprite> skinSprites;
 

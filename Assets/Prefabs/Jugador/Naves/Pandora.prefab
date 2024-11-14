@@ -68,6 +68,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4296834890363185029}
+    - targetCorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7829255381148620364}
   m_SourcePrefab: {fileID: 100100000, guid: a5931e986950b084d819559cd5ee7165, type: 3}
 --- !u!4 &1157724097316056602 stripped
 Transform:
@@ -112,7 +115,24 @@ MonoBehaviour:
   - {fileID: 2694395020660163881}
   - {fileID: 1157724097316056602}
   - {fileID: 6613436022634761739}
+  ability: {fileID: -7829255381148620364}
   skinSprites: []
+  healthRegen: 1
+  jugadorPandora: {fileID: 0}
+--- !u!114 &-7829255381148620364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497064521286998889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b185adc9755b5864a975ee7a9081bbf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpCost: 5
+  hpThreshold: 20
 --- !u!4 &6613436022634761739 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7580968215186778875, guid: a5931e986950b084d819559cd5ee7165, type: 3}

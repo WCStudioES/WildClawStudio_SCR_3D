@@ -25,7 +25,7 @@ public class Meteorito : NetworkBehaviour, IDamageable
         if (IsServer)
         {
             hpActual.Value = hpTotal;
-            xpADar.Value = 100;
+            //xpADar.Value = 100;
         }
     }
 
