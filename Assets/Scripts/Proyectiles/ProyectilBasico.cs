@@ -1,6 +1,8 @@
+using System;
 using DefaultNamespace;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProyectilBasico : Proyectil

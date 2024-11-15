@@ -213,7 +213,39 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     // Función que aplica daño a la nave
     public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
-        actualHealth.Value -= (dmg - armor.Value);  // Resta la cantidad de daño a la vida de la nave
+
+        //PASIVA DE ALBATROSS HARDCODEADA
+        
+        int additionalDmg = 0;
+        //Si el daño es de un albatross,no es la propia nave y estas bajo el limite de vida, suma daño
+        if (dueñoDaño.nave.playerShip is NaveAlbatross albatross && albatross != this && (float) (actualHealth.Value/maxHealth.Value) <= albatross.lifeThesholdPerOne)
+        {
+            additionalDmg = (int) (dmg* albatross.additionalExecutionDmgPerOne);
+        }
+        
+        //Restar el daño
+        actualHealth.Value -= (dmg + additionalDmg - armor.Value);  // Resta la cantidad de daño a la vida de la nave
+
+        // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
+        if (actualHealth.Value <= 0)
+        {
+            dueñoDaño.GetXP(xp.Value);
+            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
+            //Pierdes;
+        }
+
+        //Debug.Log("Vida actual de la nave: " + actualHealth);
+        UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
+    }
+    
+    // Función que aplica daño a la nave + funcion lambda para ver si aplica daño adicional(no usada de momento pero esta bien tenerla)
+    public void GetDamage(int dmg, NetworkedPlayer dueñoDaño, Func<int> AdditionalDamageFunc)
+    {
+        
+        int additionalDamage = AdditionalDamageFunc();
+        
+        //Restar el daño
+        actualHealth.Value -= (dmg + additionalDamage - armor.Value);  // Resta la cantidad de daño a la vida de la nave
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (actualHealth.Value <= 0)
