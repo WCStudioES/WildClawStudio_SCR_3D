@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab2d99a62f0b5944b98259182a6a092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 1742547503, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
+  sprite: {fileID: 1225455163, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Machine gun
   description: Low damage but high attack speed
   dmg: 5

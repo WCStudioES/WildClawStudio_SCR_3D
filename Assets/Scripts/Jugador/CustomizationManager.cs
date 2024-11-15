@@ -12,6 +12,8 @@ public class CustomizationManager : MonoBehaviour
     [SerializeField] private NetworkedPlayer networkedPlayer;
 
     // ASPECTO DE LA NAVE
+    public TMP_Text shipName;
+
     public Image equippedCraftImage;
     public Image equippedSkinImage;
 
@@ -146,6 +148,7 @@ public class CustomizationManager : MonoBehaviour
     {
         Debug.Log("Hola");
         // Actualiza las imágenes de la nave y de la build del jugador
+        shipName.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().shipName;
         equippedCraftImage.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().sprite;
         equippedSkinImage.sprite = skinImages[equippedSkinIndex];
         equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;

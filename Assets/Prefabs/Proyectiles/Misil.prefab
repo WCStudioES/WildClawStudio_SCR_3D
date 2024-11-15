@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3592362304b68164c90cdddbd58ddc51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: -293781159, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
+  sprite: {fileID: 1741567171, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Missile
   description: High damage AoE explosion when it hits a target
   dmg: 30

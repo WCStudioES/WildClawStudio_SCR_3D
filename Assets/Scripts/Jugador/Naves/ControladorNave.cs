@@ -8,6 +8,7 @@ public class ControladorNave : NetworkBehaviour
 {
     [SerializeField] private Transform CameraPositionInGame;
     [SerializeField] private Transform CameraPositionCustomization;
+    [SerializeField] private GameObject CameraTarget;
     public Transform actualCamera;
 
     public enum CameraType{
@@ -164,18 +165,25 @@ public class ControladorNave : NetworkBehaviour
             {
                 case CameraType.InGame:
                     actualCamera = CameraPositionInGame;
+
                     VC.m_Lens.Orthographic = true;
                     VC.m_Lens.OrthographicSize = 15;
+
+                    VC.Follow = actualCamera;
+                    VC.LookAt = this.transform;
+
                     break;
 
                 case CameraType.Customization:
                     actualCamera = CameraPositionCustomization;
+
                     VC.m_Lens.Orthographic = false;
+
+                    VC.Follow = actualCamera;
+                    VC.LookAt = CameraTarget.transform;
+
                     break;
             }
-
-            VC.Follow = actualCamera;
-            VC.LookAt = this.transform;
         }
         else
         {
