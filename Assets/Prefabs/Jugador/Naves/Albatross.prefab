@@ -182,9 +182,19 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6971237536267150761}
   m_SourcePrefab: {fileID: 100100000, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+--- !u!4 &467427956688220646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1699773053242778073, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 1290965009239494719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1519769300146799880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 359483086119277879, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 1290965009239494719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3677687518902737621 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2514038311123159786, guid: a5931e986950b084d819559cd5ee7165, type: 3}
   m_PrefabInstance: {fileID: 1290965009239494719}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8021392180416212902 stripped
@@ -216,6 +226,16 @@ MonoBehaviour:
   maxLevel: 8
   xpByLvl: 
   shipController: {fileID: 0}
-  proyectileSpawns: []
+  proyectileSpawns:
+  - {fileID: 467427956688220646}
+  - {fileID: 3677687518902737621}
+  - {fileID: 8709803053417626308}
   ability: {fileID: 0}
   skinSprites: []
+  additionalExecutionDmgPerOne: 0
+  lifeThesholdPerOne: 0
+--- !u!4 &8709803053417626308 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7580968215186778875, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+  m_PrefabInstance: {fileID: 1290965009239494719}
+  m_PrefabAsset: {fileID: 0}

@@ -154,11 +154,26 @@ public class ControladorNave : NetworkBehaviour
         }
     }
 
-    public void AssignMainCamera()
+    public void AssignMainCamera(CameraType cameraType)
     {
         CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
+        Debug.Log(VC.m_Lens.OrthographicSize);
         if (VC != null)
         {
+            switch (cameraType)
+            {
+                case CameraType.InGame:
+                    actualCamera = CameraPositionInGame;
+                    VC.m_Lens.Orthographic = true;
+                    VC.m_Lens.OrthographicSize = 15;
+                    break;
+
+                case CameraType.Customization:
+                    actualCamera = CameraPositionCustomization;
+                    VC.m_Lens.Orthographic = false;
+                    break;
+            }
+
             VC.Follow = actualCamera;
             VC.LookAt = this.transform;
         }
@@ -166,18 +181,5 @@ public class ControladorNave : NetworkBehaviour
         {
             Debug.LogWarning("No se encontró la cámara virtual Cinemachine.");
         }
-    }
-
-    public void ChangeCamera(CameraType cameraType)
-    {
-        switch(cameraType)
-        {
-            case CameraType.InGame:
-                actualCamera = CameraPositionInGame; break;
-
-            case CameraType.Customization:
-                actualCamera = CameraPositionCustomization; break;
-        }
-        AssignMainCamera();
     }
 }

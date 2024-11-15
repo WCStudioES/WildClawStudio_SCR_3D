@@ -39,12 +39,12 @@ public class UI : NetworkBehaviour
     {
         if(Personalizacion.activeSelf && cameraInGame)
         {
-            CJugador.nave.ChangeCamera(ControladorNave.CameraType.Customization);
+            CJugador.nave.AssignMainCamera(ControladorNave.CameraType.Customization);
             cameraInGame = false;
         }
         else if(!Personalizacion.activeSelf && !cameraInGame)
         {
-            CJugador.nave.ChangeCamera(ControladorNave.CameraType.InGame);
+            CJugador.nave.AssignMainCamera(ControladorNave.CameraType.InGame);
             cameraInGame = true;
         }
     }
