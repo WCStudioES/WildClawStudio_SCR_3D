@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,9 +18,8 @@ public class CustomizationManager : MonoBehaviour
     public int equippedCraftIndex;
     public int equippedSkinIndex;
 
-    [SerializeField] private List<Sprite> craftImages;
+    [SerializeField] private List<GameObject> craftImages;
     [SerializeField] private List<Sprite> skinImages;
-
 
     // BUILD DEL JUGADOR
     public Image equippedAmmoImage;
@@ -28,12 +28,16 @@ public class CustomizationManager : MonoBehaviour
     public int equippedAmmoIndex;
     public int equippedSupportIndex;
 
-    [SerializeField] private List<Sprite> ammoImages;
+    [SerializeField] private List<GameObject> ammoImages;
     [SerializeField] private List<Sprite> supportImages;
 
     // IMAGENES POP-UP
     public List<Image> popUpAmmoImages;
     public List<Image> popUpSupportImages;
+
+    public Image selectedItem;
+    public TMP_Text selectedItemName;
+    public TMP_Text selectedItemDescription;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +50,8 @@ public class CustomizationManager : MonoBehaviour
 
         UpdateUILists();
         UpdateImages();
+        UpdatePopUpAmmo(popUpAmmoImages, ammoImages, equippedAmmoIndex);
+        UpdatePopUpSupport(popUpSupportImages, supportImages, equippedSupportIndex);
     }
 
     private void UpdateUILists()
@@ -61,13 +67,14 @@ public class CustomizationManager : MonoBehaviour
             // Cargar sprites de availableShips en craftImages
             foreach (var ship in networkedPlayer.allShips)
             {
-                craftImages.Add(ship.GetComponent<PlayerShip>().sprite);
+                craftImages.Add(ship);
             }
 
             // Cargar sprites de availableAmmo en ammoImages
-            foreach (var ammo in networkedPlayer.allProjectiles)
+            for (int i = 1; i < networkedPlayer.allProjectiles.Count; i++)
             {
-                ammoImages.Add(ammo.GetComponent<Proyectil>().sprite);
+                GameObject ammo = networkedPlayer.allProjectiles[i];
+                ammoImages.Add(ammo);
             }
         }
     }
@@ -92,10 +99,12 @@ public class CustomizationManager : MonoBehaviour
             case 2:
                 maxIndex = ammoImages.Count - 1;
                 equippedIndex = equippedAmmoIndex;
+                UpdatePopUpAmmo(popUpAmmoImages, ammoImages, equippedAmmoIndex);
                 break;
             case 3:
                 maxIndex = supportImages.Count - 1;
                 equippedIndex = equippedSupportIndex;
+                UpdatePopUpSupport(popUpSupportImages, supportImages, equippedSupportIndex);
                 break;
             default:
                 return;
@@ -118,9 +127,11 @@ public class CustomizationManager : MonoBehaviour
                 break;
             case 2:
                 equippedAmmoIndex = equippedIndex;
+                UpdatePopUpAmmo(popUpAmmoImages, ammoImages, equippedAmmoIndex);
                 break;
             case 3:
                 equippedSupportIndex = equippedIndex;
+                UpdatePopUpSupport(popUpSupportImages, supportImages, equippedSupportIndex);
                 break;
         }
 
@@ -135,19 +146,15 @@ public class CustomizationManager : MonoBehaviour
     {
         Debug.Log("Hola");
         // Actualiza las imágenes de la nave y de la build del jugador
-        equippedCraftImage.sprite = craftImages[equippedCraftIndex];
+        equippedCraftImage.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().sprite;
         equippedSkinImage.sprite = skinImages[equippedSkinIndex];
-        equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex];
+        equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;
         equippedSupportImage.sprite = supportImages[equippedSupportIndex];
-
-        // Actualiza las imágenes de los pop-ups de soporte y munición
-        UpdatePopUpImages(popUpAmmoImages, ammoImages, equippedAmmoIndex);
-        UpdatePopUpImages(popUpSupportImages, supportImages, equippedSupportIndex);
 
         UpdateNetworkedPlayerEquipment();
     }
 
-    private void UpdatePopUpImages(List<Image> popUpImages, List<Sprite> equipmentImages, int equippedIndex)
+    private void UpdatePopUpAmmo(List<Image> popUpImages, List<GameObject> equipmentImages, int equippedIndex)
     {
         int totalImages = equipmentImages.Count;
 
@@ -156,14 +163,14 @@ public class CustomizationManager : MonoBehaviour
         {
             // Solo una imagen: colocar en el centro y vaciar las otras posiciones
             popUpImages[0].sprite = null;
-            popUpImages[1].sprite = equipmentImages[0];
+            popUpImages[1].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
             popUpImages[2].sprite = null;
         }
         else if (totalImages == 2)
         {
             // Dos imágenes: colocar en la izquierda y el centro
-            popUpImages[0].sprite = equipmentImages[0];
-            popUpImages[1].sprite = equipmentImages[1];
+            popUpImages[0].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
+            popUpImages[1].sprite = equipmentImages[1].GetComponent<Proyectil>().sprite;
             popUpImages[2].sprite = null;
         }
         else
@@ -172,10 +179,49 @@ public class CustomizationManager : MonoBehaviour
             int leftIndex = (equippedIndex - 1 + totalImages) % totalImages;
             int rightIndex = (equippedIndex + 1) % totalImages;
 
-            popUpImages[0].sprite = equipmentImages[leftIndex];
-            popUpImages[1].sprite = equipmentImages[equippedIndex];
-            popUpImages[2].sprite = equipmentImages[rightIndex];
+            popUpImages[0].sprite = equipmentImages[leftIndex].GetComponent<Proyectil>().sprite;
+            popUpImages[1].sprite = equipmentImages[equippedIndex].GetComponent<Proyectil>().sprite;
+            popUpImages[2].sprite = equipmentImages[rightIndex].GetComponent<Proyectil>().sprite;
         }
+
+        selectedItem.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;
+        selectedItemName.text = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().weaponName;
+        selectedItemDescription.text = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().description;
+    }
+
+    private void UpdatePopUpSupport(List<Image> popUpImages, List<Sprite> equipmentImages, int equippedIndex)
+    {
+        int totalImages = equipmentImages.Count;
+
+        // Verifica si hay suficientes imágenes para mostrar en el pop-up
+        if (totalImages == 1)
+        {
+            // Solo una imagen: colocar en el centro y vaciar las otras posiciones
+            popUpImages[0].sprite = null;
+            popUpImages[1].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
+            popUpImages[2].sprite = null;
+        }
+        else if (totalImages == 2)
+        {
+            // Dos imágenes: colocar en la izquierda y el centro
+            popUpImages[0].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
+            popUpImages[1].sprite = equipmentImages[1].GetComponent<Proyectil>().sprite;
+            popUpImages[2].sprite = null;
+        }
+        else
+        {
+            // Tres o más imágenes: mostrar la imagen actual en el centro y las adyacentes en los laterales
+            int leftIndex = (equippedIndex - 1 + totalImages) % totalImages;
+            int rightIndex = (equippedIndex + 1) % totalImages;
+
+            popUpImages[0].sprite = equipmentImages[leftIndex].GetComponent<Proyectil>().sprite;
+            popUpImages[1].sprite = equipmentImages[equippedIndex].GetComponent<Proyectil>().sprite;
+            popUpImages[2].sprite = equipmentImages[rightIndex].GetComponent<Proyectil>().sprite;
+        }
+
+        selectedItem.sprite = supportImages[equippedSupportIndex].GetComponent<Proyectil>().sprite;
+        selectedItemName.text = "Not implemented yet";
+        selectedItemDescription.text = "Not implemented yet";
     }
 
     public void UpdateNetworkedPlayerEquipment()
@@ -183,7 +229,7 @@ public class CustomizationManager : MonoBehaviour
         if (networkedPlayer != null && networkedPlayer.IsOwner)
         {
             // Llama al servidor para propagar los cambios a otros clientes
-            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedAmmoIndex);
+            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedAmmoIndex+1);
         }
     }
 

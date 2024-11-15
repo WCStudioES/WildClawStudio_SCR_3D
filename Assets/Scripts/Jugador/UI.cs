@@ -10,6 +10,7 @@ public class UI : NetworkBehaviour
     
     [SerializeField]private GameObject LogIn;
     [SerializeField]private GameObject Personalizacion;
+    private bool cameraInGame = false;
     [SerializeField]private GameObject BuscandoPartida;
     [SerializeField]private GameObject Instrucciones;
     [SerializeField]private GameObject Build;
@@ -32,6 +33,20 @@ public class UI : NetworkBehaviour
             ActivarUI();
         if(!IsHost && IsOwner)
             GameObject.Find("FondoTestUI").SetActive(false);
+    }
+
+    private void Update()
+    {
+        if(Personalizacion.activeSelf && cameraInGame)
+        {
+            CJugador.nave.ChangeCamera(ControladorNave.CameraType.Customization);
+            cameraInGame = false;
+        }
+        else if(!Personalizacion.activeSelf && !cameraInGame)
+        {
+            CJugador.nave.ChangeCamera(ControladorNave.CameraType.InGame);
+            cameraInGame = true;
+        }
     }
 
     //TODAS ESTAS FUNCIONES NECESITAN MÁS FUNCIONALIDAD, ESTO ES UN PLACEHOLDER

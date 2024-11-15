@@ -6,7 +6,14 @@ using UnityEngine;
 
 public class ControladorNave : NetworkBehaviour
 {
-    [SerializeField] private Transform CameraPosition;
+    [SerializeField] private Transform CameraPositionInGame;
+    [SerializeField] private Transform CameraPositionCustomization;
+    public Transform actualCamera;
+
+    public enum CameraType{
+        InGame,
+        Customization
+    };
 
     private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     public Vector3 velocity = Vector3.zero;
@@ -26,7 +33,9 @@ public class ControladorNave : NetworkBehaviour
         if (IsOwner)
         {
             opcionesJugador = GetComponentInParent<OpcionesJugador>();
-            AssignMainCamera();
+
+            actualCamera = CameraPositionCustomization;
+            //AssignMainCamera();
         }
     }
 
@@ -150,12 +159,25 @@ public class ControladorNave : NetworkBehaviour
         CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
         if (VC != null)
         {
-            VC.Follow = CameraPosition;
+            VC.Follow = actualCamera;
             VC.LookAt = this.transform;
         }
         else
         {
             Debug.LogWarning("No se encontró la cámara virtual Cinemachine.");
         }
+    }
+
+    public void ChangeCamera(CameraType cameraType)
+    {
+        switch(cameraType)
+        {
+            case CameraType.InGame:
+                actualCamera = CameraPositionInGame; break;
+
+            case CameraType.Customization:
+                actualCamera = CameraPositionCustomization; break;
+        }
+        AssignMainCamera();
     }
 }

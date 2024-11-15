@@ -8,8 +8,9 @@ using UnityEngine;
 public class Misil : Proyectil
 {
     [SerializeField] private GameObject explosion; //Prefab de explosion para instanciar al petar
+    [SerializeField] private Transform explosionSpawn;
     private bool activo = true; //Variable apra ver si el misil ha explotado ya
-    private float timeOfEffect = 2;
+    private float timeOfEffect = 0.5f;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class Misil : Proyectil
 
             Debug.Log("Creando explosión en el server");
 
-            var explosionObject = Instantiate(explosion, transform.position, Quaternion.identity);
+            var explosionObject = Instantiate(explosion, explosionSpawn.position, Quaternion.identity);
             Explosion explosionScript = explosionObject.GetComponent<Explosion>();
             explosionScript.CrearAreaDmg(dmg, timeOfEffect, CuerpoNaveDueña, dmgDealer, IsEnServidor);
         }

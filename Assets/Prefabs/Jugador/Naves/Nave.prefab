@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3243054499303421799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651346800125495721}
+  m_Layer: 0
+  m_Name: CameraPosition Customization
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1651346800125495721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243054499303421799}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2841713113847711842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4459246142916814553
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4190798110982055615}
   m_Layer: 0
-  m_Name: CameraPosition
+  m_Name: CameraPosition InGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,6 +96,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4190798110982055615}
+  - {fileID: 1651346800125495721}
   - {fileID: 356377604322394424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,7 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38aacc9058cfe941943b372bc9af9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPosition: {fileID: 4190798110982055615}
+  CameraPositionInGame: {fileID: 4190798110982055615}
+  CameraPositionCustomization: {fileID: 1651346800125495721}
+  actualCamera: {fileID: 1651346800125495721}
   velocity: {x: 0, y: 0, z: 0}
   rotationSpeed: 100
   acceleration: 2
@@ -88,7 +122,7 @@ MonoBehaviour:
   maxSpeed: 10
   opcionesJugador: {fileID: 0}
   playerShip: {fileID: 7111494376282066658}
-  collider: {fileID: 0}
+  colliderNave: {fileID: 0}
 --- !u!114 &2342552104495230361
 MonoBehaviour:
   m_ObjectHideFlags: 0
