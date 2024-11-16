@@ -22,12 +22,12 @@ public class NavePandora : PlayerShip
         jugadorPandora = shipController.opcionesJugador.controladorDelJugador;
         
         //Crear lista de atributos que necesita su habilidad y rellenarla
-        List<object> attributes = new List<object>();
-        Debug.Log("Pandora comprobacion de NetworkedPlayer" + jugadorPandora.name);
-        attributes.Add(jugadorPandora);
+        //List<object> attributes = new List<object>();
+        //Debug.Log("Pandora comprobacion de NetworkedPlayer" + jugadorPandora.name);
+        //attributes.Add(jugadorPandora);
         
         //Pasar atributos
-        ability.AssignAttributes(attributes);
+        //ability.AssignAttributes(attributes);
         
         //skins;
         //chromas;
@@ -41,7 +41,7 @@ public class NavePandora : PlayerShip
 
     public override void UseAbility()
     {
-        ability.Execute();
+        activeAbility.Execute();
     }
     
     // IMPLEMENTACION DE PASIVA:

@@ -21,7 +21,8 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
 
-    public BasicAbility ability;
+    public ActiveAbility activeAbility;
+    public PassiveAbility passiveAbility;
 
     public List<Sprite> skinSprites;
 

@@ -21,7 +21,7 @@ public class CustomizationManager : MonoBehaviour
     public int equippedSkinIndex;
 
     [SerializeField] private List<GameObject> craftImages;
-    [SerializeField] private List<Sprite> skinImages;
+    //[SerializeField] private List<Sprite> skinImages;
 
     // BUILD DEL JUGADOR
     public Image equippedAmmoImage;
@@ -95,7 +95,7 @@ public class CustomizationManager : MonoBehaviour
                 equippedIndex = equippedCraftIndex;
                 break;
             case 1:
-                maxIndex = skinImages.Count - 1;
+                maxIndex = 0; // skinImages.Count - 1;
                 equippedIndex = equippedSkinIndex;
                 break;
             case 2:
@@ -150,7 +150,7 @@ public class CustomizationManager : MonoBehaviour
         // Actualiza las imágenes de la nave y de la build del jugador
         shipName.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().shipName;
         equippedCraftImage.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().sprite;
-        equippedSkinImage.sprite = skinImages[equippedSkinIndex];
+        //equippedSkinImage.sprite = skinImages[equippedSkinIndex];
         equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;
         equippedSupportImage.sprite = supportImages[equippedSupportIndex];
 
@@ -201,14 +201,14 @@ public class CustomizationManager : MonoBehaviour
         {
             // Solo una imagen: colocar en el centro y vaciar las otras posiciones
             popUpImages[0].sprite = null;
-            popUpImages[1].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
+            popUpImages[1].sprite = equipmentImages[0];
             popUpImages[2].sprite = null;
         }
         else if (totalImages == 2)
         {
             // Dos imágenes: colocar en la izquierda y el centro
-            popUpImages[0].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
-            popUpImages[1].sprite = equipmentImages[1].GetComponent<Proyectil>().sprite;
+            popUpImages[0].sprite = equipmentImages[0];
+            popUpImages[1].sprite = equipmentImages[1];
             popUpImages[2].sprite = null;
         }
         else

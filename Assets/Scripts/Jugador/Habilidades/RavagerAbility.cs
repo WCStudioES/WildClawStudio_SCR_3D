@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Jugador.Habilidades
 {
-    public class RavagerAbility: BasicAbility    
+    public class RavagerAbility: MovementAbility    
     {
         //De momento con cooldwon, futuro con energia
         private float cooldownTotal = 15; // Tiempo de recarga de la habilidad
@@ -22,17 +22,17 @@ namespace Jugador.Habilidades
         private float duracionActual = 0; // Tiempo de uso de la habilidad
         
         //Metodo para asignar atributos necesarios
-        public override void AssignAttributes(List<object> attributes)
-        {
-            if (attributes[0] is ControladorNave)
-            {
-                controlador = (ControladorNave) attributes[0];
-            }
-            Debug.Log("Controlador nave Ravager" + controlador);
-        }
+        //public override void AssignAttributes(List<object> attributes)
+        //{
+        //    if (attributes[0] is ControladorNave)
+        //    {
+        //        controlador = (ControladorNave) attributes[0];
+        //    }
+        //    Debug.Log("Controlador nave Ravager" + controlador);
+        //}
         
         //Metodo para activar habilidad: impulso de velocidad durante unos segundos
-        public override void Execute()
+        public override void AbilityExecution()
         {
             if (CheckAvailability())
             {
