@@ -206,6 +206,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     }
                     //Debug.Log(rotationInput);
                     break;
+                case "Hability":
+                    if (context.performed)
+                    {
+                       HabilityServerRpc();
+                    }
+                    break;
             }
         }
     }
@@ -414,6 +420,32 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             Destroy(proyectil, 2f);
         }
     }
+    
+    //////////////////////////////////
+    /// USO DE HABILIDADES////////////
+    //////////////////////////////////
+    [ServerRpc]
+    private void HabilityServerRpc()
+    {
+        if (IsServer)
+        {
+            //METER CODIGO DE SERVIDOR AQUI
+            Debug.Log("Lanzando habilidad en el servidor");
+        
+            HabilityClientRpc();
+        }
+    }
+    
+    [ClientRpc]
+    private void HabilityClientRpc()
+    {
+        if (!IsServer)
+        {
+            //METER CODIGO DE CLIENTE AQUI
+            Debug.Log("Lanzando habilidad en el cliente");
+        }
+    }
+    
 
 
     //////////////////////////////////

@@ -266,6 +266,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bfa02340-9c6d-4de7-a6e1-e536905b34c9
     m_ActionName: Nave/Shoot[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8966913476814297344}
+        m_TargetAssemblyTypeName: NetworkedPlayer, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba522757-b32c-4862-935f-ceabef81d36a
+    m_ActionName: Nave/Hability[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Nave
