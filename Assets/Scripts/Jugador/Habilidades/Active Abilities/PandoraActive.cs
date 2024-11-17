@@ -3,23 +3,10 @@ using System.Collections.Generic;
 using Jugador.Habilidades;
 using UnityEngine;
 
-public class PandoraAbility : OnHitPassive
+public class PandoraActive : ActiveAbility
 {
-    public int hpCost = 5;                  //coste de vida cada segundo
     public int hpThreshold = 20;            //vida mínima para activar
     private bool isActivated;               //Si esta activado o no el estado
-    
-    //Metodo para asignar atributos necesarios
-    //public override void AssignAttributes(List<object> attributes)
-    //{
-    //    if (attributes[0] is NetworkedPlayer)
-    //    {
-    //        networkedPlayer = (NetworkedPlayer)attributes[0];
-    //    }
-
-    //    isActivated = false;
-    //    Debug.Log("Networked de Pandora" + networkedPlayer.name);
-    //}
 
     //Metodo para activar habilidad: más daño a costa de vida cada segundo
     public override void AbilityExecution()
@@ -58,7 +45,7 @@ public class PandoraAbility : OnHitPassive
         {
             yield return new WaitForSeconds(1f); // Esperar un segundo para restar
                 
-            networkedPlayer.GetDamage(hpCost, networkedPlayer);
+            networkedPlayer.GetDamage((int)neededResQuantity, networkedPlayer);
                 
             Debug.Log("Vida de Pandora" + networkedPlayer.actualHealth.Value);
         }
@@ -77,6 +64,4 @@ public class PandoraAbility : OnHitPassive
         
         return false;
     }
-    
-
 }

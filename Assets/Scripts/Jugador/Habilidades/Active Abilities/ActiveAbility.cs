@@ -32,6 +32,16 @@ public abstract class ActiveAbility : Ability
                     return true;
                 }
 
+            case ResourceType.Hp:
+                if(actualResQuantity < neededResQuantity)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
             default:
                 return false;
         }

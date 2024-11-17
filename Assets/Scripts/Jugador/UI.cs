@@ -37,15 +37,19 @@ public class UI : NetworkBehaviour
 
     private void Update()
     {
-        if(Personalizacion.activeSelf && cameraInGame)
+        if (IsOwner)
         {
-            CJugador.nave.AssignMainCamera(ControladorNave.CameraType.Customization);
-            cameraInGame = false;
-        }
-        else if(!Personalizacion.activeSelf && !cameraInGame)
-        {
-            CJugador.nave.AssignMainCamera(ControladorNave.CameraType.InGame);
-            cameraInGame = true;
+            //SE ENCARGA DE COLOCAR LA CAMARA BIEN CADA VEZ QUE ENTRAS O SALES DE LA PAGINA DE PERSONALIZACIÓN
+            if(Personalizacion.activeSelf && cameraInGame)
+            {
+                CJugador.nave.AssignMainCamera(ControladorNave.CameraType.Customization);
+                cameraInGame = false;
+            }
+            else if(!Personalizacion.activeSelf && !cameraInGame)
+            {
+                CJugador.nave.AssignMainCamera(ControladorNave.CameraType.InGame);
+                cameraInGame = true;
+            }
         }
     }
 

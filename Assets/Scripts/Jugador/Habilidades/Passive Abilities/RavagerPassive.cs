@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatBuffPassive : PassiveAbility
+public class RavagerPassive : OnCollisionPassive
 {
     public override void AbilityExecution()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Ravager tankea el golpe porque es dios");
     }
 
     public override bool CheckAvailability()
     {
-        throw new System.NotImplementedException();
+        return true;
     }
 }

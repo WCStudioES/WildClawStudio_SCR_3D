@@ -18,11 +18,11 @@ public abstract class Ability : MonoBehaviour, IAbility
     {
         None,
         Energy,
-        CoolDown
+        CoolDown,
+        Hp
     }
 
-    //public abstract void AssignAttributes(List<object> attributes);
-
+    //Usado cuando se llama a la habilidad (pulsar tecla o Upadte() si es pasiva)
     public void Execute()
     {
         if (CheckAvailability())
@@ -31,7 +31,10 @@ public abstract class Ability : MonoBehaviour, IAbility
         }
     }
 
+    //La propia ejecución de la habilidad
     public abstract void AbilityExecution();
+
+    //Mira si puede usarse la habilidad
     public abstract bool CheckAvailability();
 
     // Start is called before the first frame update
@@ -39,7 +42,4 @@ public abstract class Ability : MonoBehaviour, IAbility
     {
         networkedPlayer= GetComponentInParent<NetworkedPlayer>();
     }
-
-    // Update is called once per frame
-    //public abstract void Update();
 }

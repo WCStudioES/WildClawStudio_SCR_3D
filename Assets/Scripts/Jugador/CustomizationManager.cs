@@ -217,12 +217,12 @@ public class CustomizationManager : MonoBehaviour
             int leftIndex = (equippedIndex - 1 + totalImages) % totalImages;
             int rightIndex = (equippedIndex + 1) % totalImages;
 
-            popUpImages[0].sprite = equipmentImages[leftIndex].GetComponent<Proyectil>().sprite;
-            popUpImages[1].sprite = equipmentImages[equippedIndex].GetComponent<Proyectil>().sprite;
-            popUpImages[2].sprite = equipmentImages[rightIndex].GetComponent<Proyectil>().sprite;
+            popUpImages[0].sprite = equipmentImages[leftIndex];
+            popUpImages[1].sprite = equipmentImages[equippedIndex];
+            popUpImages[2].sprite = equipmentImages[rightIndex];
         }
 
-        selectedItem.sprite = supportImages[equippedSupportIndex].GetComponent<Proyectil>().sprite;
+        selectedItem.sprite = supportImages[equippedSupportIndex];
         selectedItemName.text = "Not implemented yet";
         selectedItemDescription.text = "Not implemented yet";
     }

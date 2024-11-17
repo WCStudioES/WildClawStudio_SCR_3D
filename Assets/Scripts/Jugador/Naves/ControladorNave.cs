@@ -66,6 +66,12 @@ public class ControladorNave : NetworkBehaviour
 
             // Aplicar la velocidad calculada a la posición del objeto
             transform.position += velocity * Time.deltaTime;
+
+            // Aplica la pasiva de la nave si ocurre todo el rato
+            if(playerShip.passiveAbility is StatBuffPassive)
+            {
+                playerShip.passiveAbility.Execute();
+            }
         }
     }
 
@@ -103,10 +109,14 @@ public class ControladorNave : NetworkBehaviour
             velocity.y = -velocity.y / 2;
             
             //Daño por impacto, Ravager no posee por su pasiva
-            if (playerShip is not NaveRavager)
+            if (playerShip.passiveAbility is not OnCollisionPassive)
             {
                 Debug.Log("Daño por choque" + opcionesJugador.controladorDelJugador);
                 opcionesJugador.controladorDelJugador.GetDamage(20, opcionesJugador.controladorDelJugador);
+            }
+            else
+            {
+                playerShip.passiveAbility.Execute();
             }
         }
     }

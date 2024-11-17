@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 4047802399329841450}
   - component: {fileID: 481222455317425895}
   - component: {fileID: 6230050435369025426}
+  - component: {fileID: -8598968886529694628}
   m_Layer: 0
   m_Name: Ravager
   m_TagString: Untagged
@@ -245,8 +246,8 @@ MonoBehaviour:
   - {fileID: 1699773053242778073}
   - {fileID: 2514038311123159786}
   - {fileID: 7580968215186778875}
-  activeAbility: {fileID: 0}
-  passiveAbility: {fileID: 0}
+  activeAbility: {fileID: 6230050435369025426}
+  passiveAbility: {fileID: -8598968886529694628}
   skinSprites: []
 --- !u!114 &6230050435369025426
 MonoBehaviour:
@@ -263,10 +264,31 @@ MonoBehaviour:
   Name: 
   Description: 
   Sprite: {fileID: 0}
+  resourceType: 1
+  actualResQuantity: 0
+  neededResQuantity: 0
+  networkedPlayer: {fileID: 0}
+--- !u!114 &-8598968886529694628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9132130603446058905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996cfd25d76d92d44a11a34a72707476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Antikinetic Shield
+  Description: Ravager doesn't recieve damage from collisions
+  Sprite: {fileID: 0}
   resourceType: 0
   actualResQuantity: 0
   neededResQuantity: 0
   networkedPlayer: {fileID: 0}
+  collidesWith: 
+  collidedObject: {fileID: 0}
 --- !u!1001 &440742218146293477
 PrefabInstance:
   m_ObjectHideFlags: 0
