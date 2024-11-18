@@ -59,17 +59,22 @@ public class Debris : NetworkBehaviour, IDamageable
             dueñoDaño.GetHeal(hpADar.Value * 2, dueñoDaño);
             Debug.Log("HP al morir que da el debris: " + hpADar.Value * 2);
             Debug.Log("Hp de jugador: " + dueñoDaño.actualHealth.Value);
-            gameObject.SetActive(false);
-            DestruirDebrisClientRpc();
-            //Para testear, de moemnto se resetea cada 1 segundo
-            //Invoke("RestaurarMeteorito", 1f); 
+            StartCoroutine("DestroyWithDelay");
         }
+    }
+    public IEnumerator DestroyWithDelay()
+    {
+        Debug.Log("Destruyo el debris en el server");
+        yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+        gameObject.SetActive(false); // Desactiva el meteorito en el servidor
+        DestruirDebrisClientRpc(); // Sincroniza la desactivación en los clientes
     }
 
     // Metodo para destruir el meteorito en el cliente
     [ClientRpc]
     private void DestruirDebrisClientRpc()
     {
+        Debug.Log("Destruyo el debris en el cliente");
         gameObject.SetActive(false);
     }
 

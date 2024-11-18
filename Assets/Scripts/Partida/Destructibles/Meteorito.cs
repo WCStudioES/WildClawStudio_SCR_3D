@@ -53,11 +53,17 @@ public class Meteorito : NetworkBehaviour, IDamageable
             dueñoDaño.GetXP(xpADar.Value);
             Debug.Log("XpDada del meteorito: " + xpADar.Value);
             Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
-            gameObject.SetActive(false);
-            DestruirMeteoritoClientRpc();
             //Para testear, de moemnto se resetea cada 1 segundo
             //Invoke("RestaurarMeteorito", 1f); 
+
+            StartCoroutine("DestroyWithDelay");
         }
+    }
+    public IEnumerator DestroyWithDelay()
+    {
+        yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+        gameObject.SetActive(false); // Desactiva el meteorito en el servidor
+        DestruirMeteoritoClientRpc(); // Sincroniza la desactivación en los clientes
     }
 
     // Metodo para destruir el meteorito en el cliente
@@ -93,7 +99,8 @@ public class Meteorito : NetworkBehaviour, IDamageable
     [ClientRpc]
     private void RestaurarMeteoritoClientRpc()
     {
-        
         gameObject.SetActive(true);
     }
+
+
 }

@@ -44,8 +44,14 @@ public class Shield : MonoBehaviour, IDamageable
 
         if (actualHealth <= 0)
         {
-            DestroyShield();
+            StartCoroutine("DestroyWithDelay");
         }
+    }
+    public IEnumerator DestroyWithDelay()
+    {
+        yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+        gameObject.SetActive(false); // Desactiva el meteorito en el servidor
+        DestroyShield(); // Sincroniza la desactivación en los clientes
     }
 
     // Temporizador para la destrucción del escudo
