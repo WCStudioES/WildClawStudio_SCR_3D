@@ -261,13 +261,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a256cd98a3409094eabfbaec8ee627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
+  Name: Turbo Motors
+  Description: You get an speed and acceleration boost
   Sprite: {fileID: 0}
-  resourceType: 1
+  resourceType: 2
   actualResQuantity: 0
-  neededResQuantity: 0
+  neededResQuantity: 15
   networkedPlayer: {fileID: 0}
+  maxSpeedBuff: 5
+  accelerationBuff: 10
 --- !u!114 &-8598968886529694628
 MonoBehaviour:
   m_ObjectHideFlags: 0

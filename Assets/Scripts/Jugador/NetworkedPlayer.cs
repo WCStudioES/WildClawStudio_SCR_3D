@@ -53,6 +53,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public NetworkVariable<int> maxHealth = new NetworkVariable<int>(100);
     public NetworkVariable<int> actualHealth = new NetworkVariable<int>(100); //Vida de la nave
     public NetworkVariable<int> armor = new NetworkVariable<int>(10); //Armadura de la nave
+    public NetworkVariable<int> dmgBalance = new NetworkVariable<int>(0); //Daño porcentual extra o reducido de la nave
     public NetworkVariable<int> xp = new NetworkVariable<int>(00); //Experiencia de la nave
     public NetworkVariable<int> lvl = new NetworkVariable<int>(1); //Nivel de la nave
     public NetworkVariable<int> projectile = new NetworkVariable<int> (0); //Proyectil usado
@@ -206,6 +207,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     }
                     //Debug.Log(rotationInput);
                     break;
+
                 case "Hability":
                     if (context.performed)
                     {
@@ -216,21 +218,11 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
     }
 
-    // Función que aplica daño a la nave
+    // Función que aplica daño a la nave CONTANDO ARMADURA
     public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
-    {
-
-        //PASIVA DE ALBATROSS HARDCODEADA
-        
-        int additionalDmg = 0;
-        //Si el daño es de un albatross,no es la propia nave y estas bajo el limite de vida, suma daño
-        if (dueñoDaño.nave.playerShip is NaveAlbatross albatross && albatross != this && (float) (actualHealth.Value/maxHealth.Value) <= albatross.lifeThesholdPerOne)
-        {
-            additionalDmg = (int) (dmg* albatross.additionalExecutionDmgPerOne);
-        }
-        
+    {     
         //Restar el daño
-        actualHealth.Value -= (dmg + additionalDmg - armor.Value);  // Resta la cantidad de daño a la vida de la nave
+        actualHealth.Value -= (dmg - armor.Value);  // Resta la cantidad de daño a la vida de la nave
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (actualHealth.Value <= 0)
@@ -243,15 +235,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         //Debug.Log("Vida actual de la nave: " + actualHealth);
         UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
     }
-    
-    // Función que aplica daño a la nave + funcion lambda para ver si aplica daño adicional(no usada de momento pero esta bien tenerla)
-    public void GetDamage(int dmg, NetworkedPlayer dueñoDaño, Func<int> AdditionalDamageFunc)
+
+    // Funnción que aplica daño a la nave SIN CONTAR ARMADURA
+    public void GetTrueDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
-        
-        int additionalDamage = AdditionalDamageFunc();
-        
         //Restar el daño
-        actualHealth.Value -= (dmg + additionalDamage - armor.Value);  // Resta la cantidad de daño a la vida de la nave
+        actualHealth.Value -= dmg;  // Resta la cantidad de daño a la vida de la nave
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (actualHealth.Value <= 0)
@@ -264,7 +253,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         //Debug.Log("Vida actual de la nave: " + actualHealth);
         UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
     }
-    
+
+
     public void GetHeal(int heal, NetworkedPlayer dueñoDaño)
     {
         int health = Mathf.Min(actualHealth.Value + heal, maxHealth.Value);
@@ -429,10 +419,21 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (IsServer)
         {
-            //METER CODIGO DE SERVIDOR AQUI
             Debug.Log("Lanzando habilidad en el servidor");
+
+            //METER CODIGO DE SERVIDOR AQUI
+            switch (cuerpoNave.GetComponent<PlayerShip>().activeAbility.type)
+            {
+                case ActiveAbility.ActiveType.MovementBuff: 
+                case ActiveAbility.ActiveType.TogglePassive:
+                    cuerpoNave.GetComponent<PlayerShip>().UseAbility();
+                    break;
+
+                default:
+                    HabilityClientRpc();
+                    break;
+            }
         
-            HabilityClientRpc();
         }
     }
     

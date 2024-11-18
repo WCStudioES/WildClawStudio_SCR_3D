@@ -262,13 +262,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b185adc9755b5864a975ee7a9081bbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
+  Name: Wicked Prayer
+  Description: You can toggle it to increase your damage, but you will lose HP for
+    each second used
   Sprite: {fileID: 0}
   resourceType: 3
   actualResQuantity: 0
   neededResQuantity: 5
   networkedPlayer: {fileID: 0}
+  type: 3
   hpThreshold: 20
 --- !u!114 &4777893122438865834
 MonoBehaviour:
@@ -289,6 +291,7 @@ MonoBehaviour:
   actualResQuantity: 0
   neededResQuantity: 0
   networkedPlayer: {fileID: 0}
+  type: 0
   buffedStat: 0
   buffQuantity: 1
 --- !u!4 &6613436022634761739 stripped

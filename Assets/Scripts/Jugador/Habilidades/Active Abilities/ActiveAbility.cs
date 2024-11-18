@@ -1,10 +1,18 @@
-using Jugador.Habilidades;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ActiveAbility : Ability
 {
+    public ActiveType type;
+    public enum ActiveType
+    {
+        MovementBuff,
+        ShootProjectile,
+        Shield,
+        TogglePassive
+    }
+
     public override bool CheckAvailability()
     {
         switch (resourceType)
@@ -63,6 +71,10 @@ public abstract class ActiveAbility : Ability
                 {
                     actualResQuantity += Time.deltaTime;
                 }
+                break;
+
+            case ResourceType.Hp:
+                actualResQuantity = networkedPlayer.actualHealth.Value;
                 break;
 
             default:
