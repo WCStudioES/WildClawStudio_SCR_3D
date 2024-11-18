@@ -365,8 +365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4a51aea4d006c42a7ed5900b2231da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Shield Generator
-  Description: You get a frontal shield that protects you from some damage
+  Name: Frontal shield
+  Description: Generates a frontal shield barrier that blocks projectiles.
   Sprite: {fileID: 1042113909, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 25
@@ -386,8 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0419bf1dc56a45d4ea76f140aee4471c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Repairment Expertise
-  Description: You heal x2 from Derbis
+  Name: Expert mechanic
+  Description: Hitting and destroying debris heals double hp.
   Sprite: {fileID: -678149044, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0

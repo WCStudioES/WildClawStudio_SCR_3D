@@ -181,7 +181,7 @@ MonoBehaviour:
   CameraTarget: {fileID: 8028606154386012260}
   actualCamera: {fileID: 1651346800125495721}
   velocity: {x: 0, y: 0, z: 0}
-  rotationSpeed: 100
+  rotationSpeed: 150
   acceleration: 2
   deceleration: 1
   maxSpeed: 10

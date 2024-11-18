@@ -263,9 +263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b185adc9755b5864a975ee7a9081bbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Wicked Prayer
-  Description: You can toggle it to increase your damage, but you will lose HP for
-    each second used
+  Name: Brutal praying
+  Description: " When activated the ship\xB4s damage is increased, but lose health
+    every second. Reactivating disables this state. The ability has no cooldown."
   Sprite: {fileID: -1400953079, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 3
   actualResQuantity: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Living Ship
-  Description: Hp Regeneration
+  Description: The ships recovers health each second.
   Sprite: {fileID: -2013914438, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0

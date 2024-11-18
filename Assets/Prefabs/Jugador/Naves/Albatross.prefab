@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Storm Grenade
   Description: Throws a grenade that creates an advancing storm that damages any
-    ship within its area. Reactivation makes the storm to stop.
+    ship within its area. Reactivation detonates the grenade on the spot.
   Sprite: {fileID: -1705088866, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 20
@@ -307,8 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Executioner
-  Description: The damage of the projectiles is increased % to enemies with less
-    than 30% of ther life.
+  Description: Projectile damage is increased % to enemies with less than 30% of
+    ther life.
   Sprite: {fileID: 2094948976, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0

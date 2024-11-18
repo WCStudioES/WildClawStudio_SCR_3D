@@ -50,7 +50,7 @@ MonoBehaviour:
   weaponName: 
   description: 
   dmg: 10
-  speed: 30
+  speed: 60
   cadencia: 1.75
   type: 0
 --- !u!54 &25356461853773190
