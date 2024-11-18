@@ -1247,6 +1247,14 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 660942684284323035, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7827044729451083900}
+    - target: {fileID: 660942684284323035, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: IniciarSesion
+      objectReference: {fileID: 0}
     - target: {fileID: 800732373262767432, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_Type
       value: 0
@@ -1272,6 +1280,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3550483855733104606}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: ScriptLogIn
+      value: 
+      objectReference: {fileID: 7827044729451083900}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: DerrotaRonda
       value: 
       objectReference: {fileID: 463295743216302081}
@@ -1279,6 +1291,10 @@ PrefabInstance:
       propertyPath: VictoriaRonda
       value: 
       objectReference: {fileID: 6068756792600550488}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: ScriptRegister
+      value: 
+      objectReference: {fileID: 3945943731356098565}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: opcionesJugador
       value: 
@@ -1547,6 +1563,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4433463771562226898, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 6638038336228515080}
     - target: {fileID: 4485321507409611281, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1811,6 +1831,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6166495812485739867, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7827044729451083900}
+    - target: {fileID: 6166495812485739867, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivarPantallaDeRegistro
+      objectReference: {fileID: 0}
     - target: {fileID: 6324107654722903198, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_Name
       value: ActiveAbility
@@ -1955,6 +1983,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7483613220623166635, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 6638038336228515080}
     - target: {fileID: 8025677227415679845, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2107,6 +2139,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3945943731356098565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7483613220623166635, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+  m_PrefabInstance: {fileID: 5843961999289076910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff0ce8f081f0534ab78aced8a5ef492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4167695065480771717 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7552339682770613291, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
@@ -2209,6 +2252,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7827044729451083900 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4433463771562226898, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+  m_PrefabInstance: {fileID: 5843961999289076910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e518560e8db0240a4158329175e47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7911190169524685173 stripped

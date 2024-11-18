@@ -27,16 +27,24 @@ public class Register : MonoBehaviour
     public void IniciarSesion()
     {
         BotonRegistrar.enabled = false;
-        if (password1.text == password2.text)
-        {
-                
-            UIManager.CrearUsuarioServerRpc(name.text, password1.text);
-        }
+        MensajeDeError1.SetActive(false);
+        MensajeDeError2.SetActive(false);
+        if(name.text == "")
+            UsuarioInvalido();
         else
         {
-            MensajeDeError2.SetActive(true);
-            BotonRegistrar.enabled = true;
+            if (password1.text == password2.text && password1.text != "")
+            {
+                
+                UIManager.CrearUsuarioServerRpc(name.text, password1.text);
+            }
+            else
+            {
+                MensajeDeError2.SetActive(true);
+                BotonRegistrar.enabled = true;
+            }
         }
+
     }
 
     //LIMPIA LOS CAMPOS DE TEXTO DE LA PANTALLA

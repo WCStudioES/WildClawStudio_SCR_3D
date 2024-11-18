@@ -28,7 +28,10 @@ public class LogIn : MonoBehaviour
     public void IniciarSesion()
     {
             BotonLogIn.enabled = false;
-            UIManager.ComprobarUsuarioServerRpc(name.text, password.text);
+            if(name.text != "")
+                UIManager.ComprobarUsuarioServerRpc(name.text, password.text);
+            else
+                UsuarioInvalido();
     }
 
     //LIMPIA LOS CAMPOS DE TEXTO DE LA PANTALLA
