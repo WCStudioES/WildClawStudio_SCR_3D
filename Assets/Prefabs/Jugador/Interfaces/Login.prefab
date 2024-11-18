@@ -480,6 +480,138 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1251771136104899575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956100569048168906}
+  - component: {fileID: 856972690739896207}
+  - component: {fileID: 445765796023087303}
+  - component: {fileID: 1950795499046491553}
+  m_Layer: 5
+  m_Name: VolverALogIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &956100569048168906
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251771136104899575}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5.9607754}
+  m_LocalScale: {x: 4.5922, y: 4.5922, z: 4.5922}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6627411211537387482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 762, y: 822}
+  m_SizeDelta: {x: 58.1629, y: 48.6004}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &856972690739896207
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251771136104899575}
+  m_CullTransparentMesh: 1
+--- !u!114 &445765796023087303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251771136104899575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -2052677316, guid: 0262553adad274248aa5778573eae23a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1950795499046491553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251771136104899575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 2
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 2064992668, guid: 0262553adad274248aa5778573eae23a, type: 3}
+    m_PressedSprite: {fileID: 619090514, guid: 0262553adad274248aa5778573eae23a, type: 3}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 445765796023087303}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5457359854124529507}
+        m_TargetAssemblyTypeName: Register, Assembly-CSharp
+        m_MethodName: ActivarPantallaDeLogIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1360731761028022120
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +621,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6627411211537387482}
+  - component: {fileID: 5457359854124529507}
   m_Layer: 0
   m_Name: Register
   m_TagString: Untagged
@@ -515,10 +648,32 @@ Transform:
   - {fileID: 6460148841961509277}
   - {fileID: 7630127155181928828}
   - {fileID: 8635788940290136853}
+  - {fileID: 956100569048168906}
   - {fileID: 4776593691899202555}
   - {fileID: 4726838322892197719}
   m_Father: {fileID: 3681268103178545079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5457359854124529507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360731761028022120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff0ce8f081f0534ab78aced8a5ef492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIManager: {fileID: 0}
+  name: {fileID: 7379540565485053447}
+  password1: {fileID: 7242461395866572034}
+  password2: {fileID: 7610280290635397304}
+  MensajeDeError1: {fileID: 7032559768757549603}
+  MensajeDeError2: {fileID: 5872784653708608851}
+  PantallaDeRegistro: {fileID: 1360731761028022120}
+  PantallaDeLogIn: {fileID: 5987626337575782880}
+  BotonRegistrar: {fileID: 877783043170799137}
 --- !u!1 &1367255848480061039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,8 +1210,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI, Assembly-CSharp
+      - m_Target: {fileID: 5457359854124529507}
+        m_TargetAssemblyTypeName: Register, Assembly-CSharp
         m_MethodName: IniciarSesion
         m_Mode: 1
         m_Arguments:
@@ -1388,9 +1543,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: CrearNuevoUsuario
+      - m_Target: {fileID: 1288485257971986202}
+        m_TargetAssemblyTypeName: LogIn, Assembly-CSharp
+        m_MethodName: ActivarPantallaDeRegistro
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2300,7 +2455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &540358017270011171
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2834,9 +2989,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: CrearNuevoUsuario
+      - m_Target: {fileID: 5457359854124529507}
+        m_TargetAssemblyTypeName: Register, Assembly-CSharp
+        m_MethodName: LimpiarPantalla
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2967,7 +3122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4726838322892197719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3034,6 +3189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2913829985349933439}
+  - component: {fileID: 1288485257971986202}
   m_Layer: 0
   m_Name: LogIn
   m_TagString: Untagged
@@ -3062,6 +3218,25 @@ Transform:
   - {fileID: 540358017270011171}
   m_Father: {fileID: 3681268103178545079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1288485257971986202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5987626337575782880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e518560e8db0240a4158329175e47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIManager: {fileID: 0}
+  name: {fileID: 3497646082665810959}
+  password: {fileID: 4280062422380171484}
+  MensajeDeError: {fileID: 4793448341014061161}
+  PantallaDeRegistro: {fileID: 1360731761028022120}
+  PantallaDeLogIn: {fileID: 5987626337575782880}
+  BotonLogIn: {fileID: 2687363179869232915}
 --- !u!1 &7032559768757549603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,7 +3254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4776593691899202555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3458,8 +3633,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI, Assembly-CSharp
+      - m_Target: {fileID: 1288485257971986202}
+        m_TargetAssemblyTypeName: LogIn, Assembly-CSharp
         m_MethodName: IniciarSesion
         m_Mode: 1
         m_Arguments:

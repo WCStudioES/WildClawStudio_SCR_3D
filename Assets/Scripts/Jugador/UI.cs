@@ -23,6 +23,9 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
     private int posicionCuentaAtras = 0;
+    
+    [SerializeField]private LogIn ScriptLogIn;
+    [SerializeField]private Register ScriptRegister;
 
     MatchmakingManager matchmakingManager;
     
@@ -88,6 +91,72 @@ public class UI : NetworkBehaviour
             Personalizacion.SetActive(false);
             LogIn.SetActive(true);
         }
+    }
+    
+    
+    //COMPRUEBA SI EXISTE UN USUARIO Y SI ES VALIDO
+    [ServerRpc]
+    public void ComprobarUsuarioServerRpc(string name, string password)
+    {
+        if (Usuario.ComprobarSiUsuarioExiste(name))
+        {
+            if (Usuario.ComprobarSiUsuarioEsValido(name, password))
+            {
+                UsuarioValidoClientRpc(Usuario.SerializeUsuario(Usuario.CargarUsuario(name)));
+            }
+            else
+            {
+                UsuarioInvalidoClientRpc();
+            }
+        }
+        else
+        {
+            UsuarioInvalidoClientRpc();
+        }
+    }
+
+    //RESPUESTA SI EL USUARIO ES VALIDO(LOG IN)
+    [ClientRpc]
+    void UsuarioValidoClientRpc(string usuario)
+    {
+        ScriptLogIn.UsuarioValido(usuario);
+    }
+    
+    //RESPUESTA SI EL USUARIO NO ES VALIDO(LOG IN)
+    [ClientRpc]
+    void UsuarioInvalidoClientRpc()
+    {
+        ScriptLogIn.UsuarioInvalido();
+    }
+    
+    //COMPRUEBA SI SE PUEDE REGISTRAR AL NUEVO USUARIO
+    [ServerRpc]
+    public void CrearUsuarioServerRpc(string name, string password)
+    {
+        if (Usuario.ComprobarSiUsuarioExiste(name))
+        {
+            UsuarioExistenteClientRpc();
+        }
+        else
+        {
+            Usuario u = new Usuario(name, password);
+            Usuario.GuardarUsuario(u);
+            UsuarioCreadoClientRpc(Usuario.SerializeUsuario(u));
+        }
+    }
+    
+    //RESPUESTA SI EL USUARIO YA EXISTE(REGISTRO)
+    [ClientRpc]
+    void UsuarioExistenteClientRpc()
+    {
+        ScriptRegister.UsuarioInvalido();
+    }
+    
+    //RESPUESTA SI E¡SE HA CREADO UN NUEVO USUARIO(REGISTRO)
+    [ClientRpc]
+    void UsuarioCreadoClientRpc(string usuario)
+    {
+        ScriptRegister.UsuarioValido(usuario);
     }
     
     ////////////////////////////////////////////
