@@ -28,6 +28,17 @@ public abstract class Ability : MonoBehaviour, IAbility
         if (CheckAvailability())
         {
             AbilityExecution();
+            
+            switch(resourceType)
+            {
+                case ResourceType.CoolDown:
+                    actualResQuantity = 0;
+                    break;
+
+                default:
+                    //actualResQuantity -= neededResQuantity; 
+                    break;
+            }
         }
     }
 

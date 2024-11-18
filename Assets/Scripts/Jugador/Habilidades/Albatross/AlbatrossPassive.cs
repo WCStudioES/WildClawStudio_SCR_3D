@@ -11,8 +11,11 @@ public class AlbatrossPassive : OnHitPassive
     private NetworkedPlayer enemyPlayer;
     public override void AbilityExecution()
     {
-        Debug.Log("Albatross ejecuta");
-        enemyPlayer.GetDamage(extraDmg, networkedPlayer);
+        if (networkedPlayer.IsServer)
+        {
+            Debug.Log("Albatross ejecuta");
+            enemyPlayer.GetDamage(extraDmg, networkedPlayer);
+        }
     }
 
     public override bool CheckAvailability()

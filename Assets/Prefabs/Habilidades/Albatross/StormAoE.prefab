@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e159640f1a96034f84ca61615a403bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
+  dmg: 7
   timeOfEffect: 5
-  ticksPerSecond: 3
+  ticksPerSecond: 2
   speed: 0
 --- !u!135 &5332781582947477204
 SphereCollider:
@@ -65,7 +65,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

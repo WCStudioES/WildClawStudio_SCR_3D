@@ -259,6 +259,7 @@ MonoBehaviour:
   initialArmor: 0
   healthIncrement: 3
   armorIncrement: 0
+  dmgBalance: 0
   maxLevel: 8
   xpByLvl: 
   shipController: {fileID: 0}
@@ -286,7 +287,7 @@ MonoBehaviour:
   Name: Storm Grenade
   Description: Throws a grenade that creates an advancing storm that damages any
     ship within its area. Reactivation makes the storm to stop.
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -1705088866, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 20
   neededResQuantity: 20
@@ -308,13 +309,13 @@ MonoBehaviour:
   Name: Executioner
   Description: The damage of the projectiles is increased % to enemies with less
     than 30% of ther life.
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 2094948976, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0
   neededResQuantity: 0
   networkedPlayer: {fileID: 0}
   type: 1
-  hpPercentThreshold: 30
+  hpPercentThreshold: 35
   extraDmg: 10
 --- !u!4 &8709803053417626308 stripped
 Transform:

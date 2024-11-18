@@ -23,10 +23,14 @@ public class CustomizationManager : MonoBehaviour
     [SerializeField] private List<GameObject> craftImages;
     //[SerializeField] private List<Sprite> skinImages;
 
-    // BUILD DEL JUGADOR
-    public Image equippedAmmoImage;
-    public Image equippedSupportImage;
+    // HABILIDADES DE LA NAVE
+    public Image equippedShipActive;
+    public Image equippedShipPassive;
 
+    public TMP_Text equippedShipActiveDescription;
+    public TMP_Text equippedShipPassiveDescription;
+
+    // BUILD DEL JUGADOR
     public int equippedAmmoIndex;
     public int equippedSupportIndex;
 
@@ -61,7 +65,7 @@ public class CustomizationManager : MonoBehaviour
         // Carga los sprites de las listas del NetworkedPlayer
         if (networkedPlayer != null)
         {
-            Debug.Log("Actualiza las listas de la UI");
+            //Debug.Log("Actualiza las listas de la UI");
             // Asegúrate de que las listas están vacías antes de cargar los nuevos sprites
             craftImages.Clear();
             ammoImages.Clear();
@@ -146,13 +150,19 @@ public class CustomizationManager : MonoBehaviour
 
     public void UpdateImages()
     {
-        Debug.Log("Hola");
-        // Actualiza las imágenes de la nave y de la build del jugador
+       // Debug.Log("Actualizar imágenes UI");
+        
+        // NAVE ELEGIDA
         shipName.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().shipName;
         equippedCraftImage.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().sprite;
         //equippedSkinImage.sprite = skinImages[equippedSkinIndex];
-        equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;
-        equippedSupportImage.sprite = supportImages[equippedSupportIndex];
+
+        // HABILIDADES DE LA NAVE
+        equippedShipActive.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().activeAbility.Sprite;
+        equippedShipPassive.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().passiveAbility.Sprite;
+
+        equippedShipActiveDescription.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().activeAbility.Description;
+        equippedShipPassiveDescription.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().passiveAbility.Description;
 
         UpdateNetworkedPlayerEquipment();
     }

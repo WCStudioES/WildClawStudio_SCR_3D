@@ -17,8 +17,7 @@ public class Debris : NetworkBehaviour, IDamageable
     public float escalaMinima = 2f;
     
     public NetworkVariable<int> hpActual = new NetworkVariable<int>(100); // Vida actual del meteorito
-    public NetworkVariable<int> hpADarAlRecibirDaño = new NetworkVariable<int>(5); // Vida que restaura el meteorito al recibir daño
-    public NetworkVariable<int> hpADarAlMorir = new NetworkVariable<int>(10); // Vida que restaura el meteorito al recibir daño
+    public NetworkVariable<int> hpADar = new NetworkVariable<int>(5); // Vida que restaura el meteorito al recibir daño
 
     private void Start()
     {
@@ -45,8 +44,8 @@ public class Debris : NetworkBehaviour, IDamageable
             }
             else
             {
-                dueñoDaño.GetHeal(hpADarAlRecibirDaño.Value, dueñoDaño);
-                Debug.Log("HP al recibir daño debris: " + hpADarAlRecibirDaño.Value);
+                dueñoDaño.GetHeal(hpADar.Value, dueñoDaño);
+                Debug.Log("HP al recibir daño debris: " + hpADar.Value);
                 Debug.Log("Hp de jugador: " + dueñoDaño.actualHealth.Value);
             }
         }
@@ -57,8 +56,8 @@ public class Debris : NetworkBehaviour, IDamageable
     {
         if (IsServer)
         {
-            dueñoDaño.GetHeal(hpADarAlMorir.Value, dueñoDaño);
-            Debug.Log("HP al morir que da el debris: " + hpADarAlMorir.Value);
+            dueñoDaño.GetHeal(hpADar.Value * 2, dueñoDaño);
+            Debug.Log("HP al morir que da el debris: " + hpADar.Value * 2);
             Debug.Log("Hp de jugador: " + dueñoDaño.actualHealth.Value);
             gameObject.SetActive(false);
             DestruirDebrisClientRpc();

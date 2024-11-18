@@ -14,6 +14,8 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public int healthIncrement;
     public int armorIncrement;
 
+    public int dmgBalance;
+
     public int maxLevel = 8;
     public int[] xpByLvl;
 
@@ -39,7 +41,10 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     public abstract void FireProjectile();
     public abstract void InitializeStats();
-    public abstract void UseAbility();
+    public void UseAbility()
+    {
+        activeAbility.Execute();
+    }
 
     public void SetLevels()
     {

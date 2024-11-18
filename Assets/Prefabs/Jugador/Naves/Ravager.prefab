@@ -239,6 +239,7 @@ MonoBehaviour:
   initialArmor: 0
   healthIncrement: 3
   armorIncrement: 0
+  dmgBalance: 0
   maxLevel: 10
   xpByLvl: 
   shipController: {fileID: 0}
@@ -263,11 +264,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Turbo Motors
   Description: You get an speed and acceleration boost
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -820781361, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 0
   neededResQuantity: 15
   networkedPlayer: {fileID: 0}
+  type: 0
   maxSpeedBuff: 5
   accelerationBuff: 10
 --- !u!114 &-8598968886529694628
@@ -284,11 +286,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Antikinetic Shield
   Description: Ravager doesn't recieve damage from collisions
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 1285309978, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0
   neededResQuantity: 0
   networkedPlayer: {fileID: 0}
+  type: 0
   collidesWith: 
   collidedObject: {fileID: 0}
 --- !u!1001 &440742218146293477

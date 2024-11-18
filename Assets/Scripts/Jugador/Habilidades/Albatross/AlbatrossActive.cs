@@ -8,14 +8,18 @@ public class AlbatrossActive : ShootProjectileAbility
     [SerializeField] private GameObject stormGrenade;
     public override void AbilityExecution()
     {
+        Debug.Log("Albatros lanza habilidad");
+
+        Transform spawn = GetComponentInParent<PlayerShip>().proyectileSpawns[0];
+
         //Debug.Log("Proyectil creado");
-        GameObject proyectil = Instantiate(stormGrenade);
+        GameObject proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
         // Inicializamos el proyectil en el servidor
-        proyectilScript.Inicializar(Vector3.zero, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
+        proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
 
-        // Programamos la destrucción del proyectil después de 2 segundos
+        // Programamos la destrucción del proyectil después de 10 segundos
         Destroy(proyectil, 10f);
     }
 }
