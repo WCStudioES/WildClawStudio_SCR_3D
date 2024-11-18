@@ -20,7 +20,10 @@ public class ProyectilBasico : Proyectil
     {
         if (IsEnServidor)
         {
-            target.GetDamage(this.dmg, dmgDealer);
+            if(target != null)
+            {
+                target.GetDamage(this.dmg, dmgDealer);
+            }
             Destroy(gameObject);
         }
     }
