@@ -30,6 +30,8 @@ namespace Test
                 Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
             };
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            
+            Debug.Log(Application.persistentDataPath);
         }
 
         [ContextMenu("CreateRelay")]
