@@ -51,7 +51,7 @@ public class PandoraActive : ToggleAbility
                 
             networkedPlayer.GetTrueDamage((int)neededResQuantity, networkedPlayer);
                 
-            Debug.Log("Vida de Pandora" + networkedPlayer.actualHealth.Value);
+            //Debug.Log("Vida de Pandora" + networkedPlayer.actualHealth.Value);
         }
             
         AcabarHabilidad();

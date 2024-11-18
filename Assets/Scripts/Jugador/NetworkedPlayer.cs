@@ -260,7 +260,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         int health = Mathf.Min(actualHealth.Value + heal, maxHealth.Value);
         actualHealth.Value = health;  // Suma la cantidad de daño a la vida de la nave
         
-        Debug.Log("Vida actual de la nave: " + actualHealth);
+        Debug.Log("Vida actual de la nave: " + actualHealth.Value);
         //Debug.Log("Vida actual de la nave: " + actualHealth);
         UpdateHealthBarClientRpc(health); //Actualizar barra de vida
     }
@@ -431,6 +431,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
                 default:
                     HabilityClientRpc();
+                    cuerpoNave.GetComponent<PlayerShip>().UseAbility();
                     break;
             }
         
@@ -444,6 +445,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             //METER CODIGO DE CLIENTE AQUI
             Debug.Log("Lanzando habilidad en el cliente");
+            cuerpoNave.GetComponent<PlayerShip>().UseAbility();
         }
     }
     

@@ -19,8 +19,16 @@ PrefabInstance:
         condiciones.
       objectReference: {fileID: 0}
     - target: {fileID: 481222455317425895, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: activeAbility
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 481222455317425895, guid: a5931e986950b084d819559cd5ee7165, type: 3}
       propertyPath: initialHealth
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 481222455317425895, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      propertyPath: passiveAbility
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 481222455317425895, guid: a5931e986950b084d819559cd5ee7165, type: 3}
       propertyPath: healthIncrement
@@ -70,7 +78,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cargo Queen
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6230050435369025426, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+    - {fileID: -8598968886529694628, guid: a5931e986950b084d819559cd5ee7165, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

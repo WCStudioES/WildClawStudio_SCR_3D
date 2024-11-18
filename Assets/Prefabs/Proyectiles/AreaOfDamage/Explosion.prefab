@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3b7ad4eb1140e987b3deb05a02c7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 0
-  timeOfEffect: 0
+  dmg: 45
+  timeOfEffect: 0.5
+  ticksPerSecond: 0
   speed: 0
-  cadencia: 0

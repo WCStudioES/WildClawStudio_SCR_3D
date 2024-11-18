@@ -19,11 +19,9 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     protected bool IsInServidor;
 
-    public void CrearAreaDmg(int daño, float t, CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor)
+    public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor)
     {
         Debug.Log("Explosion creada");
-        dmg = daño;
-        timeOfEffect = t;
         ticksPerSecond = 0;
         ControladorNaveDueña = pDmgDealer;
         CuerpoNaveDueña = pCuerpoNaveDueña;
@@ -36,10 +34,6 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     protected void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(other.gameObject);
-        //Debug.Log(CuerpoNaveDueña);
-        //Debug.Log(other.gameObject != CuerpoNaveDueña);
-
         //Si el otro gameobject no es el mismo, compueba si puede hacer daño
         if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null)
         {

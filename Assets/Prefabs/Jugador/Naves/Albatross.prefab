@@ -199,6 +199,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 481222455317425895, guid: a5931e986950b084d819559cd5ee7165, type: 3}
     - {fileID: 6230050435369025426, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+    - {fileID: -8598968886529694628, guid: a5931e986950b084d819559cd5ee7165, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2903301103226397575, guid: a5931e986950b084d819559cd5ee7165, type: 3}
     - {fileID: 782708688324238260, guid: a5931e986950b084d819559cd5ee7165, type: 3}
@@ -210,6 +211,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6971237536267150761}
+    - targetCorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3559572338384177590}
+    - targetCorrespondingSourceObject: {fileID: 9132130603446058905, guid: a5931e986950b084d819559cd5ee7165, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1475624673909171016}
   m_SourcePrefab: {fileID: 100100000, guid: a5931e986950b084d819559cd5ee7165, type: 3}
 --- !u!4 &467427956688220646 stripped
 Transform:
@@ -259,10 +266,56 @@ MonoBehaviour:
   - {fileID: 467427956688220646}
   - {fileID: 3677687518902737621}
   - {fileID: 8709803053417626308}
-  ability: {fileID: 0}
+  activeAbility: {fileID: 3559572338384177590}
+  passiveAbility: {fileID: 1475624673909171016}
   skinSprites: []
   additionalExecutionDmgPerOne: 0
   lifeThesholdPerOne: 0
+--- !u!114 &3559572338384177590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021392180416212902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13050f223a7a8bf4f86d210acf9550d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Storm Grenade
+  Description: Throws a grenade that creates an advancing storm that damages any
+    ship within its area. Reactivation makes the storm to stop.
+  Sprite: {fileID: 0}
+  resourceType: 2
+  actualResQuantity: 20
+  neededResQuantity: 20
+  networkedPlayer: {fileID: 0}
+  type: 1
+  stormGrenade: {fileID: 5047976631321185189, guid: 743aabaa9ba67734caf03eefc3817bb3, type: 3}
+--- !u!114 &1475624673909171016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021392180416212902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d21bd6d9fa50254c9820f9e41ef4eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Executioner
+  Description: The damage of the projectiles is increased % to enemies with less
+    than 30% of ther life.
+  Sprite: {fileID: 0}
+  resourceType: 0
+  actualResQuantity: 0
+  neededResQuantity: 0
+  networkedPlayer: {fileID: 0}
+  type: 1
+  hpPercentThreshold: 30
+  extraDmg: 10
 --- !u!4 &8709803053417626308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7580968215186778875, guid: a5931e986950b084d819559cd5ee7165, type: 3}

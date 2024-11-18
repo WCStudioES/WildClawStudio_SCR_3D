@@ -10,7 +10,6 @@ public class Misil : Proyectil
     [SerializeField] private GameObject explosion; //Prefab de explosion para instanciar al petar
     [SerializeField] private Transform explosionSpawn;
     private bool activo = true; //Variable apra ver si el misil ha explotado ya
-    private float timeOfEffect = 0.5f;
 
     void Start()
     {
@@ -30,7 +29,7 @@ public class Misil : Proyectil
 
             var explosionObject = Instantiate(explosion, explosionSpawn.position, Quaternion.identity);
             Explosion explosionScript = explosionObject.GetComponent<Explosion>();
-            explosionScript.CrearAreaDmg(dmg, timeOfEffect, CuerpoNaveDueña, dmgDealer, IsEnServidor);
+            explosionScript.CrearAreaDmg(CuerpoNaveDueña, dmgDealer, IsEnServidor);
         }
     }
 }
