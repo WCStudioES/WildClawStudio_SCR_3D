@@ -1,16 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class NaveRavager : PlayerShip
+public class NaveCargoQueen : PlayerShip
 {
-    //NOTA: La pasiva de Ravager de no recibir daño de choque esta implementada en ControladorNave
     public override void InitializeStats()
     {
-        shipName = "Ravager";
-        description = "Est� guapa";
+        shipName = "Cargo Queen";
+        description = "Es god mi loko";
 
         initialHealth = 100;
         initialArmor = 10;
@@ -26,6 +24,6 @@ public class NaveRavager : PlayerShip
 
     public override void FireProjectile()
     {
-        throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
 }

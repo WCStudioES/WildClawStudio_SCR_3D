@@ -17,14 +17,9 @@ public class NaveAlbatross : PlayerShip
 
         healthIncrement = 20;
         armorIncrement = 3;
-        
-        //Crear lista de atributos que necesita su habilidad y rellenarla
-        //List<object> attributes = new List<object>();
-        //attributes.Add(shipName);
-        
-        //Pasar atributos
-        //ability.AssignAttributes(attributes);
-        
+
+        dmgBalance = 0;
+
         //skins;
         //chromas;
     }
@@ -33,10 +28,4 @@ public class NaveAlbatross : PlayerShip
     {
         throw new NotImplementedException();
     }
-
-    public override void UseAbility()
-    {
-        activeAbility.Execute();
-    }
-
 }

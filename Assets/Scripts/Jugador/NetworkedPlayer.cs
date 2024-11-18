@@ -87,6 +87,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             // Se copian dentro del NetworkedPlayer como Network Variables
             armor.Value = cuerpoNave.GetComponent<PlayerShip>().initialArmor;
             actualHealth.Value = cuerpoNave.GetComponent<PlayerShip>().initialHealth;
+            dmgBalance.Value = cuerpoNave.GetComponent<PlayerShip>().dmgBalance;
             maxHealth.Value = actualHealth.Value;
 
             // Otras inicializaciones
@@ -222,7 +223,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {     
         //Restar el daño
-        actualHealth.Value -= (dmg - armor.Value);  // Resta la cantidad de daño a la vida de la nave
+        actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
 
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (actualHealth.Value <= 0)
@@ -430,8 +431,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     break;
 
                 default:
-                    HabilityClientRpc();
                     cuerpoNave.GetComponent<PlayerShip>().UseAbility();
+                    HabilityClientRpc();
                     break;
             }
         
@@ -459,6 +460,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [ServerRpc]
     public void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex)
     {
+        //Debug.Log(shipIndex + ", " + allShips.Count);
         selectedShip.Value = shipIndex;
         selectedProjectile = projectileIndex;
 
