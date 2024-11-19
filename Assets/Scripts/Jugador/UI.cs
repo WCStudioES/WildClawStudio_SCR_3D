@@ -178,6 +178,8 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            if(!opcionesJugador.testing)
+                RetirarseDeLaColaServerRpc();
             BuscandoPartida.SetActive(false);
             Personalizacion.SetActive(true);
         }
@@ -358,29 +360,34 @@ public class UI : NetworkBehaviour
 
         matchmakingManager.colaJugadores.Add(opcionesJugador.UIJugador);
     }
+    
+    // El cliente llama a esto para retirarse de la cola de matchmaking
+    [ServerRpc]
+    public void RetirarseDeLaColaServerRpc(ServerRpcParams rpcParams = default)
+    {
+        ulong jugadorId = rpcParams.Receive.SenderClientId;
+        Debug.Log("Jugador eliminado de la cola: " + jugadorId);
+
+        matchmakingManager.colaJugadores.Remove(opcionesJugador.UIJugador);
+    }
 
     //AÑADIR JUGADOR A PARTIDA
-    //TODO (APAÑAR ESTO CON EL MATCHMAKER)
-    //[ServerRpc]
-    public void MeterJugadorEnLaPartida()
+    public void MeterJugadorEnLaPartida(int IDPartida)
     {
-        Debug.Log("Meter jugador en partida (Server)");
-        Partida partida = FindObjectOfType<Partida>();
         if (IsServer)
         {
-            partida.jugadores.Add(opcionesJugador.controladorDelJugador);
-            MeterJugadorEnLaPartidaClientRpc();
+            MatchmakingManager.ListaDePartidas[IDPartida].jugadores.Add(opcionesJugador.controladorDelJugador);
+            MeterJugadorEnLaPartidaClientRpc(IDPartida);
         }
     }
     
     [ClientRpc]
-    public void MeterJugadorEnLaPartidaClientRpc()
+    public void MeterJugadorEnLaPartidaClientRpc(int IDPartida)
     {
         Debug.Log("Meter jugador en partida (Client)");
-        Partida partida = FindObjectOfType<Partida>();
         if (IsClient && !IsHost)
         {
-            partida.jugadores.Add(opcionesJugador.controladorDelJugador);
+            MatchmakingManager.ListaDePartidas[IDPartida].jugadores.Add(opcionesJugador.controladorDelJugador);
         }
     }
     

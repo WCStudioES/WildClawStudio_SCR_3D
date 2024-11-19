@@ -22,6 +22,9 @@ public class OpcionesJugador : NetworkBehaviour
     
     //NAVE
     public GameObject nave;
+    
+    //BOOL PARA VER SI SE ESTA PROBANDO ALGO
+    public bool testing = false;
 
     void Start()
     {
