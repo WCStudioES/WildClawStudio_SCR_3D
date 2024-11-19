@@ -29,7 +29,7 @@ public class Misil : Proyectil
 
             var explosionObject = Instantiate(explosion, explosionSpawn.position, Quaternion.identity);
             Explosion explosionScript = explosionObject.GetComponent<Explosion>();
-            explosionScript.CrearAreaDmg(CuerpoNaveDueña, dmgDealer, IsEnServidor);
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor);
         }
     }
 }

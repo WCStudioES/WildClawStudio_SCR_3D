@@ -20,7 +20,8 @@ public class StormGrenade : Proyectil
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-            explosionScript.CrearAreaDmg(CuerpoNaveDueña, dmgDealer, IsEnServidor);
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor);
+            
         }
     }
 }

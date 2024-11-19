@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -59,7 +60,13 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public NetworkVariable<int> projectile = new NetworkVariable<int> (0); //Proyectil usado
     public NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
 
-    public Image barraDeVida; //Gameobject de la barra de vida
+    public Image barraDeVida; //Imagen de la barra de vida
+    [SerializeField]private TextMeshProUGUI textoVida; //Texto dentro de la barra de vida
+
+    public Image barraDeExperiencia; //Imagen de la barra de experiencia
+    [SerializeField] private TextMeshProUGUI textoExperiencia; //Texto dentro de la barra de experiencia
+    
+    [SerializeField] private TextMeshProUGUI textoNivel; //Texto que muestra el nivel de la nave
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
@@ -94,6 +101,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             xp.Value = 0;
             lvl.Value = 1;
             projectile.Value = proyectilBasico;
+            
+            //Inicializar UI
+            UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
+            UpdateExperienceBarClientRpc(0, 1);
         }
     }
     
@@ -109,15 +120,31 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
         }
-        UpdateHealthBarClientRpc(actualHealth.Value);
+        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
     }
 
     //Funcion que maneja la barra de vida
     [ClientRpc]
-    public void UpdateHealthBarClientRpc(int vida)
+    public void UpdateHealthBarClientRpc(int vida, int maxVida)
     {
-        float healthPercentage = vida / (float) maxHealth.Value;
+        float healthPercentage = (float) vida / (float) maxVida;
         barraDeVida.fillAmount = healthPercentage;
+        
+        textoVida.text = vida + " / " + maxVida;
+
+        //Debug.Log(healthPercentage);
+    }
+    
+    //Funcion que maneja la barra de experiencia
+    [ClientRpc]
+    public void UpdateExperienceBarClientRpc(int experience, int lvl)
+    {
+        float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
+        float xpPercentage = experience / maxExperience;
+        barraDeExperiencia.fillAmount = xpPercentage;
+        
+        textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
+        textoNivel.text = lvl.ToString();
 
         //Debug.Log(healthPercentage);
     }
@@ -234,7 +261,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
 
         //Debug.Log("Vida actual de la nave: " + actualHealth);
-        UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
+        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
     }
 
     // Funnción que aplica daño a la nave SIN CONTAR ARMADURA
@@ -252,7 +279,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
 
         //Debug.Log("Vida actual de la nave: " + actualHealth);
-        UpdateHealthBarClientRpc(actualHealth.Value); //Actualizar barra de vida
+        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
     }
 
 
@@ -263,7 +290,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         
         Debug.Log("Vida actual de la nave: " + actualHealth.Value);
         //Debug.Log("Vida actual de la nave: " + actualHealth);
-        UpdateHealthBarClientRpc(health); //Actualizar barra de vida
+        UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
     }
     
     //Funcion que gestiona la obtención de xp del jugador
@@ -279,7 +306,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             // La xp se resta, para que vuelva a estar cerca de 0
             xp.Value -= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1];
             lvl.Value++;
-
+            
             // Cambios de estadísticas por nivel
             xpADar.Value += 50;
             armor.Value += cuerpoNave.GetComponent<PlayerShip>().armorIncrement;
@@ -287,7 +314,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             actualHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
 
             // Se actualiza la barra de vida
-            UpdateHealthBarClientRpc(actualHealth.Value); 
+            UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); 
 
             Debug.Log("Level " + lvl.Value);
 
@@ -303,7 +330,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     break;
                 //...
             }
+            
         }
+        UpdateExperienceBarClientRpc(xp.Value, lvl.Value);  //Actualizar barra de experiencia
+
     }
 
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
