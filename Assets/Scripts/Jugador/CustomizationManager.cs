@@ -26,6 +26,10 @@ public class CustomizationManager : MonoBehaviour
     // HABILIDADES DE LA NAVE
     public Image equippedShipActive;
     public Image equippedShipPassive;
+    
+    [SerializeField] private Image[] LifePoints;
+    [SerializeField] private Image[] PowerPoints;
+    [SerializeField] private Image[] SpeedPoints;
 
     public TMP_Text equippedShipActiveDescription;
     public TMP_Text equippedShipPassiveDescription;
@@ -66,7 +70,7 @@ public class CustomizationManager : MonoBehaviour
         if (networkedPlayer != null)
         {
             //Debug.Log("Actualiza las listas de la UI");
-            // Asegúrate de que las listas están vacías antes de cargar los nuevos sprites
+            // Asegï¿½rate de que las listas estï¿½n vacï¿½as antes de cargar los nuevos sprites
             craftImages.Clear();
             ammoImages.Clear();
 
@@ -85,13 +89,13 @@ public class CustomizationManager : MonoBehaviour
         }
     }
 
-    //CAMBIA EL ÍNDICE DEL EQUIPAMIENTO (AL PULSAR UN BOTÓN)
+    //CAMBIA EL ï¿½NDICE DEL EQUIPAMIENTO (AL PULSAR UN BOTï¿½N)
     public void ChangeEquipment(int index, bool isNext)
     {
         int maxIndex;
         int equippedIndex;
 
-        // Determina el índice máximo y el índice actual según el tipo de equipamiento
+        // Determina el ï¿½ndice mï¿½ximo y el ï¿½ndice actual segï¿½n el tipo de equipamiento
         switch (index)
         {
             case 0:
@@ -116,13 +120,17 @@ public class CustomizationManager : MonoBehaviour
                 return;
         }
 
-        // Ajusta el índice según si es "Next" o "Previous"
+        // Ajusta el ï¿½ndice segï¿½n si es "Next" o "Previous"
         if (isNext && equippedIndex < maxIndex)
             equippedIndex++;
+        else if(isNext && equippedIndex == maxIndex)
+            equippedIndex = 0;
         else if (!isNext && equippedIndex > 0)
             equippedIndex--;
+        else if(!isNext && equippedIndex == 0)
+            equippedIndex = maxIndex;
 
-        // Actualiza el índice del equipo seleccionado
+        // Actualiza el ï¿½ndice del equipo seleccionado
         switch (index)
         {
             case 0:
@@ -150,28 +158,74 @@ public class CustomizationManager : MonoBehaviour
 
     public void UpdateImages()
     {
-       // Debug.Log("Actualizar imágenes UI");
+         // Debug.Log("Actualizar imï¿½genes UI");
+        PlayerShip playerShip = craftImages[equippedCraftIndex].GetComponent<PlayerShip>(); //nave escogida
         
         // NAVE ELEGIDA
-        shipName.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().shipName;
-        equippedCraftImage.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().sprite;
+        shipName.text = playerShip.shipName;
+        equippedCraftImage.sprite = playerShip.sprite;
         //equippedSkinImage.sprite = skinImages[equippedSkinIndex];
+        
+        //Stats de la nave
+        UpdateShipStatsUI(playerShip.lifeUi,playerShip.powerUi ,playerShip.speedUi);
 
         // HABILIDADES DE LA NAVE
-        equippedShipActive.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().activeAbility.Sprite;
-        equippedShipPassive.sprite = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().passiveAbility.Sprite;
+        equippedShipActive.sprite = playerShip.activeAbility.Sprite;
+        equippedShipPassive.sprite = playerShip.passiveAbility.Sprite;
 
-        equippedShipActiveDescription.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().activeAbility.Description;
-        equippedShipPassiveDescription.text = craftImages[equippedCraftIndex].GetComponent<PlayerShip>().passiveAbility.Description;
+        equippedShipActiveDescription.text = playerShip.activeAbility.Description;
+        equippedShipPassiveDescription.text = playerShip.passiveAbility.Description;
 
         UpdateNetworkedPlayerEquipment();
+    }
+
+    private void UpdateShipStatsUI(int life, int power, int speed)
+    {
+        //Establecer puntos de vida
+        for (int i = 0; i < LifePoints.Length; i++)
+        {
+            if (i <= life)
+            {
+                LifePoints[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                LifePoints[i].gameObject.SetActive(false);
+            }
+        }
+        
+        //Establecer puntos de poder
+        for (int i = 0; i < PowerPoints.Length; i++)
+        {
+            if (i <= power)
+            {
+                PowerPoints[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                PowerPoints[i].gameObject.SetActive(false);
+            }
+        }
+        
+        //Establecer puntos de velocidad
+        for (int i = 0; i < SpeedPoints.Length; i++)
+        {
+            if (i <= speed)
+            {
+                SpeedPoints[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                SpeedPoints[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     private void UpdatePopUpAmmo(List<Image> popUpImages, List<GameObject> equipmentImages, int equippedIndex)
     {
         int totalImages = equipmentImages.Count;
 
-        // Verifica si hay suficientes imágenes para mostrar en el pop-up
+        // Verifica si hay suficientes imï¿½genes para mostrar en el pop-up
         if (totalImages == 1)
         {
             // Solo una imagen: colocar en el centro y vaciar las otras posiciones
@@ -181,14 +235,14 @@ public class CustomizationManager : MonoBehaviour
         }
         else if (totalImages == 2)
         {
-            // Dos imágenes: colocar en la izquierda y el centro
+            // Dos imï¿½genes: colocar en la izquierda y el centro
             popUpImages[0].sprite = equipmentImages[0].GetComponent<Proyectil>().sprite;
             popUpImages[1].sprite = equipmentImages[1].GetComponent<Proyectil>().sprite;
             popUpImages[2].sprite = null;
         }
         else
         {
-            // Tres o más imágenes: mostrar la imagen actual en el centro y las adyacentes en los laterales
+            // Tres o mï¿½s imï¿½genes: mostrar la imagen actual en el centro y las adyacentes en los laterales
             int leftIndex = (equippedIndex - 1 + totalImages) % totalImages;
             int rightIndex = (equippedIndex + 1) % totalImages;
 
@@ -206,7 +260,7 @@ public class CustomizationManager : MonoBehaviour
     {
         int totalImages = equipmentImages.Count;
 
-        // Verifica si hay suficientes imágenes para mostrar en el pop-up
+        // Verifica si hay suficientes imï¿½genes para mostrar en el pop-up
         if (totalImages == 1)
         {
             // Solo una imagen: colocar en el centro y vaciar las otras posiciones
@@ -216,14 +270,14 @@ public class CustomizationManager : MonoBehaviour
         }
         else if (totalImages == 2)
         {
-            // Dos imágenes: colocar en la izquierda y el centro
+            // Dos imï¿½genes: colocar en la izquierda y el centro
             popUpImages[0].sprite = equipmentImages[0];
             popUpImages[1].sprite = equipmentImages[1];
             popUpImages[2].sprite = null;
         }
         else
         {
-            // Tres o más imágenes: mostrar la imagen actual en el centro y las adyacentes en los laterales
+            // Tres o mï¿½s imï¿½genes: mostrar la imagen actual en el centro y las adyacentes en los laterales
             int leftIndex = (equippedIndex - 1 + totalImages) % totalImages;
             int rightIndex = (equippedIndex + 1) % totalImages;
 

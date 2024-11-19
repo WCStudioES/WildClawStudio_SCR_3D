@@ -343,6 +343,9 @@ MonoBehaviour:
   healthIncrement: 5
   armorIncrement: 2
   dmgBalance: 0
+  lifeUi: 6
+  powerUi: 2
+  speedUi: 3
   maxLevel: 8
   xpByLvl: 
   shipController: {fileID: 0}

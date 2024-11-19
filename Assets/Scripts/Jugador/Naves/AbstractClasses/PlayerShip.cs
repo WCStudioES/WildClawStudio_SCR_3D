@@ -16,6 +16,12 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     public int dmgBalance;
 
+    //Stats para la UI de seleccion de nave
+    public int lifeUi;
+    public int powerUi;
+    public int speedUi;
+    
+    
     public int maxLevel = 8;
     public int[] xpByLvl;
 
