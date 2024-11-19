@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class ShieldAbility : ActiveAbility
 {
     [SerializeField] protected GameObject shield;
+    [SerializeField] protected Transform shieldSpawn;
 
     private void Awake()
     {

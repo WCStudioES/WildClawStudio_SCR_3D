@@ -460,6 +460,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             {
                 case ActiveAbility.ActiveType.MovementBuff: 
                 case ActiveAbility.ActiveType.TogglePassive:
+                case ActiveAbility.ActiveType.Shield:
                     cuerpoNave.GetComponent<PlayerShip>().UseAbility();
                     break;
 
