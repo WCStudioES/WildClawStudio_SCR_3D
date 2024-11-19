@@ -32,6 +32,9 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public List<int> possibleProjectiles;
     public int selectedProjectile;
 
+    //LISTA CON LOS OBJETOS DE APOYO
+    public List<GameObject> allSupport;
+
     //INDICA SI LA NAVE HA SIDO DESTRUIDA O NO
     //TODO AÚN SIN UTILIZAR, UTILIZAR CUANDO SE IMPLEMENTE PERDER VIDA
     public bool naveDestruida = false;
@@ -51,14 +54,15 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     private float rotationInput = 0f; // Almacena el input de rotación
     
     //VARIABLES DE ESTADISTICAS
-    public NetworkVariable<int> maxHealth = new NetworkVariable<int>(100);
-    public NetworkVariable<int> actualHealth = new NetworkVariable<int>(100); //Vida de la nave
-    public NetworkVariable<int> armor = new NetworkVariable<int>(10); //Armadura de la nave
-    public NetworkVariable<int> dmgBalance = new NetworkVariable<int>(0); //Daño porcentual extra o reducido de la nave
-    public NetworkVariable<int> xp = new NetworkVariable<int>(00); //Experiencia de la nave
-    public NetworkVariable<int> lvl = new NetworkVariable<int>(1); //Nivel de la nave
-    public NetworkVariable<int> projectile = new NetworkVariable<int> (0); //Proyectil usado
-    public NetworkVariable<int> xpADar = new NetworkVariable<int>(200); //Experiencia que da al otro jugador al destruir tu nave
+    public NetworkVariable<int> maxHealth = new NetworkVariable<int>(100);      //Vida maxima de la nave
+    public NetworkVariable<int> actualHealth = new NetworkVariable<int>(100);   //Vida de la nave
+    public NetworkVariable<int> armor = new NetworkVariable<int>(10);           //Armadura de la nave
+    public NetworkVariable<int> dmgBalance = new NetworkVariable<int>(0);       //Daño porcentual extra o reducido de la nave
+    public NetworkVariable<int> xp = new NetworkVariable<int>(00);              //Experiencia de la nave
+    public NetworkVariable<int> lvl = new NetworkVariable<int>(1);              //Nivel de la nave
+    public NetworkVariable<int> projectile = new NetworkVariable<int> (0);      //Proyectil usado
+    public NetworkVariable<int> selectedSupport = new NetworkVariable<int> (0);         //Objeto de apoyo usado
+    public NetworkVariable<int> xpADar = new NetworkVariable<int>(200);         //Experiencia que da al otro jugador al destruir tu nave
 
     public Image barraDeVida; //Imagen de la barra de vida
     [SerializeField]private TextMeshProUGUI textoVida; //Texto dentro de la barra de vida
@@ -119,8 +123,37 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
+            ApplySuppItem();
         }
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
+    }
+
+    public void ApplySuppItem()
+    {
+        allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
+        switch (selectedSupport.Value)
+        {
+            case 0:
+                if(GetComponentInChildren<SphereCollider>() != null)
+                {
+                    Destroy(GetComponentInChildren<SphereCollider>().gameObject);
+                }
+                allSupport[selectedSupport.Value].GetComponent<SupportItem>().AddToPlayer();
+                break;
+        }
+        ApplySuppItemClientRpc();
+    }
+
+    [ClientRpc]
+    public void ApplySuppItemClientRpc()
+    {
+        allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
+        switch (selectedSupport.Value)
+        {
+            case 0:
+                GetComponentInChildren<SphereCollider>().gameObject.GetComponentInParent<Shield>().owner = this;
+                break;
+        }
     }
 
     //Funcion que maneja la barra de vida
@@ -492,19 +525,20 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     // ServerRpc que registra los cambios y los propaga a otros clientes
     [ServerRpc]
-    public void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex)
+    public void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex, int supportIndex)
     {
         //Debug.Log(shipIndex + ", " + allShips.Count);
         selectedShip.Value = shipIndex;
         selectedProjectile = projectileIndex;
+        selectedSupport.Value = supportIndex;
 
-        ApplyCustomizationLocally(shipIndex, projectileIndex);
+        ApplyCustomizationLocally(shipIndex, projectileIndex, supportIndex);
 
-        ApplyCustomizationClientRpc(shipIndex, projectileIndex, OwnerClientId);
+        ApplyCustomizationClientRpc(shipIndex, projectileIndex, supportIndex, OwnerClientId);
     }
 
     // Aplicación local de la personalización (solo en el propietario)
-    public void ApplyCustomizationLocally(int shipIndex, int projectileIndex)
+    public void ApplyCustomizationLocally(int shipIndex, int projectileIndex, int supportIndex)
     {
         GameObject selectedShipPrefab = allShips[shipIndex];
 
@@ -515,12 +549,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     }
 
     [ClientRpc]
-    private void ApplyCustomizationClientRpc(int shipIndex, int projectileIndex, ulong ownerClientId)
+    private void ApplyCustomizationClientRpc(int shipIndex, int projectileIndex, int supportIndex, ulong ownerClientId)
     {
         // Verifica si este cliente es el propietario que llamó al ServerRpc
         if (NetworkManager.Singleton.LocalClientId == ownerClientId)
         {
-            ApplyCustomizationLocally(shipIndex, projectileIndex);
+            ApplyCustomizationLocally(shipIndex, projectileIndex, supportIndex);
             //Debug.Log($"Personalización aplicada en el cliente propietario: Nave {shipIndex}, Proyectil {projectileIndex}");
         }
         else if(!IsOwner)

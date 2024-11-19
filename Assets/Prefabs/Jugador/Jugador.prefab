@@ -334,6 +334,8 @@ MonoBehaviour:
   - {fileID: 2900116416517425973, guid: a4c03c78995c3b14aaa4526342211c61, type: 3}
   possibleProjectiles: 
   selectedProjectile: 0
+  allSupport:
+  - {fileID: 5628781410521789735, guid: 1a304a99005840442a23fd3f4574390b, type: 3}
   naveDestruida: 0
   puntoDisparo:
   - {fileID: 0}
@@ -353,6 +355,8 @@ MonoBehaviour:
   lvl:
     m_InternalValue: 1
   projectile:
+    m_InternalValue: 0
+  selectedSupport:
     m_InternalValue: 0
   xpADar:
     m_InternalValue: 200
@@ -379,7 +383,7 @@ MonoBehaviour:
   controladorDelJugador: {fileID: 8966913476814297344}
   networkTransformNave: {fileID: 315376961265466769}
   nave: {fileID: 6479168757547527166}
-  testing: 0
+  testing: 1
 --- !u!114 &6602261952842009567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,7 +2196,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: bc371b7bc53b8dc48a4dfba69c10c029, type: 3}
     - target: {fileID: 6122402771578918391, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: supportImages.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6122402771578918391, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: PowerPoints.Array.data[0]

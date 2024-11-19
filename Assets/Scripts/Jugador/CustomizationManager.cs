@@ -39,7 +39,7 @@ public class CustomizationManager : MonoBehaviour
     public int equippedSupportIndex;
 
     [SerializeField] private List<GameObject> ammoImages;
-    [SerializeField] private List<Sprite> supportImages;
+    [SerializeField] private List<GameObject> supportImages;
 
     // IMAGENES POP-UP
     public List<Image> popUpAmmoImages;
@@ -78,6 +78,11 @@ public class CustomizationManager : MonoBehaviour
             foreach (var ship in networkedPlayer.allShips)
             {
                 craftImages.Add(ship);
+            }
+
+            foreach (var suppItem in networkedPlayer.allSupport)
+            {
+                supportImages.Add(suppItem);
             }
 
             // Cargar sprites de availableAmmo en ammoImages
@@ -256,7 +261,7 @@ public class CustomizationManager : MonoBehaviour
         selectedItemDescription.text = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().description;
     }
 
-    private void UpdatePopUpSupport(List<Image> popUpImages, List<Sprite> equipmentImages, int equippedIndex)
+    private void UpdatePopUpSupport(List<Image> popUpImages, List<GameObject> equipmentImages, int equippedIndex)
     {
         int totalImages = equipmentImages.Count;
 
@@ -265,14 +270,14 @@ public class CustomizationManager : MonoBehaviour
         {
             // Solo una imagen: colocar en el centro y vaciar las otras posiciones
             popUpImages[0].sprite = null;
-            popUpImages[1].sprite = equipmentImages[0];
+            popUpImages[1].sprite = equipmentImages[0].GetComponent<SupportItem>().suppItemSprite;
             popUpImages[2].sprite = null;
         }
         else if (totalImages == 2)
         {
             // Dos im�genes: colocar en la izquierda y el centro
-            popUpImages[0].sprite = equipmentImages[0];
-            popUpImages[1].sprite = equipmentImages[1];
+            popUpImages[0].sprite = equipmentImages[0].GetComponent<SupportItem>().suppItemSprite;
+            popUpImages[1].sprite = equipmentImages[1].GetComponent<SupportItem>().suppItemSprite;
             popUpImages[2].sprite = null;
         }
         else
@@ -281,14 +286,14 @@ public class CustomizationManager : MonoBehaviour
             int leftIndex = (equippedIndex - 1 + totalImages) % totalImages;
             int rightIndex = (equippedIndex + 1) % totalImages;
 
-            popUpImages[0].sprite = equipmentImages[leftIndex];
-            popUpImages[1].sprite = equipmentImages[equippedIndex];
-            popUpImages[2].sprite = equipmentImages[rightIndex];
+            popUpImages[0].sprite = equipmentImages[leftIndex].GetComponent<SupportItem>().suppItemSprite;
+            popUpImages[1].sprite = equipmentImages[equippedIndex].GetComponent<SupportItem>().suppItemSprite;
+            popUpImages[2].sprite = equipmentImages[rightIndex].GetComponent<SupportItem>().suppItemSprite;
         }
 
-        selectedItem.sprite = supportImages[equippedSupportIndex];
-        selectedItemName.text = "Not implemented yet";
-        selectedItemDescription.text = "Not implemented yet";
+        selectedItem.sprite = supportImages[equippedSupportIndex].GetComponent<SupportItem>().suppItemSprite;
+        selectedItemName.text = supportImages[equippedSupportIndex].GetComponent<SupportItem>().suppItemName;
+        selectedItemDescription.text = supportImages[equippedSupportIndex].GetComponent<SupportItem>().suppItemDescription;
     }
 
     public void UpdateNetworkedPlayerEquipment()
@@ -296,7 +301,7 @@ public class CustomizationManager : MonoBehaviour
         if (networkedPlayer != null && networkedPlayer.IsOwner)
         {
             // Llama al servidor para propagar los cambios a otros clientes
-            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedAmmoIndex+1);
+            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedAmmoIndex+1, equippedSupportIndex);
         }
     }
 

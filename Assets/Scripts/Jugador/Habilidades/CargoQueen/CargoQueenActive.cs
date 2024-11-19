@@ -25,6 +25,5 @@ public class CargoQueenActive : ShieldAbility
             var shieldScript = shieldInstance.GetComponent<Shield>();
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
         }
-
     }
 }

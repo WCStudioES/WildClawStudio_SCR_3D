@@ -168,7 +168,7 @@ public class ControladorNave : NetworkBehaviour
     public void AssignMainCamera(CameraType cameraType)
     {
         CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
-        Debug.Log(VC.m_Lens.OrthographicSize);
+        //Debug.Log(VC.m_Lens.OrthographicSize);
         if (VC != null)
         {
             switch (cameraType)
