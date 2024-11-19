@@ -17,6 +17,12 @@ public class Partida : NetworkBehaviour
     //CONTROLA EN QUE RONDA ESTA LA PARTIDA
     public int ronda = 1;
     
+    //CONTROLA EL TIEMPO MÁXIMO DE CADA RONDA
+    [SerializeField] private float maximoTiempoPorRonda = 60;
+
+    //CONTROLA EL TIEMPO RESTANTE DE LA RONDA ACTUAL
+    public float tiempoDeRondaActual = 0;
+    
     //JUGADORES
     [SerializeField] public List<NetworkedPlayer> jugadores;
     
@@ -49,6 +55,14 @@ public class Partida : NetworkBehaviour
                 partidaEnMarcha = false;
                 finalizarRonda();
             }
+
+            if (tiempoDeRondaActual <= 0.0f)
+            {
+                partidaEnMarcha = false;
+                finalizarRondaPorTiempo();
+            }
+
+            tiempoDeRondaActual -= Time.deltaTime;
         }
     }
 
@@ -115,6 +129,45 @@ public class Partida : NetworkBehaviour
                 if (!jugadores[i].naveDestruida)
                     rondasGanadas[i]++;
             }
+        }
+        
+        //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
+        if (ronda < maximoNumeroDeRondas)
+        {
+            ronda++;
+            mostrarResultado();
+            Invoke("iniciarRonda", 3.0f);
+        }
+        else
+        {
+            mostrarResultado();
+            Invoke("finalizarPartida", 3.0f);
+        }
+    }
+    
+    //FINALIZA LA RONDA POR TIEMPO
+    void finalizarRondaPorTiempo()
+    {
+        //APUNTAMOS LA VICTORIA
+        if (jugadores[0] != null && jugadores[1] != null)
+        {
+            if (jugadores[0].actualHealth.Value / jugadores[0].maxHealth.Value > jugadores[1].actualHealth.Value / jugadores[1].maxHealth.Value)
+            {
+                rondasGanadas[0]++;
+                jugadores[1].naveDestruida = true;
+            }
+            else if (jugadores[0].actualHealth.Value / jugadores[0].maxHealth.Value < jugadores[1].actualHealth.Value / jugadores[1].maxHealth.Value)
+            {
+                rondasGanadas[1]++;
+                jugadores[0].naveDestruida = true;
+            }
+            else
+            {
+                rondasGanadas[0]++;
+                jugadores[1].naveDestruida = true;
+            }
+            jugadores[0].opcionesJugador.deshabilitarNave();
+            jugadores[1].opcionesJugador.deshabilitarNave();
         }
         
         //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
@@ -241,6 +294,8 @@ public class Partida : NetworkBehaviour
     //PREPARAR COMPONENTES
     private void prepararEscenario()
     {
+        //RESTAURA EL TIEMPO DE LA RONDA
+        tiempoDeRondaActual = maximoTiempoPorRonda;
         //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
         Invoke("restaurarNaves", 0.2f);
         //RESTAURA LOS METEORITOS A SU ESTADO INICIAL

@@ -40,7 +40,8 @@ public class Alive : NetworkBehaviour
   private void DecreaseTime()
   {
       contador -= Time.deltaTime;
-      contadorDeMensajes -= Time.deltaTime;
+      if(IsOwner)
+        contadorDeMensajes -= Time.deltaTime;
   }
 
   [ServerRpc]

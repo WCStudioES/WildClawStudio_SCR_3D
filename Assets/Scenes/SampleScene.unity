@@ -1111,6 +1111,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1303440060
       objectReference: {fileID: 0}
+    - target: {fileID: 8544223484302827963, guid: 78271d4efc655dc4bb18d1bc573f1b1d, type: 3}
+      propertyPath: maximoTiempoPorRonda
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 9045399482615848354, guid: 78271d4efc655dc4bb18d1bc573f1b1d, type: 3}
       propertyPath: m_ProvidesContacts
       value: 1
