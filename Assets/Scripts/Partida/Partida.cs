@@ -48,21 +48,30 @@ public class Partida : NetworkBehaviour
         if (!partidaEnMarcha && jugadores.Count == 2 && partidaFinalizada)
             iniciarPartida();
         
+        //SI LA PARTIDA ESTA EN MARCHA
         if (partidaEnMarcha && !partidaFinalizada)
-        {
-            if (comprobarEstadoDeLosJugadores())
+        { 
+            jugadores.RemoveAll( x => x == null);
+            if (jugadores.Count == 2)
             {
-                partidaEnMarcha = false;
-                finalizarRonda();
-            }
+                if (comprobarEstadoDeLosJugadores())
+                {
+                    partidaEnMarcha = false;
+                    finalizarRonda();
+                }
 
-            if (tiempoDeRondaActual <= 0.0f)
+                if (tiempoDeRondaActual <= 0.0f)
+                {
+                    partidaEnMarcha = false;
+                    finalizarRondaPorTiempo();
+                }
+
+                tiempoDeRondaActual -= Time.deltaTime;
+            }
+            else
             {
-                partidaEnMarcha = false;
-                finalizarRondaPorTiempo();
+                finalizarPartidaPorDesconexion();
             }
-
-            tiempoDeRondaActual -= Time.deltaTime;
         }
     }
 
@@ -319,6 +328,31 @@ public class Partida : NetworkBehaviour
     {
         //INDICA QUE LA PARTIDA HA EMPEZADO
         partidaEnMarcha = true;
+    }
+    
+    //FINALIZA LA PARTIDA POR DESCONEXION
+    void finalizarPartidaPorDesconexion()
+    {
+        //RESTAURAMOS NAVES Y METEORITOS
+        prepararEscenario();
+        //MOSTRAMOS EL RESULTADO A PARTIR DE LA INTERFAZ
+        //mostrarResultadoFinal();
+        //DEVOLVEMOS LAS NAVES A SU ESTADO ORIGINAL
+        foreach (var jugador in jugadores)
+        {
+            if (jugador != null)
+            {
+                jugador.opcionesJugador.resetToInitialState();
+                jugador.opcionesJugador.UIJugador.VolverAPersonalizacionDesdePartida();
+            }
+        }
+        //ELIMINAMOS LAS NAVES DE LA LISTA Y SUS PUNTUACIONES
+        partidaEnMarcha = false;
+        partidaFinalizada = true;
+        jugadores.Clear();
+        rondasGanadas[0] = 0;
+        rondasGanadas[1] = 0;
+        ronda = 1;
     }
 
 }

@@ -272,6 +272,7 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            EnPartida.SetActive(false);
             Victoria.SetActive(false);
             Derrota.SetActive(false);
             Personalizacion.SetActive(true);

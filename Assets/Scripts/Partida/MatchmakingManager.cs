@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class MatchmakingManager : NetworkBehaviour
+public class MatchmakingManager : MonoBehaviour
 {
     public List<UI> colaJugadores = new List<UI>();
     public List<Partida> partidas = new List<Partida>();
@@ -17,6 +17,8 @@ public class MatchmakingManager : NetworkBehaviour
 
     public void Update()
     {
+        colaJugadores.RemoveAll( x => x == null);
+        
         if (colaJugadores.Count >= 2)
         {
             for(int i = 0; i < partidas.Count; i++)

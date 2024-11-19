@@ -19,7 +19,6 @@ public class Alive : NetworkBehaviour
 
   private void Update()
   {
-
     DecreaseTime();
     
     if (contador < 0.0f)
@@ -39,7 +38,8 @@ public class Alive : NetworkBehaviour
 
   private void DecreaseTime()
   {
-      contador -= Time.deltaTime;
+      if(IsServer)
+        contador -= Time.deltaTime;
       if(IsOwner)
         contadorDeMensajes -= Time.deltaTime;
   }

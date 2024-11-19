@@ -9,6 +9,7 @@ using Unity.Services.Core;
 using UnityEngine;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Test
@@ -23,15 +24,22 @@ namespace Test
         public GameObject Fondo;
         private async void Start()
         {
-            await UnityServices.InitializeAsync();
-
-            AuthenticationService.Instance.SignedIn += () =>
+            try
             {
-                Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
-            };
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            
-            Debug.Log(Application.persistentDataPath);
+                await UnityServices.InitializeAsync();
+
+                AuthenticationService.Instance.SignedIn += () =>
+                {
+                    Debug.Log("Signed In " + AuthenticationService.Instance.PlayerId);
+                };
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+                Debug.Log(Application.persistentDataPath);
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
 
         [ContextMenu("CreateRelay")]

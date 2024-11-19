@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 8966913476814297344}
   - component: {fileID: 8943799741961390412}
   - component: {fileID: 6602261952842009567}
+  - component: {fileID: 5066985964511597355}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -396,6 +397,22 @@ MonoBehaviour:
   contadorDeMensajes: 1
   contadorDeMensajesMax: 1
   jugador: {fileID: 1333945794948100029}
+--- !u!114 &5066985964511597355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333945794948100029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbc5146bf416ee48bcc790db2cd6597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contador: 5
+  contadorMax: 5
+  contadorDeMensajes: 1
+  contadorDeMensajesMax: 1
 --- !u!1 &1802947082293860187
 GameObject:
   m_ObjectHideFlags: 0
