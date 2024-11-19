@@ -9,19 +9,7 @@ public class NaveRavager : PlayerShip
     //NOTA: La pasiva de Ravager de no recibir daño de choque esta implementada en ControladorNave
     public override void InitializeStats()
     {
-        shipName = "Ravager";
-        description = "Est� guapa";
-
-        initialHealth = 100;
-        initialArmor = 10;
-
-        healthIncrement = 20;
-        armorIncrement = 3;
-
-        dmgBalance = 0;
-
-        //skins;
-        //chromas;
+        
     }
 
     public override void FireProjectile()

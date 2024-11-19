@@ -9,7 +9,9 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     public int dmg; // Daño por tick del efecto
     public float timeOfEffect;  //Tiempo que dura el efecto en pantalla
     public int ticksPerSecond; // ticks de daño/segundo del efecto
-    private float tickTimer = -1;
+    //private float tickTimer = -1;
+    private bool canHit = true;
+    private bool isResetting = false;
 
     public float speed; // Velocidad a la que se mueve el efecto (si se mueve)
     protected Vector3 direction;
@@ -34,7 +36,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     protected void OnTriggerEnter(Collider other)
     {
         //Si el otro gameobject no es el mismo, compueba si puede hacer daño
-        if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null)
+        if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null && canHit)
         {
             //Al colisionar comprueba si el otro ente puede recibir daño
             IDamageable target = other.GetComponentInParent<IDamageable>();
@@ -43,39 +45,54 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
             //Si puede hacer daño, hace daño en el servidor
             if (target != null && IsInServidor)
             {
+                canHit = false;
                 OnHit(target, ControladorNaveDueña);
-                tickTimer = 0;
+                //tickTimer = 0;
+                StartCoroutine(ResetHitCooldown());
             }
         }
     }
 
     protected void OnTriggerStay(Collider other)
     {
-        if (ticksPerSecond > 0)
+        if (canHit && !isResetting) // Asegurarse de no estar ya en proceso de reinicio
         {
-            if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null && tickTimer > 1/ticksPerSecond)
+            canHit = false;
+
+            if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null)
             {
-                //Al colisionar comprueba si el otro ente puede recibir daño
+                // Al colisionar comprueba si el otro ente puede recibir daño
                 IDamageable target = other.GetComponentInParent<IDamageable>();
                 Debug.Log("Dmg over time is being done");
 
-                //Si puede hacer daño, hace daño en el servidor
+                // Si puede hacer daño, lo hace en el servidor
                 if (target != null && IsInServidor)
                 {
                     OnHit(target, ControladorNaveDueña);
-                    tickTimer = 0;
+                    StartCoroutine(ResetHitCooldown());
                 }
             }
         }
     }
 
-    private void Update()
+    // Corrutina para manejar el cooldown del golpe
+    private IEnumerator ResetHitCooldown()
     {
-        if(tickTimer != -1)
-        {
-            tickTimer += Time.deltaTime;
-        }
+        isResetting = true; // Bloquea nuevas ejecuciones mientras el cooldown está activo
+        float time = 1/ (float)ticksPerSecond;
+        Debug.Log(time);
+        yield return new WaitForSeconds(time);
+        canHit = true;
+        isResetting = false; // Libera el bloqueo
     }
+    
+    //private void Update()
+    //{
+    //    if(tickTimer != -1)
+    //    {
+    //        tickTimer += Time.deltaTime;
+    //    }
+    //}
 
     public void Launch(Vector3 direction)
     {

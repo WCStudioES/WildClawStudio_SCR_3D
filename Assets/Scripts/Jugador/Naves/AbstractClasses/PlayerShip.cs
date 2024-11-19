@@ -15,6 +15,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public int armorIncrement;
 
     public int dmgBalance;
+    public int dmgIncrement;
 
     //Stats para la UI de seleccion de nave
     public int lifeUi;

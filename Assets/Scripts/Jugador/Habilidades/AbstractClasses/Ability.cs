@@ -13,6 +13,8 @@ public abstract class Ability : MonoBehaviour, IAbility
 
     //Referencia al jugador, usado para restar y sumar vida
     public NetworkedPlayer networkedPlayer;
+    
+    //[SerializeField] protected UIBoosters uiBoosters;
 
     public enum ResourceType
     {
@@ -42,7 +44,7 @@ public abstract class Ability : MonoBehaviour, IAbility
         }
     }
 
-    //La propia ejecución de la habilidad
+    //La propia ejecuciï¿½n de la habilidad
     public abstract void AbilityExecution();
 
     //Mira si puede usarse la habilidad

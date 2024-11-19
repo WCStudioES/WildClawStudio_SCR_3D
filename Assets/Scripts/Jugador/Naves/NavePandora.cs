@@ -7,19 +7,6 @@ public class NavePandora : PlayerShip
 {
     public override void InitializeStats()
     {
-        shipName = "Pandora";
-        description = "Est� guapa";
-
-        initialHealth = 100;
-        initialArmor = 10;
-
-        healthIncrement = 20;
-        armorIncrement = 3;
-
-        dmgBalance = 0;
-
-        //skins;
-        //chromas;
     }
 
     public override void FireProjectile()
