@@ -79,6 +79,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (IsOwner)
         {
             OnPlayerStartServerRpc();
+            if(!IsHost)
             nave.AssignMainCamera(ControladorNave.CameraType.Customization);
         }
         else

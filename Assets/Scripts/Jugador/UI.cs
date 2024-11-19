@@ -32,15 +32,13 @@ public class UI : NetworkBehaviour
     void Start()
     {
         matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
-        if(IsOwner && opcionesJugador.ActivarUI)
+        if(!IsHost && IsOwner && opcionesJugador.ActivarUI)
             ActivarUI();
-        if(!IsHost && IsOwner)
-            GameObject.Find("FondoTestUI").SetActive(false);
     }
 
     private void Update()
     {
-        if (IsOwner)
+        if (IsOwner && !IsHost)
         {
             //SE ENCARGA DE COLOCAR LA CAMARA BIEN CADA VEZ QUE ENTRAS O SALES DE LA PAGINA DE PERSONALIZACIÓN
             if(Personalizacion.activeSelf && cameraInGame)

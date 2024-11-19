@@ -21,7 +21,12 @@ namespace Test
         public TextMeshProUGUI codigo;
 
         [SerializeField]private GameObject UIServidor;
-        public GameObject Fondo;
+
+        public Button botonServidor;
+
+        public Button botonCliente;
+        
+        //public GameObject Fondo;
         private async void Start()
         {
             try
@@ -45,6 +50,8 @@ namespace Test
         [ContextMenu("CreateRelay")]
         private async void CreateRelay(bool isHost)
         {
+            botonServidor.enabled = false;
+            botonCliente.enabled = false;
             try
             {
                 List<Region> Regions = await RelayService.Instance.ListRegionsAsync();
@@ -66,7 +73,7 @@ namespace Test
                 if (isHost)
                 {
                     NetworkManager.Singleton.StartHost();
-                    OcultarUIServidor(true);
+                    //OcultarUIServidor(true);
                 }
                 else
                     NetworkManager.Singleton.StartServer();
@@ -78,14 +85,21 @@ namespace Test
             catch (RelayServiceException e)
             {
                 Debug.Log(e);
+                botonServidor.enabled = true;
+                botonCliente.enabled = true;
             }
         }
 
         private async void JoinRelay(string joinCode)
         {
+            botonServidor.enabled = false;
+            botonCliente.enabled = false;
             try
             {
                 Debug.Log("Joining Relay with `" + joinCode + "´ joinCode");
+                if (joinCode == "")
+                    joinCode = "AAAAAA";
+                
                 JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
                 
                 RelayServerData relayServerData = new RelayServerData(joinAllocation, "wss");
@@ -95,13 +109,14 @@ namespace Test
                 NetworkManager.Singleton.StartClient();
                 
                 codigo.text = joinCode;
-                
                 OcultarUIServidor(false);
                 setFrameLimit(false);
             }
             catch (RelayServiceException e)
             {
                 Debug.Log(e);
+                botonServidor.enabled = true;
+                botonCliente.enabled = true;
             }
         }
 
