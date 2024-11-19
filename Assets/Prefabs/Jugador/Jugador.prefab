@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7694230661270281834}
   - component: {fileID: 8966913476814297344}
   - component: {fileID: 8943799741961390412}
+  - component: {fileID: 6602261952842009567}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -377,6 +378,23 @@ MonoBehaviour:
   controladorDelJugador: {fileID: 8966913476814297344}
   networkTransformNave: {fileID: 315376961265466769}
   nave: {fileID: 6479168757547527166}
+--- !u!114 &6602261952842009567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333945794948100029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7527a488aa1001b458d31766ca4cc7b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contador: 5
+  contadorMax: 5
+  contadorDeMensajes: 1
+  contadorDeMensajesMax: 1
+  jugador: {fileID: 1333945794948100029}
 --- !u!1 &1802947082293860187
 GameObject:
   m_ObjectHideFlags: 0

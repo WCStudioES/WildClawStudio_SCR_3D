@@ -139,14 +139,17 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [ClientRpc]
     public void UpdateExperienceBarClientRpc(int experience, int lvl)
     {
-        float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
-        float xpPercentage = experience / maxExperience;
-        barraDeExperiencia.fillAmount = xpPercentage;
+        if (cuerpoNave.GetComponent<PlayerShip>().xpByLvl.Length != 0)
+        {
+            float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
+            float xpPercentage = experience / maxExperience;
+            barraDeExperiencia.fillAmount = xpPercentage;
         
-        textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
-        textoNivel.text = lvl.ToString();
+            textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
+            textoNivel.text = lvl.ToString();
 
-        //Debug.Log(healthPercentage);
+            //Debug.Log(healthPercentage);
+        }
     }
     
 
