@@ -64,6 +64,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public NetworkVariable<int> selectedSupport = new NetworkVariable<int> (0);         //Objeto de apoyo usado
     public NetworkVariable<int> xpADar = new NetworkVariable<int>(200);         //Experiencia que da al otro jugador al destruir tu nave
 
+    
+    // UI
     public Image barraDeVida; //Imagen de la barra de vida
     [SerializeField]private TextMeshProUGUI textoVida; //Texto dentro de la barra de vida
 
@@ -71,6 +73,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] private TextMeshProUGUI textoExperiencia; //Texto dentro de la barra de experiencia
     
     [SerializeField] private TextMeshProUGUI textoNivel; //Texto que muestra el nivel de la nave
+    public UIBoosters uiBoosters;
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
@@ -468,6 +471,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             // Configura la dirección del proyectil en el cliente
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
             proyectilScript.Inicializar(direccion, nave.GetComponent<CapsuleCollider>(), this, IsServer);
+            uiBoosters.UpdateWeaponImage(allProjectiles[projectile.Value].GetComponent<Proyectil>().cadencia);
 
             // El proyectil se destruirá automáticamente tras 2 segundos en el cliente
             Destroy(proyectil, 2f);
@@ -507,9 +511,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (!IsServer)
         {
+            PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
             //METER CODIGO DE CLIENTE AQUI
             Debug.Log("Lanzando habilidad en el cliente");
-            cuerpoNave.GetComponent<PlayerShip>().UseAbility();
+            playerShip.UseAbility();
         }
     }
     
@@ -551,6 +556,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (NetworkManager.Singleton.LocalClientId == ownerClientId)
         {
             ApplyCustomizationLocally(shipIndex, projectileIndex, supportIndex);
+            
+            uiBoosters.SetActiveAbility(allShips[shipIndex].GetComponent<PlayerShip>().activeAbility.Sprite);
+            uiBoosters.SetWeaponAbility(allProjectiles[0].GetComponent<Proyectil>().sprite);
+            uiBoosters.SetSupportAbility(allSupport[selectedSupport.Value].GetComponent<SupportItem>().suppItemSprite);
+            
+            
             //Debug.Log($"Personalización aplicada en el cliente propietario: Nave {shipIndex}, Proyectil {projectileIndex}");
         }
         else if(!IsOwner)
@@ -586,10 +597,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         //Cambia la arma
         projectile.Value = proyectilNuevo;
+        uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
     }
 
     private void CambiarArmaMejorada(int proyectilNuevo)
     {
         proyectilMejorado = proyectilNuevo;
+        uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
     }
 }

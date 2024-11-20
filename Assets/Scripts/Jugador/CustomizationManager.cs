@@ -32,7 +32,9 @@ public class CustomizationManager : MonoBehaviour
     [SerializeField] private Image[] SpeedPoints;
 
     public TMP_Text equippedShipActiveDescription;
+    public TMP_Text equippedShipActiveName;
     public TMP_Text equippedShipPassiveDescription;
+    public TMP_Text equippedShipPassiveName;
 
     // BUILD DEL JUGADOR
     public int equippedAmmoIndex;
@@ -179,7 +181,9 @@ public class CustomizationManager : MonoBehaviour
         equippedShipPassive.sprite = playerShip.passiveAbility.Sprite;
 
         equippedShipActiveDescription.text = playerShip.activeAbility.Description;
+        equippedShipActiveName.text = playerShip.activeAbility.Name;
         equippedShipPassiveDescription.text = playerShip.passiveAbility.Description;
+        equippedShipPassiveName.text = playerShip.passiveAbility.Name;
 
         UpdateNetworkedPlayerEquipment();
     }

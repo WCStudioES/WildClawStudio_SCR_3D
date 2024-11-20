@@ -8,6 +8,7 @@ public class CargoQueenActive : ShieldAbility
     public override void AbilityExecution()
     {
         Debug.Log("Cargo Queen lanza habilidad: " + networkedPlayer.IsServer);
+        
 
         if (networkedPlayer.IsServer)
         {
@@ -18,12 +19,14 @@ public class CargoQueenActive : ShieldAbility
             var networkObject = shieldInstance.GetComponent<NetworkObject>();
             networkObject.Spawn();
 
-            // Aseguramos que el escudo esté bajo el transform de la nave
+            // Aseguramos que el escudo estï¿½ bajo el transform de la nave
             shieldInstance.transform.SetParent(networkedPlayer.transform);
 
-            // Aquí podrías llamar a una función para inicializar el escudo si es necesario
+            // Aquï¿½ podrï¿½as llamar a una funciï¿½n para inicializar el escudo si es necesario
             var shieldScript = shieldInstance.GetComponent<Shield>();
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
+            
         }
+        networkedPlayer.uiBoosters.UpdateActiveImage(neededResQuantity);
     }
 }

@@ -23,6 +23,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public int speedUi;
     
     
+    
     public int maxLevel = 8;
     public int[] xpByLvl;
 
@@ -46,7 +47,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
         transform.localPosition = Vector3.zero;
     }
-
+    
     public abstract void FireProjectile();
     public abstract void InitializeStats();
     public void UseAbility()

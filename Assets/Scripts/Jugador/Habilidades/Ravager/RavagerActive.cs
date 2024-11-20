@@ -18,12 +18,14 @@ public class RavagerActive: MovementAbility
     public override void AbilityExecution()
     {
         Debug.Log("Habilidad Ravager ejecutada");
+        //uiBoosters.UpdateActiveImage(neededResQuantity);
 
         isActivated = true;
         networkedPlayer.nave.maxSpeed += maxSpeedBuff;
         networkedPlayer.nave.acceleration += accelerationBuff;
 
         StartCoroutine("DurationCounter");
+        
     }
 
     //Metodo que acabar la habilidad y restaura los valores a su modo inicial
@@ -37,6 +39,7 @@ public class RavagerActive: MovementAbility
             networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
             networkedPlayer.nave.acceleration -= accelerationBuff;
             duracionActual = 0;
+            networkedPlayer.uiBoosters.UpdateActiveImage(neededResQuantity);
         }
     }
 

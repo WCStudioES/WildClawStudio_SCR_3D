@@ -12,6 +12,7 @@ public abstract class ActiveAbility : Ability
         Shield,
         TogglePassive
     }
+    
 
     public override bool CheckAvailability()
     {
