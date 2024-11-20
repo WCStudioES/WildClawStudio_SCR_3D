@@ -12,4 +12,5 @@ public abstract class SupportItem : MonoBehaviour, ISupportItem
     public GameObject supportItemPrefab;
 
     public abstract void AddToPlayer();
+
 }

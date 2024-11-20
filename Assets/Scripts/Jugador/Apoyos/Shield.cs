@@ -63,6 +63,23 @@ public class Shield : NetworkBehaviour, IDamageable
         DisableShieldClientRpc();
     }
 
+    public NetworkedPlayer IsChildOfPlayer()
+    {
+        // Recorre la jerarquía de padres para ver si alguno coincide con el transform del jugador
+        Transform current = transform;
+        while (current != null)
+        {
+            if (current.GetComponent<NetworkedPlayer>() != null)
+            {
+                return current.GetComponent<NetworkedPlayer>(); // El escudo es hijo del NetworkedPlayer objetivo
+            }
+            current = current.parent;
+        }
+
+        return null; // No se encontró relación con el jugador
+    }
+
+
     private void Update()
     {
         if (IsServer)
@@ -71,49 +88,4 @@ public class Shield : NetworkBehaviour, IDamageable
             transform.rotation = spawn.rotation;
         }
     }
-
-    //public override void OnNetworkSpawn()
-    //{
-    //    base.OnNetworkSpawn();
-
-    //    if (!IsServer)
-    //    {
-    //        // En los clientes, convertimos ownerClientId en una referencia al jugador
-    //        TryAssignOwner();
-    //    }
-    //}
-
-    //private void TryAssignOwner()
-    //{
-    //    // Intentamos buscar el NetworkObject asociado al ownerClientId
-    //    if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(ownerClientId.Value, out var networkObject))
-    //    {
-    //        owner = networkObject.GetComponent<NetworkedPlayer>();
-    //        if (owner != null)
-    //        {
-    //            Debug.Log($"Escudo asignado correctamente al jugador: {owner.name} en cliente.");
-    //            UpdateOwnerVisuals();
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError("No se encontró un NetworkedPlayer para el owner. Reintentando...");
-    //            Invoke(nameof(TryAssignOwner), 0.1f); // Reintentar después de 100 ms
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("No se encontró un objeto de red con el ID del owner. Reintentando...");
-    //        Invoke(nameof(TryAssignOwner), 0.1f); // Reintentar después de 100 ms
-    //    }
-    //}
-
-    //private void UpdateOwnerVisuals()
-    //{
-    //    // Aquí puedes cambiar visuales basados en el dueño, por ejemplo:
-    //    if (owner != null)
-    //    {
-    //        //var renderer = GetComponentInChildren<MeshRenderer>();
-    //        //renderer.material.color = owner.TeamColor; // Ejemplo: cambiar el color según el equipo del jugador
-    //    }
-    //}
 }

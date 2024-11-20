@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3842067073
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -177,6 +177,8 @@ MonoBehaviour:
     m_InternalValue: 50
   maxHealth: 25
   duration: 59
+  ownerClientId:
+    m_InternalValue: 0
   owner: {fileID: 0}
   spawn: {fileID: 0}
 --- !u!114 &1506841420537283476

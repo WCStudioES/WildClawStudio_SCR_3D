@@ -9,7 +9,11 @@ public class ShieldSupportItem : SupportItem
     public override void AddToPlayer()
     {
         // Instanciamos el escudo en el servidor
-        shieldInstance = Instantiate(supportItemPrefab, owner.cuerpoNave.GetComponent<PlayerShip>().transform.position, owner.cuerpoNave.GetComponent<PlayerShip>().transform.rotation);
+        shieldInstance = Instantiate(
+            supportItemPrefab,
+            owner.cuerpoNave.GetComponent<PlayerShip>().transform.position,
+            owner.cuerpoNave.GetComponent<PlayerShip>().transform.rotation
+        );
 
         // Spawneamos el NetworkObject del escudo
         var networkObject = shieldInstance.GetComponent<NetworkObject>();
@@ -18,8 +22,10 @@ public class ShieldSupportItem : SupportItem
         // Aseguramos que el escudo esté bajo el transform de la nave
         shieldInstance.transform.SetParent(owner.transform);
 
-        // Aquí podrías llamar a una función para inicializar el escudo si es necesario
+        // Inicializamos el escudo con el propietario y posición
         var shieldScript = shieldInstance.GetComponent<Shield>();
         shieldScript.Initialize(owner, owner.cuerpoNave.GetComponent<PlayerShip>().transform);
+
+        // NOTA: El modelo visual será configurado por el ClientRpc
     }
 }

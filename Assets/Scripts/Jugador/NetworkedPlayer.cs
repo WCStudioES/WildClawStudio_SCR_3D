@@ -132,32 +132,61 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void ApplySuppItem()
     {
         allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
+
         switch (selectedSupport.Value)
         {
             case 0:
-                if(GetComponentInChildren<SphereCollider>() != null)
+                // Destruye cualquier escudo anterior
+                if (GetComponentInChildren<Shield>() != null)
                 {
-                    Destroy(GetComponentInChildren<SphereCollider>().gameObject);
+                    Destroy(GetComponentInChildren<Shield>().gameObject);
                 }
+
+                // Aplica el nuevo escudo en el servidor
                 allSupport[selectedSupport.Value].GetComponent<SupportItem>().AddToPlayer();
+
+                // Obtén el escudo actual
+                Shield shield = GetComponentInChildren<Shield>();
+                if (shield != null)
+                {
+                    // Obtén el ID del NetworkObject del escudo
+                    ulong shieldNetworkId = shield.GetComponent<NetworkObject>().NetworkObjectId;
+
+                    // Actualiza el modelo del escudo en los clientes
+                    UpdateShieldVisualClientRpc(shieldNetworkId);
+                }
                 break;
 
-            default: break;
+            default:
+                break;
         }
-        //ApplySuppItemClientRpc();
     }
 
-    //[ClientRpc]
-    //public void ApplySuppItemClientRpc()
-    //{
-    //    allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
-    //    switch (selectedSupport.Value)
-    //    {
-    //        case 0:
-    //            GetComponentInChildren<SphereCollider>().gameObject.GetComponentInParent<Shield>().owner = this;
-    //            break;
-    //    }
-    //}
+    [ClientRpc]
+    private void UpdateShieldVisualClientRpc(ulong shieldNetworkId)
+    {
+        // Busca el NetworkObject del escudo
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(shieldNetworkId, out var shieldNetworkObject))
+        {
+            var shield = shieldNetworkObject.GetComponent<Shield>();
+            if (shield != null)
+            {
+                // Elimina todos los hijos actuales del escudo
+                foreach (Transform child in shield.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+
+                // Instancia el nuevo modelo según el tipo de escudo
+                var playerShip = shield.IsChildOfPlayer().cuerpoNave.GetComponent<PlayerShip>();
+                if (playerShip != null && playerShip.shieldVisual != null)
+                {
+                    var shieldVisual = Instantiate(playerShip.shieldVisual, shield.transform);
+                    shieldVisual.SetActive(true);
+                }
+            }
+        }
+    }
 
     //Funcion que maneja la barra de vida
     [ClientRpc]
@@ -221,7 +250,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //Disparos
             if (isShooting)
             {
-                Debug.Log("Disparando");
+                //Debug.Log("Disparando");
                 if (ComprobadorDeCadencia()) // Verifica la cadencia en el cliente
                 {
                     OnShootServerRpc(); // Solo llama a esta función si se cumple la cadencia

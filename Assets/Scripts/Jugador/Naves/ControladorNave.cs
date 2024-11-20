@@ -33,7 +33,7 @@ public class ControladorNave : NetworkBehaviour
 
     [SerializeField] public OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
-    public CapsuleCollider colliderNave;
+    public MeshCollider colliderNave;
 
     void Start()
     {
@@ -74,10 +74,10 @@ public class ControladorNave : NetworkBehaviour
             }
 
             // Rotación automática hacia la dirección objetivo
-            if (shouldRotate)
-            {
-                RotateTowardsTarget();
-            }
+            //if (shouldRotate)
+            //{
+            //    RotateTowardsTarget();
+            //}
 
             // Aplicar la velocidad calculada a la posición del objeto
             transform.position += velocity * Time.deltaTime;
@@ -90,20 +90,20 @@ public class ControladorNave : NetworkBehaviour
         }
     }
 
-    private void RotateTowardsTarget()
-    {
-        // Calcula la rotación hacia la dirección objetivo
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+    //private void RotateTowardsTarget()
+    //{
+    //    // Calcula la rotación hacia la dirección objetivo
+    //    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
-        // Interpola suavemente la rotación actual hacia la deseada
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    //    // Interpola suavemente la rotación actual hacia la deseada
+    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        // Si el ángulo es pequeño, detén el giro automático
-        if (Quaternion.Angle(transform.rotation, targetRotation) < 10f)
-        {
-            shouldRotate = false;
-        }
-    }
+    //    // Si el ángulo es pequeño, detén el giro automático
+    //    if (Quaternion.Angle(transform.rotation, targetRotation) < 10f)
+    //    {
+    //        shouldRotate = false;
+    //    }
+    //}
 
     public void Move()
     {
@@ -149,8 +149,8 @@ public class ControladorNave : NetworkBehaviour
             }
 
             //Si te chocas contra un IDamageable
-            var enemy = collision.gameObject.GetComponent<IDamageable>();
-            if (collision.gameObject.GetComponent<NetworkedPlayer>() != null)
+            var enemy = collision.gameObject.GetComponentInParent<IDamageable>();
+            if (enemy != null)
             {
                 enemy.GetDamage((int)(velocity.magnitude * maxSpeedDmg / maxSpeed), opcionesJugador.controladorDelJugador);
             }
@@ -201,29 +201,24 @@ public class ControladorNave : NetworkBehaviour
         // Eliminamos cualquier CapsuleCollider existente en el padre
         if (colliderNave != null)
         {
-            Destroy(colliderNave);
+            Destroy(colliderNave.gameObject);
         }
 
         // Obtenemos el CapsuleCollider del hijo, asumiendo que siempre estará presente
-        CapsuleCollider colliderHijo = ship.GetComponent<CapsuleCollider>();
+        GameObject colliderHijo = ship.gameObject.GetComponentInChildren<MeshCollider>().gameObject;
         if (colliderHijo != null)
         {
             // Agregamos un nuevo CapsuleCollider en el padre y copiamos las propiedades del hijo
-            colliderNave = gameObject.AddComponent<CapsuleCollider>();
-            colliderNave.center = colliderHijo.center;
-            colliderNave.radius = colliderHijo.radius;
-            colliderNave.height = colliderHijo.height;
-            colliderNave.direction = colliderHijo.direction;
-            colliderNave.providesContacts= colliderHijo.providesContacts;
+            colliderNave = Instantiate(colliderHijo, transform).GetComponent<MeshCollider>();
 
             // Desactivamos el CapsuleCollider en el hijo para evitar duplicidad en colisiones
-            colliderHijo.enabled = false;
+            colliderHijo.SetActive(false);
 
             //Debug.Log("CapsuleCollider del hijo copiado al padre y desactivado en el hijo.");
         }
         else
         {
-            Debug.LogWarning("La nave asignada no tiene un CapsuleCollider.");
+            Debug.LogWarning("La nave asignada no tiene un collider.");
         }
     }
 

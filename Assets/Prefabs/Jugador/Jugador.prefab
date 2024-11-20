@@ -1288,7 +1288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247691883323299480, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
       propertyPath: m_Constraints
-      value: 84
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 7111494376282066658, guid: c3619c542bfc3554fa337c9d167b4a8f, type: 3}
       propertyPath: shipController
