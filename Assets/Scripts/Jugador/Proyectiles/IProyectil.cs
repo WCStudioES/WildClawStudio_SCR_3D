@@ -7,4 +7,5 @@ public interface IProyectil
 {
     void Launch(Vector3 direction);
     void OnHit(IDamageable target, NetworkedPlayer dmgDealer);
+    bool IsChildOfOwner(Transform target);
 }

@@ -36,7 +36,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     protected void OnTriggerEnter(Collider other)
     {
         //Si el otro gameobject no es el mismo, compueba si puede hacer daño
-        if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null && canHit)
+        if (IsChildOfOwner(other.transform) && canHit)
         {
             //Al colisionar comprueba si el otro ente puede recibir daño
             IDamageable target = other.GetComponentInParent<IDamageable>();
@@ -59,7 +59,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         {
             canHit = false;
 
-            if (other.gameObject != CuerpoNaveDueña.gameObject && CuerpoNaveDueña != null)
+            if (IsChildOfOwner(other.transform))
             {
                 // Al colisionar comprueba si el otro ente puede recibir daño
                 IDamageable target = other.GetComponentInParent<IDamageable>();
@@ -73,6 +73,24 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
                 }
             }
         }
+    }
+
+    public bool IsChildOfOwner(Transform target)
+    {
+        if (ControladorNaveDueña == null) return false;
+
+        // Comprobamos si el target es parte del NetworkPlayer o su jerarquía
+        Transform current = target;
+        while (current != null)
+        {
+            if (current == ControladorNaveDueña.transform)
+            {
+                return true; // Es hijo del NetworkPlayer que disparó
+            }
+            current = current.parent; // Subimos en la jerarquía
+        }
+
+        return false;
     }
 
     // Corrutina para manejar el cooldown del golpe
