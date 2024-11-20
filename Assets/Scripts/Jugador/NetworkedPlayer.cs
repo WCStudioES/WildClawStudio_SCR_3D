@@ -141,21 +141,23 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 }
                 allSupport[selectedSupport.Value].GetComponent<SupportItem>().AddToPlayer();
                 break;
+
+            default: break;
         }
-        ApplySuppItemClientRpc();
+        //ApplySuppItemClientRpc();
     }
 
-    [ClientRpc]
-    public void ApplySuppItemClientRpc()
-    {
-        allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
-        switch (selectedSupport.Value)
-        {
-            case 0:
-                GetComponentInChildren<SphereCollider>().gameObject.GetComponentInParent<Shield>().owner = this;
-                break;
-        }
-    }
+    //[ClientRpc]
+    //public void ApplySuppItemClientRpc()
+    //{
+    //    allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
+    //    switch (selectedSupport.Value)
+    //    {
+    //        case 0:
+    //            GetComponentInChildren<SphereCollider>().gameObject.GetComponentInParent<Shield>().owner = this;
+    //            break;
+    //    }
+    //}
 
     //Funcion que maneja la barra de vida
     [ClientRpc]

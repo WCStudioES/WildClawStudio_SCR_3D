@@ -336,6 +336,7 @@ MonoBehaviour:
   selectedProjectile: 0
   allSupport:
   - {fileID: 5628781410521789735, guid: 1a304a99005840442a23fd3f4574390b, type: 3}
+  - {fileID: 254882734907515646, guid: 8a4a508096d251f42af28f1666c3919f, type: 3}
   naveDestruida: 0
   puntoDisparo:
   - {fileID: 0}

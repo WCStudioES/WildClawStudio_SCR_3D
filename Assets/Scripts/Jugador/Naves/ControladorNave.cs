@@ -1,5 +1,6 @@
 using System.Collections;
 using Cinemachine;
+using DefaultNamespace;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,12 +21,13 @@ public class ControladorNave : NetworkBehaviour
     public Vector3 velocity = Vector3.zero;
 
     public float rotationSpeed = 100f; // Velocidad de rotación
+    private float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float acceleration = 5f; // Aceleración
     public float deceleration = 50f; // Desaceleración (fricción)
-    private float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
-    public bool canCollide = true;
+    public int maxSpeedDmg = 25; // Velocidad máxima alcanzable
 
+    public bool canCollide = true;
     private Vector3 targetDirection; // Dirección hacia la que la nave debería girar
     private bool shouldRotate = false; // Si la nave debe girar automáticamente
 
@@ -40,7 +42,6 @@ public class ControladorNave : NetworkBehaviour
             opcionesJugador = GetComponentInParent<OpcionesJugador>();
 
             actualCamera = CameraPositionCustomization;
-            //AssignMainCamera();
         }
     }
 
@@ -98,7 +99,7 @@ public class ControladorNave : NetworkBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         // Si el ángulo es pequeño, detén el giro automático
-        if (Quaternion.Angle(transform.rotation, targetRotation) < 1f)
+        if (Quaternion.Angle(transform.rotation, targetRotation) < 10f)
         {
             shouldRotate = false;
         }
@@ -131,20 +132,27 @@ public class ControladorNave : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(velocity.magnitude > maxSpeed/4 && collision.gameObject.GetComponent<IProyectil>() == null && canCollide)
+        if(velocity.magnitude > maxSpeed / 3 && collision.gameObject.GetComponent<IProyectil>() == null && canCollide)
         {
             SetCanCollide(false);
             StartCoroutine("SetCanCollide", true);
             
-            //Daño por impacto, Ravager no posee por su pasiva
+            //Daño por impacto, y pasivas OnCollision
             if (playerShip.passiveAbility is not OnCollisionPassive)
             {
                 Debug.Log("Daño por choque" + opcionesJugador.controladorDelJugador);
-                opcionesJugador.controladorDelJugador.GetDamage(20, opcionesJugador.controladorDelJugador);
+                opcionesJugador.controladorDelJugador.GetDamage((int)(velocity.magnitude * maxSpeedDmg / maxSpeed), opcionesJugador.controladorDelJugador);
             }
             else
             {
                 playerShip.passiveAbility.Execute();
+            }
+
+            //Si te chocas contra un IDamageable
+            var enemy = collision.gameObject.GetComponent<IDamageable>();
+            if (collision.gameObject.GetComponent<NetworkedPlayer>() != null)
+            {
+                enemy.GetDamage((int)(velocity.magnitude * maxSpeedDmg / maxSpeed), opcionesJugador.controladorDelJugador);
             }
 
             // Calcula la dirección del rebote
