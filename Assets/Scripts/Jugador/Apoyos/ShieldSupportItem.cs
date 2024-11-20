@@ -23,9 +23,9 @@ public class ShieldSupportItem : SupportItem
         shieldInstance.transform.SetParent(owner.transform);
 
         // Inicializamos el escudo con el propietario y posición
-        var shieldScript = shieldInstance.GetComponent<Shield>();
-        shieldScript.Initialize(owner, owner.cuerpoNave.GetComponent<PlayerShip>().transform);
+        var shieldScript = shieldInstance.GetComponent<VisualShield>();
+        shieldScript.Initialize(owner, owner.cuerpoNave.GetComponent<PlayerShip>().transform, owner.selectedShip.Value+1);
 
-        // NOTA: El modelo visual será configurado por el ClientRpc
+        // NOTA: El modelo visual será configurado por el ClientRpc O NO
     }
 }

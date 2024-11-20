@@ -1,6 +1,7 @@
 using DefaultNamespace;
 using System.Collections;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shield : NetworkBehaviour, IDamageable
@@ -9,15 +10,13 @@ public class Shield : NetworkBehaviour, IDamageable
     public int maxHealth = 50; // Salud máxima
     public float duration = 5f; // Duración del escudo en segundos
 
-    public NetworkVariable<ulong> ownerClientId = new NetworkVariable<ulong>();
     public NetworkedPlayer owner;
     public Transform spawn;
 
-    public void Initialize(NetworkedPlayer pOwner, Transform pSpawn)
+    public virtual void Initialize(NetworkedPlayer pOwner, Transform pSpawn)
     {
         Debug.Log("Inicializando escudo");
         owner = pOwner;
-        ownerClientId.Value = pOwner.OwnerClientId;
         spawn = pSpawn;
 
         // Esto podría ocurrir solo en el servidor
@@ -82,7 +81,7 @@ public class Shield : NetworkBehaviour, IDamageable
 
     private void Update()
     {
-        if (IsServer)
+        if (IsServer && spawn != null)
         {
             transform.position = spawn.position;
             transform.rotation = spawn.rotation;
