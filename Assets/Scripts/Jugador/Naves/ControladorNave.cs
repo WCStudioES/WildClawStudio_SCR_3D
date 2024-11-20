@@ -24,6 +24,10 @@ public class ControladorNave : NetworkBehaviour
     public float deceleration = 50f; // Desaceleración (fricción)
     private float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
+    public bool canCollide = true;
+
+    private Vector3 targetDirection; // Dirección hacia la que la nave debería girar
+    private bool shouldRotate = false; // Si la nave debe girar automáticamente
 
     [SerializeField] public OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
@@ -62,6 +66,16 @@ public class ControladorNave : NetworkBehaviour
             {
                 // Decelerar para detenerse si no hay input de movimiento
                 velocity = Vector3.MoveTowards(velocity, Vector3.zero, deceleration * Time.deltaTime);
+                if (velocity.magnitude < 0.2f)
+                {
+                    velocity = Vector3.zero;
+                }
+            }
+
+            // Rotación automática hacia la dirección objetivo
+            if (shouldRotate)
+            {
+                RotateTowardsTarget();
             }
 
             // Aplicar la velocidad calculada a la posición del objeto
@@ -75,6 +89,20 @@ public class ControladorNave : NetworkBehaviour
         }
     }
 
+    private void RotateTowardsTarget()
+    {
+        // Calcula la rotación hacia la dirección objetivo
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        // Interpola suavemente la rotación actual hacia la deseada
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // Si el ángulo es pequeño, detén el giro automático
+        if (Quaternion.Angle(transform.rotation, targetRotation) < 1f)
+        {
+            shouldRotate = false;
+        }
+    }
 
     public void Move()
     {
@@ -103,10 +131,10 @@ public class ControladorNave : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(velocity.magnitude > maxSpeed/4 && collision.gameObject.GetComponent<IProyectil>() == null)
+        if(velocity.magnitude > maxSpeed/4 && collision.gameObject.GetComponent<IProyectil>() == null && canCollide)
         {
-            velocity.x = -velocity.x / 2;
-            velocity.y = -velocity.y / 2;
+            SetCanCollide(false);
+            StartCoroutine("SetCanCollide", true);
             
             //Daño por impacto, Ravager no posee por su pasiva
             if (playerShip.passiveAbility is not OnCollisionPassive)
@@ -118,7 +146,32 @@ public class ControladorNave : NetworkBehaviour
             {
                 playerShip.passiveAbility.Execute();
             }
+
+            // Calcula la dirección del rebote
+            Vector3 collisionNormal = collision.contacts[0].normal;
+            targetDirection = Vector3.Reflect(velocity.normalized, collisionNormal); // Dirección reflejada
+
+            // Actualiza la velocidad
+            velocity = targetDirection * velocity.magnitude / 3;
+
+            // Marca que debe girar automáticamente hacia la dirección objetivo
+            shouldRotate = true;
+            StartCoroutine("SetShouldRotate", false);
         }
+    }
+
+    public IEnumerator SetCanCollide(bool toSet)
+    {
+        Debug.Log("Espera para colisionar");
+        yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+        canCollide = toSet;
+    }
+
+    public IEnumerator SetShouldRotate(bool toSet)
+    {
+        Debug.Log("Espera para colisionar");
+        yield return new WaitForSeconds(0.3f);
+        shouldRotate = toSet;
     }
 
     public void SetToSpawn(GameObject spawnPoint)
@@ -153,6 +206,7 @@ public class ControladorNave : NetworkBehaviour
             colliderNave.radius = colliderHijo.radius;
             colliderNave.height = colliderHijo.height;
             colliderNave.direction = colliderHijo.direction;
+            colliderNave.providesContacts= colliderHijo.providesContacts;
 
             // Desactivamos el CapsuleCollider en el hijo para evitar duplicidad en colisiones
             colliderHijo.enabled = false;
