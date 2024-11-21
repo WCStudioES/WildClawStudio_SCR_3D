@@ -125,9 +125,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             //DEVUELVE LA NAVE A LA POSICION DE SPAWN
             nave.SetToSpawn(spawnPosition);
+            nave.velocity = Vector3.zero;
+            cuerpoNave.GetComponent<PlayerShip>().activeAbility.actualResQuantity = cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity;
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
+
             ApplySuppItem();
         }
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);

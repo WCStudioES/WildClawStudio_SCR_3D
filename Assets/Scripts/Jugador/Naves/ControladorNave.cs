@@ -25,7 +25,7 @@ public class ControladorNave : NetworkBehaviour
     public float acceleration = 5f; // Aceleración
     public float deceleration = 50f; // Desaceleración (fricción)
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
-    public int maxSpeedDmg = 25; // Velocidad máxima alcanzable
+    public int maxSpeedDmg = 10; // Velocidad máxima alcanzable
 
     public bool canCollide = true;
     private Vector3 targetDirection; // Dirección hacia la que la nave debería girar
@@ -145,7 +145,8 @@ public class ControladorNave : NetworkBehaviour
             }
             else
             {
-                playerShip.passiveAbility.Execute();
+                OnCollisionPassive passive = playerShip.passiveAbility as OnCollisionPassive;
+                passive.CollideWith(collision);
             }
 
             //Si te chocas contra un IDamageable

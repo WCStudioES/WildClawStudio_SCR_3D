@@ -1,16 +1,15 @@
+using DefaultNamespace;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class OnCollisionPassive : PassiveAbility
 {
-    public CollisionWith[] collidesWith;
-    public GameObject collidedObject;
-    public enum CollisionWith
+    protected IDamageable target;
+    public void CollideWith(Collision other)
     {
-        Wall,
-        Ship,
-        Meteorite,
-        Proyectile
+        Debug.Log("Te has chocado con una pasiva de chocarse");
+        target = other.gameObject.GetComponentInParent<IDamageable>();
+        Execute();
     }
 }
