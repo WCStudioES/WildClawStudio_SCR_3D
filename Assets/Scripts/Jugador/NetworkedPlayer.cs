@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using TMPro;
@@ -183,7 +184,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //Debug.Log(healthPercentage);
         }
     }
-    
 
     private void Update()
     {
@@ -297,6 +297,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
         //Debug.Log("Vida actual de la nave: " + actualHealth);
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
+                  
+        ChangeMaterialColorClientRpc(Color.red, 0.1f);
     }
 
     // Funnción que aplica daño a la nave SIN CONTAR ARMADURA
@@ -312,11 +314,21 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             //Pierdes;
         }
+        else
+        {
+            // Llamar al ClientRpc para cambiar el color del material
+            ChangeMaterialColorClientRpc(Color.red, 0.1f);
+        }
 
         //Debug.Log("Vida actual de la nave: " + actualHealth);
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
     }
 
+    [ClientRpc]
+    private void ChangeMaterialColorClientRpc(Color hitColor, float duration)
+    {
+        StartCoroutine(cuerpoNave.GetComponent<PlayerShip>().FlashMaterialsInChildren(hitColor, duration));
+    }
 
     public void GetHeal(int heal, NetworkedPlayer dueñoDaño)
     {
@@ -523,8 +535,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         uiBoosters.UpdateActiveImage(value);
     }
-    
-    
 
 
     //////////////////////////////////

@@ -36,7 +36,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     protected void OnTriggerEnter(Collider other)
     {
         //Si el otro gameobject no es el mismo, compueba si puede hacer daño
-        if (IsChildOfOwner(other.transform) && canHit)
+        if (!IsChildOfOwner(other.transform) && canHit)
         {
             //Al colisionar comprueba si el otro ente puede recibir daño
             IDamageable target = other.GetComponentInParent<IDamageable>();
@@ -59,7 +59,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         {
             canHit = false;
 
-            if (IsChildOfOwner(other.transform))
+            if (!IsChildOfOwner(other.transform))
             {
                 // Al colisionar comprueba si el otro ente puede recibir daño
                 IDamageable target = other.GetComponentInParent<IDamageable>();

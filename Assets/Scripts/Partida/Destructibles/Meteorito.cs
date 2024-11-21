@@ -16,7 +16,9 @@ public class Meteorito : NetworkBehaviour, IDamageable
     //Rango de escalas de tamaño que puede tener el meteorito
     public float escalaMaxima = 4f;
     public float escalaMinima = 2f;
-    
+
+    private bool isFlashingRed = false;
+
     public NetworkVariable<int> hpActual = new NetworkVariable<int>(100); // Vida actual del meteorito
     public NetworkVariable<int> xpADar = new NetworkVariable<int>(100); // Experiencia que da el meteorito al destruirlo
 
@@ -42,6 +44,56 @@ public class Meteorito : NetworkBehaviour, IDamageable
             {
                 DestruirMeteorito(dueñoDaño);
             }
+            else
+            {
+                ChangeMaterialColorClientRpc(Color.red, 0.1f);
+            }
+        }
+    }
+
+    [ClientRpc]
+    private void ChangeMaterialColorClientRpc(Color hitColor, float duration)
+    {
+        StartCoroutine(FlashMaterialsInChildren(hitColor, duration));
+    }
+
+    public IEnumerator FlashMaterialsInChildren(Color hitColor, float duration)
+    {
+        if (!isFlashingRed)
+        {
+            isFlashingRed = true;
+            // Busca todos los Renderers (MeshRenderer o SkinnedMeshRenderer) en los hijos
+            var renderers = GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0) yield break; // Salir si no hay Renderers
+
+            // Almacena los colores originales de todos los materiales
+            var originalColors = new Dictionary<Material, Color>();
+            foreach (var renderer in renderers)
+            {
+                foreach (var material in renderer.materials)
+                {
+                    if (!originalColors.ContainsKey(material))
+                    {
+                        originalColors[material] = material.color;
+                        material.color = hitColor; // Cambiar el color al de impacto
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(duration); // Esperar el tiempo especificado
+
+            // Restaurar los colores originales
+            foreach (var renderer in renderers)
+            {
+                foreach (var material in renderer.materials)
+                {
+                    if (originalColors.ContainsKey(material))
+                    {
+                        material.color = originalColors[material];
+                    }
+                }
+            }
+            isFlashingRed = false;
         }
     }
 

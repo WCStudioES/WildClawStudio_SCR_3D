@@ -2124,6 +2124,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1348639541012317099, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1572460233711823083, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_Name
       value: Proyectil
@@ -2306,6 +2310,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3922465054927994184, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3922465054927994184, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3950227351346746041, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
@@ -2986,6 +2994,10 @@ PrefabInstance:
       objectReference: {fileID: 6638038336228515080}
     - target: {fileID: 8025677227415679845, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075219636560253794, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8112020261872222955, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}

@@ -1,10 +1,12 @@
 using UnityEngine;
 using Unity.Netcode;
 using static UnityEngine.UI.GridLayoutGroup;
+using System.Collections;
 
 public class CargoQueenActive : ShieldAbility
 {
     private GameObject shieldInstance; // Instancia del escudo
+    private Coroutine shieldMonitorCoroutine;
     public override void AbilityExecution()
     {
         Debug.Log("Cargo Queen lanza habilidad: " + networkedPlayer.IsServer);
@@ -25,8 +27,28 @@ public class CargoQueenActive : ShieldAbility
             // Aqu� podr�as llamar a una funci�n para inicializar el escudo si es necesario
             var shieldScript = shieldInstance.GetComponent<Shield>();
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
-            
+
+            // Inicia el monitoreo del estado del escudo
+            if (shieldMonitorCoroutine != null)
+                StopCoroutine(shieldMonitorCoroutine); // Detén cualquier Coroutine previo
+            shieldMonitorCoroutine = StartCoroutine(MonitorShieldInstance());
         }
+        //networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
+    }
+
+    private IEnumerator MonitorShieldInstance()
+    {
+        while (shieldInstance != null)
+        {
+            yield return null; // Espera un frame
+        }
+
+        // Cuando el escudo se destruye (shieldInstance == null)
+        Debug.Log("El escudo ha sido destruido.");
+        actualResQuantity = 0;
         networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
+
+        // Opcional: Detén el Coroutine
+        shieldMonitorCoroutine = null;
     }
 }

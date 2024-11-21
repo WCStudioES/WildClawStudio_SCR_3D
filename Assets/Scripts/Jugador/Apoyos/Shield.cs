@@ -1,5 +1,6 @@
 using DefaultNamespace;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,7 +34,60 @@ public class Shield : NetworkBehaviour, IDamageable
         {
             StartCoroutine("DestroyWithDelay");
         }
+        else
+        {
+            ChangeMaterialColorClientRpc(Color.cyan, 0.1f);
+        }
+
     }
+
+    [ClientRpc]
+    private void ChangeMaterialColorClientRpc(Color hitColor, float duration)
+    {
+        StartCoroutine(FlashMaterialsInChildren(hitColor, duration));
+    }
+
+    private IEnumerator FlashMaterialsInChildren(Color hitColor, float duration)
+    {
+        // Busca todos los Renderers (MeshRenderer o SkinnedMeshRenderer) en los hijos
+        var renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0) yield break; // Salir si no hay Renderers
+
+        // Almacena los colores originales de todos los materiales
+        var originalColors = new Dictionary<Material, Color>();
+        foreach (var renderer in renderers)
+        {
+            foreach (var material in renderer.materials)
+            {
+                if (!originalColors.ContainsKey(material))
+                {
+                    // Guardar el color original
+                    originalColors[material] = material.color;
+
+                    // Si se preserva el alpha, ajustamos solo RGB
+                    hitColor.a = material.color.a;
+
+                    // Cambiar el color al de impacto
+                    material.color = hitColor;
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(duration); // Esperar el tiempo especificado
+
+        // Restaurar los colores originales
+        foreach (var renderer in renderers)
+        {
+            foreach (var material in renderer.materials)
+            {
+                if (originalColors.ContainsKey(material))
+                {
+                    material.color = originalColors[material];
+                }
+            }
+        }
+    }
+
 
     public IEnumerator DestroyWithDelay()
     {
