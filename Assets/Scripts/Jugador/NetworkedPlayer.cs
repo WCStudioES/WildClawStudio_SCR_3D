@@ -517,6 +517,13 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             playerShip.UseAbility();
         }
     }
+
+    [ClientRpc]
+    public void UpdateAbilityUIClientRpc(float value)
+    {
+        uiBoosters.UpdateActiveImage(value);
+    }
+    
     
 
 

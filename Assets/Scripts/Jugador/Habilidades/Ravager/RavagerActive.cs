@@ -39,7 +39,7 @@ public class RavagerActive: MovementAbility
             networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
             networkedPlayer.nave.acceleration -= accelerationBuff;
             duracionActual = 0;
-            networkedPlayer.uiBoosters.UpdateActiveImage(neededResQuantity);
+            networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
         }
     }
 

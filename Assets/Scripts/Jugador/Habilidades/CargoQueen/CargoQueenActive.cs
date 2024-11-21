@@ -27,6 +27,6 @@ public class CargoQueenActive : ShieldAbility
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
             
         }
-        networkedPlayer.uiBoosters.UpdateActiveImage(neededResQuantity);
+        networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
     }
 }

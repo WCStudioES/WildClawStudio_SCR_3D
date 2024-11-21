@@ -15,28 +15,36 @@ public class UIBoosters : MonoBehaviour
     //FALTA METERLO XD
     private float contadorTotalActiva;
     private float contadorTotalArma;
+    
+    [SerializeField] private NetworkedPlayer player;
 
     public void SetSupportAbility(Sprite support)
     {
-        supportAbility.sprite = support;
+        if(player.IsOwner)
+            supportAbility.sprite = support;
     }
 
     public void SetActiveAbility(Sprite active)
     {
-        activeAbility.sprite = active;
+        if(player.IsOwner)
+            activeAbility.sprite = active;
     }
     
     public void SetWeaponAbility(Sprite weapon)
     {
-        weaponAbility.sprite = weapon;
+        if(player.IsOwner)
+            weaponAbility.sprite = weapon;
     }
 
     //Funcion para cambiar la UI de activa
     public void UpdateActiveImage(float value)
     {
-      contadorActiva = value;
-      contadorTotalActiva = contadorActiva;
-      StartCoroutine("UpdateActiveTimer");
+        if (player.IsOwner)
+        {
+            contadorActiva = value;
+            contadorTotalActiva = contadorActiva;
+            StartCoroutine("UpdateActiveTimer");
+        }
     }
 
     //Corrutina que lo actualiza la habilidad cada 0.1 segundo
@@ -55,9 +63,12 @@ public class UIBoosters : MonoBehaviour
     //Funcion para cambiar la UI de arma
     public void UpdateWeaponImage(float value)
     {
-        contadorArma = value;
-        contadorTotalArma = value;
-        StartCoroutine("UpdateWeaponTimer");
+        if (player.IsOwner)
+        {
+            contadorArma = value;
+            contadorTotalArma = value;
+            StartCoroutine("UpdateWeaponTimer");
+        }
     }
 
     //Corrutina que actualiza el arma cada 0.1 segundo
