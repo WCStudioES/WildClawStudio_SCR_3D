@@ -44,6 +44,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     private int proyectilBasico = 0; // Prefab del proyectil basico
     private int proyectilMejorado; // Prefab del proyectil escogido
     
+    //Variables de apoyo
+    private bool canUseAbility;     //Bool para saber si puedes usar la habilidad
+    private bool isSupportAvailable;    //Bool para saber si se aplica el apoyo
+    
     [SerializeField] private Transform[] puntoDisparo; // Lugar donde se instancia el proyectil
     
     private bool isShooting = false; //Booleano para saber si el jugador esta disparando
@@ -76,6 +80,11 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] private TextMeshProUGUI textoNivel; //Texto que muestra el nivel de la nave
     public UIBoosters uiBoosters;
     
+    //UI de barra enemiga 
+    [SerializeField] private Image circuloDeVidaEnemigo;
+    [SerializeField] private TextMeshProUGUI nivelEnemigo;
+    [SerializeField] private Canvas UIEnemigo;
+    
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
     private void Start()
@@ -85,11 +94,20 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             OnPlayerStartServerRpc();
             if(!IsHost)
             nave.AssignMainCamera(ControladorNave.CameraType.Customization);
+            UIEnemigo.gameObject.SetActive(false);
         }
         else
         {
             CambiarNave(allShips[selectedShip.Value]);
+            UiEnemigoClientRpc();
         }
+    }
+
+    [ClientRpc]
+    private void UiEnemigoClientRpc()
+    {
+        UIEnemigo.gameObject.SetActive(true);
+        UIEnemigo.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     // Funcion para resetear los valores predefinidos antes de empezar partida
@@ -110,6 +128,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             xp.Value = 0;
             lvl.Value = 1;
             projectile.Value = proyectilBasico;
+            canUseAbility = false;
+            isSupportAvailable = false;
             
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
@@ -164,9 +184,17 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void UpdateHealthBarClientRpc(int vida, int maxVida)
     {
         float healthPercentage = (float) vida / (float) maxVida;
-        barraDeVida.fillAmount = healthPercentage;
+        if (IsOwner)
+        {
+            barraDeVida.fillAmount = healthPercentage;
         
-        textoVida.text = vida + " / " + maxVida;
+            textoVida.text = vida + " / " + maxVida;
+        }
+        else
+        {
+            circuloDeVidaEnemigo.fillAmount = healthPercentage;
+        }
+        
 
         //Debug.Log(healthPercentage);
     }
@@ -183,8 +211,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         
             textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
             textoNivel.text = lvl.ToString();
-
             //Debug.Log(healthPercentage);
+        }
+        
+        Debug.Log("UpodateClientLevel");
+        if (!IsOwner)
+        {
+            nivelEnemigo.text = lvl.ToString();
+            Debug.Log("UpodateClientLevelAA");
         }
     }
 
@@ -378,12 +412,48 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 case 2:
                     CambiarArma(proyectilMejorado);
                     break;
+                case 3:
+                    canUseAbility = true;
+                    DesbloquearHabilidadClientRpc();
+                    break;
+                case 6:
+                    isSupportAvailable = true;
+                    DesbloquearApoyoClientRpc();
+                    break;
                 //...
             }
             
         }
         UpdateExperienceBarClientRpc(xp.Value, lvl.Value);  //Actualizar barra de experiencia
 
+    }
+    
+    [ClientRpc]
+    private void DesbloquearHabilidadClientRpc()
+    {
+        //activa la UI
+        uiBoosters.activeAbility.gameObject.SetActive(true);
+    }
+    
+    private void CambiarArma(int proyectilNuevo)
+    {
+        //Cambia la arma
+        projectile.Value = proyectilNuevo;
+        CambiarArmaClientRpc(proyectilNuevo);
+    }
+    
+    
+    [ClientRpc]
+    private void CambiarArmaClientRpc(int proyectilNuevo)
+    {
+        uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
+    }
+
+    [ClientRpc]
+    private void DesbloquearApoyoClientRpc()
+    {
+        //activa la UI
+        uiBoosters.supportAbility.gameObject.SetActive(true);
     }
 
     // ACTUALIZA LA DIRECCIÓN DEL JUGADOR
@@ -493,13 +563,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
     }
     
+    
     //////////////////////////////////
     /// USO DE HABILIDADES////////////
     //////////////////////////////////
     [ServerRpc]
     private void HabilityServerRpc()
     {
-        if (IsServer)
+        if (IsServer && canUseAbility)
         {
             Debug.Log("Lanzando habilidad en el servidor");
 
@@ -611,13 +682,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             puntoDisparo[i] = cuerpoNave.GetComponent<PlayerShip>().proyectileSpawns[i].transform;
         }
-    }
-
-    private void CambiarArma(int proyectilNuevo)
-    {
-        //Cambia la arma
-        projectile.Value = proyectilNuevo;
-        uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
     }
 
     private void CambiarArmaMejorada(int proyectilNuevo)
