@@ -29,7 +29,7 @@ public abstract class ActiveAbility : Ability
 
             case ResourceType.CoolDown:
                 actualResQuantity = neededResQuantity;
-                networkedPlayer.UpdateAbilityCDUIClientRpc(actualResQuantity/neededResQuantity);
+                networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity);
                 break;
 
             case ResourceType.Hp:

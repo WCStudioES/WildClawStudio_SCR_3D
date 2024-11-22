@@ -610,7 +610,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     //Metodo para actualizar la UI de la habilidad en el cliente con un contador ahcia atras para su CD
     [ClientRpc]
-    public void UpdateAbilityCDUIClientRpc(float value)
+    public void UpdateCDAbilityUIClientRpc(float value)
     {
         uiBoosters.UpdateActiveImageWithCD(value);
     }
