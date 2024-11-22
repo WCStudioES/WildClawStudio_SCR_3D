@@ -94,6 +94,7 @@ public class DestructibleAsset : Damageable
         {
             actualHealth.Value = maxHealth;
             RestoreDestructibleAssetClientRpc();
+            resGiven = false;
         }
         gameObject.SetActive(true);
     }
