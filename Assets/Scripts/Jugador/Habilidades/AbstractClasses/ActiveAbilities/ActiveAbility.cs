@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class ActiveAbility : Ability
 {
     public ActiveType type;
+    public int maxResource;
     public enum ActiveType
     {
         MovementBuff,
@@ -13,6 +14,31 @@ public abstract class ActiveAbility : Ability
         TogglePassive
     }
     
+    //Metodo para reiniciar habilidad entre rondas
+    public void ResetRonda()
+    {
+        switch (resourceType)
+        {
+            case ResourceType.None:
+                break;
+
+            case ResourceType.Energy:
+                actualResQuantity = maxResource;
+                networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity/maxResource);
+                break;
+
+            case ResourceType.CoolDown:
+                actualResQuantity = neededResQuantity;
+                networkedPlayer.UpdateAbilityCDUIClientRpc(actualResQuantity/neededResQuantity);
+                break;
+
+            case ResourceType.Hp:
+                break;
+
+            default:
+                break;
+        }
+    }
 
     public override bool CheckAvailability()
     {
@@ -60,8 +86,9 @@ public abstract class ActiveAbility : Ability
     {
         switch (resourceType)
         {
+            //Ravager lo lleva solo, no quiero petar la habilidad con stats que otros no usan
             case ResourceType.Energy:
-                if (actualResQuantity < neededResQuantity)
+                if (actualResQuantity < 10)
                 {
                     actualResQuantity += Time.deltaTime * 5;
                 }

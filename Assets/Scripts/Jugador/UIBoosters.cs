@@ -36,8 +36,8 @@ public class UIBoosters : MonoBehaviour
             weaponAbility.sprite = weapon;
     }
 
-    //Funcion para cambiar la UI de activa
-    public void UpdateActiveImage(float value)
+    //Funcion para cambiar la UI de activa con un cronometro para el CD
+    public void UpdateActiveImageWithCD(float value)
     {
         if (player.IsOwner)
         {
@@ -45,6 +45,12 @@ public class UIBoosters : MonoBehaviour
             contadorTotalActiva = contadorActiva;
             StartCoroutine("UpdateActiveTimer");
         }
+    }
+    
+    //Funcion para cambiar la UI de activa con el valor dado
+    public void UpdateActiveImage(float value)
+    {
+        activeAbility.fillAmount = value;
     }
 
     //Corrutina que lo actualiza la habilidad cada 0.1 segundo

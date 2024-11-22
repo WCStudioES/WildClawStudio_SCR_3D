@@ -115,13 +115,15 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (IsServer)
         {
+            PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
             // Se inicializan las estadísticas de la nave elegida
-            cuerpoNave.GetComponent<PlayerShip>().InitializeStats();
+            playerShip.InitializeStats();
+            //playerShip.ResetRonda();
 
             // Se copian dentro del NetworkedPlayer como Network Variables
-            armor.Value = cuerpoNave.GetComponent<PlayerShip>().initialArmor;
-            actualHealth.Value = cuerpoNave.GetComponent<PlayerShip>().initialHealth;
-            dmgBalance.Value = cuerpoNave.GetComponent<PlayerShip>().dmgBalance;
+            armor.Value = playerShip.initialArmor;
+            actualHealth.Value = playerShip.initialHealth;
+            dmgBalance.Value = playerShip.dmgBalance;
             maxHealth.Value = actualHealth.Value;
 
             // Otras inicializaciones
@@ -146,13 +148,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //DEVUELVE LA NAVE A LA POSICION DE SPAWN
             nave.SetToSpawn(spawnPosition);
             nave.velocity = Vector3.zero;
-            cuerpoNave.GetComponent<PlayerShip>().activeAbility.actualResQuantity = cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity;
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
 
-            ApplySuppItem();
+            if(isSupportAvailable)
+                ApplySuppItem();
         }
+        cuerpoNave.GetComponent<PlayerShip>().ResetRonda();
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
     }
 
@@ -585,15 +588,16 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
                 default:
                     cuerpoNave.GetComponent<PlayerShip>().UseAbility();
-                    HabilityClientRpc();
+                    AbilityClientRpc();
                     break;
             }
         
         }
     }
     
+    //Metodo para actualizar la UI de la habilidad en el cliente
     [ClientRpc]
-    private void HabilityClientRpc()
+    private void AbilityClientRpc()
     {
         if (!IsServer)
         {
@@ -604,6 +608,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
     }
 
+    //Metodo para actualizar la UI de la habilidad en el cliente con un contador ahcia atras para su CD
+    [ClientRpc]
+    public void UpdateAbilityCDUIClientRpc(float value)
+    {
+        uiBoosters.UpdateActiveImageWithCD(value);
+    }
+    
+    //Metodo para actualizar la UI de la habilidad sin CD
     [ClientRpc]
     public void UpdateAbilityUIClientRpc(float value)
     {

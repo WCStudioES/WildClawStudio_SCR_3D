@@ -46,9 +46,10 @@ public class CargoQueenActive : ShieldAbility
         // Cuando el escudo se destruye (shieldInstance == null)
         Debug.Log("El escudo ha sido destruido.");
         actualResQuantity = 0;
-        networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
+        networkedPlayer.UpdateAbilityCDUIClientRpc(neededResQuantity);
 
         // Opcional: Detén el Coroutine
         shieldMonitorCoroutine = null;
     }
+    
 }

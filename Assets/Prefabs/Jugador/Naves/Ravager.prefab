@@ -282,10 +282,8 @@ MonoBehaviour:
   - {fileID: 1699773053242778073}
   - {fileID: 2514038311123159786}
   - {fileID: 7580968215186778875}
-  shieldVisual: {fileID: 0}
   activeAbility: {fileID: 6230050435369025426}
   passiveAbility: {fileID: -8598968886529694628}
-  skinSprites: []
   skins:
   - {fileID: 2431385734819292843, guid: 09ba6dfd44f5c4e45a05b53b3244a341, type: 3}
   - {fileID: 4934000520785429152, guid: 9db9dce77907db145a27f0e46e17ba39, type: 3}
@@ -305,13 +303,15 @@ MonoBehaviour:
   Name: Turbo motor
   Description: Increases movement speed
   Sprite: {fileID: -820781361, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
-  resourceType: 2
+  resourceType: 1
   actualResQuantity: 0
   neededResQuantity: 15
   networkedPlayer: {fileID: 0}
   type: 0
+  maxResource: 50
   maxSpeedBuff: 5
   accelerationBuff: 10
+  energyRecharge: 1
 --- !u!114 &-8598968886529694628
 MonoBehaviour:
   m_ObjectHideFlags: 0

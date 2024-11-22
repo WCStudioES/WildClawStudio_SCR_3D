@@ -51,6 +51,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     
     public abstract void FireProjectile();
     public abstract void InitializeStats();
+
+    public void ResetRonda()
+    {
+        activeAbility.ResetRonda();
+    }
     public void UseAbility()
     {
         activeAbility.Execute();
@@ -59,10 +64,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public void SetLevels()
     {
         xpByLvl = new int [10];
+        xpByLvl[0] = 300;
 
-        for(int i = 0; i < xpByLvl.Length; i++)
+        for(int i = 1; i < xpByLvl.Length; i++)
         {
-            xpByLvl[i] = 300 * (i + 1);
+            xpByLvl[i] = 300 + 200 * (i);
         }
     }
 

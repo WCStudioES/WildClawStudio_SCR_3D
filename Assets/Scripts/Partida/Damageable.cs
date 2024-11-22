@@ -98,7 +98,7 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
         RestoreOriginalColors(); // Restaurar colores originales si no ha terminado
     }
 
-    protected abstract void DestroyDamageable(NetworkedPlayer dueñoDaño);
+    protected abstract void DestroyDamageable(NetworkedPlayer damageDealer);
     //{
     //    if (IsServer)
     //    {
@@ -108,11 +108,11 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     //                break;
 
     //            case ResourceToGive.Experience:
-    //                dueñoDaño.GetXP(resToGive.Value);
+    //                dueï¿½oDaï¿½o.GetXP(resToGive.Value);
     //                break;
 
     //            case ResourceToGive.Health:
-    //                dueñoDaño.GetHeal(resToGive.Value, dueñoDaño);
+    //                dueï¿½oDaï¿½o.GetHeal(resToGive.Value, dueï¿½oDaï¿½o);
     //                break;
     //        }
     //        StopFlashingAndCleanUp(); // Detener el flashing y restaurar colores
