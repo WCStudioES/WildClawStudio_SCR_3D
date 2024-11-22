@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.57574}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6037335490557094461}
@@ -50,7 +50,7 @@ MonoBehaviour:
   weaponName: 
   description: 
   dmg: 10
-  speed: 60
+  speed: 100
   cadencia: 1.75
   type: 0
 --- !u!54 &25356461853773190
@@ -189,5 +189,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0050001624, y: 0.025000019, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.005000162, y: 0.025000025, z: 0.25187054}
+  m_Center: {x: 0, y: -3.9680967e-11, z: 0.0025303077}

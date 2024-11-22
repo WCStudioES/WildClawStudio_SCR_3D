@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3835162534578752760}
@@ -50,7 +50,7 @@ MonoBehaviour:
   weaponName: Double laser
   description: You shoot 2 lasers per shot
   dmg: 10
-  speed: 30
+  speed: 100
   cadencia: 1.75
   type: 1
 --- !u!54 &3832535102861204280
@@ -147,7 +147,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ed986d2bbe100f14b995a7f02f139a9d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3d7fc98c3c59e1a4da2483bf660cc259, type: 2}
+      objectReference: {fileID: 2100000, guid: 899fa1daa7ea9c84fa8e9e85733a0884, type: 2}
     - target: {fileID: 919132149155446097, guid: ed986d2bbe100f14b995a7f02f139a9d, type: 3}
       propertyPath: m_Name
       value: ProyectilBasico
@@ -189,5 +189,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0050001624, y: 0.02500001, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.005000162, y: 0.02500001, z: 0.31666413}
+  m_Center: {x: 0, y: 7.8121336e-11, z: -0.0013106584}

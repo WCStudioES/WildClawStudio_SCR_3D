@@ -136,6 +136,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
             UpdateExperienceBarClientRpc(0, 1);
+            uiBoosters.activeAbility.gameObject.SetActive(false);
+            uiBoosters.supportAbility.gameObject.SetActive(false);
         }
     }
     
@@ -399,9 +401,9 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             armor.Value += cuerpoNave.GetComponent<PlayerShip>().armorIncrement;
             maxHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
             actualHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
+            
 
             // Se actualiza la barra de vida
-            UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); 
 
             Debug.Log("Level " + lvl.Value);
 
@@ -421,12 +423,16 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     break;
                 case 6:
                     isSupportAvailable = true;
+                    ApplySuppItem();
                     DesbloquearApoyoClientRpc();
                     break;
                 //...
             }
             
         }
+        
+        // Actualizar barras
+        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); 
         UpdateExperienceBarClientRpc(xp.Value, lvl.Value);  //Actualizar barra de experiencia
 
     }

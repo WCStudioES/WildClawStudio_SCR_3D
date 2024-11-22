@@ -50,7 +50,7 @@ MonoBehaviour:
   weaponName: Machine gun
   description: Low damage but high attack speed
   dmg: 5
-  speed: 25
+  speed: 100
   cadencia: 0.2
   type: 0
 --- !u!54 &4117408586755700746
