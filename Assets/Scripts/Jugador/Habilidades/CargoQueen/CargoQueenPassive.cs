@@ -10,7 +10,7 @@ public class CargoQueenPassive : OnHitPassive
         if(networkedPlayer.IsServer)
         {
             Debug.Log("Cargo Queen se cura más del Derbis");
-            networkedPlayer.GetHeal(debris.hpADar.Value, networkedPlayer);
+            networkedPlayer.GetHeal(debris.resToGive.Value, networkedPlayer);
         }
     }
 

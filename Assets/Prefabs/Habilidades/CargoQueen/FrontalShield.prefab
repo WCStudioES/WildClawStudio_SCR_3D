@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 660638344
+  GlobalObjectIdHash: 2143799027
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -173,9 +173,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5bae1eb02738864bbc4fd8b9e13e37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 50
+  hitColor: {r: 1, g: 0.8526169, b: 0.42452818, a: 0}
   actualHealth:
     m_InternalValue: 50
-  maxHealth: 50
+  resType: 0
+  resToGive:
+    m_InternalValue: 0
   duration: 10
   owner: {fileID: 0}
   spawn: {fileID: 0}

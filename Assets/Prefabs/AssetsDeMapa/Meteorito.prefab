@@ -147,15 +147,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a3d76b791d81344aaa546b6b79fe9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpTotal: 50
+  maxHealth: 50
+  hitColor: {r: 1, g: 0, b: 0, a: 0}
+  actualHealth:
+    m_InternalValue: 0
+  resType: 2
+  resToGive:
+    m_InternalValue: 100
   hpMaximo: 100
   hpMinimo: 100
   escalaMaxima: 100
   escalaMinima: 100
-  hpActual:
-    m_InternalValue: 100
-  xpADar:
-    m_InternalValue: 100
 --- !u!135 &5654783437671803700
 SphereCollider:
   m_ObjectHideFlags: 0

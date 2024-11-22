@@ -96,12 +96,12 @@ public class Partida : NetworkBehaviour
     {
         foreach (var meteorito in meteoritos)
         {
-            meteorito.RestaurarMeteorito();
+            meteorito.RestoreDestructibleAsset();
         }
 
         foreach (var unDebris in debris)
         {
-            unDebris.RestaurarDebris();
+            unDebris.RestoreDestructibleAsset();
         }
     }
 
