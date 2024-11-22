@@ -286,6 +286,10 @@ MonoBehaviour:
   activeAbility: {fileID: 6230050435369025426}
   passiveAbility: {fileID: -8598968886529694628}
   skinSprites: []
+  skins:
+  - {fileID: 2431385734819292843, guid: 09ba6dfd44f5c4e45a05b53b3244a341, type: 3}
+  - {fileID: 4934000520785429152, guid: 9db9dce77907db145a27f0e46e17ba39, type: 3}
+  - {fileID: 4018967019154356357, guid: ab369e7b8622db3478ec168570dea5a0, type: 3}
 --- !u!114 &6230050435369025426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,8 +332,7 @@ MonoBehaviour:
   neededResQuantity: 0
   networkedPlayer: {fileID: 0}
   type: 0
-  collidesWith: 
-  collidedObject: {fileID: 0}
+  dmg: 5
 --- !u!1001 &2586613581235835932
 PrefabInstance:
   m_ObjectHideFlags: 0

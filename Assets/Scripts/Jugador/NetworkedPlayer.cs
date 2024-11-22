@@ -98,7 +98,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
         else
         {
-            CambiarNave(allShips[selectedShip.Value]);
+            CambiarNave(allShips[selectedShip.Value], 0);
             UiEnemigoClientRpc();
         }
     }
@@ -617,36 +617,36 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     // ServerRpc que registra los cambios y los propaga a otros clientes
     [ServerRpc]
-    public void ApplyCustomizationServerRpc(int shipIndex, int projectileIndex, int supportIndex)
+    public void ApplyCustomizationServerRpc(int shipIndex, int skinIndex, int projectileIndex, int supportIndex)
     {
         //Debug.Log(shipIndex + ", " + allShips.Count);
         selectedShip.Value = shipIndex;
         selectedProjectile = projectileIndex;
         selectedSupport.Value = supportIndex;
 
-        ApplyCustomizationLocally(shipIndex, projectileIndex, supportIndex);
+        ApplyCustomizationLocally(shipIndex, skinIndex, projectileIndex, supportIndex);
 
-        ApplyCustomizationClientRpc(shipIndex, projectileIndex, supportIndex, OwnerClientId);
+        ApplyCustomizationClientRpc(shipIndex, skinIndex, projectileIndex, supportIndex, OwnerClientId);
     }
 
     // Aplicación local de la personalización (solo en el propietario)
-    public void ApplyCustomizationLocally(int shipIndex, int projectileIndex, int supportIndex)
+    public void ApplyCustomizationLocally(int shipIndex, int skinIndex, int projectileIndex, int supportIndex)
     {
         GameObject selectedShipPrefab = allShips[shipIndex];
 
-        CambiarNave(selectedShipPrefab);  // Cambia la nave del propietario
+        CambiarNave(selectedShipPrefab, skinIndex);  // Cambia la nave del propietario
         CambiarArmaMejorada(projectileIndex);  // Cambia el proyectil del propietario
 
         //Debug.Log($"Personalización aplicada localmente en el propietario: Nave {shipIndex}, Proyectil {projectileIndex}");
     }
 
     [ClientRpc]
-    private void ApplyCustomizationClientRpc(int shipIndex, int projectileIndex, int supportIndex, ulong ownerClientId)
+    private void ApplyCustomizationClientRpc(int shipIndex, int skinIndex, int projectileIndex, int supportIndex, ulong ownerClientId)
     {
         // Verifica si este cliente es el propietario que llamó al ServerRpc
         if (NetworkManager.Singleton.LocalClientId == ownerClientId)
         {
-            ApplyCustomizationLocally(shipIndex, projectileIndex, supportIndex);
+            ApplyCustomizationLocally(shipIndex, skinIndex, projectileIndex, supportIndex);
             
             uiBoosters.SetActiveAbility(allShips[shipIndex].GetComponent<PlayerShip>().activeAbility.Sprite);
             uiBoosters.SetWeaponAbility(allProjectiles[0].GetComponent<Proyectil>().sprite);
@@ -657,18 +657,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
         else if(!IsOwner)
         {
-            CambiarNave(allShips[shipIndex]);
+            CambiarNave(allShips[shipIndex], skinIndex);
         }
     }
 
     // Método para cambiar la nave en el propietario
-    private void CambiarNave(GameObject navePrefab)
+    private void CambiarNave(GameObject navePrefab, int skinIndex)
     {
         if (cuerpoNave != null)
         {
             Destroy(cuerpoNave); // Destruye la nave anterior si existe
         }
         cuerpoNave = Instantiate(navePrefab, nave.transform.position, nave.transform.rotation);
+        cuerpoNave.GetComponent<PlayerShip>().ChangeSkin(skinIndex);
         cuerpoNave.transform.SetParent(nave.transform);
 
         cuerpoNave.GetComponent<PlayerShip>().shipController = nave;

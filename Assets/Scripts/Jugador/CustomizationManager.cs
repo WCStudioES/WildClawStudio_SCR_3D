@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,7 @@ public class CustomizationManager : MonoBehaviour
 
     // ASPECTO DE LA NAVE
     public TMP_Text shipName;
+    public TMP_Text skinName;
 
     public Image equippedCraftImage;
     public Image equippedSkinImage;
@@ -21,6 +23,7 @@ public class CustomizationManager : MonoBehaviour
     public int equippedSkinIndex;
 
     [SerializeField] private List<GameObject> craftImages;
+    [SerializeField] private List<Material> skinImages;
     //[SerializeField] private List<Sprite> skinImages;
 
     // HABILIDADES DE LA NAVE
@@ -75,6 +78,7 @@ public class CustomizationManager : MonoBehaviour
             // Aseg�rate de que las listas est�n vac�as antes de cargar los nuevos sprites
             craftImages.Clear();
             ammoImages.Clear();
+            supportImages.Clear();
 
             // Cargar sprites de availableShips en craftImages
             foreach (var ship in networkedPlayer.allShips)
@@ -93,6 +97,18 @@ public class CustomizationManager : MonoBehaviour
                 GameObject ammo = networkedPlayer.allProjectiles[i];
                 ammoImages.Add(ammo);
             }
+
+            UpdateSkins(equippedCraftIndex);
+        }
+    }
+
+    private void UpdateSkins(int index)
+    {
+        equippedSkinIndex = 0;
+        skinImages.Clear();
+        foreach (var skin in networkedPlayer.allShips[index].GetComponent<PlayerShip>().skins)
+        {
+            skinImages.Add(skin.skinMaterial);
         }
     }
 
@@ -110,7 +126,7 @@ public class CustomizationManager : MonoBehaviour
                 equippedIndex = equippedCraftIndex;
                 break;
             case 1:
-                maxIndex = 0; // skinImages.Count - 1;
+                maxIndex =  skinImages.Count - 1;
                 equippedIndex = equippedSkinIndex;
                 break;
             case 2:
@@ -142,6 +158,7 @@ public class CustomizationManager : MonoBehaviour
         {
             case 0:
                 equippedCraftIndex = equippedIndex;
+                UpdateSkins(equippedCraftIndex);
                 break;
             case 1:
                 equippedSkinIndex = equippedIndex;
@@ -171,6 +188,11 @@ public class CustomizationManager : MonoBehaviour
         // NAVE ELEGIDA
         shipName.text = playerShip.shipName;
         equippedCraftImage.sprite = playerShip.sprite;
+
+        if(playerShip.skins.Count > 0)
+        {
+            skinName.text = playerShip.skins[equippedSkinIndex].skinName;
+        }
         //equippedSkinImage.sprite = skinImages[equippedSkinIndex];
         
         //Stats de la nave
@@ -305,7 +327,7 @@ public class CustomizationManager : MonoBehaviour
         if (networkedPlayer != null && networkedPlayer.IsOwner)
         {
             // Llama al servidor para propagar los cambios a otros clientes
-            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedAmmoIndex+1, equippedSupportIndex);
+            networkedPlayer.ApplyCustomizationServerRpc(equippedCraftIndex, equippedSkinIndex, equippedAmmoIndex+1, equippedSupportIndex);
         }
     }
 

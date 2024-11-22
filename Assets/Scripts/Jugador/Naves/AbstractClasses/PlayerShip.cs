@@ -30,12 +30,12 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
-    public GameObject shieldVisual;
+    //public GameObject shieldVisual;
 
     public ActiveAbility activeAbility;
     public PassiveAbility passiveAbility;
 
-    public List<Sprite> skinSprites;
+    public List<Skin> skins;
 
     private void Start()
     {
@@ -105,4 +105,35 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
             isFlashingRed = false;
         }
     }
+
+    public void ChangeSkin(int skinIndex)
+    {
+        if (skinIndex < 0 || skinIndex >= skins.Count || skins.Count == 0)
+        {
+            Debug.LogError("Skin index out of range.");
+            return;
+        }
+
+        Material selectedMaterial = skins[skinIndex].skinMaterial;
+
+        // Obtener todos los Renderers (MeshRenderer o SkinnedMeshRenderer) en los hijos
+        var renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0)
+        {
+            Debug.LogWarning("No renderers found in children.");
+            return;
+        }
+
+        // Cambiar el material de cada renderer
+        foreach (var renderer in renderers)
+        {
+            var materials = renderer.materials; // Obtenemos los materiales actuales
+            for (int i = 0; i < materials.Length; i++)
+            {
+                materials[i] = selectedMaterial; // Asignamos el nuevo material
+            }
+            renderer.materials = materials; // Actualizamos los materiales en el renderer
+        }
+    }
+
 }
