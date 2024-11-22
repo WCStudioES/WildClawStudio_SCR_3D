@@ -20,8 +20,25 @@ public class StormGrenade : Proyectil
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor);
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction);
             
+        }
+    }
+
+    public void Detonar(NetworkedPlayer dmgDealer)
+    {
+        if (activo)
+        {
+            activo = false;
+
+            Debug.Log("Creando tormenta en el server");
+
+            var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
+            StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction);
+            
+            Destroy(GetComponent<Rigidbody>());
+            Destroy(GetComponentInChildren<Renderer>());
         }
     }
 }

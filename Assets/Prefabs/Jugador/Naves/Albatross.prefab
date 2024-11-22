@@ -312,7 +312,9 @@ MonoBehaviour:
   neededResQuantity: 20
   networkedPlayer: {fileID: 0}
   type: 1
+  maxResource: 0
   stormGrenade: {fileID: 5047976631321185189, guid: 743aabaa9ba67734caf03eefc3817bb3, type: 3}
+  tiempoDeVida: 3
 --- !u!114 &1475624673909171016
 MonoBehaviour:
   m_ObjectHideFlags: 0

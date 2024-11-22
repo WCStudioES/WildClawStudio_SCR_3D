@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,23 +7,61 @@ using UnityEngine.UIElements;
 public class AlbatrossActive : ShootProjectileAbility
 {
     [SerializeField] private GameObject stormGrenade;
+    private GameObject proyectil;
+    public float tiempoDeVida;
+    private bool isActive;
     public override void AbilityExecution()
     {
         Debug.Log("Albatros lanza habilidad");
+
+        if (!isActive)
+        {
+            isActive = true;
+            Transform spawn = GetComponentInParent<PlayerShip>().proyectileSpawns[0];
+
+            //Debug.Log("Proyectil creado");
+            proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
+            Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+
+            // Inicializamos el proyectil en el servidor
+            proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
+            //Debug.Log(neededResQuantity);
+
+            // Programamos la destrucci�n del proyectil despu�s de 10 segundos
+            Invoke("CrearTormenta", tiempoDeVida);
+        }
+        else
+        {
+            CrearTormenta();
+        }
+    }
+
+    public override bool CheckAvailability()
+    {
+        if (actualResQuantity < neededResQuantity && !isActive)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void ResetRonda()
+    {
+        isActive = false;
+        actualResQuantity = neededResQuantity;
+        networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity);
+    }
+
+    private void CrearTormenta()
+    {
+        if (isActive)
+        {
+            isActive = false;
+            networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity);
+            proyectil.GetComponent<StormGrenade>().Detonar(networkedPlayer);
+            Destroy(proyectil);
+        }
         
-            
-        Transform spawn = GetComponentInParent<PlayerShip>().proyectileSpawns[0];
-
-        //Debug.Log("Proyectil creado");
-        GameObject proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
-        Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-
-        // Inicializamos el proyectil en el servidor
-        proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
-        networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity);
-        Debug.Log(neededResQuantity);
-
-        // Programamos la destrucci�n del proyectil despu�s de 10 segundos
-        Destroy(proyectil, 3f);
     }
 }

@@ -21,6 +21,19 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     protected bool IsInServidor;
 
+    //Crear zona de daño con direccion de avance
+    public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor, Vector3 pDirection)
+    {
+        Debug.Log("Explosion creada");
+        ControladorNaveDueña = pDmgDealer;
+        CuerpoNaveDueña = pCuerpoNaveDueña;
+        IsInServidor = pIsInServidor;
+        direction = pDirection;
+
+        Destroy(gameObject, timeOfEffect);
+    }
+    
+    //Crear zona de daño sin direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor)
     {
         Debug.Log("Explosion creada");
@@ -112,8 +125,8 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     //    }
     //}
 
-    public void Launch(Vector3 direction)
+    public void FixedUpdate()
     {
-        throw new System.NotImplementedException();
+        transform.position += direction * speed * Time.fixedDeltaTime;
     }
 }
