@@ -80,15 +80,21 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] private TextMeshProUGUI textoNivel; //Texto que muestra el nivel de la nave
     public UIBoosters uiBoosters;
     
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator2;
+    
     //UI de barra enemiga 
     [SerializeField] private Image circuloDeVidaEnemigo;
     [SerializeField] private TextMeshProUGUI nivelEnemigo;
     [SerializeField] private Canvas UIEnemigo;
     
+    
+    
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
 
     private void Start()
     {
+        animator.Play(1);
         if (IsOwner)
         {
             OnPlayerStartServerRpc();
@@ -416,6 +422,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (lvl.Value < cuerpoNave.GetComponent<PlayerShip>().maxLevel && 
             xp.Value >= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1])
         {
+            animator2.Play("AnilloExteriorLvl");
+            animator.Play("AnilloInternoLvl");
             // La xp se resta, para que vuelva a estar cerca de 0
             xp.Value -= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1];
             lvl.Value++;
