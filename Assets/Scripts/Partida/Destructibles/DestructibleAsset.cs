@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DestructibleAsset : Damageable
 {
+    private bool resGiven = false;
     private void Start()
     {
         if (IsServer)
@@ -20,11 +21,18 @@ public class DestructibleAsset : Damageable
         if (IsServer)
         {
             actualHealth.Value -= dmg;
-            Debug.Log("Vida del meteorito: " + actualHealth.Value);
+
+            if(resType == ResourceToGive.Health)
+            {
+                dueñoDaño.GetHeal(resToGive.Value, dueñoDaño);
+            }
+
+            Debug.Log("Vida del coso: " + actualHealth.Value);
 
             // Si la vida llega a 0, destruir el meteorito
-            if (actualHealth.Value <= 0)
+            if (actualHealth.Value <= 0 && !resGiven)
             {
+                resGiven = true;
                 DestroyDamageable(dueñoDaño);
             }
             else

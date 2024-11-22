@@ -328,8 +328,9 @@ public class Partida : NetworkBehaviour
     {
         //INDICA QUE LA PARTIDA HA EMPEZADO
         partidaEnMarcha = true;
+        AudioManager.Instance.PlayGameMusic();
     }
-    
+
     //FINALIZA LA PARTIDA POR DESCONEXION
     void finalizarPartidaPorDesconexion()
     {

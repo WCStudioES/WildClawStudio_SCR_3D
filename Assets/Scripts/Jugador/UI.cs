@@ -58,8 +58,12 @@ public class UI : NetworkBehaviour
 
     public void ActivarUI()
     {
-        if(IsOwner)
+        if (IsOwner)
+        {
             LogIn.SetActive(true);
+            AudioManager.Instance.PlayMenuMusic();
+        }
+        
     }
 
     //RELACIONADAS CON LOGIN////////////////////
@@ -284,10 +288,7 @@ public class UI : NetworkBehaviour
         DerrotaRonda.SetActive(false);
     }
 
-    ////////////////////////////////////////////
-
-    
-    
+    ////////////////////////////////////////////    
     //RELACIONADAS CON INSTRUCCIONES////////////
     
     public void MirarInstrucciones()
@@ -309,7 +310,6 @@ public class UI : NetworkBehaviour
     }
     
     ////////////////////////////////////////////
-    
     //RELACIONADAS CON CREDITOS/////////////////
     
     public void MirarCreditos()
@@ -418,7 +418,5 @@ public class UI : NetworkBehaviour
             //opcionesJugador.reactivarMovimiento();
         }
     }
-
-
     ////////////////////////////////////////////
 }

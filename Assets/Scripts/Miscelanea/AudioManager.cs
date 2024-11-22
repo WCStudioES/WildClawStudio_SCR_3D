@@ -14,6 +14,10 @@ public class AudioManager : MonoBehaviour
     public int maxAudioSources = 10;
     private Queue<AudioSource> audioSourcePool = new Queue<AudioSource>();
 
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] private AudioClip gameMusic;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -40,14 +44,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(AudioClip clip)
+    public void PlayMusic(AudioClip clip, bool loopeable)
     {
-        if (musicSource.clip != clip)
-        {
-            musicSource.clip = clip;
-            musicSource.loop = true;
-            musicSource.Play();
-        }
+        musicSource.clip = clip;
+        musicSource.loop = loopeable;
+        musicSource.Play();
     }
 
     public void PlaySFX(AudioClip clip)
@@ -68,5 +69,15 @@ public class AudioManager : MonoBehaviour
         source.Stop();
         source.gameObject.SetActive(false);
         audioSourcePool.Enqueue(source);
+    }
+
+    public void PlayMenuMusic()
+    {
+        PlayMusic(menuMusic, true);
+    }
+
+    public void PlayGameMusic()
+    {
+        PlayMusic(gameMusic, false);
     }
 }

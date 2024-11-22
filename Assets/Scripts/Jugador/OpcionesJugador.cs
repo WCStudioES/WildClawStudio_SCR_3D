@@ -68,6 +68,7 @@ public class OpcionesJugador : NetworkBehaviour
         desactivarMovimiento();
         if (IsServer)
         {
+            controladorDelJugador.ResetSupportItems();
             controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"));
         }
         if (IsClient && !IsOwner)

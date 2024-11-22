@@ -132,7 +132,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             projectile.Value = proyectilBasico;
             canUseAbility = false;
             isSupportAvailable = false;
-            
+
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
             UpdateExperienceBarClientRpc(0, 1);
@@ -176,7 +176,31 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
                 // Aplica el nuevo escudo en el servidor
                 allSupport[selectedSupport.Value].GetComponent<SupportItem>().AddToPlayer();
+                break;
 
+            case 1:
+                allSupport[selectedSupport.Value].GetComponent<SupportItem>().AddToPlayer();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void ResetSupportItems()
+    {
+        switch (selectedSupport.Value)
+        {
+            case 0:
+                // Destruye cualquier escudo anterior
+                if (GetComponentInChildren<VisualShield>() != null)
+                {
+                    Destroy(GetComponentInChildren<VisualShield>().gameObject);
+                }
+                break;
+
+            case 1:
+                allSupport[selectedSupport.Value].GetComponent<CDReductionSupportItem>().applied = false;
                 break;
 
             default:
