@@ -28,10 +28,7 @@ public class UI : NetworkBehaviour
     [SerializeField]private Register ScriptRegister;
 
     MatchmakingManager matchmakingManager;
-
-
-    [SerializeField] private AudioClip pitidos321;
-    [SerializeField] private AudioClip pitido0;
+    
     void Start()
     {
         matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
@@ -407,8 +404,7 @@ public class UI : NetworkBehaviour
     {
         if (posicionCuentaAtras < NumerosCuentaAtras.Length)
         {
-            AudioManager.Instance.PlaySFX(pitidos321);
-            if (posicionCuentaAtras != 0)
+            if(posicionCuentaAtras != 0)
                 NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
             NumerosCuentaAtras[posicionCuentaAtras].SetActive(true);
             posicionCuentaAtras++;
