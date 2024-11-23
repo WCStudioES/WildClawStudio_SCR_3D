@@ -72,6 +72,10 @@ public class Partida : NetworkBehaviour
                 }
 
                 tiempoDeRondaActual -= Time.deltaTime;
+                foreach (var jugador in jugadores)
+                {
+                    jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual/maximoTiempoPorRonda, 0);
+                }
             }
             else
             {
@@ -344,6 +348,10 @@ public class Partida : NetworkBehaviour
     {
         //RESTAURA EL TIEMPO DE LA RONDA
         tiempoDeRondaActual = maximoTiempoPorRonda;
+        foreach (var jugador in jugadores)
+        {
+            jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual/maximoTiempoPorRonda, 0);
+        }
         //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
         Invoke("restaurarNaves", 0.2f);
         //RESTAURA LOS METEORITOS A SU ESTADO INICIAL

@@ -88,6 +88,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] private Image circuloDeVidaEnemigo;
     [SerializeField] private TextMeshProUGUI nivelEnemigo;
     [SerializeField] private Canvas UIEnemigo;
+
+    [SerializeField] public Image Cronometro; 
     
     
     
