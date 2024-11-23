@@ -18,6 +18,7 @@ public class DestructibleAsset : Damageable
     // M�todo para recibir da�o en el meteorito
     public override void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
+        //Debug.Log(dmg);
         if (IsServer)
         {
             actualHealth.Value -= dmg;
