@@ -35,6 +35,8 @@ public class ControladorNave : NetworkBehaviour
     [SerializeField] public PlayerShip playerShip;
     public MeshCollider colliderNave;
 
+    public AudioSource accelerateSFX;
+
     void Start()
     {
         if (IsOwner)
@@ -108,6 +110,27 @@ public class ControladorNave : NetworkBehaviour
     public void Move()
     {
         direccionMovimiento = Vector3.forward; // Apuntar hacia adelante
+        AccelerateSFXClientRpc(true);
+    }
+
+    public void Stop()
+    {
+        direccionMovimiento = Vector3.zero;
+        AccelerateSFXClientRpc(false);
+    }
+
+    [ClientRpc]
+    public void AccelerateSFXClientRpc(bool play)
+    {
+        if (play && !accelerateSFX.isPlaying)
+        {
+            Debug.Log("Acelera carnal");
+            AudioManager.Instance.PlaySFX(accelerateSFX, accelerateSFX.clip);
+        }
+        else if (!play && accelerateSFX.isPlaying)
+        {
+            AudioManager.Instance.StopSFX(accelerateSFX);
+        }
     }
 
     public void Rotate(float input)
@@ -127,10 +150,6 @@ public class ControladorNave : NetworkBehaviour
         
     }
 
-    public void Stop()
-    {
-        direccionMovimiento = Vector3.zero;
-    }
 
     private void OnCollisionEnter(Collision collision)
     {

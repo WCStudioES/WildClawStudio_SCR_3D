@@ -288,6 +288,7 @@ MonoBehaviour:
   - {fileID: 2431385734819292843, guid: 09ba6dfd44f5c4e45a05b53b3244a341, type: 3}
   - {fileID: 4934000520785429152, guid: 9db9dce77907db145a27f0e46e17ba39, type: 3}
   - {fileID: 4018967019154356357, guid: ab369e7b8622db3478ec168570dea5a0, type: 3}
+  accelerateSFX: {fileID: 8300000, guid: 19d3e87820f25384393eb6e8870d06da, type: 3}
 --- !u!114 &6230050435369025426
 MonoBehaviour:
   m_ObjectHideFlags: 0

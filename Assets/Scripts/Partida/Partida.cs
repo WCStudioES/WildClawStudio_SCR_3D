@@ -254,6 +254,8 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
+        AudioManager.Instance.musicSource.Pause();
+
         //Obtener todos los meteoritos del propio mapa
         meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
 

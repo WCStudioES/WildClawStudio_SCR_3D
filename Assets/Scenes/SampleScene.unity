@@ -1305,6 +1305,10 @@ PrefabInstance:
       propertyPath: menuMusic
       value: 
       objectReference: {fileID: 8300000, guid: 9ae332b1ad1bd3d45acabb9eac43afe5, type: 3}
+    - target: {fileID: 3838609734131952816, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
+      propertyPath: buttonClickSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: ffca67c15b16cd5428723847a727ab45, type: 3}
     - target: {fileID: 4183689863039023590, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
       propertyPath: m_Name
       value: '@AudioManager'

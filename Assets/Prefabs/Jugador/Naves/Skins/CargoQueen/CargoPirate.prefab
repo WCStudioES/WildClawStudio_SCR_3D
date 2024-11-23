@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4092347678799099771
+--- !u!1001 &7850722085473450558
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,12 +50,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1812704227132751458, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
       propertyPath: m_Name
-      value: CargoQueenBase
+      value: CargoPirate
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150904409278296479, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
+      propertyPath: skinName
+      value: Pirate
       objectReference: {fileID: 0}
     - target: {fileID: 9150904409278296479, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
       propertyPath: skinMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: e06def19857aa5946bf9e4ec4623ad82, type: 2}
+      objectReference: {fileID: 2100000, guid: 8d22c4ed3f1425c47b0b6d9f315d9040, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

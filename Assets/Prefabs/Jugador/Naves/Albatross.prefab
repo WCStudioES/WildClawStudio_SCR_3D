@@ -289,6 +289,7 @@ MonoBehaviour:
   - {fileID: 8970878200908106957, guid: c8dd6ce05a7795f47aa8968681a5df82, type: 3}
   - {fileID: 6585430997046522407, guid: 16dd0924a7104de4bbcbd7df4323398a, type: 3}
   - {fileID: 2273880493482288027, guid: 7c4600e4b8e3f294885260d52619a3a8, type: 3}
+  accelerateSFX: {fileID: 8300000, guid: 19d3e87820f25384393eb6e8870d06da, type: 3}
   additionalExecutionDmgPerOne: 0
   lifeThesholdPerOne: 0
 --- !u!114 &3559572338384177590

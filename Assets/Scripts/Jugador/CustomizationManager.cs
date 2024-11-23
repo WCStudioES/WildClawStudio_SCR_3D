@@ -118,6 +118,9 @@ public class CustomizationManager : MonoBehaviour
         int maxIndex;
         int equippedIndex;
 
+        //SFX DEL BOTON
+        AudioManager.Instance.PlayButtonSFX();
+
         // Determina el �ndice m�ximo y el �ndice actual seg�n el tipo de equipamiento
         switch (index)
         {
