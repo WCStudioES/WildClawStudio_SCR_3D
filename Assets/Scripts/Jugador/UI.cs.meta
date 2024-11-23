@@ -3,7 +3,26 @@ guid: 485db1df302b9f747a2a08dfbb062bb9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CJugador: {instanceID: 0}
+  - opcionesJugador: {instanceID: 0}
+  - customizationManager: {instanceID: 0}
+  - LogIn: {instanceID: 0}
+  - Personalizacion: {instanceID: 0}
+  - BuscandoPartida: {instanceID: 0}
+  - Instrucciones: {instanceID: 0}
+  - Build: {instanceID: 0}
+  - EnPartida: {instanceID: 0}
+  - Victoria: {instanceID: 0}
+  - VictoriaRonda: {instanceID: 0}
+  - Derrota: {instanceID: 0}
+  - DerrotaRonda: {instanceID: 0}
+  - Creditos: {instanceID: 0}
+  - CuentaAtras: {instanceID: 0}
+  - ScriptLogIn: {instanceID: 0}
+  - ScriptRegister: {instanceID: 0}
+  - pitidos321: {fileID: 8300000, guid: 2ecfdf33612026d458ab266fae1f84f0, type: 3}
+  - pitido0: {fileID: 8300000, guid: 93d89387f3921f84b9b3058f1be2d055, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
