@@ -26,6 +26,9 @@ public class OpcionesJugador : NetworkBehaviour
     //BOOL PARA VER SI SE ESTA PROBANDO ALGO
     public bool testing = false;
 
+    //DATOS DEL USUARIO
+    public Usuario usuario;
+
     void Start()
     {
         desactivarMovimiento();

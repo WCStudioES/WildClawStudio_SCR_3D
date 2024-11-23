@@ -41,7 +41,10 @@ public class Partida : NetworkBehaviour
 
     //PUNTOS DONDE APARECERAN LOS JUGADORES
     [SerializeField] private GameObject[] puntosDeSpawn;
-    
+
+    //LISTA DE RONDAS GANADAS
+    private List<List<bool>> partidasGanadasPorJugador = new List<List<bool>>(); 
+
     
     //LOOP DE JUEGO
     void Update()
@@ -127,6 +130,7 @@ public class Partida : NetworkBehaviour
         rondasGanadas[0] = 0;
         rondasGanadas[1] = 0;
         ronda = 1;
+        partidasGanadasPorJugador.Clear();
     }
 
     //FINALIZA LA RONDA
@@ -139,16 +143,23 @@ public class Partida : NetworkBehaviour
             if (jugadores[i] != null)
             {
                 if (!jugadores[i].naveDestruida)
+                {
                     rondasGanadas[i]++;
+                    partidasGanadasPorJugador[i].Add(true);
+                }
+                else
+                {
+                    partidasGanadasPorJugador[i].Add(false);
+                }
             }
         }
         
         //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
         if (ronda < maximoNumeroDeRondas)
         {
-            ronda++;
             mostrarResultado();
             Invoke("iniciarRonda", 3.0f);
+            ronda++;
         }
         else
         {
@@ -167,16 +178,22 @@ public class Partida : NetworkBehaviour
             {
                 rondasGanadas[0]++;
                 jugadores[1].naveDestruida = true;
+                partidasGanadasPorJugador[0].Add(true);
+                partidasGanadasPorJugador[1].Add(false);
             }
             else if (jugadores[0].actualHealth.Value / jugadores[0].maxHealth.Value < jugadores[1].actualHealth.Value / jugadores[1].maxHealth.Value)
             {
                 rondasGanadas[1]++;
                 jugadores[0].naveDestruida = true;
+                partidasGanadasPorJugador[1].Add(true);
+                partidasGanadasPorJugador[0].Add(false);
             }
             else
             {
                 rondasGanadas[0]++;
                 jugadores[1].naveDestruida = true;
+                partidasGanadasPorJugador[0].Add(true);
+                partidasGanadasPorJugador[1].Add(false);
             }
             jugadores[0].opcionesJugador.deshabilitarNave();
             jugadores[1].opcionesJugador.deshabilitarNave();
@@ -185,9 +202,9 @@ public class Partida : NetworkBehaviour
         //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
         if (ronda < maximoNumeroDeRondas)
         {
-            ronda++;
             mostrarResultado();
             Invoke("iniciarRonda", 3.0f);
+            ronda++;
         }
         else
         {
@@ -229,7 +246,7 @@ public class Partida : NetworkBehaviour
         {
             if (jugadores[i] != null)
             {
-                jugadores[i].opcionesJugador.UIJugador.mostrarResultado(!jugadores[i].naveDestruida, false);
+                jugadores[i].opcionesJugador.UIJugador.mostrarResultado(!jugadores[i].naveDestruida, false, partidasGanadasPorJugador[i], ronda);
             }
         }
     }
@@ -241,11 +258,11 @@ public class Partida : NetworkBehaviour
             {
                 if (i % 2 == 0)
                 {
-                    jugadores[i].opcionesJugador.UIJugador.mostrarResultado(rondasGanadas[i] > rondasGanadas[i+1], true);
+                    jugadores[i].opcionesJugador.UIJugador.mostrarResultado(rondasGanadas[i] > rondasGanadas[i+1], true, partidasGanadasPorJugador[0], ronda);
                 }
                 else
                 {
-                    jugadores[i].opcionesJugador.UIJugador.mostrarResultado(rondasGanadas[i] > rondasGanadas[i-1], true); 
+                    jugadores[i].opcionesJugador.UIJugador.mostrarResultado(rondasGanadas[i] > rondasGanadas[i-1], true, partidasGanadasPorJugador[1], ronda); 
                 }
             }
         }
@@ -256,6 +273,11 @@ public class Partida : NetworkBehaviour
     {
         AudioManager.Instance.musicSource.Pause();
 
+        foreach (var VARIABLE in jugadores)
+        {
+            partidasGanadasPorJugador.Add(new List<bool>(maximoNumeroDeRondas));
+        }
+        
         //Obtener todos los meteoritos del propio mapa
         meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
 
@@ -369,6 +391,7 @@ public class Partida : NetworkBehaviour
         rondasGanadas[0] = 0;
         rondasGanadas[1] = 0;
         ronda = 1;
+        partidasGanadasPorJugador.Clear();
     }
 
 }

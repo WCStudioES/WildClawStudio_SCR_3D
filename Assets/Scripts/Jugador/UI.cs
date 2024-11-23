@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -23,6 +24,13 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
     private int posicionCuentaAtras = 0;
+
+    [SerializeField] private GameObject[] circulosAzulesVictoria;
+    [SerializeField] private GameObject[] circulosRojosVictoria;
+    
+    [SerializeField] private GameObject[] circulosAzulesDerrota;
+    [SerializeField] private GameObject[] circulosRojosDerrota;
+    
     
     [SerializeField]private LogIn ScriptLogIn;
     [SerializeField]private Register ScriptRegister;
@@ -200,7 +208,7 @@ public class UI : NetworkBehaviour
     
     //RELACIONADAS CON LA PARTIDA///////////////
 
-    public void mostrarResultado(bool ganador, bool partidaFinalizada)
+    public void mostrarResultado(bool ganador, bool partidaFinalizada, List<bool> rondasGanadas, int rondas)
     {
         if (IsOwner)
         {
@@ -217,13 +225,14 @@ public class UI : NetworkBehaviour
             }
             else
             {
+                Debug.Log("Entra en mostrar resultados");
                 if (ganador)
                 {
-                    GanarRonda();
+                    GanarRonda(rondasGanadas, rondas);
                 }
                 else
                 {
-                    PerderRonda();
+                    PerderRonda(rondasGanadas, rondas);
                 }
             }
         }
@@ -239,10 +248,17 @@ public class UI : NetworkBehaviour
         }
     }
     
-    public void GanarRonda()
+    public void GanarRonda(List<bool> rondasGanadas, int rondas)
     {
         if (IsOwner)
         {
+            for (int i = 0; i < rondas; i++)
+            {
+                if(rondasGanadas[i])
+                    circulosAzulesVictoria[i].SetActive(true);
+                else
+                    circulosRojosVictoria[i].SetActive(true);
+            }
             VictoriaRonda.SetActive(true);
             CJugador.GameEndServerRpc();
             Invoke("desactivarResultadoRonda", 3.25f);
@@ -260,10 +276,17 @@ public class UI : NetworkBehaviour
         }
     }
     
-    public void PerderRonda()
+    public void PerderRonda(List<bool> rondasGanadas, int rondas)
     {
         if (IsOwner)
         {
+            for (int i = 0; i < rondas; i++)
+            {
+                if(rondasGanadas[i])
+                    circulosAzulesDerrota[i].SetActive(true);
+                else
+                    circulosRojosDerrota[i].SetActive(true);
+            }
             DerrotaRonda.SetActive(true);
             CJugador.GameEndServerRpc();
             Invoke("desactivarResultadoRonda", 3.25f);

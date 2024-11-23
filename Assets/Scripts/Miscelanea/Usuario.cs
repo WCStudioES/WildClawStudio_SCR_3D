@@ -77,14 +77,7 @@ public class Usuario
 [Serializable]
 public class Historial
 {
-     public List<string> rival;
-     public List<int> puntuacionPropia;
-     public List<int> puntuacionRival;
-
-     public Historial()
-     {
-          rival = new List<string>();
-          puntuacionPropia = new List<int>();
-          puntuacionRival = new List<int>();
-     }
+     public List<string> rival = new List<string>(5);
+     public List<int> puntuacionPropia = new List<int>(5);
+     public List<int> puntuacionRival = new List<int>(5);
 }

@@ -14,6 +14,7 @@ public class LogIn : MonoBehaviour
     [SerializeField]private GameObject PantallaDeLogIn;
     [SerializeField]private Button BotonLogIn;
     [SerializeField] private Usuario usuario;
+    [SerializeField] private OpcionesJugador opcionesJugador;
     
 
     //ACTIVA LA PANTALLA DE REGISTRO
@@ -50,6 +51,7 @@ public class LogIn : MonoBehaviour
         this.usuario = Usuario.DeserializeUsuario(usuario);
         UIManager.IniciarSesion();
         LimpiarPantalla();
+        opcionesJugador.usuario = this.usuario;
     }
     
     //SI EL USUARIO NO ES VALIDO LANZA UN MENSAJE DE ERROR
