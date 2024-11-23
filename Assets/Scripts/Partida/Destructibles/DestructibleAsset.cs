@@ -6,6 +6,7 @@ using UnityEngine;
 public class DestructibleAsset : Damageable
 {
     private bool resGiven = false;
+    public Partida partida;
     private void Start()
     {
         if (IsServer)
@@ -19,7 +20,7 @@ public class DestructibleAsset : Damageable
     public override void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
     {
         //Debug.Log(dmg);
-        if (IsServer)
+        if (IsServer && partida.rondaEnmarcha)
         {
             actualHealth.Value -= dmg;
 

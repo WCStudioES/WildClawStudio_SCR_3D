@@ -11,6 +11,8 @@ public class Partida : NetworkBehaviour
     //CONTROLA QUE LA PARTIDA HAYA FINALIZADO
     public bool partidaFinalizada = true;
     
+    //CONTROLA QUE LA RONDA HAYA FINALIZADO
+    public bool rondaEnmarcha;
     //CONTROLA EL NUMERO MÁXIMO DE RONDAS
     [SerializeField] private int maximoNumeroDeRondas = 3;
     
@@ -130,6 +132,7 @@ public class Partida : NetworkBehaviour
     //FINALIZA LA RONDA
     void finalizarRonda()
     {
+        rondaEnmarcha = false;
         //APUNTAMOS LA VICTORIA
         for (int i = 0; i < jugadores.Count;i++)
         {
@@ -192,8 +195,6 @@ public class Partida : NetworkBehaviour
             Invoke("finalizarPartida", 3.0f);
         }
     }
-    
-    
 
     //COMPRUEBA EL ESTADO DE LOS JUGADORES
     bool comprobarEstadoDeLosJugadores()
@@ -255,9 +256,19 @@ public class Partida : NetworkBehaviour
     {
         //Obtener todos los meteoritos del propio mapa
         meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
+
+        foreach (var meteorito in meteoritos)
+        {
+            meteorito.partida = this;
+        }
         
         //Obtener todos los meteoritos del propio mapa
         debris = EmptyContenedorDeDebris.GetComponentsInChildren<Debris>();
+        
+        foreach (var resto in debris)
+        {
+            resto.partida = this;
+        }
         
         //Debug.Log(meteoritos.Length);
         
@@ -270,6 +281,7 @@ public class Partida : NetworkBehaviour
             {
                 jugador.opcionesJugador.UIJugador.PartidaEncontrada();
                 jugador.ResetPrePartida();
+                jugador.partida = this;
             }
         }
 
@@ -329,6 +341,7 @@ public class Partida : NetworkBehaviour
         //INDICA QUE LA PARTIDA HA EMPEZADO
         partidaEnMarcha = true;
         AudioManager.Instance.PlayGameMusic();
+        rondaEnmarcha = true;
     }
 
     //FINALIZA LA PARTIDA POR DESCONEXION

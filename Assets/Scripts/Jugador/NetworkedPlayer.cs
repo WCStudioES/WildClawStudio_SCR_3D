@@ -16,6 +16,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     //CONTROLADOR DE LA NAVE
     [SerializeField] public ControladorNave nave;
     public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
+    public Partida partida;
     
     //INFORMACIÓN DEL USUARIO
     public string userName;
@@ -355,22 +356,25 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     // Función que aplica daño a la nave CONTANDO ARMADURA
     public void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
-    {     
-        //Restar el daño
-        actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
-
-        // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
-        if (actualHealth.Value <= 0)
+    {
+        if (partida.rondaEnmarcha)
         {
-            dueñoDaño.GetXP(xp.Value);
-            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
-            //Pierdes;
-        }
+            //Restar el daño
+            actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
 
-        //Debug.Log("Vida actual de la nave: " + actualHealth);
-        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
+            // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
+            if (actualHealth.Value <= 0)
+            {
+                dueñoDaño.GetXP(xp.Value);
+                Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
+                //Pierdes;
+            }
+
+            //Debug.Log("Vida actual de la nave: " + actualHealth);
+            UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
                   
-        ChangeMaterialColorClientRpc(Color.red, 0.1f);
+            ChangeMaterialColorClientRpc(Color.red, 0.1f);
+        }
     }
 
     // Funnción que aplica daño a la nave SIN CONTAR ARMADURA
