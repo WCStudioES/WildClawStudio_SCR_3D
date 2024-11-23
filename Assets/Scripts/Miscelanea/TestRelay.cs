@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -9,6 +10,7 @@ using Unity.Services.Core;
 using UnityEngine;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,21 +18,26 @@ namespace Test
 {
     public class TestRelay : MonoBehaviour
     {
-
         public TMP_InputField InputField;
         public TextMeshProUGUI codigo;
 
         [SerializeField]private GameObject UIServidor;
 
+        public Button botonServidorPublico;
+        
         public Button botonServidor;
 
         public Button botonCliente;
+
+        public PublicServer publicServer = new PublicServer();
         
         //public GameObject Fondo;
         private async void Start()
         {
             try
             {
+                Request();
+                
                 await UnityServices.InitializeAsync();
 
                 AuthenticationService.Instance.SignedIn += () =>
@@ -43,7 +50,7 @@ namespace Test
             }
             catch (Exception e)
             {
-                
+                Debug.Log(e.Message);
             }
         }
 
@@ -52,6 +59,7 @@ namespace Test
         {
             botonServidor.enabled = false;
             botonCliente.enabled = false;
+            botonServidorPublico.enabled = false;
             try
             {
                 List<Region> Regions = await RelayService.Instance.ListRegionsAsync();
@@ -87,6 +95,8 @@ namespace Test
                 Debug.Log(e);
                 botonServidor.enabled = true;
                 botonCliente.enabled = true;
+                if(publicServer.joinCode != "AAAAAA")
+                    botonServidorPublico.enabled = true;
             }
         }
 
@@ -94,6 +104,7 @@ namespace Test
         {
             botonServidor.enabled = false;
             botonCliente.enabled = false;
+            botonServidorPublico.enabled = false;
             try
             {
                 Debug.Log("Joining Relay with `" + joinCode + "´ joinCode");
@@ -117,6 +128,8 @@ namespace Test
                 Debug.Log(e);
                 botonServidor.enabled = true;
                 botonCliente.enabled = true;
+                if(publicServer.joinCode != "AAAAAA")
+                    botonServidorPublico.enabled = true;
             }
         }
 
@@ -133,6 +146,11 @@ namespace Test
         public void Client()
         {
             JoinRelay(InputField.text);
+        }
+        
+        public void publicClient()
+        {
+            JoinRelay(publicServer.joinCode);
         }
 
         //OCULTA LA UI DEL SERVIDOR A LOS CLIENTES
@@ -153,6 +171,40 @@ namespace Test
                 Application.targetFrameRate = 120;
             }
 
+        }
+        
+        //PETICION DE SERVIDOR PUBLICO
+        public void Request()
+        {   UnityWebRequest publicServerRequest = UnityWebRequest.Get("https://wcstudioes.github.io/WCS_Portfolio/json/publicServer.json");
+            publicServerRequest.SendWebRequest();
+            StartCoroutine(OnResponse(publicServerRequest));
+        }
+
+        private IEnumerator OnResponse(UnityWebRequest req)
+        {
+            yield return req;
+            try
+            {
+                publicServer = JsonUtility.FromJson<PublicServer>(req.downloadHandler.text);
+                if(publicServer.joinCode != "AAAAAA")
+                    botonServidorPublico.enabled = true;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+            }
+            
+        }
+    }
+
+    [Serializable]
+    public class PublicServer
+    {
+        public string joinCode;
+
+        public PublicServer()
+        {
+            joinCode = "AAAAAA";
         }
     }
 }
