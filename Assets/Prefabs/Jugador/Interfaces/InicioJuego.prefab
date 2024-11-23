@@ -856,6 +856,7 @@ GameObject:
   - component: {fileID: 2440885321364896582}
   - component: {fileID: 718083593421330634}
   - component: {fileID: 8787796147782397587}
+  - component: {fileID: 3077208538147101958}
   m_Layer: 5
   m_Name: PublicServer
   m_TagString: Untagged
@@ -976,9 +977,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3838609734131952816, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonSFX
+      - m_Target: {fileID: 3077208538147101958}
+        m_TargetAssemblyTypeName: PlaySFXfromButton, Assembly-CSharp
+        m_MethodName: PlaySFXFromButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -988,6 +989,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3077208538147101958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3137963396582892628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580994b4e1458cb4fbb6b6fe0aedf8bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6056106098694245924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,6 +1281,7 @@ GameObject:
   - component: {fileID: 469534018535426025}
   - component: {fileID: 7761047775170334910}
   - component: {fileID: 5587554197170116583}
+  - component: {fileID: 2523465337522896979}
   m_Layer: 5
   m_Name: PrivateServer
   m_TagString: Untagged
@@ -1388,9 +1402,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3838609734131952816, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlayButtonSFX
+      - m_Target: {fileID: 2523465337522896979}
+        m_TargetAssemblyTypeName: PlaySFXfromButton, Assembly-CSharp
+        m_MethodName: PlaySFXFromButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1400,3 +1414,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2523465337522896979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7844458764332578581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580994b4e1458cb4fbb6b6fe0aedf8bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

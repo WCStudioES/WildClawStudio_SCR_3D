@@ -61,7 +61,6 @@ public class AudioManager : MonoBehaviour
             obj.SetActive(false);
             audioSourcePool.Enqueue(source); // Agregar al pool
         }
-
         Debug.Log($"Pool inicializado con {audioSourcePool.Count} AudioSources.");
     }
 
