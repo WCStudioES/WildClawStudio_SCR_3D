@@ -41,7 +41,8 @@ public class Partida : NetworkBehaviour
 
     //PUNTOS DONDE APARECERAN LOS JUGADORES
     [SerializeField] private GameObject[] puntosDeSpawn;
-
+    
+    
     //LOOP DE JUEGO
     void Update()
     {

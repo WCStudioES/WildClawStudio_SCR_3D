@@ -2225,17 +2225,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 664343368881753484}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
-      propertyPath: pitido0
-      value: 
-      objectReference: {fileID: 8300000, guid: 93d89387f3921f84b9b3058f1be2d055, type: 3}
-    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: CJugador
       value: 
       objectReference: {fileID: 8966913476814297344}
-    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
-      propertyPath: pitidos321
-      value: 
-      objectReference: {fileID: 8300000, guid: 2ecfdf33612026d458ab266fae1f84f0, type: 3}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: CuentaAtras
       value: 
