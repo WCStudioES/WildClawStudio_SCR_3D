@@ -422,8 +422,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (lvl.Value < cuerpoNave.GetComponent<PlayerShip>().maxLevel && 
             xp.Value >= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1])
         {
-            animator2.Play("AnilloExteriorLvl");
-            animator.Play("AnilloInternoLvl");
+            
+            AnimacionSubidaNivelCLientRpc();
             // La xp se resta, para que vuelva a estar cerca de 0
             xp.Value -= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1];
             lvl.Value++;
@@ -467,6 +467,13 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); 
         UpdateExperienceBarClientRpc(xp.Value, lvl.Value);  //Actualizar barra de experiencia
 
+    }
+
+    [ClientRpc]
+    private void AnimacionSubidaNivelCLientRpc()
+    {
+        animator2.SetTrigger("SubidaNivel");
+        animator.SetTrigger("SubidaNivel");
     }
     
     [ClientRpc]
