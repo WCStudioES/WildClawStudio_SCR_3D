@@ -34,7 +34,10 @@ public class UI : NetworkBehaviour
     
     [SerializeField]private LogIn ScriptLogIn;
     [SerializeField]private Register ScriptRegister;
-
+    
+    [SerializeField] private AudioClip pitidoAgudo;
+    [SerializeField] private AudioClip pitidoGrave;
+    
     MatchmakingManager matchmakingManager;
     
     void Start()
@@ -445,7 +448,7 @@ public class UI : NetworkBehaviour
     {
         if (posicionCuentaAtras < NumerosCuentaAtras.Length)
         {
-            //AudioManager.Instance.PlaySFX();
+            AudioManager.Instance.PlaySFX(pitidoGrave);
             if(posicionCuentaAtras != 0)
                 NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
             NumerosCuentaAtras[posicionCuentaAtras].SetActive(true);
@@ -454,6 +457,7 @@ public class UI : NetworkBehaviour
         }
         else
         {
+            AudioManager.Instance.PlaySFX(pitidoAgudo);
             NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
             CuentaAtras.SetActive(false);
             posicionCuentaAtras = 0;
