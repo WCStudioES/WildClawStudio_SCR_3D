@@ -31,7 +31,7 @@ public class OpcionesJugador : NetworkBehaviour
         desactivarMovimiento();
         if (IsServer)
         {
-            controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"));
+            controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"), true);
         }
         if (IsClient && !IsOwner)
         {
@@ -69,7 +69,7 @@ public class OpcionesJugador : NetworkBehaviour
         if (IsServer)
         {
             controladorDelJugador.ResetSupportItems();
-            controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"));
+            controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"), true);
         }
         if (IsClient && !IsOwner)
         {

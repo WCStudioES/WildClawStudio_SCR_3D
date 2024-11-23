@@ -204,12 +204,15 @@ public class ControladorNave : NetworkBehaviour
         shouldRotate = toSet;
     }
 
-    public void SetToSpawn(GameObject spawnPoint)
+    public void SetToSpawn(GameObject spawnPoint, bool enSpawnGlobal)
     {
         if (IsServer)
         {
             //Debug.Log("Set To Spawn: " + spawnPoint.transform.position);
-            transform.position = spawnPoint.transform.position;
+            if(enSpawnGlobal)
+                transform.position = spawnPoint.transform.position + new Vector3(0,0,30 * OwnerClientId);
+            else
+                transform.position = spawnPoint.transform.position;
             transform.rotation = spawnPoint.transform.rotation;
             velocity = Vector3.zero;
         }

@@ -155,7 +155,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (IsServer)
         {
             //DEVUELVE LA NAVE A LA POSICION DE SPAWN
-            nave.SetToSpawn(spawnPosition);
+            nave.SetToSpawn(spawnPosition, false);
             nave.velocity = Vector3.zero;
 
             //RESTAURA LA VIDA DE LA NAVE

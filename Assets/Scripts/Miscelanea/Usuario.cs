@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class Usuario
 {
      public string name;
      public string password;
+     public Historial historial;
+     
 
      private static string path = Application.persistentDataPath + "/";
 
@@ -68,5 +71,20 @@ public class Usuario
      public static void GuardarUsuario(Usuario usuario)
      {
           File.WriteAllText(path + usuario.name, SerializeUsuario(usuario));
+     }
+}
+
+[Serializable]
+public class Historial
+{
+     public List<string> rival;
+     public List<int> puntuacionPropia;
+     public List<int> puntuacionRival;
+
+     public Historial()
+     {
+          rival = new List<string>();
+          puntuacionPropia = new List<int>();
+          puntuacionRival = new List<int>();
      }
 }
