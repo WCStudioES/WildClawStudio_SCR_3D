@@ -10,6 +10,8 @@ public class StormGrenade : Proyectil
     [SerializeField] private Transform stormSpawn;
     private bool activo = true; //Variable apra ver si el misil ha explotado ya
 
+    public Partida partida;
+
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
         if (activo)
@@ -20,7 +22,7 @@ public class StormGrenade : Proyectil
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction);
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
             
         }
     }
@@ -35,10 +37,11 @@ public class StormGrenade : Proyectil
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction);
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
             
             Destroy(GetComponent<Rigidbody>());
             Destroy(GetComponentInChildren<Renderer>());
         }
     }
+    
 }

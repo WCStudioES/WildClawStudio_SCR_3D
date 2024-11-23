@@ -81,6 +81,7 @@ public class DestructibleAsset : Damageable
     [ClientRpc]
     protected void DisableDamageableClientRpc()
     {
+        StopFlashingAndCleanUp();
         gameObject.SetActive(false);
     }
 
@@ -116,6 +117,7 @@ public class DestructibleAsset : Damageable
     [ClientRpc]
     private void RestoreDestructibleAssetClientRpc()
     {
+        
         gameObject.SetActive(true);
     }
 }

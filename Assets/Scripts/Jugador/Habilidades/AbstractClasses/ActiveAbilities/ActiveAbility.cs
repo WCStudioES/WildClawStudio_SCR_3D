@@ -109,5 +109,5 @@ public abstract class ActiveAbility : Ability
                 break;
         }
     }
-
+    
 }

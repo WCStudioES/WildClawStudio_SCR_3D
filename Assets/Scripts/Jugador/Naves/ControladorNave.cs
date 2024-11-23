@@ -20,7 +20,7 @@ public class ControladorNave : NetworkBehaviour
     [SerializeField]private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     public Vector2 velocity = Vector2.zero;
 
-    public float rotationSpeed = 100f; // Velocidad de rotación
+    public float rotationSpeed = 250f; // Velocidad de rotación
     public float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float acceleration = 5f; // Aceleración
     public float deceleration = 50f; // Desaceleración (fricción)

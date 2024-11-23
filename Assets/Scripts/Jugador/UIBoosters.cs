@@ -51,14 +51,18 @@ public class UIBoosters : MonoBehaviour
     //Funcion para cambiar la UI de activa con el valor dado y el color
     public void UpdateActiveImage(float value, Color color)
     {
-        activeAbility.fillAmount = value;
-        activeAbility.color = color;
+        if (player.IsOwner)
+        {
+            activeAbility.fillAmount = value;
+            activeAbility.color = color;
+        }
     }
     
     //Funcion para cambiar el color de la UI de activa
     public void UpdateActiveImage(Color color)
     {
-        activeAbility.color = color;
+        if (player.IsOwner)
+            activeAbility.color = color;
     }
     
     //Funcion para cambiar la UI de activa con el valor dado

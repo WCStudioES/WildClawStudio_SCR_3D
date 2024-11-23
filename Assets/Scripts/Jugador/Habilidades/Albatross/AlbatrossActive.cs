@@ -21,6 +21,7 @@ public class AlbatrossActive : ShootProjectileAbility
 
             //Debug.Log("Proyectil creado");
             proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
+            proyectil.GetComponent<StormGrenade>().partida = networkedPlayer.partida;
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
             // Inicializamos el proyectil en el servidor
@@ -66,4 +67,5 @@ public class AlbatrossActive : ShootProjectileAbility
         }
         
     }
+    
 }

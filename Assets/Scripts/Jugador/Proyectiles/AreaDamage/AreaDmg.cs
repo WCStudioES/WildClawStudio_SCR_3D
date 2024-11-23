@@ -18,17 +18,19 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     protected CapsuleCollider CuerpoNaveDueña;  // Gameobject con collider de la nave, evita autohit
     protected NetworkedPlayer ControladorNaveDueña; // Controlador de la nave a la que pertenece
+    protected Partida partida;
 
     protected bool IsInServidor;
 
     //Crear zona de daño con direccion de avance
-    public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor, Vector3 pDirection)
+    public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor, Vector3 pDirection, Partida partidaActual)
     {
         Debug.Log("Explosion creada");
         ControladorNaveDueña = pDmgDealer;
         CuerpoNaveDueña = pCuerpoNaveDueña;
         IsInServidor = pIsInServidor;
         direction = pDirection;
+        partida = partidaActual;
 
         Destroy(gameObject, timeOfEffect);
     }
@@ -128,5 +130,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     public void FixedUpdate()
     {
         transform.position += direction * speed * Time.fixedDeltaTime;
+        if(partida.rondaEnmarcha)
+            Destroy(gameObject);
     }
 }

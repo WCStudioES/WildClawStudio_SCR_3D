@@ -31,7 +31,8 @@ public class CargoQueenActive : ShieldAbility
             // Inicia el monitoreo del estado del escudo
             if (shieldMonitorCoroutine != null)
                 StopCoroutine(shieldMonitorCoroutine); // Detén cualquier Coroutine previo
-            shieldMonitorCoroutine = StartCoroutine(MonitorShieldInstance());
+            
+            shieldMonitorCoroutine = StartCoroutine("MonitorShieldInstance");
         }
         networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
         //networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
@@ -39,8 +40,9 @@ public class CargoQueenActive : ShieldAbility
 
     private IEnumerator MonitorShieldInstance()
     {
-        while (shieldInstance != null)
+        while (shieldInstance.activeSelf)
         {
+            //Debug.Log("CORUTINA");
             yield return null; // Espera un frame
         }
 
