@@ -17,11 +17,11 @@ public class ControladorNave : NetworkBehaviour
         Customization
     };
 
-    private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
-    public Vector3 velocity = Vector3.zero;
+    [SerializeField]private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
+    public Vector2 velocity = Vector2.zero;
 
     public float rotationSpeed = 100f; // Velocidad de rotación
-    private float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
+    public float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float acceleration = 5f; // Aceleración
     public float deceleration = 50f; // Desaceleración (fricción)
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
@@ -49,27 +49,27 @@ public class ControladorNave : NetworkBehaviour
     {
         if (opcionesJugador != null && opcionesJugador.movimientoActivado && IsServer)
         {
+            
+            // Decelerar para detenerse si no hay input de movimiento
+            velocity = Vector2.MoveTowards(velocity, Vector2.zero, deceleration * Time.deltaTime);
+            //velocity -= deceleration * Time.deltaTime * velocity;
+            if (velocity.magnitude < 0.01f)
+            {
+                velocity = Vector3.zero;
+            }
+            
             // Si hay dirección de movimiento, acelerar
             if (direccionMovimiento != Vector3.zero)
             {
-                Vector3 forwardDirection = transform.forward.normalized;
+                Vector2 forwardDirection = new Vector2(transform.forward.x, transform.forward.z).normalized;
 
                 // Aumenta la velocidad en la dirección de movimiento
-                velocity += forwardDirection * acceleration * Time.deltaTime;
+                velocity += acceleration * Time.deltaTime * forwardDirection;
 
                 // Limitar la magnitud de la velocidad a maxSpeed
                 if (velocity.magnitude > maxSpeed)
                 {
                     velocity = velocity.normalized * maxSpeed;
-                }
-            }
-            else
-            {
-                // Decelerar para detenerse si no hay input de movimiento
-                velocity = Vector3.MoveTowards(velocity, Vector3.zero, deceleration * Time.deltaTime);
-                if (velocity.magnitude < 0.2f)
-                {
-                    velocity = Vector3.zero;
                 }
             }
 
@@ -80,7 +80,7 @@ public class ControladorNave : NetworkBehaviour
             //}
 
             // Aplicar la velocidad calculada a la posición del objeto
-            transform.position += velocity * Time.deltaTime;
+            transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
 
             // Aplica la pasiva de la nave si ocurre todo el rato
             if(playerShip.passiveAbility is StatBuffPassive)
@@ -114,6 +114,7 @@ public class ControladorNave : NetworkBehaviour
     {
         transform.Rotate(0, input * rotationSpeed * Time.deltaTime, 0);
 
+        
         if (velocity.magnitude > 0.01f)
         {
             float angle = Vector3.Angle(transform.forward, velocity.normalized);
@@ -123,6 +124,7 @@ public class ControladorNave : NetworkBehaviour
             // Multiplica el factor de reducción para hacer que el efecto sea más o menos fuerte
             velocity *= Mathf.Lerp(1.0f, reductionFactor, reductionMultiplier);
         }
+        
     }
 
     public void Stop()
@@ -161,7 +163,7 @@ public class ControladorNave : NetworkBehaviour
             targetDirection = Vector3.Reflect(velocity.normalized, collisionNormal); // Dirección reflejada
 
             // Actualiza la velocidad
-            velocity = targetDirection * velocity.magnitude / 3;
+            velocity = targetDirection * velocity.magnitude/3;
 
             // Marca que debe girar automáticamente hacia la dirección objetivo
             shouldRotate = true;

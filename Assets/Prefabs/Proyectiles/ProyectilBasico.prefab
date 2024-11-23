@@ -50,8 +50,8 @@ MonoBehaviour:
   weaponName: 
   description: 
   dmg: 10
-  speed: 100
-  cadencia: 1.75
+  speed: 50
+  cadencia: 0.5
   type: 0
 --- !u!54 &25356461853773190
 Rigidbody:
