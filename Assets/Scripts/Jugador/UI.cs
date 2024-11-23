@@ -168,7 +168,25 @@ public class UI : NetworkBehaviour
     {
         ScriptRegister.UsuarioValido(usuario);
     }
-    
+
+    //GUARDA UNA PARTIDA EN EL HISTORIAL DE PARTIDAD
+    public void guardarPartidaEnHistorial(string rivalS, string naveRivalS, string navePropiaS, int pPropia,
+        int pRival)
+    {
+        if(IsOwner)
+        guardarPartidaEnHistorialServerRpc(rivalS, naveRivalS, navePropiaS,
+            pPropia, pRival);
+    }
+
+    [ServerRpc]
+    void guardarPartidaEnHistorialServerRpc(string rivalS, string naveRivalS, string navePropiaS, int pPropia,
+        int pRival)
+    {
+        opcionesJugador.usuario.guardarPartidaEnHistorial(rivalS, naveRivalS, navePropiaS,
+            pPropia, pRival);
+        Usuario.GuardarUsuario(opcionesJugador.usuario);
+    }
+
     ////////////////////////////////////////////
 
     //RELACIONADAS CON BUSCAR PARTIDA///////////
@@ -427,6 +445,7 @@ public class UI : NetworkBehaviour
     {
         if (posicionCuentaAtras < NumerosCuentaAtras.Length)
         {
+            //AudioManager.Instance.PlaySFX();
             if(posicionCuentaAtras != 0)
                 NumerosCuentaAtras[posicionCuentaAtras - 1].SetActive(false);
             NumerosCuentaAtras[posicionCuentaAtras].SetActive(true);
