@@ -316,6 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nave: {fileID: 393595383894387961}
   cuerpoNave: {fileID: 0}
+  partida: {fileID: 0}
   userName: 
   battlePassLevel: 0
   opcionesJugador: {fileID: 8943799741961390412}

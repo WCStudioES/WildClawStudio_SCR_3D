@@ -664,11 +664,25 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         uiBoosters.UpdateActiveImageWithCD(value);
     }
     
-    //Metodo para actualizar la UI de la habilidad sin CD
+    //Metodo para actualizar la UI de la habilidad sin CD con un color
+    [ClientRpc]
+    public void UpdateAbilityUIClientRpc(float value, Color color)
+    {
+        uiBoosters.UpdateActiveImage(value, color);
+    }
+    
+    //Metodo para actualizar la UI de la habilidad sin CD sin color
     [ClientRpc]
     public void UpdateAbilityUIClientRpc(float value)
     {
         uiBoosters.UpdateActiveImage(value);
+    }
+    
+    //Metodo para actualizar el color de la activa
+    [ClientRpc]
+    public void UpdateAbilityUIClientRpc(Color color)
+    {
+        uiBoosters.UpdateActiveImage(color);
     }
 
 

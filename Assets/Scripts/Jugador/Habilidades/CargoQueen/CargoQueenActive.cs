@@ -33,6 +33,7 @@ public class CargoQueenActive : ShieldAbility
                 StopCoroutine(shieldMonitorCoroutine); // Detén cualquier Coroutine previo
             shieldMonitorCoroutine = StartCoroutine(MonitorShieldInstance());
         }
+        networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
         //networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
     }
 

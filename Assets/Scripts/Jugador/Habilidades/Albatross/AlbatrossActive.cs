@@ -26,6 +26,8 @@ public class AlbatrossActive : ShootProjectileAbility
             // Inicializamos el proyectil en el servidor
             proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
             //Debug.Log(neededResQuantity);
+            
+            networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
 
             // Programamos la destrucci�n del proyectil despu�s de 10 segundos
             Invoke("CrearTormenta", tiempoDeVida);

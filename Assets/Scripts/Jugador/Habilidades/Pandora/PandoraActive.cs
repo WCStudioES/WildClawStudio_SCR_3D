@@ -23,6 +23,8 @@ public class PandoraActive : ToggleAbility
 
             //Aumentar daño
             networkedPlayer.dmgBalance.Value += dmgBoost;
+            
+            networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
         }
         else
         {
@@ -39,6 +41,8 @@ public class PandoraActive : ToggleAbility
 
             //Disminuir daño
             networkedPlayer.dmgBalance.Value -= dmgBoost;
+            
+            networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
         }
     }
     

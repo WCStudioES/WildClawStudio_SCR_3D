@@ -41,10 +41,24 @@ public class UIBoosters : MonoBehaviour
     {
         if (player.IsOwner)
         {
+            activeAbility.color = Color.red;
             contadorActiva = value;
             contadorTotalActiva = contadorActiva;
             StartCoroutine("UpdateActiveTimer");
         }
+    }
+    
+    //Funcion para cambiar la UI de activa con el valor dado y el color
+    public void UpdateActiveImage(float value, Color color)
+    {
+        activeAbility.fillAmount = value;
+        activeAbility.color = color;
+    }
+    
+    //Funcion para cambiar el color de la UI de activa
+    public void UpdateActiveImage(Color color)
+    {
+        activeAbility.color = color;
     }
     
     //Funcion para cambiar la UI de activa con el valor dado
@@ -63,6 +77,8 @@ public class UIBoosters : MonoBehaviour
             contadorActiva -= 0.1f; // Reducir el contador manualmente
             activeAbility.fillAmount = 1.0f - (contadorActiva / contadorTotalActiva);
         }
+        
+        activeAbility.color = Color.white;
         
     }
 
@@ -87,6 +103,7 @@ public class UIBoosters : MonoBehaviour
             contadorArma -= 0.1f; // Reducir el contador manualmente
             weaponAbility.fillAmount = 1.0f - (contadorArma / contadorTotalArma);
         }
+        
     }
     
 }

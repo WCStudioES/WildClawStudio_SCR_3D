@@ -68,21 +68,37 @@ public class RavagerActive: MovementAbility
 
     public void Update()
     {
+        Color color;
+        
         if (!isActivated && actualResQuantity < maxResource)
         {
             actualResQuantity += energyRecharge * Time.deltaTime;
-            networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity/maxResource);
         }
         else if (isActivated)
         {
             Debug.Log("Habilidad estaCtivada");
-            if (actualResQuantity < neededResQuantity)
+            if (actualResQuantity <= 0 )
             {
                 AcabarHabilidad();
             }
             actualResQuantity -= neededResQuantity * Time.deltaTime;
-            networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity/maxResource);
         }
+
+        if (!isActivated && actualResQuantity < neededResQuantity)
+        {
+            color = Color.red;
+        }
+        else if (isActivated)
+        {
+            color = Color.yellow;
+        }
+        else
+        {
+            color = Color.white;
+        }
+        
+        
+        networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity/maxResource, color);
         
         
     }
