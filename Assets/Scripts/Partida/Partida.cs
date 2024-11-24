@@ -155,7 +155,7 @@ public class Partida : NetworkBehaviour
                 {
                     partidasGanadasPorJugador[i].Add(false);
                 }
-                jugadores[i].GetComponent<PlayerShip>().ResetRonda();
+                //jugadores[i].GetComponent<PlayerShip>().ResetRonda();
             }
         }
         
@@ -273,8 +273,8 @@ public class Partida : NetworkBehaviour
             }
         }
         //GUARDAR EN EL HISTORIAL
-        jugadores[0].opcionesJugador.UIJugador.guardarPartidaEnHistorial(jugadores[1].opcionesJugador.usuario.name, jugadores[1].nave.name, jugadores[0].nave.name, rondasGanadas[0], rondasGanadas[1], rondasGanadas[0] > rondasGanadas[1]);
-        jugadores[1].opcionesJugador.UIJugador.guardarPartidaEnHistorial(jugadores[0].opcionesJugador.usuario.name, jugadores[0].nave.name, jugadores[1].nave.name, rondasGanadas[1], rondasGanadas[0], rondasGanadas[1] > rondasGanadas[0]);
+        jugadores[0].opcionesJugador.UIJugador.guardarPartidaEnHistorial(jugadores[1].opcionesJugador.usuario.name, jugadores[1].nave.playerShip.name, jugadores[0].nave.playerShip.name, rondasGanadas[0], rondasGanadas[1], rondasGanadas[0] > rondasGanadas[1]);
+        jugadores[1].opcionesJugador.UIJugador.guardarPartidaEnHistorial(jugadores[0].opcionesJugador.usuario.name, jugadores[0].nave.playerShip.name, jugadores[1].nave.playerShip.name, rondasGanadas[1], rondasGanadas[0], rondasGanadas[1] > rondasGanadas[0]);
     }
 
     //INICIA LA PARTIDA
