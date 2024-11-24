@@ -1,5 +1,5 @@
 <p align="center">
- <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/SCRLogoNegro.png"> <br>
+ <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/GDDSCR3DTitulo.png"> <br>
 </p>
 LinkTree con los enlaces del proyecto:(https://linktr.ee/wildclawstudio)
 
@@ -231,6 +231,19 @@ Seguidamente, se pueden visualizar dos diseños sencillos de los dos entornos im
 
 ## Modelos 3D
 En este apartado se mostrarán las versiones 3D de los concepts para tener una clara comprensión del contenido visual dentro del juego.
+<p align="center">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Avatares/AlbatrossAVATAR.png">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Avatares/CargoQueenAVATAR.png"> <br>
+</p>
+<p align="center">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Avatares/PandoraAVATAR.png">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Avatares/RavagerAVATAR.png"> <br>
+</p>
+
+Las skins que tienen siguen esta representación sencilla en la UI (son 3 skins por nave). Los 3 primeros son de Albatross (nave morada de los modelos 3D), los 3 siguientes son de Pandora (la nave roja con líneas blancas de los modelos en 3D), las 3 siguientes son de Cargo Queen (la nave negra con rallas amarillas) y las 3 finales son de Ravager (nave azul con rasguños rojos de los modelos 3D).
+<p align="center">
+ <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/SkinsSymbols.png"> <br>
+</p>
 
 # Sonido
 Para el apartado sonoro del juego, se buscará que todos los elementos de sonido tengan coherencia dentro del tema espacial. Ello buscará transmitir las sensaciones del espacio para dar una mejor inmersión al jugador. Para ello, a continuación, se describen las prinipales melodías y los efectos sonoros planteados para el juego.
@@ -323,7 +336,7 @@ Tras estos primeros diseños, según van surgiendo necesidades, se rediseñan al
  <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/6-Modificada.png"> <br>
 </p>
 
-Con ello, generamos su aspecto final y creamos la sprite sheet que usaremos en Unity para montar dichas interfaces:
+Con ello, generamos su aspecto final y creamos la sprite sheet que usaremos en Unity para montar dichas interfaces. Esta spritesheet es representativa ya que se han añadido más elementos en la UI de las mostradas aquí.
 
 <p align="center">
  <img width=1000 heigth=1000 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/ConceptsInterfaceGDD-SCR3D/UI_SpriteSheet_ConFondo.png"> <br>
@@ -454,7 +467,9 @@ Mi trabajo ha consistido en generar el matrial audiovisual para las redes social
 Considero que he podido plasmar bien la estética que buscábamos del juego. Sin embargo, he de admitir que ha habido fallos de comunicación donde no he comprendido quién formaba parte del equipo de arte a gestionar o ciertos elementos de funcionalidad del juego para generar los diseños de las interfaces y se ha tenido que subsanar cuanto antes.
 
 #### Versión Beta
-Content
+Durante el desarrollo de la beta mi trabajo ha sido la generáción de todo el diseño final de la UI (se completarán los botones que falte para la Gold), el modelado y la texturización del entorno principal del juego (ring y assets para poblar el escenario como los materiales PBR de los meteoritos y el debris espacial), el texturizado de la nave Pandora y Ravager junto al apoyo en bakeo de las texturas de las naves Cargo Queen y Albatross, he estado generando el contenido para las redes sociales y he actualizado la página web y el itchiio con la nueva carátula del título modelado, texturizado y renderizado en 3D con postproceso.
+
+Como cosas a cambiar considero que debo probar más las cosas, previo a su subida al github, ya que a veces se me pasa probar todo para ver si mis cambios, al subir los elementos visuales al juego y ponerlos a disposición de los programadores, han afectado a algo.
 #### Versión Gold
 Content
 ### José Antonio González Mesado
@@ -466,7 +481,11 @@ Esta forma de trabajar me ha permitido trabajar más rápido en ciertas áreas, 
 Para las siguientes iteraciones del proyecto habría que mejorar la comunicación o definir mejor las cosas antes de ponerse a trabajar.
 
 #### Versión Beta
-Content
+Me he encargado fundamentalmente de la lógica de conexión y desconexión entre cliente y servidor, la lógica de la partida y la gestión de los usuarios, su historial y la persistencia de dichos datos. En menor medida he revisado y parcheado las funcionalidades de movimiento.
+
+Esta forma de trabajar me ha permitido trabajar sin interferir en otras áreas del desarrollo.
+
+Para las siguientes iteraciones del proyecto habría que definir en piedra los objetivos, expectativas y realidad del proyecto antes de ponerse a trabajar.
 #### Versión Gold
 Content
 ### Jesús Bastante López
@@ -478,7 +497,13 @@ Aunque se ha mejorado la idea principal del juego a lo largo de esta iteración,
 Por otra parte, se ha conseguido implementar la gran mayoría de ideas; por lo que, en cuanto a trabajo realizado se refiere, ha sido correcto.
 
 #### Versión Beta
-Content
+Me he dedicado a redes sociales, específicamente X y texto; diseño de mecánicas, diseño de mapas e implementación de scripts varios enfocados en UI y elementos propios de la partida.
+
+Durante el desarrollo de la Beta del juego se ha mejorado mucho el ritmo de trabajo en el proyecto, aunque seguimos cometiendo errores varios en cuanto al ajuste al tiempo límite.Y en cuanto a la comunicación entre el equipo, hemos conseguido que toda la información vital este al alcance de todos los miembros. No obstante, es cierto que me ha faltado comunicar algún detalle que ha ocasionado un demora o tiempo perdido. Seguiremos, y yo personalmente, mejorando las habilidades de comunicación y especificación.
+
+Aunque el juego ha mejorado mucho y, en general, hemos conseguido los objetivos establecidos, ha faltado tiempo para testeo de balanceo. Intentaremos conseguir gente para que pruebe la beta y solucionar de esa forma el error.  En cuanto a las mecánicas, todo el juego ha mejorado mucho y estoy orgulloso de como marcha el proyecto, falta ver la recepción de los jugadores.
+
+En redes sociales, no hemos conseguido un buena recepción en la plataforma X, por lo que tendré que trabajar más en hacer que la cuenta sea más atractiva y llamar a más usuarios.
 #### Versión Gold
 Content
 ### Jorge Juan Xuclá Esparza
@@ -487,7 +512,9 @@ Para esta entrega, he hecho el modelo 3D de la primera nave y he programado el c
 
 Creo que del trabajo realizado, se mantendrá para futuras entregas tanto el modelo de la nave como lo escrito en el GDD y la página web. Sin embargo, a nivel de programación, tendremos que hacer cambios para mantener el código más limpio, organizado y mejorar el funcionamiento de las mecánicas. Por ejemplo habrá que cambiar los controles de la nave, los cuales se retocarán para que sean más cómodos y suaves
 #### Versión Beta
-Content
+Tal y como se dijo al final de la entrega anterior, para la beta he refactorizado gran parte del código hecho en la alfa para facilitar la implementación de las mecánicas nuevas. También he implementado la funcionalidad básica de las habilidades, los objetos de apoyo y la elección de skins. Además he hecho el modelo 3D de una nave más, las dos canciones que salen en el juego y he editado los distintos SFX.
+
+Es posible que para la próxima entrega haya que volver a estructurar algunas partes del código para optimizar el juego, además de añadir una sección de ajustes y un tutorial. Pero creo que prácticamente todo lo que hemos añadido se mantendrá para la última entrega, a excepción de algunas texturas.
 #### Versión Gold
 Content
 ### Miguel Ángel Jiménez Montemayor
@@ -497,7 +524,9 @@ Para esta entrega, me he encargado principalmente de realizar varios conceptos d
 Considero que necesito mejorar mi organización para las próximas etapas, lo cual me permitirá obtener mejores resultados. Me hubiera gustado tener al menos un concepto más pulido y uno o dos modelos completos en esta entrega. Para la siguiente fase, intentaré completar dos naves por semana y pulir mis concept art.
 
 #### Versión Beta
-Content
+Para esta entrega, me he encargado principalmente en modelar y texturizar las naves Albatross y la Cargo Queen.
+
+Durante esta etapa considero que me ha faltado una mejor comunicación con el equipo. Además, he tenido errores al intentar texturizar en blender por primera vez y al importar esas texturas en Unity de manera errónea haciendo que se atrase el trabajo de mis compañeros. Para la Golden no cometeré los fallos que he tenido en esta versión para conseguir el resultado que desean mis compañeros.
 #### Versión Gold
 Content
 ## Trabajo colectivo realizado
@@ -505,9 +534,16 @@ Content
 Como equipo hemos sido capaces de completar la alfa incluyendo la funcionalidad base del juego para conseguir el flujo principal de este siendo, además, la primera vez en crear un juego multijugador desde cero por completo. Ello incluye toda la programación referente a la batalla interna del juego y las interfaces necesarias para acceder a esta. Además, hemos conseguido pulir la idea del juego que queremos y comprender la dirección que llevará este proyecto.
 
 Por primera vez en esta carrera hemos tenido un problema de comunicación que hemos notado en el equipo y que ha afectado al desarrollo del proyecto. Por suerte, hemos comprendido este fallo y hemos conseguido empezar a arreglarlo justo antes de la entrega del primer prototipo. Ello implica que para las siguientes entregas nos esforzaremos más de cara a mantener una comunicación más abierta y preparar una mejor planificación previa antes de comenzar cada uno de los prototipos siguientes.
-
 #### Versión Beta
-Content
+Durante el desarrollo de la Beta del juego se ha conseguido mejorar considerablemente el juego, aunque quedan elementos por pulir que se completarán en la Gold.
+
+Nuestro juego ha aumentado en su complejidad con las estadísticas de las naves y el método de combate. Además de tener un aspecto visual más atractivo. La actividad del marketing se ha seguido llevando de forma regular (tal como postear en las redes sociales) y se ha ido informando a los jugadores de los avances.
+
+Si bien es cierto, el marketing podría haber sido mejor orientado a presentar esos avances. Y, de cara a la siguiente entrega, hay que pulir tanto el aspecto visual como algunos elementos de funcionalidad.
+
+El juego, actualmente, se ha modificado también de tal forma que se pueda tener servidores privados para poder jugar con amigos. Algo que no teníamos en cuenta previamente y que, estudiando el público destino, hemos visto necesario para que estos pueda tener batallas entre amigos sin la necesidad de jugar con personas externas y donde hay pocas probabilidades de hacer match cuantos más jugadores hayan.
+
+Seguimos ante un producto que es más de nicho y es algo que juega en desventaja nuestra. Sin embargo, al mismo tiempo, para estos jugadores, tener un juego antiguo puesto en una estética más actualizada puede resultar interesante y llamativo. Por lo que se hará una campaña publicitaria en las redes sociales antes de subir la Gold donde buscaremos atraer más a los jugadores de este nicho.
 #### Versión Gold
 Content
 
