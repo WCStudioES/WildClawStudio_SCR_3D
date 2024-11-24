@@ -94,8 +94,11 @@ public class CustomizationManager : MonoBehaviour
             // Cargar sprites de availableAmmo en ammoImages
             for (int i = 1; i < networkedPlayer.allProjectiles.Count; i++)
             {
-                GameObject ammo = networkedPlayer.allProjectiles[i];
-                ammoImages.Add(ammo);
+                if ( networkedPlayer.allProjectiles[i].GetComponent<Proyectil>().mostrarEnSeleccion)
+                {
+                    GameObject ammo = networkedPlayer.allProjectiles[i];
+                    ammoImages.Add(ammo);
+                }
             }
 
             UpdateSkins(equippedCraftIndex);

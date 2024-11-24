@@ -96,6 +96,14 @@ public class UIBoosters : MonoBehaviour
             StartCoroutine("UpdateWeaponTimer");
         }
     }
+    
+    public void UpdateWeaponImage(Color color)
+    {
+        if (player.IsOwner)
+        {
+           weaponAbility.color = color;
+        }
+    }
 
     //Corrutina que actualiza el arma cada 0.1 segundo
     private IEnumerator UpdateWeaponTimer()

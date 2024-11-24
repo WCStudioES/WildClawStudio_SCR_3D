@@ -199,6 +199,10 @@ MonoBehaviour:
   - {fileID: 2900116416517425973, guid: 78aeb277a4258a948a3b97cc00582f20, type: 3}
   - {fileID: 2900116416517425973, guid: e0aa555c5b3d610459948179998b42c8, type: 3}
   - {fileID: 2900116416517425973, guid: a4c03c78995c3b14aaa4526342211c61, type: 3}
+  - {fileID: 2900116416517425973, guid: 8f82f80dd48c42943a69ea3f0b478ce8, type: 3}
+  - {fileID: 2900116416517425973, guid: 22a2d81d198a04a46988dc33a37a39d4, type: 3}
+  - {fileID: 2900116416517425973, guid: 17e3ce354047f8f47a2471f4211e9c67, type: 3}
+  AllUpgradedProjectiles: []
   possibleProjectiles: 
   selectedProjectile: 0
   allSupport:

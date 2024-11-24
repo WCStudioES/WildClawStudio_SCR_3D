@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 
 public class Meteorito : DestructibleAsset
 { 
+    
     //Rango de valores de vida que puede tener el meteorito
     public int hpMaximo = 100;
     public int hpMinimo= 20;
@@ -15,4 +16,5 @@ public class Meteorito : DestructibleAsset
     //Rango de escalas de tamaño que puede tener el meteorito
     public float escalaMaxima = 4f;
     public float escalaMinima = 2f;
+    
 }

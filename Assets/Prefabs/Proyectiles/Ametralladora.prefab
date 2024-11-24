@@ -48,7 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 1225455163, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Machine gun
-  description: Low damage but high attack speed
+  description: Low damage but high attack speed. At level 6 increases the damage.
+  mostrarEnSeleccion: 1
   dmg: 5
   speed: 50
   cadencia: 0.2

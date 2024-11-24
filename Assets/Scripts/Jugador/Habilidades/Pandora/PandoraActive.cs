@@ -35,8 +35,10 @@ public class PandoraActive : ToggleAbility
     //Metodo que acabar la habilidad y restaura los valores a su modo inicial
     private void AcabarHabilidad()
     {
+        Debug.Log("AcabarHabilidad");
         if (active)
         {
+            Debug.Log("AcabarHabilidadIf");
             active = false;
 
             //Disminuir daño
@@ -58,6 +60,12 @@ public class PandoraActive : ToggleAbility
             //Debug.Log("Vida de Pandora" + networkedPlayer.actualHealth.Value);
         }
             
+        AcabarHabilidad();
+    }
+
+    public void ResetRonda()
+    {
+        Debug.Log("ResetRonda");
         AcabarHabilidad();
     }
     

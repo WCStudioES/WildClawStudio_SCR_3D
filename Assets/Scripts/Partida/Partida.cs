@@ -155,6 +155,7 @@ public class Partida : NetworkBehaviour
                 {
                     partidasGanadasPorJugador[i].Add(false);
                 }
+                jugadores[i].GetComponent<PlayerShip>().ResetRonda();
             }
         }
         
@@ -199,6 +200,7 @@ public class Partida : NetworkBehaviour
                 partidasGanadasPorJugador[0].Add(true);
                 partidasGanadasPorJugador[1].Add(false);
             }
+            
             jugadores[0].opcionesJugador.deshabilitarNave();
             jugadores[1].opcionesJugador.deshabilitarNave();
         }

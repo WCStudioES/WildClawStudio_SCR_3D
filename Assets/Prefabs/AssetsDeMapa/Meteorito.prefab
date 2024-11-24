@@ -153,7 +153,8 @@ MonoBehaviour:
     m_InternalValue: 0
   resType: 2
   resToGive:
-    m_InternalValue: 100
+    m_InternalValue: 1000
+  partida: {fileID: 0}
   hpMaximo: 100
   hpMinimo: 100
   escalaMaxima: 100

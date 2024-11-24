@@ -10,15 +10,7 @@ public class Misil : Proyectil
     [SerializeField] private GameObject explosion; //Prefab de explosion para instanciar al petar
     [SerializeField] private Transform explosionSpawn;
     private bool activo = true; //Variable apra ver si el misil ha explotado ya
-
-    void Start()
-    {
-        dmg = 45;
-        speed = 10f;
-        cadencia = 2f;
-        type = Type.Simple;
-    }
-
+    
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
         if(activo)
@@ -29,6 +21,7 @@ public class Misil : Proyectil
 
             var explosionObject = Instantiate(explosion, explosionSpawn.position, Quaternion.identity);
             Explosion explosionScript = explosionObject.GetComponent<Explosion>();
+            explosionScript.dmg = dmg;
             explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor);
         }
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7157839167841471926}
   - component: {fileID: 2414274396245629171}
   m_Layer: 0
-  m_Name: Misil
+  m_Name: MisilMejorado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,12 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 1741567171, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Missile
-  description: Creates a high damage explosion when it hits a target.  At level 6
-    upgrades its shotrate and speed.
-  mostrarEnSeleccion: 1
+  description: High damage AoE explosion when it hits a target
   dmg: 30
-  speed: 30
-  cadencia: 2.5
+  speed: 60
+  cadencia: 2
   type: 0
   explosion: {fileID: 5690783214778163400, guid: bd30ca28cf609dd43b3b62d5055c6882, type: 3}
   explosionSpawn: {fileID: 4904695475344225328}

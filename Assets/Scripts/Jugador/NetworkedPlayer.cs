@@ -166,9 +166,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             if(isSupportAvailable)
                 ApplySuppItem();
         }
-        cuerpoNave.GetComponent<PlayerShip>().ResetRonda();
+       //cuerpoNave.GetComponent<PlayerShip>().ResetRonda();
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
     }
+    
 
     public void ApplySuppItem()
     {
@@ -459,10 +460,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     canUseAbility = true;
                     DesbloquearHabilidadClientRpc();
                     break;
-                case 6:
+                case 5:
                     isSupportAvailable = true;
                     ApplySuppItem();
                     DesbloquearApoyoClientRpc();
+                    break;
+                
+                case 6:
+                    CambiarArma(proyectilMejorado+ ((allProjectiles.Count-1)/2));
                     break;
                 //...
             }
@@ -491,6 +496,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     
     private void CambiarArma(int proyectilNuevo)
     {
+        //Debug.Log("Cambiando arma: " + proyectilNuevo);
         //Cambia la arma
         projectile.Value = proyectilNuevo;
         CambiarArmaClientRpc(proyectilNuevo);
@@ -501,6 +507,11 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     private void CambiarArmaClientRpc(int proyectilNuevo)
     {
         uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
+        if (proyectilNuevo > 3)
+        {
+            uiBoosters.UpdateWeaponImage(Color.magenta);
+        }
+        
     }
 
     [ClientRpc]
@@ -572,6 +583,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         // Dependiendo del tipo de proyectil, gestiona uno o dos disparos
         if (allProjectiles[projectile.Value].GetComponent<Proyectil>().type == Proyectil.Type.Double) // Proyectil doble
         {
+            CrearYEnviarProyectil(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
+            CrearYEnviarProyectil(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
+        }
+        else if (allProjectiles[projectile.Value].GetComponent<Proyectil>().type == Proyectil.Type.Triple)
+        {
+            CrearYEnviarProyectil(puntoDisparo[0].position, puntoDisparo[0].rotation, puntoDisparo[0].forward);
             CrearYEnviarProyectil(puntoDisparo[1].position, puntoDisparo[1].rotation, puntoDisparo[1].forward);
             CrearYEnviarProyectil(puntoDisparo[2].position, puntoDisparo[2].rotation, puntoDisparo[2].forward);
         }

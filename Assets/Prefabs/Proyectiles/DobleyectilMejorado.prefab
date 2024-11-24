@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 295652754030485226}
   - component: {fileID: 3832535102861204280}
   m_Layer: 0
-  m_Name: Dobleyectil
+  m_Name: DobleyectilMejorado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,12 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -1994235387, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Double laser
-  description: You shoot 2 lasers per shot. At level 6 fires 3 lasers.
-  mostrarEnSeleccion: 1
+  description: You shoot 2 lasers per shot
   dmg: 10
   speed: 50
   cadencia: 0.75
-  type: 1
+  type: 2
 --- !u!54 &3832535102861204280
 Rigidbody:
   m_ObjectHideFlags: 0
