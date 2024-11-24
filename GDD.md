@@ -123,9 +123,16 @@ El debris espacial son una pequeña cantidad de objetos distribuido por el mapa.
 ## Mapas
 ### Centro del Coliseo
 
+Mapa básico del juego. Consiste en una arena circular con meteoritos en los laterales y varios debris en el centro del mapa.
+
+La ambientación de la zona es una arena en medio de una gran estación, con gradas y personas en los laterales.
+
 ### Hangares
+<img width=800 heigth=800 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/LayoutHangares.png">
 
 ### Generador de la Arena
+
+<img width=800 heigth=800 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/LayoutGenerador.png">
 
 ## Personajes
 Space Combat Rush 3D cuenta con varios personajes entre los que el jugador puede escoger para luchar. Cada uno de estos personajes cuenta con diferentes estadísticas, habilidades pasivas y habilidades activas.
