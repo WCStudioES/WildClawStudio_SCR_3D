@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 128322121
+  GlobalObjectIdHash: 1046820652
   InScenePlacedSourceGlobalObjectIdHash: 1574068614
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -1365,7 +1365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 253, y: -372}
+  m_AnchoredPosition: {x: 253, y: -352}
   m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2897238664146984165
@@ -1396,12 +1396,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo name
-
-'
+  m_text: Passive
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b117c35f2593abd4c85e8da3eef03eb5, type: 2}
-  m_sharedMaterial: {fileID: 4172408038317975190, guid: b117c35f2593abd4c85e8da3eef03eb5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1c38ab4c904fa7245b32f327e27991a8, type: 2}
+  m_sharedMaterial: {fileID: -559061687535230618, guid: 1c38ab4c904fa7245b32f327e27991a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1501,7 +1499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125, y: -372}
+  m_AnchoredPosition: {x: -125, y: -346}
   m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2504919448285492079
@@ -1532,12 +1530,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo name
-
-'
+  m_text: Active
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b117c35f2593abd4c85e8da3eef03eb5, type: 2}
-  m_sharedMaterial: {fileID: 4172408038317975190, guid: b117c35f2593abd4c85e8da3eef03eb5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1c38ab4c904fa7245b32f327e27991a8, type: 2}
+  m_sharedMaterial: {fileID: -559061687535230618, guid: 1c38ab4c904fa7245b32f327e27991a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
