@@ -286,11 +286,6 @@ public class UI : NetworkBehaviour
             Victoria.SetActive(true);
             opcionesJugador.movimientoActivado = false;
             CJugador.GameEndServerRpc();
-            for (int i = 0; i < circulosAzulesVictoria.Length; i++)
-            {
-                    circulosAzulesVictoria[i].SetActive(false);
-                    circulosRojosVictoria[i].SetActive(false);
-            }
         }
     }
     
@@ -298,6 +293,13 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            for (int i = 0; i < circulosAzulesDerrota.Length; i++)
+            {
+                circulosAzulesVictoria[i].SetActive(false);
+                circulosRojosVictoria[i].SetActive(false);
+                circulosAzulesDerrota[i].SetActive(false);
+                circulosRojosDerrota[i].SetActive(false);
+            }
             for (int i = 0; i < rondas; i++)
             {
                 if(rondasGanadas[i])
@@ -319,11 +321,6 @@ public class UI : NetworkBehaviour
             Derrota.SetActive(true);
             opcionesJugador.movimientoActivado = false;
             CJugador.GameEndServerRpc();
-            for (int i = 0; i < circulosAzulesDerrota.Length; i++)
-            {
-                circulosAzulesDerrota[i].SetActive(false);
-                circulosRojosDerrota[i].SetActive(false);
-            }
         }
     }
     
@@ -331,6 +328,13 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            for (int i = 0; i < circulosAzulesDerrota.Length; i++)
+            {
+                circulosAzulesVictoria[i].SetActive(false);
+                circulosRojosVictoria[i].SetActive(false);
+                circulosAzulesDerrota[i].SetActive(false);
+                circulosRojosDerrota[i].SetActive(false);
+            }
             for (int i = 0; i < rondas; i++)
             {
                 if(rondasGanadas[i])
