@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1046820652
+  GlobalObjectIdHash: 128322121
   InScenePlacedSourceGlobalObjectIdHash: 1574068614
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -422,7 +422,7 @@ MonoBehaviour:
   controladorDelJugador: {fileID: 8966913476814297344}
   networkTransformNave: {fileID: 315376961265466769}
   nave: {fileID: 6479168757547527166}
-  testing: 1
+  testing: 0
   usuario:
     name: 
     password: 
