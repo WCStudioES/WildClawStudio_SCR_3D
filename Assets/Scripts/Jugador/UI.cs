@@ -190,9 +190,13 @@ public class UI : NetworkBehaviour
     public void guardarPartidaEnHistorial(string rivalS, string naveRivalS, string navePropiaS, int pPropia,
         int pRival, bool ganada)
     {
-        if(IsOwner)
-        guardarPartidaEnHistorialServerRpc(rivalS, naveRivalS, navePropiaS,
-            pPropia, pRival, ganada);
+        if (IsOwner)
+        {
+            opcionesJugador.usuario.guardarPartidaEnHistorial(rivalS, naveRivalS, navePropiaS,
+                pPropia, pRival, ganada);
+            guardarPartidaEnHistorialServerRpc(rivalS, naveRivalS, navePropiaS,
+                pPropia, pRival, ganada);
+        }
     }
 
     [ServerRpc]
