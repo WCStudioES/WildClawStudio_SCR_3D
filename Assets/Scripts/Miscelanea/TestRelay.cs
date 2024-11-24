@@ -186,7 +186,7 @@ namespace Test
             try
             {
                 publicServer = JsonUtility.FromJson<PublicServer>(req.downloadHandler.text);
-                if(publicServer.joinCode != "AAAAAA")
+                if(publicServer.joinCode != "AAAAAA" && publicServer.joinCode != "")
                     botonServidorPublico.enabled = true;
             }
             catch (Exception e)
