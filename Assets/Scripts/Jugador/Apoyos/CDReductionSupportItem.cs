@@ -12,6 +12,19 @@ public class CDReductionSupportItem : SupportItem
     {
         if(!applied)
         {
+            switch (owner.cuerpoNave.GetComponent<PlayerShip>())
+            {
+                case null: break;
+
+                case NavePandora:neededQuantity = owner.cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity;
+                    owner.cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity -= 1;
+                    break;
+
+                default:
+                    neededQuantity = owner.cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity;
+                    owner.cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity -= neededQuantity * reduction / 100;
+                    break;
+            }
             neededQuantity = owner.cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity;
             owner.cuerpoNave.GetComponent<PlayerShip>().activeAbility.neededResQuantity -= neededQuantity * reduction / 100;
         
