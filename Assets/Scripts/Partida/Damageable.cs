@@ -105,7 +105,10 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     [ClientRpc]
     public void PlayDestructionSFXClientRpc()
     {
-        AudioManager.Instance.PlaySFX(destructionSFX);
+        if(destructionSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(destructionSFX);
+        }
     }
 
     protected abstract void DestroyDamageable(NetworkedPlayer damageDealer);
