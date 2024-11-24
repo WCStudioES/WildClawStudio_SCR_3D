@@ -525,3 +525,8 @@ Content
 |  0.8.0 | Implementada una versión funcional del mapa de juego |
 |  0.9.0 | Implementado el sistema de nivel de las naves en la partida |
 |  0.10.0 | Implementada una primera aproximación a las interfaces de personalización y partida |
+|  1.0.0 | Refactorización del código |
+|  1.1.0 | Implementadas todas las habilidades de la nave |
+|  1.2.0 | Implementación de los apoyos |
+|  1.3.0 | UI y mapa rehechos |
+|  1.4.0 | Implementación de nuevos niveles de mejora de armas y habilidades |
