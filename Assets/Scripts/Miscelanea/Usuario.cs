@@ -22,9 +22,9 @@ public class Usuario
      }
      
      //AÑADE AL HISTORIAL UNA PARTIDA
-     public void guardarPartidaEnHistorial(string rivalS, string naveRivalS, string navePropiaS, int pPropia, int pRival)
+     public void guardarPartidaEnHistorial(string rivalS, string naveRivalS, string navePropiaS, int pPropia, int pRival, bool ganada)
      {
-          historial.guardarPartida(rivalS, naveRivalS, navePropiaS, pPropia, pRival);
+          historial.guardarPartida(rivalS, naveRivalS, navePropiaS, pPropia, pRival, ganada);
           
      }
 
@@ -90,8 +90,10 @@ public class Historial
      public List<string> navePropia = new List<string>(5);
      public List<int> puntuacionPropia = new List<int>(5);
      public List<int> puntuacionRival = new List<int>(5);
+     public int ganadas = 0;
+     public int perdidas = 0;
 
-     public void guardarPartida(string rivalS, string naveRivalS, string navePropiaS, int pPropia, int pRival)
+     public void guardarPartida(string rivalS, string naveRivalS, string navePropiaS, int pPropia, int pRival, bool ganada)
      {
           if (rival.Count >= 5)
           {
@@ -106,5 +108,9 @@ public class Historial
           naveRival.Insert(0, naveRivalS);
           puntuacionPropia.Insert(0, pPropia);
           puntuacionRival.Insert(0, pRival);
+          if (ganada)
+               ganadas++;
+          else
+               perdidas++;
      }
 }
