@@ -811,7 +811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: -423}
+  m_AnchoredPosition: {x: 287, y: -377}
   m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2644408683399028326
@@ -2471,8 +2471,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -423}
-  m_SizeDelta: {x: 2001, y: 277}
+  m_AnchoredPosition: {x: 2, y: -4}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9214872831977647542
 CanvasRenderer:
@@ -2502,7 +2502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 844222257, guid: 0262553adad274248aa5778573eae23a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d570c1bf8ceb266479876b3b1d1052c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2546,7 +2546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -89.5, y: -423}
+  m_AnchoredPosition: {x: -89.5, y: -377}
   m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5713771675961266149
@@ -3666,11 +3666,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkedPlayer: {fileID: 0}
   shipName: {fileID: 0}
+  skinName: {fileID: 0}
   equippedCraftImage: {fileID: 0}
   equippedSkinImage: {fileID: 0}
   equippedCraftIndex: 0
   equippedSkinIndex: 0
   craftImages: []
+  skinImages: []
   equippedShipActive: {fileID: 0}
   equippedShipPassive: {fileID: 0}
   LifePoints: []
