@@ -253,6 +253,7 @@ public class UI : NetworkBehaviour
         {
             if (partidaFinalizada)
             {
+                AudioManager.Instance.PlayMenuMusic();
                 if (ganador)
                 {
                     Ganar();
@@ -264,6 +265,7 @@ public class UI : NetworkBehaviour
             }
             else
             {
+                AudioManager.Instance.StopMusic();
                 Debug.Log("Entra en mostrar resultados");
                 if (ganador)
                 {
