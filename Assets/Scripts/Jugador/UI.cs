@@ -389,6 +389,7 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            AudioManager.Instance.StopMusic();
             Personalizacion.SetActive(false);
             Creditos.SetActive(true);
         }
@@ -398,6 +399,7 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            AudioManager.Instance.PlayMenuMusic();
             Creditos.SetActive(false);
             Personalizacion.SetActive(true);
         }

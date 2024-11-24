@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System.Xml.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
@@ -72,6 +73,13 @@ public class AudioManager : MonoBehaviour
         musicSource.loop = loopeable;
         musicSource.Play();
     }
+
+    public void StopMusic()
+    {
+        if (IsServer()) return;
+        musicSource.Stop();
+    }
+
     public AudioSource PlaySFX(AudioClip clip)
     {
         if (IsServer()) return null;

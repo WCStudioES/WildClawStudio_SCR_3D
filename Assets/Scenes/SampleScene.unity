@@ -1354,8 +1354,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7379636300365445818, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
+      propertyPath: Priority
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379636300365445818, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
       propertyPath: m_Volume
-      value: 0.3
+      value: 0.484
       objectReference: {fileID: 0}
     - target: {fileID: 7379636300365445818, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
       propertyPath: MaxDistance
@@ -1363,9 +1367,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379636300365445818, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2332427644907709698, guid: 29424cae0afbca84d948c776cbfb9f90, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
