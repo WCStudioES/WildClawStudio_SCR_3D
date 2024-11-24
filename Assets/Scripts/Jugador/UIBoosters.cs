@@ -117,5 +117,14 @@ public class UIBoosters : MonoBehaviour
         }
         
     }
+
+    public void ResetRonda()
+    {
+        if (player.IsOwner)
+        {
+            activeAbility.gameObject.SetActive(false);
+            supportAbility.gameObject.SetActive(false);
+        }
+    }
     
 }
