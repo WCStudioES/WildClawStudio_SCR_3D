@@ -118,7 +118,7 @@ public class UIBoosters : MonoBehaviour
         
     }
 
-    public void ResetRonda()
+    public void ResetPartida()
     {
         if (player.IsOwner)
         {

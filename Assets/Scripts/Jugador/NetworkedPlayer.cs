@@ -145,9 +145,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
             UpdateExperienceBarClientRpc(0, 1);
-            uiBoosters.activeAbility.gameObject.SetActive(false);
-            uiBoosters.supportAbility.gameObject.SetActive(false);
         }
+        uiBoosters.ResetPartida();
     }
     
     //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
