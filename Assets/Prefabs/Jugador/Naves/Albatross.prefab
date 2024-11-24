@@ -265,7 +265,7 @@ MonoBehaviour:
   shipName: Albatross
   description: "Albatross es una nave con un gran control en largas distancias, evita
     que sus enemigos se acerquen y exploten su poca resistencia mediante un gran
-    da\xF1o desde lejos."
+    da\xF1o desde lejos.(15s)"
   sprite: {fileID: 21300000, guid: 9d2fa72aca1b58240afe86997c19272d, type: 3}
   initialHealth: 80
   initialArmor: 0

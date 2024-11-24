@@ -206,8 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Brutal praying
-  Description: When activated the ship s damage is increased, but lose health every
-    second. Reactivating disables this state. The ability has no cooldown.
+  Description: 'When activated the damage is increased, but loose 5 hp every second.
+    Reactivating disables this state. '
   Sprite: {fileID: -1400953079, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 3
   actualResQuantity: 0

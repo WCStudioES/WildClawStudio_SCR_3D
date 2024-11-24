@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Turbo motor
-  Description: Increases movement speed
+  Description: Spend energy every second to increase your movement speed.
   Sprite: {fileID: -820781361, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 1
   actualResQuantity: 0
