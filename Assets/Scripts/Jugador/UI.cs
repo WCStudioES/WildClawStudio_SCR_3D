@@ -14,6 +14,7 @@ public class UI : NetworkBehaviour
     private bool cameraInGame = false;
     [SerializeField]private GameObject BuscandoPartida;
     [SerializeField]private GameObject Instrucciones;
+    [SerializeField]private GameObject Instrucciones2;
     [SerializeField]private GameObject Build;
     [SerializeField]private GameObject EnPartida;
     [SerializeField]private GameObject Victoria;
@@ -362,9 +363,20 @@ public class UI : NetworkBehaviour
         if (IsOwner)
         {
             Instrucciones.SetActive(false);
+            Instrucciones2.SetActive(false);
             Personalizacion.SetActive(true);
         }
     }
+    
+    public void CambiarAInstrucciones2()
+        {
+            if (IsOwner)
+            {
+                Instrucciones.SetActive(false);
+                Instrucciones2.SetActive(true);
+            }
+        }
+    
     
     ////////////////////////////////////////////
     //RELACIONADAS CON CREDITOS/////////////////
