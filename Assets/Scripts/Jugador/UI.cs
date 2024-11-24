@@ -21,6 +21,7 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Derrota;
     [SerializeField]private GameObject DerrotaRonda;
     [SerializeField]private GameObject Creditos;
+    [SerializeField]private GameObject Historial;
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
     private int posicionCuentaAtras = 0;
@@ -170,6 +171,18 @@ public class UI : NetworkBehaviour
     void UsuarioCreadoClientRpc(string usuario)
     {
         ScriptRegister.UsuarioValido(usuario);
+    }
+
+    public void AbrirHistorial()
+    {
+        Personalizacion.SetActive(false);
+        Historial.SetActive(true);
+    }
+
+    public void CerrarHistorial()
+    {
+        Historial.SetActive(false);
+        Personalizacion.SetActive(true);
     }
 
     //GUARDA UNA PARTIDA EN EL HISTORIAL DE PARTIDAD
