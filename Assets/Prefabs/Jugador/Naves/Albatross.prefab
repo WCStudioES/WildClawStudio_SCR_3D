@@ -271,8 +271,8 @@ MonoBehaviour:
   initialArmor: 0
   healthIncrement: 3
   armorIncrement: 0
-  dmgBalance: 20
-  dmgIncrement: 0
+  dmgBalance: 10
+  dmgIncrement: 6
   lifeUi: 2
   powerUi: 6
   speedUi: 3
@@ -309,7 +309,7 @@ MonoBehaviour:
   Sprite: {fileID: -1705088866, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 20
-  neededResQuantity: 20
+  neededResQuantity: 15
   networkedPlayer: {fileID: 0}
   type: 1
   maxResource: 0

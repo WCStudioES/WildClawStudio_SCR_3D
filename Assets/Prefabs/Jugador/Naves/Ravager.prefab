@@ -270,7 +270,7 @@ MonoBehaviour:
   initialArmor: 0
   healthIncrement: 3
   armorIncrement: 0
-  dmgBalance: 0
+  dmgBalance: 4
   dmgIncrement: 0
   lifeUi: 2
   powerUi: 3

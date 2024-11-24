@@ -142,7 +142,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3754077117360729848}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1a3d76b791d81344aaa546b6b79fe9c, type: 3}
   m_Name: 
@@ -153,7 +153,7 @@ MonoBehaviour:
     m_InternalValue: 0
   resType: 2
   resToGive:
-    m_InternalValue: 1000
+    m_InternalValue: 150
   destructionSFX: {fileID: 8300000, guid: cde1bc76a665ee849b9e77707b579d0e, type: 3}
   partida: {fileID: 0}
   hpMaximo: 100

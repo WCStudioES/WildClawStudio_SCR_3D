@@ -87,7 +87,7 @@ MonoBehaviour:
   initialArmor: 15
   healthIncrement: 5
   armorIncrement: 2
-  dmgBalance: 10
+  dmgBalance: 3
   dmgIncrement: 0
   lifeUi: 6
   powerUi: 2

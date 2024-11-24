@@ -175,7 +175,7 @@ MonoBehaviour:
   initialArmor: 0
   healthIncrement: 5
   armorIncrement: 0
-  dmgBalance: 500
+  dmgBalance: 5
   dmgIncrement: 0
   lifeUi: 3
   powerUi: 4
