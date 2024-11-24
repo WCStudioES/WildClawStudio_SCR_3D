@@ -57,6 +57,10 @@ PrefabInstance:
       value: Police
       objectReference: {fileID: 0}
     - target: {fileID: 9150904409278296479, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
+      propertyPath: skinSprite
+      value: 
+      objectReference: {fileID: -1154879723, guid: 11e5881dd3cc56643964f7af68501c7c, type: 3}
+    - target: {fileID: 9150904409278296479, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
       propertyPath: skinMaterial
       value: 
       objectReference: {fileID: 2100000, guid: c960777e09eabbd419c5e761901faeb6, type: 2}

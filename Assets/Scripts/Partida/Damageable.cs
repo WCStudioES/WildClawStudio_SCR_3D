@@ -19,6 +19,10 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
 
     protected bool isFlashing = false;
 
+    //public AudioClip collisionSFX;
+    public AudioClip destructionSFX;
+
+
     public enum ResourceToGive
     {
         None,
@@ -96,6 +100,12 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
             flashCoroutine = null;
         }
         RestoreOriginalColors(); // Restaurar colores originales si no ha terminado
+    }
+
+    [ClientRpc]
+    public void PlayDestructionSFXClientRpc()
+    {
+        AudioManager.Instance.PlaySFX(destructionSFX);
     }
 
     protected abstract void DestroyDamageable(NetworkedPlayer damageDealer);

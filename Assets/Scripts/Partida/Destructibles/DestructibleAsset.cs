@@ -67,6 +67,8 @@ public class DestructibleAsset : Damageable
             }
             StopFlashingAndCleanUp(); // Detener el flashing y restaurar colores
             StartCoroutine("DestroyWithDelay");
+
+            PlayDestructionSFXClientRpc();
         }
     }
 

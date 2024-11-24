@@ -170,7 +170,7 @@ MonoBehaviour:
   description: "Pandora es la elegida de la Plaga, y como tal debe conseguir la aniquilaci\xF3n
     de sus enemigos a cualquier coste. Es un personaje capaz de causar un da\xF1o
     devastador, pero debe saber cuando retirarse para no morir en el intento."
-  sprite: {fileID: 21300000, guid: bc371b7bc53b8dc48a4dfba69c10c029, type: 3}
+  sprite: {fileID: 21300000, guid: 718b7088788ba064c80d8eaa53855870, type: 3}
   initialHealth: 110
   initialArmor: 0
   healthIncrement: 5
@@ -193,7 +193,6 @@ MonoBehaviour:
   - {fileID: 5573409484469235806, guid: 3a85d8428b76b1c4ab33e393d54d6007, type: 3}
   - {fileID: 6994777168677303131, guid: dba18cf563201ca42a5184464de61157, type: 3}
   - {fileID: 1987590056621854794, guid: 869191d5b31303a4eb61ffea4353cc8e, type: 3}
-  accelerateSFX: {fileID: 8300000, guid: 19d3e87820f25384393eb6e8870d06da, type: 3}
 --- !u!114 &-7829255381148620364
 MonoBehaviour:
   m_ObjectHideFlags: 0

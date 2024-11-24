@@ -193,7 +193,14 @@ MonoBehaviour:
   opcionesJugador: {fileID: 0}
   playerShip: {fileID: 7111494376282066658}
   colliderNave: {fileID: 0}
-  accelerateSFX: {fileID: -3697924438542262871}
+  shipAudioSource: {fileID: -3697924438542262871}
+  collisionSFX: {fileID: 8300000, guid: 89fcae4354cf9344c9d4823ebdf54198, type: 3}
+  accelerateSFX: {fileID: 8300000, guid: 19d3e87820f25384393eb6e8870d06da, type: 3}
+  orbitSpeed: 20
+  orbitDistance: 5
+  orbitAngles: {x: 30, y: 0}
+  minVerticalAngle: 10
+  maxVerticalAngle: 80
 --- !u!114 &2342552104495230361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +283,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 19d3e87820f25384393eb6e8870d06da, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.302
+  m_Volume: 0.235
   m_Pitch: 1
   Loop: 0
   Mute: 0

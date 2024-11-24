@@ -154,6 +154,7 @@ MonoBehaviour:
   resType: 2
   resToGive:
     m_InternalValue: 1000
+  destructionSFX: {fileID: 8300000, guid: cde1bc76a665ee849b9e77707b579d0e, type: 3}
   partida: {fileID: 0}
   hpMaximo: 100
   hpMinimo: 100

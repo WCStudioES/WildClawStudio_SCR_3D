@@ -35,7 +35,19 @@ public class ControladorNave : NetworkBehaviour
     [SerializeField] public PlayerShip playerShip;
     public MeshCollider colliderNave;
 
-    public AudioSource accelerateSFX;
+    [Header("SFX")]
+    public AudioSource shipAudioSource;
+    public AudioClip collisionSFX;
+    public AudioClip accelerateSFX;
+
+    [Header("Camera Orbit Settings")]
+    public float orbitSpeed = 20f; // Velocidad de giro constante
+    public float orbitDistance = 5f; // Distancia desde el objetivo
+    public Vector2 orbitAngles = new Vector2(30, 0); // Ángulos iniciales (elevación, azimut)
+    public float minVerticalAngle = 10f;
+    public float maxVerticalAngle = 80f;
+
+    private bool isOrbiting = false;
 
     void Start()
     {
@@ -49,6 +61,11 @@ public class ControladorNave : NetworkBehaviour
 
     void Update()
     {
+        if (actualCamera == CameraPositionCustomization && isOrbiting)
+        {
+            UpdateOrbit();
+        }
+
         if (opcionesJugador != null && opcionesJugador.movimientoActivado && IsServer)
         {
             
@@ -122,14 +139,23 @@ public class ControladorNave : NetworkBehaviour
     [ClientRpc]
     public void AccelerateSFXClientRpc(bool play)
     {
-        if (play && !accelerateSFX.isPlaying)
+        if (play && !shipAudioSource.isPlaying)
         {
             Debug.Log("Acelera carnal");
-            AudioManager.Instance.PlaySFX(accelerateSFX, accelerateSFX.clip);
+            AudioManager.Instance.PlaySFX(shipAudioSource, accelerateSFX);
         }
-        else if (!play && accelerateSFX.isPlaying)
+        else if (!play && shipAudioSource.isPlaying)
         {
-            AudioManager.Instance.StopSFX(accelerateSFX);
+            AudioManager.Instance.StopSFX(shipAudioSource);
+        }
+    }
+
+    [ClientRpc]
+    public void PlayCollisionSFXClientRpc()
+    {
+        if (IsOwner)
+        {
+            AudioManager.Instance.PlaySFX(collisionSFX);
         }
     }
 
@@ -153,7 +179,11 @@ public class ControladorNave : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(velocity.magnitude > maxSpeed / 3 && collision.gameObject.GetComponent<IProyectil>() == null && canCollide)
+        //COLLSION SFX
+        PlayCollisionSFXClientRpc();
+
+        //SPEED CHANGES
+        if (velocity.magnitude > maxSpeed / 3 && collision.gameObject.GetComponent<IProyectil>() == null && canCollide)
         {
             SetCanCollide(false);
             StartCoroutine("SetCanCollide", true);
@@ -250,7 +280,7 @@ public class ControladorNave : NetworkBehaviour
     public void AssignMainCamera(CameraType cameraType)
     {
         CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
-        //Debug.Log(VC.m_Lens.OrthographicSize);
+
         if (VC != null)
         {
             switch (cameraType)
@@ -264,6 +294,7 @@ public class ControladorNave : NetworkBehaviour
                     VC.Follow = actualCamera;
                     VC.LookAt = this.transform;
 
+                    isOrbiting = false;
                     break;
 
                 case CameraType.Customization:
@@ -271,9 +302,13 @@ public class ControladorNave : NetworkBehaviour
 
                     VC.m_Lens.Orthographic = false;
 
-                    VC.Follow = actualCamera;
+                    VC.Follow = null; // Detach Follow para manejo manual
                     VC.LookAt = CameraTarget.transform;
 
+                    // Ajusta la posición inicial de la cámara
+                    VC.transform.position = CameraPositionCustomization.transform.position;
+
+                    isOrbiting = true;
                     break;
             }
         }
@@ -282,4 +317,25 @@ public class ControladorNave : NetworkBehaviour
             Debug.LogWarning("No se encontró la cámara virtual Cinemachine.");
         }
     }
+
+    private void UpdateOrbit()
+    {
+        //CinemachineVirtualCamera VC = FindObjectOfType<CinemachineVirtualCamera>();
+
+        //// Actualiza el ángulo horizontal automáticamente
+        //orbitAngles.x += orbitSpeed * Time.deltaTime;
+
+        //// Convierte los ángulos en posición de cámara
+        //Quaternion rotation = Quaternion.Euler(orbitAngles.y, orbitAngles.x, 0);
+        //Vector3 offset = rotation * Vector3.back * orbitDistance;
+
+        //// Mantén la altura fija
+        //Vector3 cameraPosition = CameraTarget.transform.position + offset;
+        //cameraPosition.y = CameraPositionCustomization.transform.position.y;
+
+        //// Ajusta la posición y la rotación de la cámara
+        //VC.transform.position = cameraPosition;
+        //VC.transform.LookAt(CameraTarget.transform);
+    }
+
 }

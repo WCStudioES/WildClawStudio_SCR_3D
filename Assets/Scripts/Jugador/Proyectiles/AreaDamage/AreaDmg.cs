@@ -21,6 +21,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     protected Partida partida;
 
     protected bool IsInServidor;
+    public AudioClip aoeSFX;
 
     //Crear zona de daño con direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor, Vector3 pDirection, Partida partidaActual)
@@ -38,7 +39,8 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     //Crear zona de daño sin direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor)
     {
-        Debug.Log("Explosion creada");
+        Debug.Log("Explosion creada"); 
+        AudioManager.Instance.PlaySFX(aoeSFX);
         ControladorNaveDueña = pDmgDealer;
         CuerpoNaveDueña = pCuerpoNaveDueña;
         IsInServidor = pIsInServidor;

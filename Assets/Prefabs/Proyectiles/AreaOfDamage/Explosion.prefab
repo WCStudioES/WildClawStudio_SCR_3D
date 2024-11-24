@@ -122,3 +122,4 @@ MonoBehaviour:
   timeOfEffect: 0.5
   ticksPerSecond: 0
   speed: 0
+  aoeSFX: {fileID: 8300000, guid: 7218486b7e75de64b945bdc3fe6c6274, type: 3}

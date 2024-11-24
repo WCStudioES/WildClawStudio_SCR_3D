@@ -56,6 +56,7 @@ MonoBehaviour:
   speed: 30
   cadencia: 2.5
   type: 0
+  projectileSFX: {fileID: 8300000, guid: 5f30067367dba304ea6ebf6977c72588, type: 3}
   explosion: {fileID: 5690783214778163400, guid: bd30ca28cf609dd43b3b62d5055c6882, type: 3}
   explosionSpawn: {fileID: 4904695475344225328}
 --- !u!54 &2414274396245629171

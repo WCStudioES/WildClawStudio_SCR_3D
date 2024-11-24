@@ -49,10 +49,12 @@ MonoBehaviour:
   sprite: {fileID: -1249462656, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
   weaponName: 
   description: 
+  mostrarEnSeleccion: 0
   dmg: 10
   speed: 50
   cadencia: 0.5
   type: 0
+  projectileSFX: {fileID: 8300000, guid: eda17526ac4e402409feb5b2f1e2f88f, type: 3}
 --- !u!54 &25356461853773190
 Rigidbody:
   m_ObjectHideFlags: 0

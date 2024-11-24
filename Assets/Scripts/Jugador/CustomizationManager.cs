@@ -23,7 +23,7 @@ public class CustomizationManager : MonoBehaviour
     public int equippedSkinIndex;
 
     [SerializeField] private List<GameObject> craftImages;
-    [SerializeField] private List<Material> skinImages;
+    [SerializeField] private List<Skin> skinImages;
     //[SerializeField] private List<Sprite> skinImages;
 
     // HABILIDADES DE LA NAVE
@@ -111,7 +111,7 @@ public class CustomizationManager : MonoBehaviour
         skinImages.Clear();
         foreach (var skin in networkedPlayer.allShips[index].GetComponent<PlayerShip>().skins)
         {
-            skinImages.Add(skin.skinMaterial);
+            skinImages.Add(skin);
         }
     }
 
@@ -198,8 +198,8 @@ public class CustomizationManager : MonoBehaviour
         if(playerShip.skins.Count > 0)
         {
             skinName.text = playerShip.skins[equippedSkinIndex].skinName;
+            equippedSkinImage.sprite = skinImages[equippedSkinIndex].skinSprite;
         }
-        //equippedSkinImage.sprite = skinImages[equippedSkinIndex];
         
         //Stats de la nave
         UpdateShipStatsUI(playerShip.lifeUi,playerShip.powerUi ,playerShip.speedUi);

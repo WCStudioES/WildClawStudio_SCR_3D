@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipName: Cargo Queen
   description: "Es god cabr\xF3n"
-  sprite: {fileID: -1016848, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
+  sprite: {fileID: 21300000, guid: fd87ae39a0b3a1444b461a96cfb51212, type: 3}
   initialHealth: 150
   initialArmor: 15
   healthIncrement: 5
@@ -105,7 +105,6 @@ MonoBehaviour:
   - {fileID: 5058804190258677476, guid: 6e73896f52908fa42975ab6980246216, type: 3}
   - {fileID: 1300930303579376545, guid: 203384afa52bee54fbea776fb5bc24a2, type: 3}
   - {fileID: 7332678895402172599, guid: 4e69cf61f000d044f97dda5c224479fb, type: 3}
-  accelerateSFX: {fileID: 8300000, guid: 19d3e87820f25384393eb6e8870d06da, type: 3}
 --- !u!114 &2365661255381534673
 MonoBehaviour:
   m_ObjectHideFlags: 0

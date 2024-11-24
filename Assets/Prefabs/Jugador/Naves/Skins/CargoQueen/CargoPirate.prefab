@@ -57,6 +57,10 @@ PrefabInstance:
       value: Pirate
       objectReference: {fileID: 0}
     - target: {fileID: 9150904409278296479, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
+      propertyPath: skinSprite
+      value: 
+      objectReference: {fileID: 1555026523, guid: 11e5881dd3cc56643964f7af68501c7c, type: 3}
+    - target: {fileID: 9150904409278296479, guid: 00a8e59dd209c9c419c626840cec76ad, type: 3}
       propertyPath: skinMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 8d22c4ed3f1425c47b0b6d9f315d9040, type: 2}

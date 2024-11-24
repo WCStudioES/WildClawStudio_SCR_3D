@@ -57,6 +57,10 @@ PrefabInstance:
       value: Military
       objectReference: {fileID: 0}
     - target: {fileID: 6585430997046522407, guid: 16dd0924a7104de4bbcbd7df4323398a, type: 3}
+      propertyPath: skinSprite
+      value: 
+      objectReference: {fileID: 988735394, guid: 11e5881dd3cc56643964f7af68501c7c, type: 3}
+    - target: {fileID: 6585430997046522407, guid: 16dd0924a7104de4bbcbd7df4323398a, type: 3}
       propertyPath: skinMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 4f8dbeaf1f2aa6e438764d1d2fe628e1, type: 2}
