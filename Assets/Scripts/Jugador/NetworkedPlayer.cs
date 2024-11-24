@@ -161,11 +161,11 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
+            cuerpoNave.GetComponent<PlayerShip>().ResetRonda();
 
             if(isSupportAvailable)
                 ApplySuppItem();
         }
-       //cuerpoNave.GetComponent<PlayerShip>().ResetRonda();
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
     }
     

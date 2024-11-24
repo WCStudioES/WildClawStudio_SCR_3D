@@ -15,7 +15,7 @@ public abstract class ActiveAbility : Ability
     }
     
     //Metodo para reiniciar habilidad entre rondas
-    public void ResetRonda()
+    public virtual void ResetRonda()
     {
         switch (resourceType)
         {

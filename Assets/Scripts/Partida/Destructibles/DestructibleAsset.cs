@@ -26,7 +26,7 @@ public class DestructibleAsset : Damageable
 
             if(resType == ResourceToGive.Health)
             {
-                dueñoDaño.GetHeal(resToGive.Value, dueñoDaño);
+                dueñoDaño.GetHeal(dmg, dueñoDaño);
             }
 
             Debug.Log("Vida del coso: " + actualHealth.Value);

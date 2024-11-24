@@ -49,7 +49,7 @@ public class AlbatrossActive : ShootProjectileAbility
         return true;
     }
 
-    public void ResetRonda()
+    public override void ResetRonda()
     {
         isActive = false;
         actualResQuantity = neededResQuantity;

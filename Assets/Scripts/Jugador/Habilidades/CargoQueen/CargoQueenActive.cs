@@ -54,5 +54,12 @@ public class CargoQueenActive : ShieldAbility
         // Opcional: Detén el Coroutine
         shieldMonitorCoroutine = null;
     }
-    
+
+    public override void ResetRonda()
+    {
+        Destroy(shieldInstance);
+
+        actualResQuantity = neededResQuantity;
+        networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
+    }
 }

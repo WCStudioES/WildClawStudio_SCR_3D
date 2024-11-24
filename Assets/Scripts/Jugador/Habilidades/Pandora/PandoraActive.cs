@@ -63,7 +63,7 @@ public class PandoraActive : ToggleAbility
         AcabarHabilidad();
     }
 
-    public void ResetRonda()
+    public override void ResetRonda()
     {
         Debug.Log("ResetRonda");
         AcabarHabilidad();

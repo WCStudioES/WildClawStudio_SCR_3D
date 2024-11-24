@@ -40,14 +40,13 @@ public class RavagerActive: MovementAbility
     }
 
     //Metodo para reiniciar habilidad entre ronda
-    public void ResetRonda()
+    public override void ResetRonda()
     {
         AcabarHabilidad();
         actualResQuantity = maxResource;
 
         networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity/maxResource);
         //StartCoroutine("UiUpdater");
-        
     }
 
     public override bool CheckAvailability()
