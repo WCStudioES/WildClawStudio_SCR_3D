@@ -142,7 +142,7 @@ public class Partida : NetworkBehaviour
     {
         rondaEnmarcha = false;
         //APUNTAMOS LA VICTORIA
-        for (int i = 0; i < jugadores.Count;i++)
+        for (int i = 0; i < jugadores.Count; i++)
         {
             if (jugadores[i] != null)
             {
@@ -158,18 +158,27 @@ public class Partida : NetworkBehaviour
                 //jugadores[i].GetComponent<PlayerShip>().ResetRonda();
             }
         }
-        
-        //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
-        if (ronda < maximoNumeroDeRondas)
-        {
-            mostrarResultado();
-            Invoke("iniciarRonda", 3.0f);
-            ronda++;
-        }
-        else
+
+        //SI UN JUGADOR HA GANADO MÁS DE LA MITAD DE LAS PARTIDAS, SE FINALIZA LA PARTIDA
+        if (rondasGanadas[0] > maximoNumeroDeRondas / 2 || rondasGanadas[1] > maximoNumeroDeRondas / 2)
         {
             mostrarResultado();
             Invoke("finalizarPartida", 3.0f);
+        }
+        else
+        {
+            //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
+            if (ronda < maximoNumeroDeRondas)
+            {
+                mostrarResultado();
+                Invoke("iniciarRonda", 3.0f);
+                ronda++;
+            }
+            else
+            {
+                mostrarResultado();
+                Invoke("finalizarPartida", 3.0f);
+            }
         }
     }
     
@@ -205,17 +214,26 @@ public class Partida : NetworkBehaviour
             jugadores[1].opcionesJugador.deshabilitarNave();
         }
         
-        //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
-        if (ronda < maximoNumeroDeRondas)
-        {
-            mostrarResultado();
-            Invoke("iniciarRonda", 3.0f);
-            ronda++;
-        }
-        else
+        //SI UN JUGADOR HA GANADO MÁS DE LA MITAD DE LAS PARTIDAS, SE FINALIZA LA PARTIDA
+        if (rondasGanadas[0] > maximoNumeroDeRondas / 2 || rondasGanadas[1] > maximoNumeroDeRondas / 2)
         {
             mostrarResultado();
             Invoke("finalizarPartida", 3.0f);
+        }
+        else
+        {
+            //EJECUTAMOS LA RUTINA PARA PASAR DE RONDA, O FINALIZAR LA PARTIDA
+            if (ronda < maximoNumeroDeRondas)
+            {
+                mostrarResultado();
+                Invoke("iniciarRonda", 3.0f);
+                ronda++;
+            }
+            else
+            {
+                mostrarResultado();
+                Invoke("finalizarPartida", 3.0f);
+            }
         }
     }
 
