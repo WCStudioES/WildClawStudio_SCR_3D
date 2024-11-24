@@ -41,11 +41,11 @@ public class AudioManager : MonoBehaviour
     {
         if (audioSourcePrefab == null)
         {
-            Debug.LogError("AudioSource prefab no asignado en el Inspector.");
+            //Debug.LogError("AudioSource prefab no asignado en el Inspector.");
             return;
         }
 
-        Debug.Log($"Inicializando pool de AudioSources con tamaño {maxAudioSources}.");
+        //Debug.Log($"Inicializando pool de AudioSources con tamaño {maxAudioSources}.");
 
         for (int i = 0; i < maxAudioSources; i++)
         {
@@ -54,7 +54,7 @@ public class AudioManager : MonoBehaviour
 
             if (source == null)
             {
-                Debug.LogError($"El prefab {audioSourcePrefab.name} no contiene un AudioSource.");
+                //Debug.LogError($"El prefab {audioSourcePrefab.name} no contiene un AudioSource.");
                 continue;
             }
 
@@ -62,7 +62,7 @@ public class AudioManager : MonoBehaviour
             obj.SetActive(false);
             audioSourcePool.Enqueue(source); // Agregar al pool
         }
-        Debug.Log($"Pool inicializado con {audioSourcePool.Count} AudioSources.");
+        //Debug.Log($"Pool inicializado con {audioSourcePool.Count} AudioSources.");
     }
 
     public void PlayMusic(AudioClip clip, bool loopeable)
@@ -84,14 +84,14 @@ public class AudioManager : MonoBehaviour
     {
         if (IsServer()) return null;
 
-        Debug.Log($"AudioSource pool size antes de reproducir: {audioSourcePool.Count}");
+        //Debug.Log($"AudioSource pool size antes de reproducir: {audioSourcePool.Count}");
 
         if (audioSourcePool.Count > 0)
         {
             AudioSource source = audioSourcePool.Dequeue();
             if (source == null)
             {
-                Debug.LogError("El AudioSource sacado del pool es nulo.");
+                //Debug.LogError("El AudioSource sacado del pool es nulo.");
                 return null;
             }
 
@@ -100,13 +100,13 @@ public class AudioManager : MonoBehaviour
             source.Play();
             activeAudioSources.Add(source);
 
-            Debug.Log($"Reproduciendo SFX: {clip.name}, quedan {audioSourcePool.Count} en el pool.");
+            //Debug.Log($"Reproduciendo SFX: {clip.name}, quedan {audioSourcePool.Count} en el pool.");
 
             StartCoroutine(ReturnToPool(source, clip.length));
             return source;
         }
 
-        Debug.LogWarning("No hay AudioSources disponibles en el pool.");
+        //Debug.LogWarning("No hay AudioSources disponibles en el pool.");
         return null;
     }
 
@@ -135,7 +135,7 @@ public class AudioManager : MonoBehaviour
 
         externalSource.clip = clip;
         externalSource.Play();
-        Debug.Log("SFX PLAYED: " + clip.name);
+        //Debug.Log("SFX PLAYED: " + clip.name);
     }
 
     private IEnumerator ReturnToPool(AudioSource source, float delay)
