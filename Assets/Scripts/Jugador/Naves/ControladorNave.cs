@@ -41,7 +41,7 @@ public class ControladorNave : NetworkBehaviour
     public AudioClip accelerateSFX;
 
     [Header("Camera Orbit Settings")]
-    public float orbitSpeed = 3f; // Velocidad de giro constante
+    public float orbitSpeed = 1.5f; // Velocidad de giro constante
     public float orbitDistance = 5f; // Distancia desde el objetivo
     public Vector2 orbitAngles = new Vector2(30, 0); // Ángulos iniciales (elevación, azimut)
     public float minVerticalAngle = 10f;

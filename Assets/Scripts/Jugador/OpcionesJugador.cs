@@ -46,7 +46,7 @@ public class OpcionesJugador : NetworkBehaviour
     {
         movimientoActivado = false;
         networkTransformNave.Interpolate = false;
-        nave.GetComponent<ControladorNave>().velocity = Vector3.zero;
+        nave.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
     
     public void reactivarMovimiento()
@@ -57,7 +57,7 @@ public class OpcionesJugador : NetworkBehaviour
 
     public void deshabilitarNave()
     {
-        nave.GetComponent<ControladorNave>().velocity = Vector3.zero;
+        nave.GetComponent<Rigidbody>().velocity = Vector3.zero;
         nave.SetActive(false);
     }
 
