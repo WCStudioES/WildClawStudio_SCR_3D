@@ -519,5 +519,24 @@ public class UI : NetworkBehaviour
             //opcionesJugador.reactivarMovimiento();
         }
     }
+
     ////////////////////////////////////////////
+    /// Música y cambios de canción
+    /// ///////////////////////////////////////
+    
+    public void musicaInGame()
+    {
+        if(IsOwner)
+        {
+            AudioManager.Instance.PlayGameMusic();
+        }
+    }
+
+    public void pararMusica()
+    {
+        if(IsOwner)
+        {
+            AudioManager.Instance.StopMusic();
+        }
+    }
 }

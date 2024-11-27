@@ -320,9 +320,13 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
-        if (IsOwner)
+        foreach (var jugador in jugadores)
         {
-            AudioManager.Instance.musicSource.Pause();
+            if (jugador != null)
+            {
+                jugador.opcionesJugador.UIJugador.pararMusica();
+            }
+
         }
 
         foreach (var VARIABLE in jugadores)
@@ -422,9 +426,13 @@ public class Partida : NetworkBehaviour
     private void ponerPartidaEnMarcha()
     {
         //INDICA QUE LA PARTIDA HA EMPEZADO
-        if (IsOwner)
+        foreach (var jugador in jugadores)
         {
-            AudioManager.Instance.PlayGameMusic();
+            if (jugador != null)
+            {
+                jugador.opcionesJugador.UIJugador.musicaInGame();
+            }
+
         }
         partidaEnMarcha = true;
         rondaEnmarcha = true;
