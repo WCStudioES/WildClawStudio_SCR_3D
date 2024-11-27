@@ -368,8 +368,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             if (actualHealth.Value <= 0 && dueñoDaño != null)
             {
                 dueñoDaño.GetXP(xp.Value);
-                Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
-                //Pierdes;
+                //Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             }
 
             //Debug.Log("Vida actual de la nave: " + actualHealth);
@@ -389,8 +388,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (actualHealth.Value <= 0)
         {
             dueñoDaño.GetXP(xp.Value);
-            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
-            //Pierdes;
+            //Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
         }
         else
         {
@@ -413,8 +411,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         int health = Mathf.Min(actualHealth.Value + heal, maxHealth.Value);
         actualHealth.Value = health;  // Suma la cantidad de daño a la vida de la nave
         
-        Debug.Log("Vida actual de la nave: " + actualHealth.Value);
-        //Debug.Log("Vida actual de la nave: " + actualHealth);
+        //Debug.Log("Vida actual de la nave: " + actualHealth.Value);
         UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
     }
     
@@ -443,7 +440,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             // Se actualiza la barra de vida
 
-            Debug.Log("Level " + lvl.Value);
+            //Debug.Log("Level " + lvl.Value);
 
             // Mejoras de nivel
             switch(lvl.Value)
@@ -642,7 +639,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (IsServer && canUseAbility)
         {
-            Debug.Log("Lanzando habilidad en el servidor");
+            //Debug.Log("Lanzando habilidad en el servidor");
 
             //METER CODIGO DE SERVIDOR AQUI
             switch (cuerpoNave.GetComponent<PlayerShip>().activeAbility.type)
@@ -668,9 +665,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (!IsServer)
         {
+            //Debug.Log("Lanzando habilidad en el cliente");
             PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
-            //METER CODIGO DE CLIENTE AQUI
-            Debug.Log("Lanzando habilidad en el cliente");
             playerShip.UseAbility();
         }
     }

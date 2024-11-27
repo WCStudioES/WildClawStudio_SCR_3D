@@ -116,11 +116,13 @@ public class ControladorNave : NetworkBehaviour
                 }
             }
 
+            GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
+
             // Aplicar la velocidad calculada a la posición del objeto
-            transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
+            //transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
 
             // Aplica la pasiva de la nave si ocurre todo el rato
-            if(playerShip.passiveAbility is StatBuffPassive)
+            if (playerShip.passiveAbility is StatBuffPassive)
             {
                 playerShip.passiveAbility.Execute();
             }
@@ -223,6 +225,8 @@ public class ControladorNave : NetworkBehaviour
             {
                 velocity = Vector3.zero;
             }
+
+            GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
         }
     }
 
