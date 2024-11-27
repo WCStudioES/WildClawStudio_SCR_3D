@@ -10,8 +10,8 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     public float timeOfEffect;  //Tiempo que dura el efecto en pantalla
     public int ticksPerSecond; // ticks de daño/segundo del efecto
     //private float tickTimer = -1;
-    private bool canHit = true;
-    private bool isResetting = false;
+    protected bool canHit = true;
+    protected bool isResetting = false;
 
     public float speed; // Velocidad a la que se mueve el efecto (si se mueve)
     protected Vector3 direction;
@@ -39,13 +39,19 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     //Crear zona de daño sin direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor)
     {
-        Debug.Log("Explosion creada"); 
-        AudioManager.Instance.PlaySFX(aoeSFX);
+        //Debug.Log("Explosion creada");
+        if(aoeSFX!= null)
+        {
+            AudioManager.Instance.PlaySFX(aoeSFX);
+        }
         ControladorNaveDueña = pDmgDealer;
         CuerpoNaveDueña = pCuerpoNaveDueña;
         IsInServidor = pIsInServidor;
 
-        Destroy(gameObject, timeOfEffect);
+        if(timeOfEffect != -1)
+        {
+           Destroy(gameObject, timeOfEffect);
+        }
     }
 
     public abstract void OnHit(IDamageable target, NetworkedPlayer dmgDealer);
@@ -111,11 +117,11 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     }
 
     // Corrutina para manejar el cooldown del golpe
-    private IEnumerator ResetHitCooldown()
+    protected IEnumerator ResetHitCooldown()
     {
         isResetting = true; // Bloquea nuevas ejecuciones mientras el cooldown está activo
         float time = 1/ (float)ticksPerSecond;
-        Debug.Log(time);
+        //Debug.Log(time);
         yield return new WaitForSeconds(time);
         canHit = true;
         isResetting = false; // Libera el bloqueo

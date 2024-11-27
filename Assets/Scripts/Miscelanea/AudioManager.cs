@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     private List<AudioSource> activeAudioSources = new List<AudioSource>(); // Para rastrear los SFX activos
 
     [SerializeField] private AudioClip buttonClickSFX;
+    public bool isMuted = true;
 
 
 
@@ -163,4 +164,27 @@ public class AudioManager : MonoBehaviour
     {
         return NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer;
     }
+
+    public void ToggleAudio()
+    {
+        if (IsServer()) return;
+        isMuted = !isMuted;
+
+        // Activar o desactivar música
+        if (musicSource != null)
+        {
+            Debug.Log("Hola?");
+            musicSource.mute = isMuted;
+        }
+
+        // Activar o desactivar todos los SFX
+        foreach (AudioSource sfx in audioSourcePool)
+        {
+            if (sfx != null)
+            {
+                sfx.mute = isMuted;
+            }
+        }
+    }
+
 }

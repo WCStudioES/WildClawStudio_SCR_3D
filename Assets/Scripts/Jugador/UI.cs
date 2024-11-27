@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI : NetworkBehaviour
 {
@@ -25,6 +26,7 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Historial;
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
+    [SerializeField] private GameObject ToggleAudioButton;
     private int posicionCuentaAtras = 0;
 
     [SerializeField] private GameObject[] circulosAzulesVictoria;
@@ -184,6 +186,12 @@ public class UI : NetworkBehaviour
     {
         Historial.SetActive(false);
         Personalizacion.SetActive(true);
+    }
+
+    public void ToggleAudio()
+    {
+        Debug.Log("Hola");
+        ToggleAudioButton.GetComponent<AudioToggleButton>().OnButtonPressed();
     }
 
     //GUARDA UNA PARTIDA EN EL HISTORIAL DE PARTIDAD

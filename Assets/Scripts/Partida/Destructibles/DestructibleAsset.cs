@@ -81,7 +81,7 @@ public class DestructibleAsset : Damageable
 
     // Metodo para destruir el meteorito en el cliente
     [ClientRpc]
-    protected void DisableDamageableClientRpc()
+    public void DisableDamageableClientRpc()
     {
         StopFlashingAndCleanUp();
         isFlashing = false;

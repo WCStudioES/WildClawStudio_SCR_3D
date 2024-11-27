@@ -42,6 +42,9 @@ public class Partida : NetworkBehaviour
     //PUNTOS DONDE APARECERAN LOS JUGADORES
     [SerializeField] private GameObject[] puntosDeSpawn;
 
+    //ANILLO DE FUEGO
+    [SerializeField] private FireRing fireRing;
+
     //LISTA DE RONDAS GANADAS
     private List<List<bool>> partidasGanadasPorJugador = new List<List<bool>>(); 
 
@@ -67,8 +70,14 @@ public class Partida : NetworkBehaviour
 
                 if (tiempoDeRondaActual <= 0.0f)
                 {
-                    partidaEnMarcha = false;
-                    finalizarRondaPorTiempo();
+                    //FINAL POR MUERTE SÚBITA
+                    fireRing.CrearAreaDmg(null, null, IsServer);
+                    OcultarDestructibles();
+                    fireRing.isShrinking = true;
+
+                    //FINAL POR TIEMPO
+                    //partidaEnMarcha = false;
+                    //finalizarRondaPorTiempo();
                 }
 
                 tiempoDeRondaActual -= Time.deltaTime;
@@ -111,6 +120,19 @@ public class Partida : NetworkBehaviour
         foreach (var unDebris in debris)
         {
             unDebris.RestoreDestructibleAsset();
+        }
+    }
+
+    private void OcultarDestructibles()
+    {
+        foreach (var meteorito in meteoritos)
+        {
+            meteorito.DisableDamageableClientRpc();
+        }
+
+        foreach (var unDebris in debris)
+        {
+            unDebris.DisableDamageableClientRpc();
         }
     }
 
@@ -298,7 +320,10 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
-        AudioManager.Instance.musicSource.Pause();
+        if (IsOwner)
+        {
+            AudioManager.Instance.musicSource.Pause();
+        }
 
         foreach (var VARIABLE in jugadores)
         {
@@ -346,6 +371,7 @@ public class Partida : NetworkBehaviour
         prepararEscenario();
         
         //HABILITA EL MOVIMIENTO Y LAS NAVES
+        //HABILITA EL MOVIMIENTO Y LAS NAVES
         Invoke("reactivarNaves", 3.0f);
         
         //LANZA LA CUENTA ATRAS PARA INICIAR LA PARTIDA
@@ -366,11 +392,13 @@ public class Partida : NetworkBehaviour
     //PREPARAR COMPONENTES
     private void prepararEscenario()
     {
+        fireRing.Reset();
         //RESTAURA EL TIEMPO DE LA RONDA
         tiempoDeRondaActual = maximoTiempoPorRonda;
         foreach (var jugador in jugadores)
         {
             jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual/maximoTiempoPorRonda, 0);
+            fireRing.AddPlayer(jugador.nave.transform);
         }
         //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
         Invoke("restaurarNaves", 0.2f);
@@ -394,8 +422,11 @@ public class Partida : NetworkBehaviour
     private void ponerPartidaEnMarcha()
     {
         //INDICA QUE LA PARTIDA HA EMPEZADO
+        if (IsOwner)
+        {
+            AudioManager.Instance.PlayGameMusic();
+        }
         partidaEnMarcha = true;
-        AudioManager.Instance.PlayGameMusic();
         rondaEnmarcha = true;
     }
 

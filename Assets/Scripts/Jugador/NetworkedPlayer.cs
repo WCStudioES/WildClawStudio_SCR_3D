@@ -365,7 +365,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
 
             // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
-            if (actualHealth.Value <= 0)
+            if (actualHealth.Value <= 0 && dueñoDaño != null)
             {
                 dueñoDaño.GetXP(xp.Value);
                 Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
