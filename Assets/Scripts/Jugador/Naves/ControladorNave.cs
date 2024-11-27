@@ -133,12 +133,14 @@ public class ControladorNave : NetworkBehaviour
     {
         direccionMovimiento = Vector3.forward; // Apuntar hacia adelante
         AccelerateSFXClientRpc(true);
+        AccelerateVFXClientRpc(true);
     }
 
     public void Stop()
     {
         direccionMovimiento = Vector3.zero;
         AccelerateSFXClientRpc(false);
+        AccelerateVFXClientRpc(false);
     }
 
     [ClientRpc]
@@ -152,6 +154,15 @@ public class ControladorNave : NetworkBehaviour
         else if (!play && shipAudioSource.isPlaying)
         {
             AudioManager.Instance.StopSFX(shipAudioSource);
+        }
+    }
+
+    [ClientRpc]
+    public void AccelerateVFXClientRpc(bool active)
+    {
+        if (!IsServer)
+        {
+            playerShip.ToggleFireVFX(active);
         }
     }
 
