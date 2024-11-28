@@ -11,6 +11,7 @@ public class DestructibleAsset : Damageable
     {
         if (IsServer)
         {
+            RenderManager.Instance.RegisterNewObject(gameObject);
             actualHealth.Value = maxHealth;
             //resToGive.Value = 100;
         }
@@ -66,7 +67,7 @@ public class DestructibleAsset : Damageable
                     break;
             }
             StopFlashingAndCleanUp(); // Detener el flashing y restaurar colores
-            StartCoroutine("DestroyWithDelay");
+            StartCoroutine(DestroyWithDelay());
 
             PlayDestructionSFXClientRpc();
         }

@@ -20,10 +20,9 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
 
     protected bool isFlashing = false;
 
-    //public AudioClip collisionSFX;
     public AudioClip destructionSFX;
 
-    public bool isDamageable = true;
+    //public bool isDamageable = true;
 
     public enum ResourceToGive
     {
@@ -118,7 +117,7 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     {
         if(destructionSFX != null)
         {
-            AudioManager.Instance.PlaySFX(destructionSFX);
+            AudioManager.Instance.PlaySFX(destructionSFX, transform.position);
         }
     }
 

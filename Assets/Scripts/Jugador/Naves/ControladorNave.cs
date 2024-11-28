@@ -71,21 +71,9 @@ public class ControladorNave : NetworkBehaviour
             Vector2 previousVelocity = velocity;
             
             // Si hay dirección de movimiento, acelerar
-            if (direccionMovimiento != Vector3.zero)
+            if (direccionMovimiento != Vector3.zero && canBounce)
             {
                 Vector2 forwardDirection = new Vector2(transform.forward.x, transform.forward.z).normalized;
-
-                //if (previousVelocity != Vector2.zero && forwardDirection != Vector2.zero)
-                //{
-                //    //Si giras más de 45 grados tienes un boost de velocidad
-                //    float dotProduct = Vector2.Dot(previousVelocity.normalized, forwardDirection);
-                //    float angle = Mathf.Acos(Mathf.Clamp(dotProduct, -1f, 1f)) * Mathf.Rad2Deg;
-
-                //    if (angle > 45f)
-                //    {
-                //        velocity = forwardDirection * initialSpeed;
-                //    }
-                //}
 
                 if(previousVelocity == Vector2.zero)
                 {
@@ -169,10 +157,7 @@ public class ControladorNave : NetworkBehaviour
     [ClientRpc]
     public void PlayCollisionSFXClientRpc()
     {
-        if (IsOwner)
-        {
-            AudioManager.Instance.PlaySFX(collisionSFX);
-        }
+        AudioManager.Instance.PlaySFX(collisionSFX, transform.position);
     }
 
     public void Rotate(float input)
@@ -227,14 +212,10 @@ public class ControladorNave : NetworkBehaviour
                 targetDirection = Vector3.Reflect(velocity.normalized, collisionNormal); // Dirección reflejada
 
                 // Actualiza la velocidad
-                velocity = targetDirection * velocity.magnitude/3;
+                velocity = targetDirection * velocity.magnitude/2;
 
                 canBounce = false;
                 StartCoroutine("SetCanBounce", true);
-            }
-            else
-            {
-                velocity = Vector3.zero;
             }
 
             GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
@@ -244,7 +225,7 @@ public class ControladorNave : NetworkBehaviour
     public IEnumerator SetCanBounce(bool toSet)
     {
         Debug.Log("Espera para colisionar");
-        yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+        yield return new WaitForSeconds(0.2f); // Delay
         canBounce = toSet;
     }
 
@@ -351,5 +332,6 @@ public class ControladorNave : NetworkBehaviour
         //VC.transform.position = cameraPosition;
         //VC.transform.LookAt(CameraTarget.transform);
     }
+
 
 }

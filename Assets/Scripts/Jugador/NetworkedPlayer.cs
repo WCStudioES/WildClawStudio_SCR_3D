@@ -91,7 +91,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     [SerializeField] public Image Cronometro; 
     
-    private List<Shield> activeShields;
+    private List<Shield> activeShields = new List<Shield>();
     
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
@@ -363,7 +363,16 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (partida.rondaEnmarcha)
         {
             //Restar el daño
-            actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
+            //Debug.Log("Escudos:" + activeShields.Count);
+            if(activeShields.Count == 0 || dueñoDaño == null)
+            {
+                actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
+            }
+            else if (activeShields.Count > 0 && !activeShields[activeShields.Count-1].gameObject.activeSelf)
+            {
+                activeShields.RemoveAt(activeShields.Count-1); 
+                actualHealth.Value -= (dmg - dmg * armor.Value / 100);
+            }
 
             // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
             if (actualHealth.Value <= 0 && dueñoDaño != null)
@@ -779,5 +788,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         proyectilMejorado = proyectilNuevo;
         uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
+    }
+
+    ///////////////////////
+    /// Gestión de Escudos
+    //////////////////////
+
+    public void AddShield(Shield shield)
+    {
+        activeShields.Add(shield);
     }
 }

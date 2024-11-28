@@ -28,6 +28,7 @@ public class VisualShield : Shield
         if (IsServer)
         {
             selectedModelIndex.Value = index;
+            owner.AddShield(this);
         }
 
         // Asegúrate de aplicar el modelo correcto al inicio
