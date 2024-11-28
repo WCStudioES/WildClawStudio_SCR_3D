@@ -91,6 +91,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     [SerializeField] public Image Cronometro; 
     
+    private List<Shield> activeShields;
     
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos

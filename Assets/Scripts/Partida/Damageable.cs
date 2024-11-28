@@ -23,6 +23,7 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     //public AudioClip collisionSFX;
     public AudioClip destructionSFX;
 
+    public bool isDamageable = true;
 
     public enum ResourceToGive
     {
