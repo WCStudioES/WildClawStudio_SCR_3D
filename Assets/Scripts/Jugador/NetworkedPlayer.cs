@@ -159,6 +159,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //DEVUELVE LA NAVE A LA POSICION DE SPAWN
             nave.SetToSpawn(spawnPosition, false);
             nave.velocity = Vector3.zero;
+            nave.canBounce = true;
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
@@ -654,7 +655,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //METER CODIGO DE SERVIDOR AQUI
             switch (cuerpoNave.GetComponent<PlayerShip>().activeAbility.type)
             {
-                case ActiveAbility.ActiveType.MovementBuff: 
                 case ActiveAbility.ActiveType.TogglePassive:
                 case ActiveAbility.ActiveType.Shield:
                     cuerpoNave.GetComponent<PlayerShip>().UseAbility();

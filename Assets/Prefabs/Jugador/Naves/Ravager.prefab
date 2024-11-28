@@ -62,6 +62,8 @@ Transform:
   m_Children:
   - {fileID: 7657748933217803199}
   - {fileID: 5601893161125306074}
+  - {fileID: 2234497262354916050}
+  - {fileID: 8645789174331922093}
   m_Father: {fileID: 6984701182360117565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4469592868464885762
@@ -191,6 +193,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5691577723690506381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6999168339328035423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8645789174331922093}
+  m_Layer: 0
+  m_Name: ExtraMotor2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8645789174331922093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999168339328035423}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.822, y: -0.3, z: 0.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1358685411129003770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8079300462180980553
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +308,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5691577723690506381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8316064150935438819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2234497262354916050}
+  m_Layer: 0
+  m_Name: ExtraMotor1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2234497262354916050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8316064150935438819}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.822, y: -0.3, z: 0.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1358685411129003770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8451454459461662108
 GameObject:
@@ -412,6 +476,10 @@ MonoBehaviour:
   maxSpeedBuff: 5
   accelerationBuff: 10
   energyRecharge: 1
+  extraFires:
+  - {fileID: 2234497262354916050}
+  - {fileID: 8645789174331922093}
+  firePropulsionVFX: {fileID: 3893311136088826993, guid: 6666252ccad81964bb363e626ff7c3cc, type: 3}
 --- !u!114 &-8598968886529694628
 MonoBehaviour:
   m_ObjectHideFlags: 0

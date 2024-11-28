@@ -54,5 +54,11 @@ public abstract class Ability : MonoBehaviour, IAbility
     public void Start()
     {
         networkedPlayer= GetComponentInParent<NetworkedPlayer>();
+        InitializeVFX();
+    }
+
+    protected virtual void InitializeVFX()
+    {
+        return;
     }
 }
