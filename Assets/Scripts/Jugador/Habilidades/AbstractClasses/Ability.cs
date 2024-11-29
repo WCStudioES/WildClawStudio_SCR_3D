@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public abstract class Ability : MonoBehaviour, IAbility
 {
@@ -10,6 +12,9 @@ public abstract class Ability : MonoBehaviour, IAbility
     public ResourceType resourceType;
     public float actualResQuantity;
     public float neededResQuantity;
+
+    [SerializeField] protected List<VisualEffect> visualEffects;
+    private bool activeVFX = false;
 
     //Referencia al jugador, usado para restar y sumar vida
     public NetworkedPlayer networkedPlayer;
@@ -25,12 +30,11 @@ public abstract class Ability : MonoBehaviour, IAbility
     }
 
     //Usado cuando se llama a la habilidad (pulsar tecla o Upadte() si es pasiva)
-    public void Execute()
+    public virtual void Execute()
     {
         if (CheckAvailability())
         {
             AbilityExecution();
-            
             switch(resourceType)
             {
                 case ResourceType.CoolDown:
@@ -44,8 +48,15 @@ public abstract class Ability : MonoBehaviour, IAbility
         }
     }
 
+
     //La propia ejecuci�n de la habilidad
     public abstract void AbilityExecution();
+
+    //Detiene la ejecución de la habilidad
+    public virtual void Stop()
+    {
+        return;
+    }
 
     //Mira si puede usarse la habilidad
     public abstract bool CheckAvailability();
@@ -53,12 +64,23 @@ public abstract class Ability : MonoBehaviour, IAbility
     // Start is called before the first frame update
     public void Start()
     {
-        networkedPlayer= GetComponentInParent<NetworkedPlayer>();
+        networkedPlayer = GetComponentInParent<NetworkedPlayer>();
         InitializeVFX();
     }
 
-    protected virtual void InitializeVFX()
+    public virtual void InitializeVFX()
     {
         return;
+    }
+
+    public virtual void ToggleVFX(bool active)
+    {
+        foreach(VisualEffect effect in visualEffects)
+        {
+            if(effect != null)
+            {
+                effect.enabled = active;
+            }
+        }
     }
 }

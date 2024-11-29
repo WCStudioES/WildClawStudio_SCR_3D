@@ -6,10 +6,8 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
-public class RavagerActive : MovementAbility
+public class RavagerActive : ToggleAbility
 {
-    private bool isActivated = false;   //Booleano que indica si está activado
-
     private float duracionTotal = 3; // Tiempo total que se puede usar la habilidad
     private float duracionActual = 0; // Tiempo de uso de la habilidad
 
@@ -24,34 +22,25 @@ public class RavagerActive : MovementAbility
 
     //Metodo para activar habilidad: impulso de velocidad durante unos segundos
     public override void AbilityExecution()
-    {
+    {      
         if (!networkedPlayer.IsServer) return;
-
-        Debug.Log("Habilidad Ravager ejecutada"); 
+        Debug.Log("Habilidad Ravager ejecutada");
         //uiBoosters.UpdateActiveImage(neededResQuantity);
 
-        if (!isActivated)
-        {
-            Debug.Log("Habilidad Ravager ejecutada");
-            isActivated = true;
-            networkedPlayer.nave.maxSpeed += maxSpeedBuff;
-            networkedPlayer.nave.acceleration += accelerationBuff;
-
-            MegaAccelerateVFXClientRpc(true);
-
-            //StartCoroutine("DurationCounter");
-            //StartCoroutine("CheckEnergy");
-        }
-        else
-        {
-            AcabarHabilidad();
-        }
+        networkedPlayer.nave.maxSpeed += maxSpeedBuff;
+        networkedPlayer.nave.acceleration += accelerationBuff;
     }
 
     //Metodo para reiniciar habilidad entre ronda
     public override void ResetRonda()
     {
-        AcabarHabilidad();
+        if(!networkedPlayer.IsServer) return;
+
+        if (active)
+        {
+            Toggle();
+        }
+
         actualResQuantity = maxResource;
 
         networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource);
@@ -60,7 +49,7 @@ public class RavagerActive : MovementAbility
 
     public override bool CheckAvailability()
     {
-        if (actualResQuantity < neededResQuantity && !isActivated)
+        if (actualResQuantity < neededResQuantity && !active)
         {
             return false;
         }
@@ -74,29 +63,31 @@ public class RavagerActive : MovementAbility
         }
     }
 
-    public void Update()
+    public new void Update()
     {
+        if (!networkedPlayer.IsServer) return;
+
         Color color;
 
-        if (!isActivated && actualResQuantity < maxResource)
+        if (!active && actualResQuantity < maxResource)
         {
             actualResQuantity += energyRecharge * Time.deltaTime;
         }
-        else if (isActivated)
+        else if (active)
         {
-            Debug.Log("Habilidad estaCtivada");
+            Debug.Log("Habilidad activada");
             if (actualResQuantity <= 0)
             {
-                AcabarHabilidad();
+                Toggle();
             }
             actualResQuantity -= neededResQuantity * Time.deltaTime;
         }
 
-        if (!isActivated && actualResQuantity < neededResQuantity)
+        if (!active && actualResQuantity < neededResQuantity)
         {
             color = Color.red;
         }
-        else if (isActivated)
+        else if (active)
         {
             color = Color.yellow;
         }
@@ -108,30 +99,23 @@ public class RavagerActive : MovementAbility
         networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, color);
     }
 
+    
     //Metodo que acabar la habilidad y restaura los valores a su modo inicial
-    private void AcabarHabilidad()
+    public override void Stop()
     {
         if (!networkedPlayer.IsServer) return; // Solo el servidor termina la habilidad
 
         Debug.Log("Habilidad Ravager terminada");
-        if (isActivated)
-        {
-            Debug.Log("Habilidad Ravager terminada");
-
-            MegaAccelerateVFXClientRpc(false);
-
-            isActivated = false;
-            networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
-            networkedPlayer.nave.acceleration -= accelerationBuff;
-            duracionActual = 0;
-            //networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
-        }
+        networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
+        networkedPlayer.nave.acceleration -= accelerationBuff;
+        duracionActual = 0;
+        networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, Color.white);
     }
 
     //Metodo para aumentar elcontador de duración de la habilidad
     IEnumerator DurationCounter()
     {
-        while (duracionActual <= duracionTotal && isActivated)
+        while (duracionActual <= duracionTotal && active)
         {
             yield return new WaitForSeconds(1f); // Esperar un segundo para restar
 
@@ -139,7 +123,7 @@ public class RavagerActive : MovementAbility
 
             Debug.Log("Duracion segundos Ravager: " + actualResQuantity);
         }
-        AcabarHabilidad();
+        Stop();
     }
 
     IEnumerator UiUpdater()
@@ -153,56 +137,32 @@ public class RavagerActive : MovementAbility
 
     IEnumerator CheckEnergy()
     {
-        while (isActivated)
+        while (active)
         {
             yield return new WaitForSeconds(1f); // Esperar un 0.1 segudnos para comprobar
 
             actualResQuantity -= neededResQuantity;
             if (actualResQuantity < neededResQuantity)
             {
-                AcabarHabilidad();
+                Stop();
             }
         }
     }
 
     //VFX
-    protected override void InitializeVFX()
+    public override void InitializeVFX()
     {
         foreach (Transform spawn in extraFires)
         {
             if (firePropulsionVFX != null)
             {
+
                 VisualEffect newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
                 newVFX.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-                activeFireVFX.Add(newVFX);
+                visualEffects.Add(newVFX);
             }
         }
-        ToggleFireVFX(false);
+        ToggleVFX(false);
     }
 
-    public void ToggleFireVFX(bool active)
-    {
-        Debug.Log("Ravager Propulsores extra: " + active);
-        foreach (VisualEffect vfx in activeFireVFX)
-        {
-            if (vfx != null)
-            {
-                vfx.enabled = active;
-            }
-        }
-    }
-
-    [ClientRpc]
-    public void MegaAccelerateVFXClientRpc(bool active)
-    {
-        Debug.Log("Recibido colega");
-        ToggleFireVFX(active);
-    }
-
-    [ServerRpc]
-    public void MegaAccelerateVFXServerRpc(bool active)
-    {
-        Debug.Log("Preparando motores de aceleración turbo");
-        MegaAccelerateVFXClientRpc(active);
-    }
 }

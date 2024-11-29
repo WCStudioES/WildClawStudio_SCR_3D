@@ -651,15 +651,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (IsServer && canUseAbility)
         {
             //Debug.Log("Lanzando habilidad en el servidor");
+            PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
+            ActiveAbility ability = playerShip.activeAbility;
 
             //METER CODIGO DE SERVIDOR AQUI
-            switch (cuerpoNave.GetComponent<PlayerShip>().activeAbility.type)
+            switch (ability.type)
             {
+                //HABILIDADES SOLO EJECUTADAS EN EL SERVER
                 case ActiveAbility.ActiveType.TogglePassive:
                 case ActiveAbility.ActiveType.Shield:
-                    cuerpoNave.GetComponent<PlayerShip>().UseAbility();
+                    playerShip.UseAbility();
                     break;
 
+                //HABILIDADES EJECUTADAS EN CLIENTE Y SERVIDOR
                 default:
                     cuerpoNave.GetComponent<PlayerShip>().UseAbility();
                     AbilityClientRpc();
@@ -694,7 +698,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         uiBoosters.UpdateActiveImage(value, color);
     }
-    
+
+    //Activar y desactivar VFX de habilidad en clientes
+    [ClientRpc]
+    public void ToggleAbilityVFXClientRpc(bool value)
+    {
+        nave.playerShip.activeAbility.ToggleVFX(value);
+    }
+
     //Metodo para actualizar la UI de la habilidad sin CD sin color
     [ClientRpc]
     public void UpdateAbilityUIClientRpc(float value)
