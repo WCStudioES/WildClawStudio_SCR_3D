@@ -55,5 +55,5 @@ MonoBehaviour:
   endInnerRadius: 0.5
   shrinkDuration: 15
   players: []
-  ringMaterial: {fileID: 2100000, guid: 0b11c686ec90040428bd3319c6820958, type: 2}
+  ringMaterial: {fileID: 2100000, guid: c765dc1bccb28a144bba207fe626507e, type: 2}
   isShrinking: 0
