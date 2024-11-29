@@ -185,11 +185,12 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   rotationSpeed: 200
   reductionMultiplier: 0.0125
-  acceleration: 5
-  deceleration: 1
-  maxSpeed: 15
+  initialSpeed: 3
+  acceleration: 7
+  deceleration: 10
+  maxSpeed: 20
   maxSpeedDmg: 10
-  canCollide: 1
+  canBounce: 1
   opcionesJugador: {fileID: 0}
   playerShip: {fileID: 7111494376282066658}
   colliderNave: {fileID: 0}
@@ -267,7 +268,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0

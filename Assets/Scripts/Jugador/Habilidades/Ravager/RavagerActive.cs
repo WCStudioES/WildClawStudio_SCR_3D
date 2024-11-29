@@ -1,61 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
-
-public class RavagerActive: MovementAbility    
+public class RavagerActive : ToggleAbility
 {
-    private bool isActivated = false;   //Booleano que indica si está activado
-        
-    private float duracionTotal= 3; // Tiempo total que se puede usar la habilidad
+    private float duracionTotal = 3; // Tiempo total que se puede usar la habilidad
     private float duracionActual = 0; // Tiempo de uso de la habilidad
 
     public float maxSpeedBuff = 20;
     public float accelerationBuff = 30;
-    
+
     public int energyRecharge;  //Energia recargada por segundo
-    
+
+    private List<VisualEffect> activeFireVFX = new List<VisualEffect>();
+    [SerializeField] private List<Transform> extraFires;
+    [SerializeField] private VisualEffect firePropulsionVFX;
+
     //Metodo para activar habilidad: impulso de velocidad durante unos segundos
     public override void AbilityExecution()
-    {
+    {      
+        if (!networkedPlayer.IsServer) return;
         Debug.Log("Habilidad Ravager ejecutada");
         //uiBoosters.UpdateActiveImage(neededResQuantity);
 
-        if (!isActivated)
-        {
-            Debug.Log("Habilidad Ravager ejecutada");
-            isActivated = true;
-            networkedPlayer.nave.maxSpeed += maxSpeedBuff;
-            networkedPlayer.nave.acceleration += accelerationBuff;
-
-            //StartCoroutine("DurationCounter");
-            //StartCoroutine("CheckEnergy");
-        }
-        else
-        {
-            AcabarHabilidad();
-        }
+        networkedPlayer.nave.maxSpeed += maxSpeedBuff;
+        networkedPlayer.nave.acceleration += accelerationBuff;
     }
 
     //Metodo para reiniciar habilidad entre ronda
     public override void ResetRonda()
     {
-        AcabarHabilidad();
+        if(!networkedPlayer.IsServer) return;
+
+        if (active)
+        {
+            Toggle();
+        }
+
         actualResQuantity = maxResource;
 
-        networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity/maxResource);
+        networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource);
         //StartCoroutine("UiUpdater");
     }
 
     public override bool CheckAvailability()
     {
-        if(actualResQuantity < neededResQuantity && !isActivated)
+        if (actualResQuantity < neededResQuantity && !active)
         {
             return false;
         }
-        else if(actualResQuantity >= neededResQuantity)
+        else if (actualResQuantity >= neededResQuantity)
         {
             return true;
         }
@@ -65,29 +63,31 @@ public class RavagerActive: MovementAbility
         }
     }
 
-    public void Update()
+    public new void Update()
     {
+        if (!networkedPlayer.IsServer) return;
+
         Color color;
-        
-        if (!isActivated && actualResQuantity < maxResource)
+
+        if (!active && actualResQuantity < maxResource)
         {
             actualResQuantity += energyRecharge * Time.deltaTime;
         }
-        else if (isActivated)
+        else if (active)
         {
-            Debug.Log("Habilidad estaCtivada");
-            if (actualResQuantity <= 0 )
+            Debug.Log("Habilidad activada");
+            if (actualResQuantity <= 0)
             {
-                AcabarHabilidad();
+                Toggle();
             }
             actualResQuantity -= neededResQuantity * Time.deltaTime;
         }
 
-        if (!isActivated && actualResQuantity < neededResQuantity)
+        if (!active && actualResQuantity < neededResQuantity)
         {
             color = Color.red;
         }
-        else if (isActivated)
+        else if (active)
         {
             color = Color.yellow;
         }
@@ -95,41 +95,35 @@ public class RavagerActive: MovementAbility
         {
             color = Color.white;
         }
-        
-        
-        networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity/maxResource, color);
-        
-        
+
+        networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, color);
     }
 
+    
     //Metodo que acabar la habilidad y restaura los valores a su modo inicial
-    private void AcabarHabilidad()
+    public override void Stop()
     {
-        Debug.Log("Habilidad Ravager terminada");
-        if (isActivated)
-        {
-            Debug.Log("Habilidad Ravager terminada");
+        if (!networkedPlayer.IsServer) return; // Solo el servidor termina la habilidad
 
-            isActivated = false;
-            networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
-            networkedPlayer.nave.acceleration -= accelerationBuff;
-            duracionActual = 0;
-            //networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
-        }
+        Debug.Log("Habilidad Ravager terminada");
+        networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
+        networkedPlayer.nave.acceleration -= accelerationBuff;
+        duracionActual = 0;
+        networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, Color.white);
     }
 
     //Metodo para aumentar elcontador de duración de la habilidad
     IEnumerator DurationCounter()
     {
-        while (duracionActual <= duracionTotal && isActivated)
+        while (duracionActual <= duracionTotal && active)
         {
             yield return new WaitForSeconds(1f); // Esperar un segundo para restar
-                
+
             duracionActual++;
-                
+
             Debug.Log("Duracion segundos Ravager: " + actualResQuantity);
         }
-        AcabarHabilidad();
+        Stop();
     }
 
     IEnumerator UiUpdater()
@@ -137,21 +131,38 @@ public class RavagerActive: MovementAbility
         while (gameObject.activeInHierarchy)
         {
             yield return new WaitForSeconds(0.1f); // Esperar un 0.1 segundo para actualizar
-            networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity/maxResource);
+            networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource);
         }
     }
 
     IEnumerator CheckEnergy()
     {
-        while (isActivated)
+        while (active)
         {
             yield return new WaitForSeconds(1f); // Esperar un 0.1 segudnos para comprobar
 
             actualResQuantity -= neededResQuantity;
             if (actualResQuantity < neededResQuantity)
             {
-                AcabarHabilidad();
+                Stop();
             }
         }
     }
+
+    //VFX
+    public override void InitializeVFX()
+    {
+        foreach (Transform spawn in extraFires)
+        {
+            if (firePropulsionVFX != null)
+            {
+
+                VisualEffect newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
+                newVFX.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+                visualEffects.Add(newVFX);
+            }
+        }
+        ToggleVFX(false);
+    }
+
 }

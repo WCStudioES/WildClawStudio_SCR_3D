@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     private List<AudioSource> activeAudioSources = new List<AudioSource>(); // Para rastrear los SFX activos
 
     [SerializeField] private AudioClip buttonClickSFX;
+    public bool isMuted = true;
 
 
 
@@ -110,6 +111,46 @@ public class AudioManager : MonoBehaviour
         return null;
     }
 
+    public AudioSource PlaySFX(AudioClip clip, Vector3 position)
+    {
+        if (IsServer() || clip == null) return null;
+
+        if (audioSourcePool.Count > 0)
+        {
+            AudioSource source = audioSourcePool.Dequeue();
+            if (source == null)
+            {
+                Debug.LogError("El AudioSource sacado del pool es nulo.");
+                return null;
+            }
+
+            // Mover el AudioSource a la posición deseada
+            source.transform.position = position;
+
+            source.gameObject.SetActive(true);
+            source.clip = clip;
+            source.Play();
+            activeAudioSources.Add(source);
+
+            StartCoroutine(ReturnToPool(source, clip.length));
+            return source;
+        }
+
+        Debug.LogWarning("No hay AudioSources disponibles en el pool.");
+        return null;
+    }
+
+    public bool IsSFXPlaying(AudioClip clip)
+    {
+        foreach (var source in activeAudioSources)
+        {
+            if (source.clip == clip && source.isPlaying)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void StopSFX(AudioSource source)
     {
@@ -126,6 +167,18 @@ public class AudioManager : MonoBehaviour
         {
             // Si es un AudioSource externo, simplemente lo detiene
             source.Stop();
+        }
+    }
+
+    public void StopSFX(AudioClip clip)
+    {
+        for (int i = activeAudioSources.Count - 1; i >= 0; i--)
+        {
+            AudioSource source = activeAudioSources[i];
+            if (source.clip == clip && source.isPlaying)
+            {
+                StopSFX(source);
+            }
         }
     }
 
@@ -163,4 +216,27 @@ public class AudioManager : MonoBehaviour
     {
         return NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer;
     }
+
+    public void ToggleAudio()
+    {
+        if (IsServer()) return;
+        isMuted = !isMuted;
+
+        // Activar o desactivar música
+        if (musicSource != null)
+        {
+            Debug.Log("Hola?");
+            musicSource.mute = isMuted;
+        }
+
+        // Activar o desactivar todos los SFX
+        foreach (AudioSource sfx in audioSourcePool)
+        {
+            if (sfx != null)
+            {
+                sfx.mute = isMuted;
+            }
+        }
+    }
+
 }

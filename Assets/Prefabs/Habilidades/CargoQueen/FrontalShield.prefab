@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5c2b4869697e18c4ba2b051ece4054cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
   resType: 0
   resToGive:
     m_InternalValue: 0
+  destructionSFX: {fileID: 0}
+  partida: {fileID: 0}
   duration: 10
   owner: {fileID: 0}
   spawn: {fileID: 0}

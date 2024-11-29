@@ -91,6 +91,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     [SerializeField] public Image Cronometro; 
     
+    private List<Shield> activeShields = new List<Shield>();
     
     
     //public int equipo;  Para luego que no haya fuego amigo entre equipos
@@ -158,6 +159,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             //DEVUELVE LA NAVE A LA POSICION DE SPAWN
             nave.SetToSpawn(spawnPosition, false);
             nave.velocity = Vector3.zero;
+            nave.canBounce = true;
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
@@ -362,14 +364,22 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (partida.rondaEnmarcha)
         {
             //Restar el daño
-            actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
+            //Debug.Log("Escudos:" + activeShields.Count);
+            if(activeShields.Count == 0 || dueñoDaño == null)
+            {
+                actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
+            }
+            else if (activeShields.Count > 0 && !activeShields[activeShields.Count-1].gameObject.activeSelf)
+            {
+                activeShields.RemoveAt(activeShields.Count-1); 
+                actualHealth.Value -= (dmg - dmg * armor.Value / 100);
+            }
 
             // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
-            if (actualHealth.Value <= 0)
+            if (actualHealth.Value <= 0 && dueñoDaño != null)
             {
                 dueñoDaño.GetXP(xp.Value);
-                Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
-                //Pierdes;
+                //Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             }
 
             //Debug.Log("Vida actual de la nave: " + actualHealth);
@@ -389,8 +399,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         if (actualHealth.Value <= 0)
         {
             dueñoDaño.GetXP(xp.Value);
-            Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
-            //Pierdes;
+            //Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
         }
         else
         {
@@ -413,8 +422,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         int health = Mathf.Min(actualHealth.Value + heal, maxHealth.Value);
         actualHealth.Value = health;  // Suma la cantidad de daño a la vida de la nave
         
-        Debug.Log("Vida actual de la nave: " + actualHealth.Value);
-        //Debug.Log("Vida actual de la nave: " + actualHealth);
+        //Debug.Log("Vida actual de la nave: " + actualHealth.Value);
         UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
     }
     
@@ -443,7 +451,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             // Se actualiza la barra de vida
 
-            Debug.Log("Level " + lvl.Value);
+            //Debug.Log("Level " + lvl.Value);
 
             // Mejoras de nivel
             switch(lvl.Value)
@@ -642,17 +650,20 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (IsServer && canUseAbility)
         {
-            Debug.Log("Lanzando habilidad en el servidor");
+            //Debug.Log("Lanzando habilidad en el servidor");
+            PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
+            ActiveAbility ability = playerShip.activeAbility;
 
             //METER CODIGO DE SERVIDOR AQUI
-            switch (cuerpoNave.GetComponent<PlayerShip>().activeAbility.type)
+            switch (ability.type)
             {
-                case ActiveAbility.ActiveType.MovementBuff: 
+                //HABILIDADES SOLO EJECUTADAS EN EL SERVER
                 case ActiveAbility.ActiveType.TogglePassive:
                 case ActiveAbility.ActiveType.Shield:
-                    cuerpoNave.GetComponent<PlayerShip>().UseAbility();
+                    playerShip.UseAbility();
                     break;
 
+                //HABILIDADES EJECUTADAS EN CLIENTE Y SERVIDOR
                 default:
                     cuerpoNave.GetComponent<PlayerShip>().UseAbility();
                     AbilityClientRpc();
@@ -668,9 +679,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (!IsServer)
         {
+            //Debug.Log("Lanzando habilidad en el cliente");
             PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
-            //METER CODIGO DE CLIENTE AQUI
-            Debug.Log("Lanzando habilidad en el cliente");
             playerShip.UseAbility();
         }
     }
@@ -688,7 +698,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         uiBoosters.UpdateActiveImage(value, color);
     }
-    
+
+    //Activar y desactivar VFX de habilidad en clientes
+    [ClientRpc]
+    public void ToggleAbilityVFXClientRpc(bool value)
+    {
+        nave.playerShip.activeAbility.ToggleVFX(value);
+    }
+
     //Metodo para actualizar la UI de la habilidad sin CD sin color
     [ClientRpc]
     public void UpdateAbilityUIClientRpc(float value)
@@ -782,5 +799,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         proyectilMejorado = proyectilNuevo;
         uiBoosters.SetWeaponAbility(allProjectiles[proyectilNuevo].GetComponent<Proyectil>().sprite);
+    }
+
+    ///////////////////////
+    /// Gestión de Escudos
+    //////////////////////
+
+    public void AddShield(Shield shield)
+    {
+        activeShields.Add(shield);
     }
 }

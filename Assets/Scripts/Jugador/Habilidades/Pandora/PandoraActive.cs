@@ -7,45 +7,17 @@ public class PandoraActive : ToggleAbility
     public int hpThreshold = 20;    //Vida mínima para activar
     private int dmgBoost = 15;      //En Porcentaje
 
-    private bool active = false;
-    private void Awake()
-    {
-        type = ActiveType.TogglePassive;
-    }
-
     //Metodo para activar habilidad: más daño a costa de vida cada segundo
     public override void AbilityExecution()
     {
-        if (!active)
-        {
-            active = true;
-            StartCoroutine("ReduceLife");
+        if (!networkedPlayer.IsServer) return;
 
-            //Aumentar daño
-            networkedPlayer.dmgBalance.Value += dmgBoost;
+        StartCoroutine("ReduceLife");
+
+        //Aumentar daño
+        networkedPlayer.dmgBalance.Value += dmgBoost;
             
-            networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
-        }
-        else
-        {
-            AcabarHabilidad();
-        }
-    }
-
-    //Metodo que acabar la habilidad y restaura los valores a su modo inicial
-    private void AcabarHabilidad()
-    {
-        Debug.Log("AcabarHabilidad");
-        if (active)
-        {
-            Debug.Log("AcabarHabilidadIf");
-            active = false;
-
-            //Disminuir daño
-            networkedPlayer.dmgBalance.Value -= dmgBoost;
-            
-            networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
-        }
+        networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
     }
     
     //Metodo para redsucir la vida cada segundo, se desactiva si llega a la vida minima
@@ -59,14 +31,30 @@ public class PandoraActive : ToggleAbility
                 
             //Debug.Log("Vida de Pandora" + networkedPlayer.actualHealth.Value);
         }
-            
-        AcabarHabilidad();
+
+        Toggle();
     }
 
     public override void ResetRonda()
     {
+        if (!networkedPlayer.IsServer) return;
+
         Debug.Log("ResetRonda");
-        AcabarHabilidad();
+        if (active)
+        {
+            Toggle();
+        }
     }
-    
+
+    public override void Stop()
+    {
+        if (!networkedPlayer.IsServer) return;
+
+        Debug.Log("AcabarHabilidadIf");
+
+        //Disminuir daño
+        networkedPlayer.dmgBalance.Value -= dmgBoost;
+
+        networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
+    }
 }

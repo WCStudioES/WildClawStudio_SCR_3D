@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public abstract class Damageable : NetworkBehaviour, IDamageable
 {
@@ -19,9 +20,9 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
 
     protected bool isFlashing = false;
 
-    //public AudioClip collisionSFX;
     public AudioClip destructionSFX;
 
+    //public bool isDamageable = true;
 
     public enum ResourceToGive
     {
@@ -54,15 +55,20 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
             // Almacenar los colores originales
             foreach (var renderer in renderers)
             {
+                // Omite los renderers asociados a objetos con un VisualEffect
+                if (renderer.GetComponent<VisualEffect>() != null)
+                    continue;
+
                 foreach (var material in renderer.materials)
                 {
-                    if (!originalColors.ContainsKey(material))
+                    if (material.HasProperty("_BaseColor"))
                     {
-                        originalColors[material] = material.color;
-
-                        // Cambiar al color de impacto
-                        hitColor.a = material.color.a;
-                        material.color = hitColor;
+                        // Guarda el color original y aplica el color de impacto
+                        if (!originalColors.ContainsKey(material))
+                        {
+                            originalColors[material] = material.GetColor("_BaseColor");
+                            material.SetColor("_BaseColor", hitColor);
+                        }
                     }
                 }
             }
@@ -80,11 +86,15 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
 
         foreach (var renderer in renderers)
         {
+            // Omite nuevamente los renderers asociados a objetos con un VisualEffect
+            if (renderer.GetComponent<VisualEffect>() != null)
+                continue;
+
             foreach (var material in renderer.materials)
             {
-                if (originalColors.ContainsKey(material))
+                if (material.HasProperty("_BaseColor") && originalColors.ContainsKey(material))
                 {
-                    material.color = originalColors[material];
+                    material.SetColor("_BaseColor", originalColors[material]);
                 }
             }
         }
@@ -107,7 +117,7 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     {
         if(destructionSFX != null)
         {
-            AudioManager.Instance.PlaySFX(destructionSFX);
+            AudioManager.Instance.PlaySFX(destructionSFX, transform.position);
         }
     }
 

@@ -22,14 +22,14 @@ public class ControladorNave : NetworkBehaviour
 
     public float rotationSpeed = 250f; // Velocidad de rotación
     public float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
-    public float acceleration = 5f; // Aceleración
+    public float initialSpeed = 2.0f;
+    public float acceleration = 50f; // Aceleración
     public float deceleration = 50f; // Desaceleración (fricción)
     public float maxSpeed = 10f; // Velocidad máxima alcanzable
     public int maxSpeedDmg = 10; // Velocidad máxima alcanzable
 
-    public bool canCollide = true;
+    public bool canBounce = true;
     private Vector3 targetDirection; // Dirección hacia la que la nave debería girar
-    private bool shouldRotate = false; // Si la nave debe girar automáticamente
 
     [SerializeField] public OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
@@ -41,7 +41,7 @@ public class ControladorNave : NetworkBehaviour
     public AudioClip accelerateSFX;
 
     [Header("Camera Orbit Settings")]
-    public float orbitSpeed = 20f; // Velocidad de giro constante
+    public float orbitSpeed = 1.5f; // Velocidad de giro constante
     public float orbitDistance = 5f; // Distancia desde el objetivo
     public Vector2 orbitAngles = new Vector2(30, 0); // Ángulos iniciales (elevación, azimut)
     public float minVerticalAngle = 10f;
@@ -68,22 +68,23 @@ public class ControladorNave : NetworkBehaviour
 
         if (opcionesJugador != null && opcionesJugador.movimientoActivado && IsServer)
         {
-            
-            // Decelerar para detenerse si no hay input de movimiento
-            velocity = Vector2.MoveTowards(velocity, Vector2.zero, deceleration * Time.deltaTime);
-            //velocity -= deceleration * Time.deltaTime * velocity;
-            if (velocity.magnitude < 0.01f)
-            {
-                velocity = Vector3.zero;
-            }
+            Vector2 previousVelocity = velocity;
             
             // Si hay dirección de movimiento, acelerar
-            if (direccionMovimiento != Vector3.zero)
+            if (direccionMovimiento != Vector3.zero && canBounce)
             {
                 Vector2 forwardDirection = new Vector2(transform.forward.x, transform.forward.z).normalized;
 
-                // Aumenta la velocidad en la dirección de movimiento
-                velocity += acceleration * Time.deltaTime * forwardDirection;
+                if(previousVelocity == Vector2.zero)
+                {
+                    //Si estás quieto empiezas con boost de velocidad
+                    velocity = forwardDirection * initialSpeed;
+                }
+                else
+                {
+                    // Aumenta la velocidad en la dirección de movimiento
+                    velocity = (velocity.magnitude * forwardDirection) + (forwardDirection * acceleration * Time.deltaTime);
+                }
 
                 // Limitar la magnitud de la velocidad a maxSpeed
                 if (velocity.magnitude > maxSpeed)
@@ -91,49 +92,43 @@ public class ControladorNave : NetworkBehaviour
                     velocity = velocity.normalized * maxSpeed;
                 }
             }
+            else
+            {
+                // Decelerar para detenerse si no hay input de movimiento
+                velocity = Vector2.MoveTowards(velocity, Vector2.zero, deceleration * Time.deltaTime);
 
-            // Rotación automática hacia la dirección objetivo
-            //if (shouldRotate)
-            //{
-            //    RotateTowardsTarget();
-            //}
+                //velocity -= deceleration * Time.deltaTime * velocity;
+                if (velocity.magnitude < 0.05f)
+                {
+                    velocity = Vector2.zero;
+                }
+            }
+
+            GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
 
             // Aplicar la velocidad calculada a la posición del objeto
-            transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
+            //transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
 
             // Aplica la pasiva de la nave si ocurre todo el rato
-            if(playerShip.passiveAbility is StatBuffPassive)
+            if (playerShip.passiveAbility is StatBuffPassive)
             {
                 playerShip.passiveAbility.Execute();
             }
         }
     }
 
-    //private void RotateTowardsTarget()
-    //{
-    //    // Calcula la rotación hacia la dirección objetivo
-    //    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-    //    // Interpola suavemente la rotación actual hacia la deseada
-    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-    //    // Si el ángulo es pequeño, detén el giro automático
-    //    if (Quaternion.Angle(transform.rotation, targetRotation) < 10f)
-    //    {
-    //        shouldRotate = false;
-    //    }
-    //}
-
     public void Move()
     {
         direccionMovimiento = Vector3.forward; // Apuntar hacia adelante
         AccelerateSFXClientRpc(true);
+        AccelerateVFXClientRpc(true);
     }
 
     public void Stop()
     {
         direccionMovimiento = Vector3.zero;
         AccelerateSFXClientRpc(false);
+        AccelerateVFXClientRpc(false);
     }
 
     [ClientRpc]
@@ -141,7 +136,7 @@ public class ControladorNave : NetworkBehaviour
     {
         if (play && !shipAudioSource.isPlaying)
         {
-            Debug.Log("Acelera carnal");
+            //Debug.Log("Acelera carnal");
             AudioManager.Instance.PlaySFX(shipAudioSource, accelerateSFX);
         }
         else if (!play && shipAudioSource.isPlaying)
@@ -151,12 +146,18 @@ public class ControladorNave : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void AccelerateVFXClientRpc(bool active)
+    {
+        if (!IsServer)
+        {
+            playerShip.ToggleFireVFX(active);
+        }
+    }
+
+    [ClientRpc]
     public void PlayCollisionSFXClientRpc()
     {
-        if (IsOwner)
-        {
-            AudioManager.Instance.PlaySFX(collisionSFX);
-        }
+        AudioManager.Instance.PlaySFX(collisionSFX, transform.position);
     }
 
     public void Rotate(float input)
@@ -183,11 +184,8 @@ public class ControladorNave : NetworkBehaviour
         PlayCollisionSFXClientRpc();
 
         //SPEED CHANGES
-        if (velocity.magnitude > maxSpeed / 3 && collision.gameObject.GetComponent<IProyectil>() == null && canCollide)
+        if (velocity.magnitude > maxSpeed / 3 && collision.gameObject.GetComponent<IProyectil>() == null)
         {
-            SetCanCollide(false);
-            StartCoroutine("SetCanCollide", true);
-            
             //Daño por impacto, y pasivas OnCollision
             if (playerShip.passiveAbility is not OnCollisionPassive)
             {
@@ -207,31 +205,28 @@ public class ControladorNave : NetworkBehaviour
                 enemy.GetDamage((int)(velocity.magnitude * maxSpeedDmg / maxSpeed), opcionesJugador.controladorDelJugador);
             }
 
-            // Calcula la dirección del rebote
-            Vector3 collisionNormal = collision.contacts[0].normal;
-            targetDirection = Vector3.Reflect(velocity.normalized, collisionNormal); // Dirección reflejada
+            if(canBounce)
+            {
+                // Calcula la dirección del rebote
+                Vector3 collisionNormal = collision.contacts[0].normal;
+                targetDirection = Vector3.Reflect(velocity.normalized, collisionNormal); // Dirección reflejada
 
-            // Actualiza la velocidad
-            velocity = targetDirection * velocity.magnitude/3;
+                // Actualiza la velocidad
+                velocity = targetDirection * velocity.magnitude/2;
 
-            // Marca que debe girar automáticamente hacia la dirección objetivo
-            shouldRotate = true;
-            StartCoroutine("SetShouldRotate", false);
+                canBounce = false;
+                StartCoroutine("SetCanBounce", true);
+            }
+
+            GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
         }
     }
 
-    public IEnumerator SetCanCollide(bool toSet)
+    public IEnumerator SetCanBounce(bool toSet)
     {
         Debug.Log("Espera para colisionar");
-        yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
-        canCollide = toSet;
-    }
-
-    public IEnumerator SetShouldRotate(bool toSet)
-    {
-        Debug.Log("Espera para colisionar");
-        yield return new WaitForSeconds(0.3f);
-        shouldRotate = toSet;
+        yield return new WaitForSeconds(0.2f); // Delay
+        canBounce = toSet;
     }
 
     public void SetToSpawn(GameObject spawnPoint, bool enSpawnGlobal)
@@ -337,5 +332,6 @@ public class ControladorNave : NetworkBehaviour
         //VC.transform.position = cameraPosition;
         //VC.transform.LookAt(CameraTarget.transform);
     }
+
 
 }

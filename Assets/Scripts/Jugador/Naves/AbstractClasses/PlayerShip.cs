@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 {
+    [Header("Ship Information")]
     public string shipName;
     public string description;
     public Sprite sprite;
 
+    [Header("Base Stats")]
     public int initialHealth;
     public int initialArmor;
 
@@ -17,24 +20,30 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public int dmgBalance;
     public int dmgIncrement;
 
-    //Stats para la UI de seleccion de nave
+    [Header("UI Stats")]
+    // Stats para la UI de selección de nave
     public int lifeUi;
     public int powerUi;
     public int speedUi;
 
     private bool isFlashingRed = false;
-    
-    
+
+    [Header("Leveling")]
     public int maxLevel = 8;
     public int[] xpByLvl;
 
+    [Header("Ship Components")]
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
-    //public GameObject shieldVisual;
+    public List<Transform> firePropulsors;
+    [SerializeField] private VisualEffect firePropulsionVFX;
+    private List<VisualEffect> activeFireVFX = new List<VisualEffect>();
 
+    [Header("Abilities")]
     public ActiveAbility activeAbility;
     public PassiveAbility passiveAbility;
 
+    [Header("Cosmetics")]
     public List<Skin> skins;
 
 
@@ -42,14 +51,14 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     {
         SetLevels();
         InitializeStats();
+        InitializeFireVFX();
     }
 
     protected void Update()
     {
-        //Debug.Log("NaveRavager TRANSFORM: " + transform.position);
         transform.localPosition = Vector3.zero;
     }
-    
+
     public abstract void FireProjectile();
     public abstract void InitializeStats();
 
@@ -57,6 +66,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     {
         activeAbility.ResetRonda();
     }
+
     public void UseAbility()
     {
         activeAbility.Execute();
@@ -64,10 +74,10 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     public void SetLevels()
     {
-        xpByLvl = new int [10];
+        xpByLvl = new int[10];
         xpByLvl[0] = 300;
 
-        for(int i = 1; i < xpByLvl.Length; i++)
+        for (int i = 1; i < xpByLvl.Length; i++)
         {
             xpByLvl[i] = 300 + 200 * (i);
         }
@@ -78,40 +88,56 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         if (!isFlashingRed)
         {
             isFlashingRed = true;
-            // Busca todos los Renderers (MeshRenderer o SkinnedMeshRenderer) en los hijos
-            var renderers = GetComponentsInChildren<Renderer>();
-            if (renderers.Length == 0) yield break; // Salir si no hay Renderers
 
-            // Almacena los colores originales de todos los materiales
+            // Obtiene todos los Renderers
+            var renderers = GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0) yield break;
+
             var originalColors = new Dictionary<Material, Color>();
             foreach (var renderer in renderers)
             {
+                // Omite los renderers asociados a objetos con un VisualEffect
+                if (renderer.GetComponent<VisualEffect>() != null)
+                    continue;
+
                 foreach (var material in renderer.materials)
                 {
-                    if (!originalColors.ContainsKey(material))
+                    // Verifica si el material tiene el color principal (_BaseColor en URP)
+                    if (material.HasProperty("_BaseColor"))
                     {
-                        originalColors[material] = material.color;
-                        material.color = hitColor; // Cambiar el color al de impacto
+                        // Guarda el color original y aplica el color de impacto
+                        if (!originalColors.ContainsKey(material))
+                        {
+                            originalColors[material] = material.GetColor("_BaseColor");
+                            material.SetColor("_BaseColor", hitColor);
+                        }
                     }
                 }
             }
 
-            yield return new WaitForSeconds(duration); // Esperar el tiempo especificado
+            // Espera el tiempo especificado
+            yield return new WaitForSeconds(duration);
 
-            // Restaurar los colores originales
+            // Restaura los colores originales
             foreach (var renderer in renderers)
             {
+                // Omite nuevamente los renderers asociados a objetos con un VisualEffect
+                if (renderer.GetComponent<VisualEffect>() != null)
+                    continue;
+
                 foreach (var material in renderer.materials)
                 {
-                    if (originalColors.ContainsKey(material))
+                    if (material.HasProperty("_BaseColor") && originalColors.ContainsKey(material))
                     {
-                        material.color = originalColors[material];
+                        material.SetColor("_BaseColor", originalColors[material]);
                     }
                 }
             }
+
             isFlashingRed = false;
         }
     }
+
 
     public void ChangeSkin(int skinIndex)
     {
@@ -123,7 +149,6 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
         Material selectedMaterial = skins[skinIndex].skinMaterial;
 
-        // Obtener todos los Renderers (MeshRenderer o SkinnedMeshRenderer) en los hijos
         var renderers = GetComponentsInChildren<Renderer>();
         if (renderers.Length == 0)
         {
@@ -131,16 +156,39 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
             return;
         }
 
-        // Cambiar el material de cada renderer
         foreach (var renderer in renderers)
         {
-            var materials = renderer.materials; // Obtenemos los materiales actuales
+            var materials = renderer.materials;
             for (int i = 0; i < materials.Length; i++)
             {
-                materials[i] = selectedMaterial; // Asignamos el nuevo material
+                materials[i] = selectedMaterial;
             }
-            renderer.materials = materials; // Actualizamos los materiales en el renderer
+            renderer.materials = materials;
         }
     }
 
+    private void InitializeFireVFX()
+    {
+        foreach (Transform spawn in firePropulsors)
+        {
+            if (firePropulsionVFX != null)
+            {
+                VisualEffect newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
+                newVFX.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+                activeFireVFX.Add(newVFX);
+            }
+        }
+        ToggleFireVFX(false);
+    }
+
+    public void ToggleFireVFX(bool isActive)
+    {
+        foreach (VisualEffect vfx in activeFireVFX)
+        {
+            if (vfx != null)
+            {
+                vfx.enabled = isActive;
+            }
+        }
+    }
 }

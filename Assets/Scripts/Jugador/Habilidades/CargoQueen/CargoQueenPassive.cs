@@ -31,4 +31,9 @@ public class CargoQueenPassive : OnHitPassive
         debris= target.GetComponent<Debris>();
         Execute();
     }
+
+    public override void Stop()
+    {
+        return;
+    }
 }

@@ -320,6 +320,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3609598342
       objectReference: {fileID: 0}
+    - target: {fileID: 8544223484302827963, guid: 78271d4efc655dc4bb18d1bc573f1b1d, type: 3}
+      propertyPath: fireRing
+      value: 
+      objectReference: {fileID: 7555471624368930905}
     - target: {fileID: 8703461260913304685, guid: 78271d4efc655dc4bb18d1bc573f1b1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.8
@@ -364,3 +368,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78271d4efc655dc4bb18d1bc573f1b1d, type: 3}
+--- !u!114 &7555471624368930905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4932327725405494935, guid: 78271d4efc655dc4bb18d1bc573f1b1d, type: 3}
+  m_PrefabInstance: {fileID: 3218183150934367950}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4693c4a9eae685541a049ec392d8a7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
