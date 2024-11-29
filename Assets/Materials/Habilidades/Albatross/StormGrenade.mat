@@ -20,11 +20,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Assets/Materials/Habilidades/Albatross/StormGrenade.mat
   m_Name: StormGrenade
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+=======
+  m_Name: Albatrasoceandefinitiva
+  m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
+>>>>>>> 134b68d2260015ffe72c8cecf5dbd16f5f03a4f3:Assets/Modelos 3D/Naves/MaterialesNaves/Albatrasoceandefinitiva.mat
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _METALLICGLOSSMAP
+  - _NORMALMAP
+  - _SPECGLOSSMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -42,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 02d4537f4214bb740aee146db337385d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -62,11 +70,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 790dc30a8f2556d4aadf5bd179417e97, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3c226df9b55c6ae47b11db778d9d8e8b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -78,6 +86,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
+<<<<<<< HEAD:Assets/Materials/Habilidades/Albatross/StormGrenade.mat
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -91,6 +100,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     - unity_ShadowMasks:
         m_Texture: {fileID: 0}
+=======
+        m_Texture: {fileID: 2800000, guid: 66c35912e27b83f47a5398852f7fd0b3, type: 3}
+>>>>>>> 134b68d2260015ffe72c8cecf5dbd16f5f03a4f3:Assets/Modelos 3D/Naves/MaterialesNaves/Albatrasoceandefinitiva.mat
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
