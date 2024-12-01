@@ -14,7 +14,6 @@ public abstract class Ability : MonoBehaviour, IAbility
     public float neededResQuantity;
 
     [SerializeField] protected List<VisualEffect> visualEffects;
-    private bool activeVFX = false;
 
     //Referencia al jugador, usado para restar y sumar vida
     public NetworkedPlayer networkedPlayer;

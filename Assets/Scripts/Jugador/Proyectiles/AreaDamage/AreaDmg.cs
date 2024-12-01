@@ -137,8 +137,15 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     public void FixedUpdate()
     {
+        ExtraBehaviour();
         transform.position += direction * speed * Time.fixedDeltaTime;
         if(partida != null && partida.rondaEnmarcha)
             Destroy(gameObject);
     }
+
+    public virtual void ExtraBehaviour()
+    {
+        return;
+    }
+
 }

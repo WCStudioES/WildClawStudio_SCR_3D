@@ -55,6 +55,7 @@ MonoBehaviour:
   cadencia: 0.75
   type: 1
   projectileSFX: {fileID: 8300000, guid: eda17526ac4e402409feb5b2f1e2f88f, type: 3}
+  projectileVFX: {fileID: 9154465883355719510, guid: c1d588bfad0e21e4c80588a0c1f1c894, type: 3}
 --- !u!54 &3832535102861204280
 Rigidbody:
   m_ObjectHideFlags: 0

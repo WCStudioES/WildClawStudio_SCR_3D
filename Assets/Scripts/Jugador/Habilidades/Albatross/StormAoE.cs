@@ -11,13 +11,4 @@ public class StormAoE : AreaDmg
         Debug.Log("ALGUIEN RECIBE POR TORMENTA");
         target.GetDamage(dmg, dmgDealer);
     }
-    
-    public void FixedUpdate()
-    {
-        transform.position += direction * speed * Time.fixedDeltaTime;
-        if (!partida.rondaEnmarcha)
-        {
-            Destroy(gameObject);
-        }
-    }
 }
