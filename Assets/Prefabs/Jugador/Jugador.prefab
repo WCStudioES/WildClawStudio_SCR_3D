@@ -3198,10 +3198,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3955688697714990106, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 861388566088620593}
-    - target: {fileID: 3955688697714990106, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -4486,17 +4482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &861388566088620593 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6552077955123271327, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
-  m_PrefabInstance: {fileID: 5843961999289076910}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b944a355c3fd413419c18370b921cf4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1068614626131517751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6903340031694007705, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
@@ -5566,6 +5551,10 @@ PrefabInstance:
     - target: {fileID: 6267778981620701855, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
       propertyPath: m_Name
       value: CanvasEnemigo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355394966965088563, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8636985529201040521, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
       propertyPath: m_Pivot.x

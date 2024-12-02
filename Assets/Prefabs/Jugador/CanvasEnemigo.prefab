@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1260668727587744259}
   - component: {fileID: 7489443102675943259}
   - component: {fileID: 8961051274763913470}
-  m_Layer: 1
+  m_Layer: 5
   m_Name: CirculoVida
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7959818251652360545}
   - component: {fileID: 919431718876328343}
   - component: {fileID: 1203832221187897852}
-  m_Layer: 1
+  m_Layer: 5
   m_Name: CirculoVidaFondo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 7340004828004600228}
   - component: {fileID: 7355394966965088563}
   - component: {fileID: 8817503520194920896}
-  m_Layer: 1
+  m_Layer: 5
   m_Name: CanvasEnemigo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8817503520194920896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 8278421123876044506}
   - component: {fileID: 1580404023882064418}
   - component: {fileID: 6239502275972036168}
-  m_Layer: 1
+  m_Layer: 5
   m_Name: lvlEnemigo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
