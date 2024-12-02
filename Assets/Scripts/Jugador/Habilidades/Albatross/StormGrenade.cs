@@ -18,7 +18,7 @@ public class StormGrenade : Proyectil
         {
             activo = false;
 
-            Debug.Log("Creando tormenta en el server");
+            Debug.Log("*Bonk* Granada en la cabeza");
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
@@ -33,7 +33,7 @@ public class StormGrenade : Proyectil
         {
             activo = false;
 
-            Debug.Log("Creando tormenta en el server");
+            Debug.Log("Granada de tormenta detonada");
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();

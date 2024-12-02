@@ -8,7 +8,12 @@ public class StormAoE : AreaDmg
 {
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
-        Debug.Log("ALGUIEN RECIBE POR TORMENTA");
+        Debug.Log("Creando tormenta");
         target.GetDamage(dmg, dmgDealer);
+    }
+
+    public override void ExtraBehaviour()
+    {
+        //transform.localScale.Scale(new Vector3(1.1f, 1, 1.1f));
     }
 }

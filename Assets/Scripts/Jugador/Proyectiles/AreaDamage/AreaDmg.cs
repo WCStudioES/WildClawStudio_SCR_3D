@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public abstract class AreaDmg : MonoBehaviour, IProyectil
 {
     public int dmg; // Daño por tick del efecto
     public float timeOfEffect;  //Tiempo que dura el efecto en pantalla
     public int ticksPerSecond; // ticks de daño/segundo del efecto
-    //private float tickTimer = -1;
+    private bool isDestroyed = false; // Bandera para evitar múltiples destrucciones
+
     protected bool canHit = true;
     protected bool isResetting = false;
 
@@ -21,36 +23,57 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     protected Partida partida;
 
     protected bool IsInServidor;
+
     public AudioClip aoeSFX;
+    public GameObject aoeVFX;
 
     //Crear zona de daño con direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor, Vector3 pDirection, Partida partidaActual)
     {
-        Debug.Log("Explosion creada");
+        if (pIsInServidor)
+        {
+            RenderManager.Instance.RegisterNewObject(gameObject);
+        }
+
         ControladorNaveDueña = pDmgDealer;
         CuerpoNaveDueña = pCuerpoNaveDueña;
         IsInServidor = pIsInServidor;
         direction = pDirection;
         partida = partidaActual;
 
-        Destroy(gameObject, timeOfEffect);
+        //Debug.Log("Explosion creada");
+        if (aoeSFX != null)
+        {
+            AudioManager.Instance.PlaySFX(aoeSFX);
+        }
+
+        if (timeOfEffect > 0)
+        {
+            DestroyAoE(timeOfEffect);
+        }
     }
     
     //Crear zona de daño sin direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor)
     {
-        //Debug.Log("Explosion creada");
-        if(aoeSFX!= null)
+        if (pIsInServidor)
         {
-            AudioManager.Instance.PlaySFX(aoeSFX);
+            RenderManager.Instance.RegisterNewObject(gameObject);
         }
+
         ControladorNaveDueña = pDmgDealer;
         CuerpoNaveDueña = pCuerpoNaveDueña;
         IsInServidor = pIsInServidor;
 
-        if(timeOfEffect != -1)
+        //Debug.Log("Explosion creada");
+        if (aoeSFX!= null)
         {
-           Destroy(gameObject, timeOfEffect);
+            AudioManager.Instance.PlaySFX(aoeSFX);
+        }
+
+        if(timeOfEffect > 0)
+        {
+            DestroyAoE(timeOfEffect);
         }
     }
 
@@ -98,6 +121,11 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         }
     }
 
+    private void OnDestroy()
+    {
+        Debug.Log("HOLA HE MUERTO");
+    }
+
     public bool IsChildOfOwner(Transform target)
     {
         if (ControladorNaveDueña == null) return false;
@@ -126,21 +154,35 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         canHit = true;
         isResetting = false; // Libera el bloqueo
     }
-    
-    //private void Update()
-    //{
-    //    if(tickTimer != -1)
-    //    {
-    //        tickTimer += Time.deltaTime;
-    //    }
-    //}
 
     public void FixedUpdate()
     {
+        //Comportamiento extra del AoE (Crecer, cambiar dirección, etc...)
         ExtraBehaviour();
-        transform.position += direction * speed * Time.fixedDeltaTime;
-        if(partida != null && partida.rondaEnmarcha)
-            Destroy(gameObject);
+
+        if(direction != null)
+        {
+            transform.position += direction * speed * Time.fixedDeltaTime;
+        }
+
+        //if(partida != null && !partida.rondaEnmarcha)
+        //{
+        //    Debug.Log(partida + ", " + partida.rondaEnmarcha);
+        //    DestroyAoE();
+        //}
+    }
+
+    public void DestroyAoE(float tiempo = 0f)
+    {
+        if (isDestroyed)
+        {
+            Debug.LogWarning($"DestroyAoE ya fue llamado. Ignorando llamada en {Time.time}");
+            return;
+        }
+
+        isDestroyed = true;
+        Debug.Log($"DestroyAoE llamado. Destruyendo en {tiempo} segundos. Tiempo actual: {Time.time}");
+        Destroy(gameObject, tiempo);
     }
 
     public virtual void ExtraBehaviour()
