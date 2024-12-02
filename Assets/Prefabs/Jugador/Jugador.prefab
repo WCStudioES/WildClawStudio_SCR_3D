@@ -403,6 +403,7 @@ MonoBehaviour:
   circuloDeVidaEnemigo: {fileID: 1441099725622982868}
   nivelEnemigo: {fileID: 4122190564130752098}
   UIEnemigo: {fileID: 3818367586692308798}
+  NombreEnemigo: {fileID: 4525302396704915415}
   Cronometro: {fileID: 4825506656334191791}
 --- !u!114 &8943799741961390412
 MonoBehaviour:
@@ -5548,6 +5549,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256089537253447786}
     m_Modifications:
+    - target: {fileID: 6239502275972036168, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6267778981620701855, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
       propertyPath: m_Name
       value: CanvasEnemigo
@@ -5665,6 +5670,17 @@ Canvas:
 --- !u!114 &4122190564130752098 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6239502275972036168, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
+  m_PrefabInstance: {fileID: 8044515495475867690}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4525302396704915415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5867845847100100605, guid: 8ff4b1317c9ce74449d8979795cdfd48, type: 3}
   m_PrefabInstance: {fileID: 8044515495475867690}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
