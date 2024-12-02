@@ -14,6 +14,6 @@ public class StormAoE : AreaDmg
 
     public override void ExtraBehaviour()
     {
-        //transform.localScale.Scale(new Vector3(1.1f, 1, 1.1f));
+        transform.localScale.Scale(new Vector3(1.1f, 1, 1.1f));
     }
 }
