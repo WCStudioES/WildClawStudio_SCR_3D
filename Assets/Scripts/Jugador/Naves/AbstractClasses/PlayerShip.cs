@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
 public abstract class PlayerShip : MonoBehaviour, IPlayerShip
@@ -36,9 +37,14 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public ControladorNave shipController;
     public List<Transform> proyectileSpawns;
     public List<Transform> firePropulsors;
+
+    [Header("VFX")]
     [SerializeField] private VisualEffect firePropulsionVFX;
     private List<VisualEffect> activeFireVFX = new List<VisualEffect>();
 
+    [SerializeField] private GameObject lowHealthVFX;
+    private VisualEffect lowHealthVFXInstance;
+    
     [Header("Abilities")]
     public ActiveAbility activeAbility;
     public PassiveAbility passiveAbility;
@@ -51,7 +57,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     {
         SetLevels();
         InitializeStats();
-        InitializeFireVFX();
+        InitializeVFX();
     }
 
     protected void Update()
@@ -167,7 +173,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         }
     }
 
-    private void InitializeFireVFX()
+    private void InitializeVFX()
     {
         foreach (Transform spawn in firePropulsors)
         {
@@ -178,6 +184,15 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
                 activeFireVFX.Add(newVFX);
             }
         }
+
+        if(lowHealthVFX != null)
+        {
+            Debug.Log("E");
+            GameObject vfxObject = Instantiate(lowHealthVFX, transform.position, Quaternion.identity, transform);
+            lowHealthVFXInstance = vfxObject.GetComponent<VisualEffect>();
+            ToggleLowHealthVFX(false);
+        }
+
         ToggleFireVFX(false);
     }
 
@@ -189,6 +204,15 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
             {
                 vfx.enabled = isActive;
             }
+        }
+    }
+
+    public void ToggleLowHealthVFX(bool isActive)
+    {
+        //Debug.Log(isActive + ", " + lowHealthVFXInstance.enabled);
+        if (lowHealthVFXInstance != null)
+        {
+            lowHealthVFXInstance.enabled = isActive;
         }
     }
 }

@@ -168,6 +168,9 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             if(isSupportAvailable)
                 ApplySuppItem();
+
+            //VFX
+            nave.LowHealthVFXClientRpc(false);
         }
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
     }
@@ -387,6 +390,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
                   
             ChangeMaterialColorClientRpc(Color.red, 0.1f);
+
+            //VFX
+            if(actualHealth.Value < maxHealth.Value / 4)
+            {
+                nave.LowHealthVFXClientRpc(true);
+            }
         }
     }
 
@@ -410,6 +419,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
         //Debug.Log("Vida actual de la nave: " + actualHealth);
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
+
+        //VFX
+        if (actualHealth.Value < maxHealth.Value / 4)
+        {
+            nave.LowHealthVFXClientRpc(true);
+        }
     }
 
     [ClientRpc]
@@ -425,6 +440,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         
         //Debug.Log("Vida actual de la nave: " + actualHealth.Value);
         UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
+
+        //VFX
+        if (actualHealth.Value >= maxHealth.Value / 4)
+        {
+            nave.LowHealthVFXClientRpc(false);
+        }
     }
     
     //Funcion que gestiona la obtención de xp del jugador

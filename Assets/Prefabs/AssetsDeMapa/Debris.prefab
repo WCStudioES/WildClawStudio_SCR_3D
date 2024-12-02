@@ -126,6 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   hitColor: {r: 1, g: 0, b: 0, a: 0}
+  assetCollider: {fileID: 7859049195947157142}
+  assetRenderer: {fileID: 2117500485801124296}
   actualHealth:
     m_InternalValue: 50
   resType: 1
@@ -133,6 +135,7 @@ MonoBehaviour:
     m_InternalValue: 10
   destructionSFX: {fileID: 8300000, guid: cde1bc76a665ee849b9e77707b579d0e, type: 3}
   partida: {fileID: 0}
+  destructionVFX: {fileID: 0}
   hpMaximo: 100
   hpMinimo: 20
   escalaMaxima: 4

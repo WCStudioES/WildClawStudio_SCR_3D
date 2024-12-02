@@ -10,6 +10,9 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     [SerializeField] protected int maxHealth;
     [SerializeField] protected Color hitColor;
 
+    [SerializeField] protected Collider assetCollider;
+    [SerializeField] protected Renderer assetRenderer;
+
     protected Coroutine flashCoroutine;
     protected Dictionary<Material, Color> originalColors = new Dictionary<Material, Color>();
 

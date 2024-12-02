@@ -155,6 +155,15 @@ public class ControladorNave : NetworkBehaviour
     }
 
     [ClientRpc]
+    public void LowHealthVFXClientRpc(bool active)
+    {
+        if (!IsServer)
+        {
+            playerShip.ToggleLowHealthVFX(active);
+        }
+    }
+
+    [ClientRpc]
     public void PlayCollisionSFXClientRpc()
     {
         AudioManager.Instance.PlaySFX(collisionSFX, transform.position);

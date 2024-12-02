@@ -416,6 +416,7 @@ MonoBehaviour:
   - {fileID: 2651867333749684810}
   - {fileID: 4172387958432722721}
   firePropulsionVFX: {fileID: 3893311136088826993, guid: 6666252ccad81964bb363e626ff7c3cc, type: 3}
+  lowHealthVFX: {fileID: 6893646151893162014, guid: 797c226d724796a469aa316889d289aa, type: 3}
   activeAbility: {fileID: 3559572338384177590}
   passiveAbility: {fileID: 1475624673909171016}
   skins:
@@ -443,6 +444,7 @@ MonoBehaviour:
   resourceType: 2
   actualResQuantity: 20
   neededResQuantity: 15
+  visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 1
   maxResource: 0
@@ -467,6 +469,7 @@ MonoBehaviour:
   resourceType: 0
   actualResQuantity: 0
   neededResQuantity: 0
+  visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 1
   hpPercentThreshold: 35

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class DestructibleAsset : Damageable
 {
     private bool resGiven = false;
     public Partida partida;
+
+    [SerializeField] private GameObject destructionVFX;
+    private VisualEffect destructionVFXInstance;
     private void Start()
     {
         if (IsServer)
@@ -75,8 +79,9 @@ public class DestructibleAsset : Damageable
 
     protected IEnumerator DestroyWithDelay()
     {
+        InitializeDestructionVFXClientRpc();
         yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
-        gameObject.SetActive(false); // Desactiva el destructible en el servidor
+        SetAssetActive(false); // Desactiva el destructible en el servidor
         DisableDamageableClientRpc(); // Sincroniza la desactivación en los clientes
     }
 
@@ -86,7 +91,7 @@ public class DestructibleAsset : Damageable
     {
         StopFlashingAndCleanUp();
         isFlashing = false;
-        gameObject.SetActive(false);
+        SetAssetActive(false);
     }
 
 
@@ -103,12 +108,12 @@ public class DestructibleAsset : Damageable
             RestoreDestructibleAssetClientRpc();
             resGiven = false;
         }
-        gameObject.SetActive(true);
+        SetAssetActive(true);
     }
     //Funcion para restaurar el meteorito con su hp con tamaño y experiencia aleatoria
     public void RestoreRandomDestructibleAsset()
     {
-        gameObject.SetActive(true);
+        SetAssetActive(true);
         if (IsServer)
         {
             //int hpAponer
@@ -120,8 +125,52 @@ public class DestructibleAsset : Damageable
 
     [ClientRpc]
     private void RestoreDestructibleAssetClientRpc()
+    {   
+        SetAssetActive(true);
+    }
+
+    private void SetAssetActive(bool active)
     {
-        
-        gameObject.SetActive(true);
+        if(assetCollider!= null)
+        {
+            assetCollider.enabled = active;
+        }
+
+        if(assetRenderer!= null)
+        {
+            assetRenderer.enabled = active;
+        }
+    }
+
+    //VFX
+    public IEnumerator DestroyWhenParticlesComplete(VisualEffect vfx)
+    {
+        if (vfx == null)
+        {
+            Debug.LogWarning("VisualEffect no encontrado en el GameObject.");
+            yield break;
+        }
+
+        // Esperar hasta que no haya partículas activas
+        yield return new WaitForSeconds(0.5f);
+
+        Destroy(vfx.gameObject); // Destruye el objeto contenedor
+    }
+
+    [ClientRpc]
+    public void InitializeDestructionVFXClientRpc()
+    {
+        if (destructionVFX != null)
+        {
+            GameObject vfxObject = Instantiate(destructionVFX, transform.position, transform.rotation, transform);
+            VisualEffect vfx = vfxObject.GetComponent<VisualEffect>();
+
+            if (vfx != null)
+            {
+                Debug.Log("Iniciando VFX de proyectil");
+                vfx.enabled = true;
+                StartCoroutine(DestroyWhenParticlesComplete(vfx));
+            }
+        }
     }
 }

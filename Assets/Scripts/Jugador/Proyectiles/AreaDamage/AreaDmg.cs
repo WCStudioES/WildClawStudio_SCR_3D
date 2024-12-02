@@ -121,11 +121,6 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         }
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log("HOLA HE MUERTO");
-    }
-
     public bool IsChildOfOwner(Transform target)
     {
         if (ControladorNaveDueña == null) return false;
