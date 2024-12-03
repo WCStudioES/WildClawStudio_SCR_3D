@@ -251,7 +251,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             if (lvl == cuerpoNave.GetComponent<PlayerShip>().maxLevel)
             {
-                float xpPercentage = 100f;
+                float xpPercentage = 1f;
                 textoExperiencia.text = "MAX LEVEL";
             }
             else
