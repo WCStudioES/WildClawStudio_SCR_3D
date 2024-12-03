@@ -39,6 +39,7 @@ public class OpcionesJugador : NetworkBehaviour
         if (IsClient && !IsOwner)
         {
             deshabilitarNave();
+            preguntarNombreServerRpc();
         }
     }
 
@@ -73,11 +74,24 @@ public class OpcionesJugador : NetworkBehaviour
         {
             controladorDelJugador.ResetSupportItems();
             controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"), true);
+
+            //VFX
+            controladorDelJugador.nave.LowHealthVFXClientRpc(false);
         }
         if (IsClient && !IsOwner)
         {
             deshabilitarNave();
         }
     }
+    [ServerRpc(RequireOwnership = false)]
+    private void preguntarNombreServerRpc()
+    {
+        apuntarNombreClientRpc(usuario.name);
+    }
 
+    [ClientRpc(RequireOwnership = false)]
+    private void apuntarNombreClientRpc(string nombre)
+    {
+        usuario.name = nombre;
+    }
 }

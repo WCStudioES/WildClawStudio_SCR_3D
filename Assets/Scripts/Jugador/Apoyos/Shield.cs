@@ -61,6 +61,11 @@ public class Shield : DestructibleAsset
         return null; // No se encontró relación con el jugador
     }
 
+    protected override void SetAssetActive(bool active)
+    {
+        Destroy(gameObject);
+    }
+
 
     private void Update()
     {

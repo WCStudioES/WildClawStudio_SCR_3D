@@ -11,7 +11,7 @@ public class DestructibleAsset : Damageable
 
     [SerializeField] private GameObject destructionVFX;
     private VisualEffect destructionVFXInstance;
-    //public int resToGiveAtDestroy;
+
     private void Start()
     {
         if (IsServer)
@@ -130,7 +130,7 @@ public class DestructibleAsset : Damageable
         SetAssetActive(true);
     }
 
-    private void SetAssetActive(bool active)
+    protected virtual void SetAssetActive(bool active)
     {
         if(assetCollider!= null)
         {

@@ -6,7 +6,6 @@ using System.Collections;
 public class CargoQueenActive : ShieldAbility
 {
     private GameObject shieldInstance; // Instancia del escudo
-    private Coroutine shieldMonitorCoroutine;
     public override void AbilityExecution()
     {
         Debug.Log("Cargo Queen lanza habilidad: " + networkedPlayer.IsServer);
@@ -28,19 +27,15 @@ public class CargoQueenActive : ShieldAbility
             var shieldScript = shieldInstance.GetComponent<Shield>();
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
 
-            // Inicia el monitoreo del estado del escudo
-            if (shieldMonitorCoroutine != null)
-                StopCoroutine(shieldMonitorCoroutine); // Detén cualquier Coroutine previo
-            
-            shieldMonitorCoroutine = StartCoroutine("MonitorShieldInstance");
+            StartCoroutine(MonitorShieldInstance());
         }
         networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
-        //networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
+        networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity);
     }
 
     private IEnumerator MonitorShieldInstance()
     {
-        while (shieldInstance.activeSelf)
+        while (shieldInstance != null && shieldInstance.activeSelf)
         {
             //Debug.Log("CORUTINA");
             yield return null; // Espera un frame
@@ -50,9 +45,6 @@ public class CargoQueenActive : ShieldAbility
         Debug.Log("El escudo ha sido destruido.");
         actualResQuantity = 0;
         networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity);
-
-        // Opcional: Detén el Coroutine
-        shieldMonitorCoroutine = null;
     }
 
     public override void ResetRonda()
@@ -61,5 +53,6 @@ public class CargoQueenActive : ShieldAbility
 
         actualResQuantity = neededResQuantity;
         networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
+        networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity);
     }
 }

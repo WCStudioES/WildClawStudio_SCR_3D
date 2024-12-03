@@ -361,6 +361,7 @@ PlayerSettings:
   openGLRequireES32: 0
   m_TemplateCustomTags:
     PRODUCT_DESCRIPTION: 
+    WEBGL_POWER_PREFERENCE: 
   mobileMTRendering:
     Android: 1
     iPhone: 1
