@@ -35,7 +35,7 @@ public class DestructibleAsset : Damageable
                 dueñoDaño.GetHealPercentage(resToGive.Value, dueñoDaño);
             }
 
-            Debug.Log("Vida del coso: " + actualHealth.Value);
+            //Debug.Log("Vida del coso: " + actualHealth.Value);
 
             // Si la vida llega a 0, destruir el meteorito
             if (actualHealth.Value <= 0 && !resGiven)

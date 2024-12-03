@@ -5,10 +5,13 @@ using UnityEngine;
 public abstract class ToggleAbility : ActiveAbility
 {
     protected bool active = false;
+    protected float timerForToggle = 1f;
+    protected bool timerActive;
 
     private void Awake()
     {
         type = ActiveType.TogglePassive;
+        timerActive = true;
     }
     public override void Execute()
     {
@@ -29,29 +32,43 @@ public abstract class ToggleAbility : ActiveAbility
     }
     public override bool CheckAvailability()
     {
+        //Debug.Log("Toogle llamada");
         return true;
     }
 
     public void Toggle()
     {
-        active = !active;
-        Debug.Log("Habilidad Toggle ejecutada");
-        if (active)
+        if (timerActive)
         {
-            networkedPlayer.ToggleAbilityVFXClientRpc(true);
-            AbilityExecution();
-        }
-        //StartCoroutine("DurationCounter");
-        //StartCoroutine("CheckEnergy");
-        else
-        {
-            networkedPlayer.ToggleAbilityVFXClientRpc(false);
-            Stop();
+            timerActive = false;
+            active = !active;
+            Debug.Log("Habilidad Toggle ejecutada");
+            if (active)
+            {
+                networkedPlayer.ToggleAbilityVFXClientRpc(true);
+                AbilityExecution();
+            }
+            //StartCoroutine("DurationCounter");
+            //StartCoroutine("CheckEnergy");
+            else
+            {
+                networkedPlayer.ToggleAbilityVFXClientRpc(false);
+                Stop();
+            }
+
+            StartCoroutine("ReducetimerToggle");
         }
     }
 
     public bool GetActive()
     {
         return active;
+    }
+
+    IEnumerator ReducetimerToggle()
+    {
+        Debug.Log("Toogle reducetime");
+        yield return new WaitForSeconds(timerForToggle);
+        timerActive = true;
     }
 }
