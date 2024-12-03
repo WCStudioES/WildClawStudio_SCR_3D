@@ -39,6 +39,7 @@ public class OpcionesJugador : NetworkBehaviour
         if (IsClient && !IsOwner)
         {
             deshabilitarNave();
+            preguntarNombreServerRpc();
         }
     }
 
@@ -82,5 +83,15 @@ public class OpcionesJugador : NetworkBehaviour
             deshabilitarNave();
         }
     }
+    [ServerRpc(RequireOwnership = false)]
+    private void preguntarNombreServerRpc()
+    {
+        apuntarNombreClientRpc(usuario.name);
+    }
 
+    [ClientRpc(RequireOwnership = false)]
+    private void apuntarNombreClientRpc(string nombre)
+    {
+        usuario.name = nombre;
+    }
 }

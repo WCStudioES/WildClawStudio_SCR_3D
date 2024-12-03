@@ -320,24 +320,15 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
-        //ASIGNA EL NOMBRE DEL ENEMIGO A LA UI
-        for (int i = 0; i < jugadores.Count; i++)
-        {
-            if(jugadores[i] != null)
-                for (int j = 0; j < jugadores.Count; j++)
-                {
-                    if (jugadores[j] != null && jugadores[i] != jugadores[j])
-                    {
-                        jugadores[i].NombreEnemigo.text = jugadores[j].opcionesJugador.usuario.name;
-                    }
-                }
-        }
+        
 
         foreach (var jugador in jugadores)
         {
             if (jugador != null)
             {
                 jugador.opcionesJugador.UIJugador.pararMusica();
+                //ASIGNA SU NOMBRE A LA UI
+                jugador.NombreEnemigo.text = jugador.opcionesJugador.usuario.name;
             }
 
         }
