@@ -52,7 +52,7 @@ MonoBehaviour:
   description: Creates a high damage explosion when it hits a target.  At level 6
     upgrades its shotrate and speed.
   mostrarEnSeleccion: 1
-  dmg: 50
+  dmg: 40
   speed: 30
   cadencia: 2.5
   type: 0

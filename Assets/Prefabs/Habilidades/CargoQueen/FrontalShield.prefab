@@ -185,7 +185,7 @@ MonoBehaviour:
   destructionSFX: {fileID: 0}
   partida: {fileID: 0}
   destructionVFX: {fileID: 0}
-  duration: 10
+  duration: 5
   owner: {fileID: 0}
   spawn: {fileID: 0}
 --- !u!114 &5854172462832349999

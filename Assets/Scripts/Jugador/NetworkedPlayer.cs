@@ -148,7 +148,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
             UpdateExperienceBarClientRpc(0, 1);
         }
-        uiBoosters.ResetPartida();
+        uiBoosters.ResetPartida(allProjectiles[proyectilBasico].GetComponent<Proyectil>().sprite);
     }
     
     //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
@@ -249,11 +249,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (cuerpoNave.GetComponent<PlayerShip>().xpByLvl.Length != 0)
         {
-            float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
-            float xpPercentage = experience / maxExperience;
-            barraDeExperiencia.fillAmount = xpPercentage;
-        
-            textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
+            if (lvl == cuerpoNave.GetComponent<PlayerShip>().maxLevel)
+            {
+                float xpPercentage = 1f;
+                textoExperiencia.text = "MAX LEVEL";
+            }
+            else
+            {
+                float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
+                float xpPercentage = experience / maxExperience;
+                textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
+                barraDeExperiencia.fillAmount = xpPercentage;
+            }
+            
             textoNivel.text = lvl.ToString();
             //Debug.Log(healthPercentage);
         }
@@ -448,29 +456,48 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
     }
     
+    public void GetHealPercentage(int percentage, NetworkedPlayer dueñoDaño)
+    {
+        int health = Mathf.Min(actualHealth.Value + (maxHealth.Value*percentage), maxHealth.Value);
+        actualHealth.Value = health;  // Suma la cantidad de daño a la vida de la nave
+        
+        //Debug.Log("Vida actual de la nave: " + actualHealth.Value);
+        UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
+
+        //VFX
+        if (actualHealth.Value >= maxHealth.Value / 4)
+        {
+            nave.LowHealthVFXClientRpc(false);
+        }
+    }
+    
     //Funcion que gestiona la obtención de xp del jugador
     public void GetXP(int xpRecibida)
     {
+        //Obtener nave
+        PlayerShip ship = cuerpoNave.GetComponent<PlayerShip>();
+        
         //Sumar experiencia
-        xp.Value += xpRecibida;
+        if(lvl.Value < ship.maxLevel)
+            xp.Value += xpRecibida;
 
         // Si no eres nivel máximo y tienes += experiencia necesaria, subes de nivel
-        if (lvl.Value < cuerpoNave.GetComponent<PlayerShip>().maxLevel && 
-            xp.Value >= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1])
+        if (lvl.Value < ship.maxLevel && 
+            xp.Value >= ship.xpByLvl[lvl.Value - 1])
         {
             
             AnimacionSubidaNivelCLientRpc();
             // La xp se resta, para que vuelva a estar cerca de 0
-            xp.Value -= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1];
+            xp.Value -= ship.xpByLvl[lvl.Value - 1];
             lvl.Value++;
             
             // Cambios de estadísticas por nivel
             xpADar.Value += 50;
-            armor.Value += cuerpoNave.GetComponent<PlayerShip>().armorIncrement;
-            maxHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
-            actualHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
+            armor.Value += ship.armorIncrement;
+            maxHealth.Value += ship.healthIncrement;
+            actualHealth.Value += ship.healthIncrement;
+            dmgBalance.Value += ship.dmgIncrement;
             
-
             // Se actualiza la barra de vida
 
             //Debug.Log("Level " + lvl.Value);
@@ -489,14 +516,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     canUseAbility = true;
                     DesbloquearHabilidadClientRpc();
                     break;
-                case 5:
+                case 4:
                     isSupportAvailable = true;
                     ApplySuppItem();
                     DesbloquearApoyoClientRpc();
                     break;
                 
-                case 6:
+                case 5:
                     CambiarArma(proyectilMejorado+ ((allProjectiles.Count-1)/2));
+                    break;
+                
+                case 6:
+                    //Mejora habilidades
+                    
                     break;
                 //...
             }
