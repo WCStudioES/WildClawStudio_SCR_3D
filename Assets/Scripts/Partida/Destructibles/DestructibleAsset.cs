@@ -11,6 +11,7 @@ public class DestructibleAsset : Damageable
 
     [SerializeField] private GameObject destructionVFX;
     private VisualEffect destructionVFXInstance;
+    //public int resToGiveAtDestroy;
     private void Start()
     {
         if (IsServer)
@@ -31,7 +32,7 @@ public class DestructibleAsset : Damageable
 
             if(resType == ResourceToGive.Health)
             {
-                dueñoDaño.GetHeal(dmg, dueñoDaño);
+                dueñoDaño.GetHealPercentage(resToGive.Value, dueñoDaño);
             }
 
             Debug.Log("Vida del coso: " + actualHealth.Value);
@@ -67,7 +68,7 @@ public class DestructibleAsset : Damageable
                     break;
 
                 case ResourceToGive.Health:
-                    dueñoDaño.GetHeal(resToGive.Value, dueñoDaño);
+                    dueñoDaño.GetHealPercentage(resToGive.Value*2, dueñoDaño);
                     break;
             }
             StopFlashingAndCleanUp(); // Detener el flashing y restaurar colores

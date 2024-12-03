@@ -148,7 +148,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
             UpdateExperienceBarClientRpc(0, 1);
         }
-        uiBoosters.ResetPartida();
+        uiBoosters.ResetPartida(allProjectiles[proyectilBasico].GetComponent<Proyectil>().sprite);
     }
     
     //RESTAURA LA POSICIÓN DE LAS NAVES Y SU VIDA
@@ -249,11 +249,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (cuerpoNave.GetComponent<PlayerShip>().xpByLvl.Length != 0)
         {
-            float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
-            float xpPercentage = experience / maxExperience;
-            barraDeExperiencia.fillAmount = xpPercentage;
-        
-            textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
+            if (lvl == cuerpoNave.GetComponent<PlayerShip>().maxLevel)
+            {
+                float xpPercentage = 100f;
+                textoExperiencia.text = "MAX LEVEL";
+            }
+            else
+            {
+                float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
+                float xpPercentage = experience / maxExperience;
+                textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
+                barraDeExperiencia.fillAmount = xpPercentage;
+            }
+            
             textoNivel.text = lvl.ToString();
             //Debug.Log(healthPercentage);
         }
@@ -448,12 +456,30 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
     }
     
+    public void GetHealPercentage(int percentage, NetworkedPlayer dueñoDaño)
+    {
+        int health = Mathf.Min(actualHealth.Value + (maxHealth.Value*percentage), maxHealth.Value);
+        actualHealth.Value = health;  // Suma la cantidad de daño a la vida de la nave
+        
+        //Debug.Log("Vida actual de la nave: " + actualHealth.Value);
+        UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
+
+        //VFX
+        if (actualHealth.Value >= maxHealth.Value / 4)
+        {
+            nave.LowHealthVFXClientRpc(false);
+        }
+    }
+    
     //Funcion que gestiona la obtención de xp del jugador
     public void GetXP(int xpRecibida)
     {
-        //Sumar experiencia
-        xp.Value += xpRecibida;
+        //Obtener nave
         PlayerShip ship = cuerpoNave.GetComponent<PlayerShip>();
+        
+        //Sumar experiencia
+        if(lvl.Value < ship.maxLevel)
+            xp.Value += xpRecibida;
 
         // Si no eres nivel máximo y tienes += experiencia necesaria, subes de nivel
         if (lvl.Value < ship.maxLevel && 
@@ -502,6 +528,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 
                 case 6:
                     //Mejora habilidades
+                    
                     break;
                 //...
             }

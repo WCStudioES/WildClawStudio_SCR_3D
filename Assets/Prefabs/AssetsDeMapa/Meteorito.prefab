@@ -155,7 +155,7 @@ MonoBehaviour:
     m_InternalValue: 0
   resType: 2
   resToGive:
-    m_InternalValue: 150
+    m_InternalValue: 200
   destructionSFX: {fileID: 8300000, guid: cde1bc76a665ee849b9e77707b579d0e, type: 3}
   partida: {fileID: 0}
   destructionVFX: {fileID: 7659249421549392542, guid: fff546a5a7845e949b1a6c6e76acd873, type: 3}
