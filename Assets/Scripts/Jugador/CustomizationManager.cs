@@ -43,6 +43,9 @@ public class CustomizationManager : MonoBehaviour
     public int equippedAmmoIndex;
     public int equippedSupportIndex;
 
+    public Image equippedAmmoImage;
+    public Image equippedSupportImage;
+
     [SerializeField] private List<GameObject> ammoImages;
     [SerializeField] private List<GameObject> supportImages;
 
@@ -212,6 +215,9 @@ public class CustomizationManager : MonoBehaviour
         //equippedShipActiveName.text = playerShip.activeAbility.Name;
         equippedShipPassiveDescription.text = playerShip.passiveAbility.Description;
         //equippedShipPassiveName.text = playerShip.passiveAbility.Name;
+
+        equippedAmmoImage.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;
+        equippedSupportImage.sprite = supportImages[equippedSupportIndex].GetComponent<SupportItem>().suppItemSprite;
 
         UpdateNetworkedPlayerEquipment();
     }

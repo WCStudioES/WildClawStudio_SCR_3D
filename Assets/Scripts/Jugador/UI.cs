@@ -26,7 +26,7 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Historial;
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
-    [SerializeField] private GameObject ToggleAudioButton;
+    [SerializeField] private GameObject Settings;
     private int posicionCuentaAtras = 0;
 
     [SerializeField] private GameObject[] circulosAzulesVictoria;
@@ -169,13 +169,14 @@ public class UI : NetworkBehaviour
         ScriptRegister.UsuarioInvalido();
     }
     
-    //RESPUESTA SI E¡SE HA CREADO UN NUEVO USUARIO(REGISTRO)
+    //RESPUESTA SI SE HA CREADO UN NUEVO USUARIO(REGISTRO)
     [ClientRpc]
     void UsuarioCreadoClientRpc(string usuario)
     {
         ScriptRegister.UsuarioValido(usuario);
     }
 
+    //HISTORIAL
     public void AbrirHistorial()
     {
         Personalizacion.SetActive(false);
@@ -188,10 +189,17 @@ public class UI : NetworkBehaviour
         Personalizacion.SetActive(true);
     }
 
-    public void ToggleAudio()
+    //AJUSTES
+    public void AbrirSettings()
     {
-        Debug.Log("Hola");
-        ToggleAudioButton.GetComponent<AudioToggleButton>().OnButtonPressed();
+        //Debug.Log("Hola");
+        Settings.SetActive(true);
+    }
+
+    public void CerrarSettings()
+    {
+        //Debug.Log("Hola");
+        Settings.SetActive(false);
     }
 
     //GUARDA UNA PARTIDA EN EL HISTORIAL DE PARTIDAD
