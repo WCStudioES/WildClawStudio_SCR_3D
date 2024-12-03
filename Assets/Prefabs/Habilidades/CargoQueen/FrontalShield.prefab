@@ -103,7 +103,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7244499277988380073
 GameObject:
@@ -175,6 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   hitColor: {r: 1, g: 0.8526169, b: 0.42452818, a: 0}
+  assetCollider: {fileID: 0}
+  assetRenderer: {fileID: 0}
   actualHealth:
     m_InternalValue: 50
   resType: 0
@@ -182,6 +184,7 @@ MonoBehaviour:
     m_InternalValue: 0
   destructionSFX: {fileID: 0}
   partida: {fileID: 0}
+  destructionVFX: {fileID: 0}
   duration: 10
   owner: {fileID: 0}
   spawn: {fileID: 0}

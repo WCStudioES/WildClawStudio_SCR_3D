@@ -73,6 +73,9 @@ public class OpcionesJugador : NetworkBehaviour
         {
             controladorDelJugador.ResetSupportItems();
             controladorDelJugador.nave.SetToSpawn(GameObject.Find("SpawnPrincipal"), true);
+
+            //VFX
+            controladorDelJugador.nave.LowHealthVFXClientRpc(false);
         }
         if (IsClient && !IsOwner)
         {
