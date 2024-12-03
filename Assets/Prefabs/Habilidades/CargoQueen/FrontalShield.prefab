@@ -175,6 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   hitColor: {r: 1, g: 0.8526169, b: 0.42452818, a: 0}
+  assetCollider: {fileID: 0}
+  assetRenderer: {fileID: 0}
   actualHealth:
     m_InternalValue: 50
   resType: 0
@@ -182,7 +184,8 @@ MonoBehaviour:
     m_InternalValue: 0
   destructionSFX: {fileID: 0}
   partida: {fileID: 0}
-  duration: 10
+  destructionVFX: {fileID: 0}
+  duration: 5
   owner: {fileID: 0}
   spawn: {fileID: 0}
 --- !u!114 &5854172462832349999

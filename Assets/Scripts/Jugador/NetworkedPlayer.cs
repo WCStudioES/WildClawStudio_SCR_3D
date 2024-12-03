@@ -453,24 +453,25 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         //Sumar experiencia
         xp.Value += xpRecibida;
+        PlayerShip ship = cuerpoNave.GetComponent<PlayerShip>();
 
         // Si no eres nivel máximo y tienes += experiencia necesaria, subes de nivel
-        if (lvl.Value < cuerpoNave.GetComponent<PlayerShip>().maxLevel && 
-            xp.Value >= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1])
+        if (lvl.Value < ship.maxLevel && 
+            xp.Value >= ship.xpByLvl[lvl.Value - 1])
         {
             
             AnimacionSubidaNivelCLientRpc();
             // La xp se resta, para que vuelva a estar cerca de 0
-            xp.Value -= cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl.Value - 1];
+            xp.Value -= ship.xpByLvl[lvl.Value - 1];
             lvl.Value++;
             
             // Cambios de estadísticas por nivel
             xpADar.Value += 50;
-            armor.Value += cuerpoNave.GetComponent<PlayerShip>().armorIncrement;
-            maxHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
-            actualHealth.Value += cuerpoNave.GetComponent<PlayerShip>().healthIncrement;
+            armor.Value += ship.armorIncrement;
+            maxHealth.Value += ship.healthIncrement;
+            actualHealth.Value += ship.healthIncrement;
+            dmgBalance.Value += ship.dmgIncrement;
             
-
             // Se actualiza la barra de vida
 
             //Debug.Log("Level " + lvl.Value);
@@ -489,14 +490,18 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     canUseAbility = true;
                     DesbloquearHabilidadClientRpc();
                     break;
-                case 5:
+                case 4:
                     isSupportAvailable = true;
                     ApplySuppItem();
                     DesbloquearApoyoClientRpc();
                     break;
                 
-                case 6:
+                case 5:
                     CambiarArma(proyectilMejorado+ ((allProjectiles.Count-1)/2));
+                    break;
+                
+                case 6:
+                    //Mejora habilidades
                     break;
                 //...
             }
