@@ -5,7 +5,7 @@ using UnityEngine;
 public class PandoraActive : ToggleAbility
 {
     public int hpThreshold = 20;    //Vida mínima para activar
-    private int dmgBoost = 15;      //En Porcentaje
+    public int dmgBoost = 15;      //En Porcentaje
 
     //Metodo para activar habilidad: más daño a costa de vida cada segundo
     public override void AbilityExecution()

@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.Collections;
 using System.Collections.Generic;
 
+
 public class FireRing : AreaDmg
 {
     [SerializeField] private float startOuterRadius = 30f; // Radio inicial del anillo exterior
@@ -13,8 +14,8 @@ public class FireRing : AreaDmg
     [SerializeField] private List<Transform> players;          // Lista de jugadores para comprobar sus posiciones
 
     [SerializeField] private Material ringMaterial;
-    private Color safeZoneColor = new Color(0, 1, 0, 0.25f); // Color del área segura
-    private Color dangerZoneColor = new Color(1, 0, 0, 0.25f); // Color del área peligrosa
+    private Color safeZoneColor = new Color(0, 1, 0, 0.25f); // Color del ï¿½rea segura
+    private Color dangerZoneColor = new Color(1, 0, 0, 0.25f); // Color del ï¿½rea peligrosa
 
     private GameObject ringVisual;                         // Objeto visual para el anillo
     private MeshFilter ringMeshFilter;                     // Componente MeshFilter del anillo
@@ -75,7 +76,7 @@ public class FireRing : AreaDmg
             float distance = Vector3.Distance(player.position, transform.position);
             //Debug.Log(distance + ", " + currentInnerRadius + ", " + currentOuterRadius);
 
-            // Está en la zona peligrosa (fuera del anillo seguro, pero dentro del exterior)
+            // Estï¿½ en la zona peligrosa (fuera del anillo seguro, pero dentro del exterior)
             if (distance > currentInnerRadius && distance <= currentOuterRadius)
             {
                 IDamageable target = player.GetComponentInParent<IDamageable>();
@@ -84,7 +85,7 @@ public class FireRing : AreaDmg
                 if (target != null && IsInServidor)
                 {
                     canHit = false;
-                    OnHit(target, ControladorNaveDueña);
+                    OnHit(target, ControladorNaveDueÃ±a);
                     StartCoroutine(ResetHitCooldown());
                 }
             }
@@ -145,7 +146,7 @@ public class FireRing : AreaDmg
     private Mesh GenerateRingMesh(float innerRadius, float outerRadius)
     {
         Mesh mesh = new Mesh();
-        int segments = 32; // Número de segmentos para suavizar el anillo
+        int segments = 32; // Nï¿½mero de segmentos para suavizar el anillo
 
         int vertexCount = segments * 2;
         Vector3[] vertices = new Vector3[vertexCount];
@@ -158,16 +159,16 @@ public class FireRing : AreaDmg
         {
             float angle = Mathf.Deg2Rad * i * angleStep;
 
-            // Vértices del radio interior
+            // Vï¿½rtices del radio interior
             vertices[i * 2] = new Vector3(Mathf.Cos(angle) * innerRadius, 0, Mathf.Sin(angle) * innerRadius);
-            // Vértices del radio exterior
+            // Vï¿½rtices del radio exterior
             vertices[i * 2 + 1] = new Vector3(Mathf.Cos(angle) * outerRadius, 0, Mathf.Sin(angle) * outerRadius);
 
             // Definir UVs
             uv[i * 2] = new Vector2(0, 0);
             uv[i * 2 + 1] = new Vector2(1, 1);
 
-            // Crear triángulos
+            // Crear triï¿½ngulos
             int nextIndex = (i + 1) % segments;
             triangles[i * 6] = i * 2;
             triangles[i * 6 + 1] = nextIndex * 2;
@@ -189,9 +190,9 @@ public class FireRing : AreaDmg
     private void OnDrawGizmos()
     {
         Gizmos.color = safeZoneColor;
-        Gizmos.DrawSphere(transform.position, currentInnerRadius); // Área segura
+        Gizmos.DrawSphere(transform.position, currentInnerRadius); // ï¿½rea segura
 
         Gizmos.color = dangerZoneColor;
-        Gizmos.DrawWireSphere(transform.position, currentOuterRadius); // Área peligrosa
+        Gizmos.DrawWireSphere(transform.position, currentOuterRadius); // ï¿½rea peligrosa
     }
 }

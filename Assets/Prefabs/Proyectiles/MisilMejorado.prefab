@@ -51,7 +51,7 @@ MonoBehaviour:
   weaponName: Missile
   description: High damage AoE explosion when it hits a target
   mostrarEnSeleccion: 0
-  dmg: 30
+  dmg: 40
   speed: 60
   cadencia: 2
   type: 0

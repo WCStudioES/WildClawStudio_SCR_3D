@@ -118,12 +118,14 @@ public class UIBoosters : MonoBehaviour
         
     }
 
-    public void ResetPartida()
+    public void ResetPartida(Sprite weapon)
     {
         if (player.IsOwner)
         {
             activeAbility.gameObject.SetActive(false);
             supportAbility.gameObject.SetActive(false);
+            weaponAbility.sprite = weapon;
+            weaponAbility.color = Color.white;
         }
     }
     

@@ -50,12 +50,13 @@ MonoBehaviour:
   weaponName: Machine gun
   description: Low damage but high attack speed
   mostrarEnSeleccion: 0
-  dmg: 10
+  dmg: 20
   speed: 50
   cadencia: 0.2
   type: 0
   projectileSFX: {fileID: 8300000, guid: 5902e77711c13ce459256e60ea03251f, type: 3}
   projectileVFX: {fileID: 3866223831499877756, guid: c7cc3ec19b76df845a5b13cc9cbe8f86, type: 3}
+  trailVFX: {fileID: 0}
 --- !u!54 &4117408586755700746
 Rigidbody:
   m_ObjectHideFlags: 0
