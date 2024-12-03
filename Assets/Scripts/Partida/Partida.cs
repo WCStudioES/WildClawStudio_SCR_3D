@@ -46,7 +46,9 @@ public class Partida : NetworkBehaviour
     [SerializeField] private FireRing fireRing;
 
     //LISTA DE RONDAS GANADAS
-    private List<List<bool>> partidasGanadasPorJugador = new List<List<bool>>(); 
+    private List<List<bool>> partidasGanadasPorJugador = new List<List<bool>>();
+
+    private bool hasntAnnouncedFireRing;
 
     
     //LOOP DE JUEGO
@@ -74,6 +76,16 @@ public class Partida : NetworkBehaviour
                     fireRing.CrearAreaDmg(null, null, IsServer);
                     OcultarDestructibles();
                     fireRing.isShrinking = true;
+
+                    if (hasntAnnouncedFireRing)
+                    {
+                        foreach (NetworkedPlayer jugador in jugadores)
+                        {
+                            jugador.MensajeAnuncioClientRpc("FINAL SHOWDOWN!");
+                        }
+                        hasntAnnouncedFireRing = false;
+                    }
+                    
 
                     //FINAL POR TIEMPO
                     //partidaEnMarcha = false;
@@ -381,6 +393,7 @@ public class Partida : NetworkBehaviour
         //HABILITA EL MOVIMIENTO Y LAS NAVES
         //HABILITA EL MOVIMIENTO Y LAS NAVES
         Invoke("reactivarNaves", 3.0f);
+        hasntAnnouncedFireRing = true;
         
         //LANZA LA CUENTA ATRAS PARA INICIAR LA PARTIDA
         foreach (var jugador in jugadores)

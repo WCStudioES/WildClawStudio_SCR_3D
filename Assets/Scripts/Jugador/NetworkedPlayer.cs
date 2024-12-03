@@ -90,7 +90,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] private Canvas UIEnemigo;
     [SerializeField] public TextMeshProUGUI NombreEnemigo;
 
-    [SerializeField] public Image Cronometro; 
+    [SerializeField] public Image Cronometro;
+    [SerializeField] private TextMeshProUGUI Anuncios; 
     
     private List<Shield> activeShields = new List<Shield>();
     
@@ -121,6 +122,25 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         UIEnemigo.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
+    [ClientRpc]
+    public void MensajeAnuncioClientRpc(string texto)
+    {
+        if (IsOwner)
+        {
+            Debug.Log("Anuncio puesto");
+            Anuncios.text = texto;
+            StartCoroutine("QuitarAnuncio");
+        }
+    }
+
+    IEnumerator QuitarAnuncio()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Anuncio quitado");
+        Anuncios.text = "";
+        
+    }
+    
     // Funcion para resetear los valores predefinidos antes de empezar partida
     public void ResetPrePartida()
     {
