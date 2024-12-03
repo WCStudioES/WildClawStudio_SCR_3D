@@ -424,7 +424,7 @@ MonoBehaviour:
   controladorDelJugador: {fileID: 8966913476814297344}
   networkTransformNave: {fileID: 315376961265466769}
   nave: {fileID: 6479168757547527166}
-  testing: 1
+  testing: 0
   usuario:
     name: 
     password: 

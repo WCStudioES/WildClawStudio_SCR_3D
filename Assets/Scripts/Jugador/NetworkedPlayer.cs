@@ -883,4 +883,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         activeShields.Add(shield);
     }
+    public void RemoveShield(Shield shield)
+    {
+        activeShields.Remove(shield);
+    }
 }

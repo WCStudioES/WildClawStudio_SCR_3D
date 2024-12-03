@@ -31,6 +31,11 @@ public class Shield : DestructibleAsset
         if(actualHealth.Value <= 0 )
         {
             DestroyDamageable(dmgDealer);
+
+            if(this is VisualShield)
+            {
+                owner.RemoveShield(this);
+            }
         }
         else
         {
