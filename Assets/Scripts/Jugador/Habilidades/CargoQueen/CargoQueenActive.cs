@@ -6,6 +6,8 @@ using System.Collections;
 public class CargoQueenActive : ShieldAbility
 {
     private GameObject shieldInstance; // Instancia del escudo
+    [SerializeField] private int health;
+    [SerializeField] private float healthScalationPercent;
     public override void AbilityExecution()
     {
         Debug.Log("Cargo Queen lanza habilidad: " + networkedPlayer.IsServer);
@@ -26,6 +28,7 @@ public class CargoQueenActive : ShieldAbility
             // Aqu� podr�as llamar a una funci�n para inicializar el escudo si es necesario
             var shieldScript = shieldInstance.GetComponent<Shield>();
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
+            shieldScript.SetHealth(health + (int)(networkedPlayer.maxHealth.Value* (healthScalationPercent / 100f)));
 
             StartCoroutine(MonitorShieldInstance());
         }

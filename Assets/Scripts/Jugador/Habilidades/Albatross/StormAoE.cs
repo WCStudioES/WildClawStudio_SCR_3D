@@ -6,10 +6,46 @@ using UnityEngine;
 
 public class StormAoE : AreaDmg
 {
+    [SerializeField] private float slow;
+    private PlayerShip playerShip;
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
         Debug.Log("Creando tormenta");
         target.GetDamage(dmg, dmgDealer);
+    }
+
+    protected override void AdditionalEffectsOnEnter(Collider other)
+    {
+        playerShip = other.GetComponent<PlayerShip>();
+
+        if (playerShip != null)
+        {
+            playerShip.shipController.maxSpeed -= slow;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (playerShip != null)
+        {
+            playerShip.shipController.maxSpeed += slow;
+            playerShip = null;
+        }
+    }
+
+    protected void OnTriggerExit(Collider other)
+    {
+
+        if (playerShip != null)
+        {
+            playerShip.shipController.initialSpeed += slow;
+            playerShip.shipController.maxSpeed += slow;
+            playerShip = null;
+        }
+    }
+
+    protected override void AdditionalEffectsOnStay(Collider other)
+    {
     }
 
     public override void ExtraBehaviour()

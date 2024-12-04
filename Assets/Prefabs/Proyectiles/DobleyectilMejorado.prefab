@@ -50,7 +50,7 @@ MonoBehaviour:
   weaponName: Double laser
   description: You shoot 2 lasers per shot
   mostrarEnSeleccion: 0
-  dmg: 20
+  dmg: 10
   speed: 50
   cadencia: 0.75
   type: 2

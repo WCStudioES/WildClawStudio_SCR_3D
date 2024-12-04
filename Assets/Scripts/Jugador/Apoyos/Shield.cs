@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Shield : DestructibleAsset
 {
-    public float duration = 5f; // Duración del escudo en segundos
+    public float duration = 5f; // Duraciï¿½n del escudo en segundos
 
     public NetworkedPlayer owner;
     public Transform spawn;
@@ -18,10 +18,16 @@ public class Shield : DestructibleAsset
         owner = pOwner;
         spawn = pSpawn;
 
-        // Esto podría ocurrir solo en el servidor
+        // Esto podrï¿½a ocurrir solo en el servidor
         actualHealth.Value = maxHealth; // Inicializar salud
 
         StartCoroutine(StartShieldTimer());
+    }
+
+    public void SetHealth(int health)
+    {
+        maxHealth = health;
+        actualHealth.Value = health;
     }
 
     public override void GetDamage(int damage, NetworkedPlayer dmgDealer)
@@ -52,7 +58,7 @@ public class Shield : DestructibleAsset
 
     public NetworkedPlayer IsChildOfPlayer()
     {
-        // Recorre la jerarquía de padres para ver si alguno coincide con el transform del jugador
+        // Recorre la jerarquï¿½a de padres para ver si alguno coincide con el transform del jugador
         Transform current = transform;
         while (current != null)
         {
@@ -63,7 +69,7 @@ public class Shield : DestructibleAsset
             current = current.parent;
         }
 
-        return null; // No se encontró relación con el jugador
+        return null; // No se encontrï¿½ relaciï¿½n con el jugador
     }
 
     protected override void SetAssetActive(bool active)

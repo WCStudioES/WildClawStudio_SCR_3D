@@ -127,6 +127,23 @@ public class Partida : NetworkBehaviour
         foreach (var meteorito in meteoritos)
         {
             meteorito.RestoreDestructibleAsset();
+            switch (ronda)
+            {
+                case 1: 
+                    meteorito.RestoreDestructibleAsset(50);
+                    break;
+                case 2:
+                    meteorito.RestoreDestructibleAsset(75);
+                    break;
+                case 3:
+                    meteorito.RestoreDestructibleAsset(100);
+                    break;
+                
+                default:
+                    Debug.Log("AVISO: NUMERO DE RONDA NO ES 1, 2 O 3");
+                    break;
+                    
+            }
         }
 
         foreach (var unDebris in debris)

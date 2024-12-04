@@ -401,6 +401,8 @@ MonoBehaviour:
   armorIncrement: 0
   dmgBalance: 0
   dmgIncrement: 10
+  maxSpeed: 10
+  initialSpeed: 2
   lifeUi: 2
   powerUi: 6
   speedUi: 3
@@ -442,7 +444,7 @@ MonoBehaviour:
     ship within its area. Reactivation detonates the grenade on the spot.
   Sprite: {fileID: -1705088866, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
-  actualResQuantity: 20
+  actualResQuantity: 15
   neededResQuantity: 15
   visualEffects: []
   networkedPlayer: {fileID: 0}
@@ -450,6 +452,7 @@ MonoBehaviour:
   maxResource: 0
   stormGrenade: {fileID: 5047976631321185189, guid: 743aabaa9ba67734caf03eefc3817bb3, type: 3}
   tiempoDeVida: 3
+  damage: 5
 --- !u!114 &1475624673909171016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +476,7 @@ MonoBehaviour:
   networkedPlayer: {fileID: 0}
   type: 1
   hpPercentThreshold: 35
-  extraDmg: 10
+  extraDmg: 5
 --- !u!1001 &1462790602886952337
 PrefabInstance:
   m_ObjectHideFlags: 0

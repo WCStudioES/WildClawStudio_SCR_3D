@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
+
 public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 {
     [Header("Ship Information")]
@@ -20,9 +21,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
 
     public int dmgBalance;
     public int dmgIncrement;
+    public float maxSpeed;
+    public float initialSpeed;
 
     [Header("UI Stats")]
-    // Stats para la UI de selección de nave
+    // Stats para la UI de selecciï¿½n de nave
     public int lifeUi;
     public int powerUi;
     public int speedUi;

@@ -10,6 +10,7 @@ public class AlbatrossActive : ShootProjectileAbility
     private GameObject proyectil;
     public float tiempoDeVida;
     private bool isActive;
+    [SerializeField] private int damage;
     public override void AbilityExecution()
     {
         Debug.Log("Albatros lanza habilidad");
@@ -62,6 +63,7 @@ public class AlbatrossActive : ShootProjectileAbility
         {
             isActive = false;
             networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity);
+            proyectil.GetComponent<StormGrenade>().dmg = (int)(damage *  ((float)networkedPlayer.dmgBalance.Value/100f));
             proyectil.GetComponent<StormGrenade>().Detonar(networkedPlayer);
             Destroy(proyectil);
         }
