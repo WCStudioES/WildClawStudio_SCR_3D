@@ -17,4 +17,10 @@ public class Meteorito : DestructibleAsset
     public float escalaMaxima = 4f;
     public float escalaMinima = 2f;
     
+    
+    public void ResetStats(int vida)
+    {
+        maxHealth = vida;
+        actualHealth.Value = vida;
+    }
 }

@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 5319589634363265642}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.20787, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.221}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5851124780373150311}
@@ -52,6 +52,8 @@ MonoBehaviour:
   ticksPerSecond: 2
   speed: 3
   aoeSFX: {fileID: 0}
+  aoeVFX: {fileID: 0}
+  slow: 3
 --- !u!135 &5332781582947477204
 SphereCollider:
   m_ObjectHideFlags: 0

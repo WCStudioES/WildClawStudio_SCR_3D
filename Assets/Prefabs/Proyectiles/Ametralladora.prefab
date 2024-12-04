@@ -51,8 +51,8 @@ MonoBehaviour:
   description: Low damage but high attack speed. At level 6 increases the damage.
   mostrarEnSeleccion: 1
   dmg: 10
-  speed: 50
-  cadencia: 0.2
+  speed: 55
+  cadencia: 0.4
   type: 0
   projectileSFX: {fileID: 8300000, guid: 5902e77711c13ce459256e60ea03251f, type: 3}
   projectileVFX: {fileID: 3866223831499877756, guid: c7cc3ec19b76df845a5b13cc9cbe8f86, type: 3}

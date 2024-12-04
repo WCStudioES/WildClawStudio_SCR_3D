@@ -111,6 +111,20 @@ public class DestructibleAsset : Damageable
         }
         SetAssetActive(true);
     }
+    
+    //Funcion para restaurar el meteorito con el hp dado
+    public void RestoreDestructibleAsset(int health)
+    {
+        if (IsServer)
+        {
+            maxHealth = health;
+            actualHealth.Value = maxHealth;
+            RestoreDestructibleAssetClientRpc();
+            resGiven = false;
+        }
+        SetAssetActive(true);
+    }
+    
     //Funcion para restaurar el meteorito con su hp con tamaño y experiencia aleatoria
     public void RestoreRandomDestructibleAsset()
     {

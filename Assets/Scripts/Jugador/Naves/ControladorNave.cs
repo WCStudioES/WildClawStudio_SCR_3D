@@ -83,7 +83,7 @@ public class ControladorNave : NetworkBehaviour
                 else
                 {
                     // Aumenta la velocidad en la dirección de movimiento
-                    velocity = (velocity.magnitude * forwardDirection) + (forwardDirection * acceleration * Time.deltaTime);
+                    velocity = forwardDirection * velocity.magnitude + (forwardDirection * (acceleration * Time.deltaTime));
                 }
 
                 // Limitar la magnitud de la velocidad a maxSpeed
@@ -256,6 +256,8 @@ public class ControladorNave : NetworkBehaviour
     {
         playerShip = ship.GetComponent<PlayerShip>();
 
+        initialSpeed = playerShip.initialSpeed;
+        maxSpeed = playerShip.maxSpeed;
 
         // Eliminamos cualquier CapsuleCollider existente en el padre
         if (colliderNave != null)

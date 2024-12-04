@@ -185,6 +185,8 @@ MonoBehaviour:
   armorIncrement: 0
   dmgBalance: 0
   dmgIncrement: 3
+  maxSpeed: 9
+  initialSpeed: 2
   lifeUi: 6
   powerUi: 2
   speedUi: 3
@@ -230,6 +232,8 @@ MonoBehaviour:
   maxResource: 0
   shield: {fileID: 7244499277988380073, guid: 1d4383f3a83397f478a6557dde93ffa1, type: 3}
   shieldSpawn: {fileID: 5052207521094992759}
+  health: 50
+  healthScalationPercent: 10
 --- !u!114 &6905838539324294299
 MonoBehaviour:
   m_ObjectHideFlags: 0

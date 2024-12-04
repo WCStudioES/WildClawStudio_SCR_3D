@@ -432,6 +432,8 @@ MonoBehaviour:
   armorIncrement: 0
   dmgBalance: 0
   dmgIncrement: 5
+  maxSpeed: 12
+  initialSpeed: 3
   lifeUi: 2
   powerUi: 3
   speedUi: 6

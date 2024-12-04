@@ -96,9 +96,13 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
                 //tickTimer = 0;
                 StartCoroutine(ResetHitCooldown());
             }
+            
+            AdditionalEffectsOnEnter(other);
         }
     }
 
+    //Efectos adicionales que hace en el OnTriggerStay
+    protected abstract void AdditionalEffectsOnEnter(Collider other);
     protected void OnTriggerStay(Collider other)
     {
         if (canHit && !isResetting) // Asegurarse de no estar ya en proceso de reinicio
@@ -119,7 +123,12 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
                 }
             }
         }
+
+        AdditionalEffectsOnStay(other);
     }
+
+    //Efectos adicionales que hace en el OnTriggerStay
+    protected abstract void AdditionalEffectsOnStay(Collider other);
 
     public bool IsChildOfOwner(Transform target)
     {

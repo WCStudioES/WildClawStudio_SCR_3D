@@ -59,6 +59,16 @@ public class FireRing : AreaDmg
         }
     }
 
+    protected override void AdditionalEffectsOnEnter( Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void AdditionalEffectsOnStay(Collider other)
+    {
+        throw new System.NotImplementedException();
+    }
+
     private new void FixedUpdate()
     {
         if (canHit)
