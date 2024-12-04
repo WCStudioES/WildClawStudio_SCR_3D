@@ -234,6 +234,7 @@ MonoBehaviour:
   shieldSpawn: {fileID: 5052207521094992759}
   health: 50
   healthScalationPercent: 10
+  timeIncrementation: 10
 --- !u!114 &6905838539324294299
 MonoBehaviour:
   m_ObjectHideFlags: 0

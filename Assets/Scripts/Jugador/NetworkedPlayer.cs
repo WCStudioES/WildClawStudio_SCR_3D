@@ -173,6 +173,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
+            UpdateShieldBarClientRpc(0, maxHealth.Value);
             UpdateExperienceBarClientRpc(0, 1);
         }
         uiBoosters.ResetPartida(allProjectiles[proyectilBasico].GetComponent<Proyectil>().sprite);
@@ -264,7 +265,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             barraDeVida.fillAmount = healthPercentage;
         
-            textoVida.text = vida +  " / " + maxVida;
+           if(activeShields.Count == 0)
+                textoVida.text = MathF.Max(vida, 0) +  " / " + maxVida;
         }
         else
         {
@@ -285,6 +287,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             barraDeEscudo.fillAmount = shieldPercentage;
             int totalHealth = actualHealth.Value + shieldHealth;
+            Debug.Log(shieldHealth + " " + actualHealth.Value );
         
             textoVida.text = totalHealth +  " / " + maxVida;
             
@@ -309,6 +312,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             {
                 float xpPercentage = 1f;
                 textoExperiencia.text = "MAX LEVEL";
+                barraDeExperiencia.fillAmount = xpPercentage;
             }
             else
             {
@@ -440,11 +444,13 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             if(activeShields.Count == 0 || dueñoDaño == null)
             {
                 actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
+                UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
             }
             else if (activeShields.Count > 0 && activeShields[activeShields.Count-1] == null)
             {
                 activeShields.RemoveAt(activeShields.Count-1);
                 actualHealth.Value -= (dmg - dmg * armor.Value / 100);
+                UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
             }
 
             // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
@@ -455,7 +461,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             }
 
             //Debug.Log("Vida actual de la nave: " + actualHealth);
-            UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
+            //UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
                   
             ChangeMaterialColorClientRpc(Color.red, 0.1f);
 
@@ -587,8 +593,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     break;
                 
                 case 6:
-                    //Mejora habilidades
-                    
+                    cuerpoNave.GetComponent<PlayerShip>().UpgradeAbility();
                     break;
                 //...
             }
@@ -830,9 +835,9 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
     //Metodo para actualizar la UI de la habilidad en el cliente con un contador ahcia atras para su CD
     [ClientRpc]
-    public void UpdateCDAbilityUIClientRpc(float value)
+    public void UpdateCDAbilityUIClientRpc(float value, bool upgraded)
     {
-        uiBoosters.UpdateActiveImageWithCD(value);
+        uiBoosters.UpdateActiveImageWithCD(value, upgraded);
     }
     
     //Metodo para actualizar la UI de la habilidad sin CD con un color

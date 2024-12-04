@@ -162,7 +162,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     public void FixedUpdate()
     {
         //Comportamiento extra del AoE (Crecer, cambiar dirección, etc...)
-        ExtraBehaviour();
+        ExtraBehaviour(Time.fixedDeltaTime);
 
         if(direction != null)
         {
@@ -189,7 +189,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         Destroy(gameObject, tiempo);
     }
 
-    public virtual void ExtraBehaviour()
+    public virtual void ExtraBehaviour(float tiempo)
     {
         return;
     }

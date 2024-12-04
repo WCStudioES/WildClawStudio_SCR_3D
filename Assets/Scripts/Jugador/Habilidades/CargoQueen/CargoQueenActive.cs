@@ -8,6 +8,7 @@ public class CargoQueenActive : ShieldAbility
     private GameObject shieldInstance; // Instancia del escudo
     [SerializeField] private int health;
     [SerializeField] private float healthScalationPercent;
+    public int timeIncrementation;
     public override void AbilityExecution()
     {
         Debug.Log("Cargo Queen lanza habilidad: " + networkedPlayer.IsServer);
@@ -27,8 +28,15 @@ public class CargoQueenActive : ShieldAbility
 
             // Aqu� podr�as llamar a una funci�n para inicializar el escudo si es necesario
             var shieldScript = shieldInstance.GetComponent<Shield>();
+            if (isUpgraded)
+            {
+                shieldScript.duration += timeIncrementation;
+                Debug.Log("Cargo mejorada");
+            }
             shieldScript.Initialize(networkedPlayer, shieldSpawn);
-            shieldScript.SetHealth(health + (int)(networkedPlayer.maxHealth.Value* (healthScalationPercent / 100f)));
+            int healthToGive = isUpgraded ? health + 100 : health;
+            shieldScript.SetHealth(healthToGive + (int)(networkedPlayer.maxHealth.Value* (healthScalationPercent / 100f)));
+            
 
             StartCoroutine(MonitorShieldInstance());
         }
@@ -47,7 +55,7 @@ public class CargoQueenActive : ShieldAbility
         // Cuando el escudo se destruye (shieldInstance == null)
         Debug.Log("El escudo ha sido destruido.");
         actualResQuantity = 0;
-        networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity);
+        networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
     }
 
     public override void ResetRonda()
@@ -55,7 +63,6 @@ public class CargoQueenActive : ShieldAbility
         Destroy(shieldInstance);
 
         actualResQuantity = neededResQuantity;
-        networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
-        networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity);
+        networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity, isUpgraded);
     }
 }

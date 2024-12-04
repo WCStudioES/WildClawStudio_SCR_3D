@@ -23,6 +23,7 @@ public class AlbatrossActive : ShootProjectileAbility
             //Debug.Log("Proyectil creado");
             proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
             proyectil.GetComponent<StormGrenade>().partida = networkedPlayer.partida;
+            proyectil.GetComponent<StormGrenade>().isUpgraded = isUpgraded;
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
             // Inicializamos el proyectil en el servidor
@@ -54,7 +55,7 @@ public class AlbatrossActive : ShootProjectileAbility
     {
         isActive = false;
         actualResQuantity = neededResQuantity;
-        networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity);
+        networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity, isUpgraded);
     }
 
     private void CrearTormenta()
@@ -62,7 +63,7 @@ public class AlbatrossActive : ShootProjectileAbility
         if (isActive)
         {
             isActive = false;
-            networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity);
+            networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
             proyectil.GetComponent<StormGrenade>().dmg = (int)(damage *  ((float)networkedPlayer.dmgBalance.Value/100f));
             proyectil.GetComponent<StormGrenade>().Detonar(networkedPlayer);
             Destroy(proyectil);

@@ -478,8 +478,10 @@ MonoBehaviour:
   type: 0
   maxResource: 50
   maxSpeedBuff: 5
+  maxSpeedBuffUpgraded: 8
   accelerationBuff: 10
   energyRecharge: 1
+  energyRechargeUpgraded: 2
   extraFires:
   - {fileID: 2234497262354916050}
   - {fileID: 8645789174331922093}

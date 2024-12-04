@@ -8,6 +8,8 @@ public class StormAoE : AreaDmg
 {
     [SerializeField] private float slow;
     private PlayerShip playerShip;
+    public bool isUpgraded = false;
+    [SerializeField] private float upscaling;
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
         Debug.Log("Creando tormenta");
@@ -48,8 +50,12 @@ public class StormAoE : AreaDmg
     {
     }
 
-    public override void ExtraBehaviour()
+    public override void ExtraBehaviour(float time)
     {
-        transform.localScale.Scale(new Vector3(1.1f, 1, 1.1f));
+        if (isUpgraded)
+        {
+            transform.localScale.Scale(new Vector3(upscaling, 1, upscaling));
+            Debug.Log(upscaling + " upgraded aaaaaaaaaaaaaaa");
+        }
     }
 }

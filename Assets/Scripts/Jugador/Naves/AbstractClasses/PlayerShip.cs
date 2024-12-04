@@ -81,6 +81,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         activeAbility.Execute();
     }
 
+    public void UpgradeAbility()
+    {
+        activeAbility.UpgradeAbility();
+    }
+
     public void SetLevels()
     {
         xpByLvl = new int[10];

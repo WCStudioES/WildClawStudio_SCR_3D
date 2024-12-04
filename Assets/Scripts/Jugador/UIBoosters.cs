@@ -7,6 +7,7 @@ public class UIBoosters : MonoBehaviour
 {
     public Image supportAbility;
     public Image activeAbility;
+    private bool isUpgraded = false;
     public Image weaponAbility;
 
     private float contadorActiva;
@@ -37,10 +38,11 @@ public class UIBoosters : MonoBehaviour
     }
 
     //Funcion para cambiar la UI de activa con un cronometro para el CD
-    public void UpdateActiveImageWithCD(float value)
+    public void UpdateActiveImageWithCD(float value, bool isUpgraded)
     {
         if (player.IsOwner)
         {
+            this.isUpgraded = isUpgraded;
             activeAbility.color = Color.red;
             contadorActiva = value;
             contadorTotalActiva = contadorActiva;
@@ -82,7 +84,10 @@ public class UIBoosters : MonoBehaviour
             activeAbility.fillAmount = 1.0f - (contadorActiva / contadorTotalActiva);
         }
         
-        activeAbility.color = Color.white;
+        if(isUpgraded)
+            activeAbility.color = Color.magenta;
+        else
+            activeAbility.color = Color.white;
         
     }
 
@@ -125,6 +130,7 @@ public class UIBoosters : MonoBehaviour
             activeAbility.gameObject.SetActive(false);
             supportAbility.gameObject.SetActive(false);
             weaponAbility.sprite = weapon;
+            activeAbility.color = Color.white;
             weaponAbility.color = Color.white;
         }
     }

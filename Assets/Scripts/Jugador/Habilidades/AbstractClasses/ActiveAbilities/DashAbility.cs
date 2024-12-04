@@ -6,8 +6,8 @@ using UnityEngine;
 public abstract class DashAbility : ActiveAbility
 {
     public float dashSpeed = 20f; // Velocidad del dash
-    public float dashDuration = 0.5f; // Duración del dash en segundos
-    public int dashDamage = 25; // Daño causado durante el dash
+    public float dashDuration = 0.5f; // Duraciï¿½n del dash en segundos
+    public int dashDamage = 25; // Daï¿½o causado durante el dash
     public Vector3 dashDirection;
 
     public ControladorNave nave;
@@ -29,7 +29,7 @@ public abstract class DashAbility : ActiveAbility
         Rigidbody rb = nave.GetComponent<Rigidbody>();
         if (rb == null)
         {
-            Debug.LogError("No se encontró el Rigidbody en la nave.");
+            Debug.LogError("No se encontrï¿½ el Rigidbody en la nave.");
             yield break;
         }
 
@@ -49,11 +49,12 @@ public abstract class DashAbility : ActiveAbility
         // Restaurar velocidad original al terminar el dash
         rb.velocity = Vector3.zero;
         nave.isDashing = false;
+        
     }
 
     public void CollidesWith(Collision other)
     {
-        // Detectar si el objeto impactado puede recibir daño
+        // Detectar si el objeto impactado puede recibir daï¿½o
         IDamageable target = other.gameObject.GetComponentInParent<IDamageable>();
         if (target != null)
         {

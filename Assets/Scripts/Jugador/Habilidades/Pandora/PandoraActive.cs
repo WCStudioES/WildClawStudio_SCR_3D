@@ -6,6 +6,7 @@ public class PandoraActive : ToggleAbility
 {
     public int hpThreshold = 20;    //Vida mínima para activar
     public int dmgBoost = 15;      //En Porcentaje
+    public int dmgReduction = 10;      //En Porcentaje
 
     //Metodo para activar habilidad: más daño a costa de vida cada segundo
     public override void AbilityExecution()
@@ -16,6 +17,10 @@ public class PandoraActive : ToggleAbility
 
         //Aumentar daño
         networkedPlayer.dmgBalance.Value += dmgBoost;
+        
+        //AumentarResistencia
+        if(isUpgraded)
+            networkedPlayer.armor.Value += dmgReduction;
             
         networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
     }
@@ -54,7 +59,12 @@ public class PandoraActive : ToggleAbility
 
         //Disminuir daño
         networkedPlayer.dmgBalance.Value -= dmgBoost;
-
-        networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
+        if (isUpgraded)
+        {
+            networkedPlayer.armor.Value -= dmgReduction;
+            networkedPlayer.UpdateAbilityUIClientRpc(Color.magenta);
+        }
+        else
+            networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
     }
 }

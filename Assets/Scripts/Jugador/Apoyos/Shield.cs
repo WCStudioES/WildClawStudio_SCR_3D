@@ -26,7 +26,7 @@ public class Shield : DestructibleAsset
         
         if (this is VisualShield)
         {
-            owner.UpdateShieldBarClientRpc(actualHealth.Value, owner.maxHealth.Value);
+            owner.UpdateShieldBarClientRpc(maxHealth, owner.maxHealth.Value);
         }
     }
 

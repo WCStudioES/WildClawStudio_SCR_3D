@@ -11,6 +11,7 @@ public class StormGrenade : Proyectil
     private bool activo = true; //Variable apra ver si el misil ha explotado ya
 
     public Partida partida;
+    public bool isUpgraded;
 
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
@@ -22,6 +23,8 @@ public class StormGrenade : Proyectil
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
+            explosionScript.isUpgraded = isUpgraded;
+            explosionScript.dmg = dmg;
             explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
             
         }
@@ -37,9 +40,9 @@ public class StormGrenade : Proyectil
 
             var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
             StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
             explosionScript.dmg = dmg;
-            
+            explosionScript.isUpgraded = isUpgraded;
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
             
             Destroy(GetComponent<Rigidbody>());
             Destroy(GetComponentInChildren<Renderer>());

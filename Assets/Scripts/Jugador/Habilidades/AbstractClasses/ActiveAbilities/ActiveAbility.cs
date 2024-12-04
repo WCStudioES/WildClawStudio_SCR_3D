@@ -6,6 +6,7 @@ public abstract class ActiveAbility : Ability
 {
     public ActiveType type;
     public int maxResource;
+    protected bool isUpgraded = false;
     public enum ActiveType
     {
         MovementBuff,
@@ -30,7 +31,7 @@ public abstract class ActiveAbility : Ability
 
             case ResourceType.CoolDown:
                 actualResQuantity = neededResQuantity;
-                networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity);
+                networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity, isUpgraded);
                 break;
 
             case ResourceType.Hp:
@@ -109,6 +110,19 @@ public abstract class ActiveAbility : Ability
             default:
                 break;
         }
+    }
+
+    public virtual void UpgradeAbility()
+    {
+        isUpgraded = true;
+        networkedPlayer.UpdateAbilityUIClientRpc(Color.magenta);
+        Debug.Log(networkedPlayer.userName + " upgraded Ability");
+    }
+    
+    public virtual void ResetPartida()
+    {
+        Debug.Log(networkedPlayer.userName + " reseted Ability");
+        isUpgraded = false;
     }
     
 }

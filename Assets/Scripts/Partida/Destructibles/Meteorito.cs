@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
@@ -17,6 +18,7 @@ public class Meteorito : DestructibleAsset
     public float escalaMaxima = 4f;
     public float escalaMinima = 2f;
     
+    private Vector3 rotationSpeed = new Vector3(0, 100, 0); 
     
     public void ResetStats(int vida)
     {

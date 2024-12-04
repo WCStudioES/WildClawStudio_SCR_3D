@@ -12,9 +12,11 @@ public class RavagerActive : ToggleAbility
     private float duracionActual = 0; // Tiempo de uso de la habilidad
 
     public float maxSpeedBuff = 20;
+    public float maxSpeedBuffUpgraded = 20;
     public float accelerationBuff = 30;
 
     public int energyRecharge;  //Energia recargada por segundo
+    public int energyRechargeUpgraded;  //Energia recargada por segundo
 
     private List<VisualEffect> activeFireVFX = new List<VisualEffect>();
     [SerializeField] private List<Transform> extraFires;
@@ -27,7 +29,11 @@ public class RavagerActive : ToggleAbility
         Debug.Log("Habilidad Ravager ejecutada");
         //uiBoosters.UpdateActiveImage(neededResQuantity);
 
-        networkedPlayer.nave.maxSpeed += maxSpeedBuff;
+        if (!isUpgraded)
+            networkedPlayer.nave.maxSpeed += maxSpeedBuff;
+        else
+            networkedPlayer.nave.maxSpeed += maxSpeedBuffUpgraded;
+        
         networkedPlayer.nave.acceleration += accelerationBuff;
     }
 
@@ -43,7 +49,10 @@ public class RavagerActive : ToggleAbility
 
         actualResQuantity = maxResource;
 
-        networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource);
+        if(!isUpgraded)
+            networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource, Color.white);
+        else
+            networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource, Color.magenta);
         //StartCoroutine("UiUpdater");
     }
 
@@ -71,7 +80,10 @@ public class RavagerActive : ToggleAbility
 
         if (!active && actualResQuantity < maxResource)
         {
-            actualResQuantity += energyRecharge * Time.deltaTime;
+            if(!isUpgraded)
+                actualResQuantity += energyRecharge * Time.deltaTime;
+            else
+                actualResQuantity += energyRechargeUpgraded * Time.deltaTime;
         }
         else if (active)
         {
@@ -93,7 +105,10 @@ public class RavagerActive : ToggleAbility
         }
         else
         {
-            color = Color.white;
+            if(!isUpgraded)
+                color = Color.white;
+            else
+                color = Color.magenta;
         }
 
         networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, color);
@@ -106,10 +121,19 @@ public class RavagerActive : ToggleAbility
         if (!networkedPlayer.IsServer) return; // Solo el servidor termina la habilidad
 
         Debug.Log("Habilidad Ravager terminada");
-        networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
+        if (!isUpgraded)
+        {
+            networkedPlayer.nave.maxSpeed -= maxSpeedBuff;
+            networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, Color.white);
+        }
+        else
+        {
+            networkedPlayer.nave.maxSpeed -= maxSpeedBuffUpgraded;
+            networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, Color.magenta);
+        }
+        
         networkedPlayer.nave.acceleration -= accelerationBuff;
         duracionActual = 0;
-        networkedPlayer.UpdateAbilityUIClientRpc(actualResQuantity / maxResource, Color.white);
     }
 
     //Metodo para aumentar elcontador de duración de la habilidad
