@@ -41,7 +41,7 @@ public class ControladorNave : NetworkBehaviour
     public MeshCollider colliderNave;
 
     [Header("SFX")]
-    public AudioSource shipAudioSource;
+    public AudioSource accelerationAudioSource;
     public AudioClip collisionSFX;
     public AudioClip accelerateSFX;
 
@@ -76,7 +76,10 @@ public class ControladorNave : NetworkBehaviour
 
         if (opcionesJugador != null && !isDashing && opcionesJugador.movimientoActivado && IsServer)
         {
-            UpdateMovement();
+            if (canBounce)
+            {
+                UpdateMovement();
+            }
             UpdateRotation();
         }
     }
@@ -196,14 +199,23 @@ public class ControladorNave : NetworkBehaviour
     [ClientRpc]
     public void AccelerateSFXClientRpc(bool play)
     {
-        if (play && !shipAudioSource.isPlaying)
+        if (play)
         {
-            //Debug.Log("Acelera carnal");
-            AudioManager.Instance.PlaySFX(shipAudioSource, accelerateSFX);
+            // Si el AudioSource no ha sido asignado o está detenido, reproducir el sonido
+            if (accelerationAudioSource == null || !accelerationAudioSource.isPlaying)
+            {
+                // Asignar el AudioSource devuelto por PlaySFX
+                accelerationAudioSource = AudioManager.Instance.PlaySFX(accelerateSFX, transform.position);
+            }
         }
-        else if (!play && shipAudioSource.isPlaying)
+        else
         {
-            AudioManager.Instance.StopSFX(shipAudioSource);
+            // Detener el sonido si está activo
+            if (accelerationAudioSource != null)
+            {
+                AudioManager.Instance.StopSFX(accelerationAudioSource);
+                accelerationAudioSource = null; // Liberar referencia
+            }
         }
     }
 
@@ -260,6 +272,11 @@ public class ControladorNave : NetworkBehaviour
             else
             {
                 OnCollisionPassive passive = playerShip.passiveAbility as OnCollisionPassive;
+
+                if (passive.recievesCollisionDamage)
+                {
+                    opcionesJugador.controladorDelJugador.GetDamage((int)(velocity.magnitude * maxSpeedDmg / maxSpeed), opcionesJugador.controladorDelJugador);
+                }
                 passive.CollideWith(collision);
             }
 

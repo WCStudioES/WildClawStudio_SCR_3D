@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -39,12 +40,22 @@ public abstract class Ability : MonoBehaviour, IAbility
             {
                 case ResourceType.CoolDown:
                     actualResQuantity = 0;
+                    StartCoroutine(CooldownCoroutine());
                     break;
 
                 default:
                     //actualResQuantity -= neededResQuantity; 
                     break;
             }
+        }
+    }
+
+    private IEnumerator CooldownCoroutine()
+    {
+        while (actualResQuantity < neededResQuantity)
+        {
+            actualResQuantity += Time.deltaTime;
+            yield return null;  // Esperar un frame
         }
     }
 

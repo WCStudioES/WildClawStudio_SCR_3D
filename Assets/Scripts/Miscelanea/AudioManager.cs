@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("SFX Settings")]
     public GameObject audioSourcePrefab;
-    public int maxAudioSources = 10;
+    public int maxAudioSources = 15;
     private Queue<AudioSource> audioSourcePool = new Queue<AudioSource>();
     private List<AudioSource> activeAudioSources = new List<AudioSource>(); // Para rastrear los SFX activos
 

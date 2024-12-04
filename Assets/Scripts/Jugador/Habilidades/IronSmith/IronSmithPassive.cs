@@ -15,7 +15,7 @@ public class IronSmithPassive : OnCollisionPassive
 
     public override bool CheckAvailability()
     {
-        if(Mathf.Abs(networkedPlayer.nave.rotationSpeed) > networkedPlayer.nave.maxRotationSpeed * 4/6)
+        if(Mathf.Abs(networkedPlayer.nave.rotationSpeed) > networkedPlayer.nave.maxRotationSpeed * 4/6 && actualResQuantity >= neededResQuantity)
         {
             return true;
         }
