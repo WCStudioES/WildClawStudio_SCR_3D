@@ -73,12 +73,15 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     
     // UI
     public Image barraDeVida; //Imagen de la barra de vida
+    public Image barraDeEscudo; //Imagen de la barra de vida
     [SerializeField]private TextMeshProUGUI textoVida; //Texto dentro de la barra de vida
 
     public Image barraDeExperiencia; //Imagen de la barra de experiencia
     [SerializeField] private TextMeshProUGUI textoExperiencia; //Texto dentro de la barra de experiencia
     
     [SerializeField] private TextMeshProUGUI textoNivel; //Texto que muestra el nivel de la nave
+    [SerializeField] private Image LvlUpImage;
+    [SerializeField] private Image LvlUpImageEnemigo;
     public UIBoosters uiBoosters;
     
     [SerializeField] private Animator animator;
@@ -86,6 +89,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     
     //UI de barra enemiga 
     [SerializeField] private Image circuloDeVidaEnemigo;
+    [SerializeField] private Image circuloDeEscudoEnemigo;
     [SerializeField] private TextMeshProUGUI nivelEnemigo;
     [SerializeField] private Canvas UIEnemigo;
     [SerializeField] public TextMeshProUGUI NombreEnemigo;
@@ -164,6 +168,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             projectile.Value = proyectilBasico;
             canUseAbility = false;
             isSupportAvailable = false;
+            
+            playerShip.ResetRonda();
 
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
@@ -224,6 +230,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             default:
                 break;
         }
+        
     }
 
     public void ResetSupportItems()
@@ -252,11 +259,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void UpdateHealthBarClientRpc(int vida, int maxVida)
     {
         float healthPercentage = (float) vida / (float) maxVida;
+        
         if (IsOwner)
         {
             barraDeVida.fillAmount = healthPercentage;
         
-            textoVida.text = vida + " / " + maxVida;
+            textoVida.text = vida +  " / " + maxVida;
         }
         else
         {
@@ -267,6 +275,30 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         //Debug.Log(healthPercentage);
     }
     
+    //Funcion que maneja la barra de vida
+    [ClientRpc]
+    public void UpdateShieldBarClientRpc(int shieldHealth, int maxVida)
+    {
+        float shieldPercentage = (float) shieldHealth / (float) maxVida;
+        
+        if (IsOwner)
+        {
+            barraDeEscudo.fillAmount = shieldPercentage;
+            int totalHealth = actualHealth.Value + shieldHealth;
+        
+            textoVida.text = totalHealth +  " / " + maxVida;
+            
+            float shieldFill = ((float) shieldHealth)/ maxVida;
+            barraDeEscudo.fillAmount = shieldFill;
+        }
+        else
+        {
+            float shieldFill = ((float) shieldHealth)/ maxVida;
+            circuloDeEscudoEnemigo.fillAmount = shieldFill;
+        }
+        
+        
+    }
     //Funcion que maneja la barra de experiencia
     [ClientRpc]
     public void UpdateExperienceBarClientRpc(int experience, int lvl)
@@ -544,6 +576,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     isSupportAvailable = true;
                     ApplySuppItem();
                     DesbloquearApoyoClientRpc();
+                    UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
                     break;
                 
                 case 5:
@@ -556,7 +589,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     break;
                 //...
             }
-            
         }
         
         // Actualizar barras
@@ -568,8 +600,31 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [ClientRpc]
     private void AnimacionSubidaNivelCLientRpc()
     {
-        animator2.SetTrigger("SubidaNivel");
-        animator.SetTrigger("SubidaNivel");
+        if (IsOwner)
+        {
+            animator2.SetTrigger("SubidaNivel");
+            animator.SetTrigger("SubidaNivel");
+            LvlUpImage.gameObject.SetActive(true);
+            StartCoroutine("DisableLvlUpImage");
+        }
+        else
+        {
+            LvlUpImageEnemigo.gameObject.SetActive(true);
+            StartCoroutine("DisableLvlUpEnemigoImage");
+        }
+        
+    }
+
+    IEnumerator DisableLvlUpImage()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        LvlUpImage.gameObject.SetActive(false);
+    }
+    
+    IEnumerator DisableLvlUpEnemigoImage()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        LvlUpImageEnemigo.gameObject.SetActive(false);
     }
     
     [ClientRpc]
@@ -890,10 +945,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void AddShield(Shield shield)
     {
         activeShields.Add(shield);
+        
     }
     public void RemoveShield(Shield shield)
     {
         activeShields.Remove(shield);
+        UpdateShieldBarClientRpc(0, maxHealth.Value);
     }
 
     public void RemoveAllShields()
