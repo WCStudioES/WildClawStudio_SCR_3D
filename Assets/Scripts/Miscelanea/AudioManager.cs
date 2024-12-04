@@ -239,4 +239,23 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SetMusicVolume(float volume)
+    {
+        if (musicSource != null)
+        {
+            musicSource.volume = volume;
+        }
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        foreach (AudioSource sfx in audioSourcePool)
+        {
+            if (sfx != null)
+            {
+                sfx.volume = volume;
+            }
+        }
+    }
+
 }

@@ -12,6 +12,8 @@ public class UI : NetworkBehaviour
     
     [SerializeField]private GameObject LogIn;
     [SerializeField]private GameObject Personalizacion;
+    [SerializeField]private GameObject Settings;
+    public Image brightnessPanel;
     private bool cameraInGame = false;
     [SerializeField]private GameObject BuscandoPartida;
     [SerializeField]private GameObject Instrucciones;
@@ -26,7 +28,6 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Historial;
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
-    [SerializeField] private GameObject Settings;
     private int posicionCuentaAtras = 0;
 
     [SerializeField] private GameObject[] circulosAzulesVictoria;
@@ -49,6 +50,7 @@ public class UI : NetworkBehaviour
         matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
         if(!IsHost && IsOwner && opcionesJugador.ActivarUI)
             ActivarUI();
+            SettingsManager.Instance.brightnessPanel = brightnessPanel;
     }
 
     private void Update()
