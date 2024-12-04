@@ -9,6 +9,7 @@ public abstract class PassiveAbility : Ability
     {
         StatBuff,
         OnHit,
-        OnCollision
+        OnCollision,
+        OnRotation
     }
 }

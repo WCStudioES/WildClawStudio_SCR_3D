@@ -426,7 +426,8 @@ MonoBehaviour:
   - {fileID: 5497064521286998889, guid: 7f29f034d833a254fb00126fe494011a, type: 3}
   - {fileID: 8021392180416212902, guid: 4b97cfe48d1deb84fa4d42f0bd6e0329, type: 3}
   - {fileID: 4791115864673810590, guid: fc2fc1c55cc45804f8ef902c2ddeda3c, type: 3}
-  unlockedShips: 00000000010000000200000003000000
+  - {fileID: 2464310421263258541, guid: a8c802dccb1be184fa9065f141bb75aa, type: 3}
+  unlockedShips: 0000000001000000020000000300000004000000
   selectedShip:
     m_InternalValue: 0
   allProjectiles:

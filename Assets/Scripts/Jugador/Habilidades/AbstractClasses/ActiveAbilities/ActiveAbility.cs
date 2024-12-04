@@ -11,7 +11,8 @@ public abstract class ActiveAbility : Ability
         MovementBuff,
         ShootProjectile,
         Shield,
-        TogglePassive
+        ToggleActive,
+        Dash
     }
     
     //Metodo para reiniciar habilidad entre rondas

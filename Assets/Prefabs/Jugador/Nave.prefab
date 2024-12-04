@@ -181,9 +181,12 @@ MonoBehaviour:
   CameraPositionCustomization: {fileID: 1651346800125495721}
   CameraTarget: {fileID: 8028606154386012260}
   actualCamera: {fileID: 1651346800125495721}
+  initialRotationSpeed: 100
+  rotationAcceleration: 50
+  rotationSpeed: 0
+  maxRotationSpeed: 250
   direccionMovimiento: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0}
-  rotationSpeed: 200
   reductionMultiplier: 0.0125
   initialSpeed: 3
   acceleration: 7
@@ -202,6 +205,7 @@ MonoBehaviour:
   orbitAngles: {x: 30, y: 0}
   minVerticalAngle: 10
   maxVerticalAngle: 80
+  isDashing: 0
 --- !u!114 &2342552104495230361
 MonoBehaviour:
   m_ObjectHideFlags: 0

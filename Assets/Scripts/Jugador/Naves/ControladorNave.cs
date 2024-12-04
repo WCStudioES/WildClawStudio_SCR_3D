@@ -4,6 +4,7 @@ using DefaultNamespace;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class ControladorNave : NetworkBehaviour
 {
@@ -17,10 +18,13 @@ public class ControladorNave : NetworkBehaviour
         Customization
     };
 
+    public float initialRotationSpeed = 150f;
+    public float rotationAcceleration = 50f;
+    public float rotationSpeed = 0f; // Velocidad de rotación
+    public float maxRotationSpeed = 250;
+
     [SerializeField]private Vector3 direccionMovimiento = Vector3.zero; // Dirección del movimiento (hacia adelante)
     public Vector2 velocity = Vector2.zero;
-
-    public float rotationSpeed = 250f; // Velocidad de rotación
     public float reductionMultiplier = 0.025f; // Controla la intensidad de la reducción
     public float initialSpeed = 2.0f;
     public float acceleration = 50f; // Aceleración
@@ -30,6 +34,7 @@ public class ControladorNave : NetworkBehaviour
 
     public bool canBounce = true;
     private Vector3 targetDirection; // Dirección hacia la que la nave debería girar
+    private int rotationInput; // Dirección hacia la que la nave debería girar
 
     [SerializeField] public OpcionesJugador opcionesJugador;
     [SerializeField] public PlayerShip playerShip;
@@ -49,6 +54,9 @@ public class ControladorNave : NetworkBehaviour
 
     private bool isOrbiting = false;
 
+    //Si la nave está dasheando
+    public bool isDashing = false;
+
     void Start()
     {
         if (IsOwner)
@@ -61,62 +69,104 @@ public class ControladorNave : NetworkBehaviour
 
     void Update()
     {
-        if (actualCamera == CameraPositionCustomization && isOrbiting)
+        //if (actualCamera == CameraPositionCustomization && isOrbiting)
+        //{
+        //    UpdateOrbit();
+        //}
+
+        if (opcionesJugador != null && !isDashing && opcionesJugador.movimientoActivado && IsServer)
         {
-            UpdateOrbit();
-        }
-
-        if (opcionesJugador != null && opcionesJugador.movimientoActivado && IsServer)
-        {
-            Vector2 previousVelocity = velocity;
-            
-            // Si hay dirección de movimiento, acelerar
-            if (direccionMovimiento != Vector3.zero && canBounce)
-            {
-                Vector2 forwardDirection = new Vector2(transform.forward.x, transform.forward.z).normalized;
-
-                if(previousVelocity == Vector2.zero)
-                {
-                    //Si estás quieto empiezas con boost de velocidad
-                    velocity = forwardDirection * initialSpeed;
-                }
-                else
-                {
-                    // Aumenta la velocidad en la dirección de movimiento
-                    velocity = forwardDirection * velocity.magnitude + (forwardDirection * (acceleration * Time.deltaTime));
-                }
-
-                // Limitar la magnitud de la velocidad a maxSpeed
-                if (velocity.magnitude > maxSpeed)
-                {
-                    velocity = velocity.normalized * maxSpeed;
-                }
-            }
-            else
-            {
-                // Decelerar para detenerse si no hay input de movimiento
-                velocity = Vector2.MoveTowards(velocity, Vector2.zero, deceleration * Time.deltaTime);
-
-                //velocity -= deceleration * Time.deltaTime * velocity;
-                if (velocity.magnitude < 0.05f)
-                {
-                    velocity = Vector2.zero;
-                }
-            }
-
-            GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
-
-            // Aplicar la velocidad calculada a la posición del objeto
-            //transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
-
-            // Aplica la pasiva de la nave si ocurre todo el rato
-            if (playerShip.passiveAbility is StatBuffPassive)
-            {
-                playerShip.passiveAbility.Execute();
-            }
+            UpdateMovement();
+            UpdateRotation();
         }
     }
 
+    private void UpdateMovement()
+    {
+        Vector2 previousVelocity = velocity;
+
+        // Si hay dirección de movimiento, acelerar
+        if (direccionMovimiento != Vector3.zero && canBounce)
+        {
+            Vector2 forwardDirection = new Vector2(transform.forward.x, transform.forward.z).normalized;
+
+            if (previousVelocity == Vector2.zero)
+            {
+                //Si estás quieto empiezas con boost de velocidad
+                velocity = forwardDirection * initialSpeed;
+            }
+            else
+            {
+                // Aumenta la velocidad en la dirección de movimiento
+                velocity = forwardDirection * velocity.magnitude + (forwardDirection * (acceleration * Time.deltaTime));
+            }
+
+            // Limitar la magnitud de la velocidad a maxSpeed
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = velocity.normalized * maxSpeed;
+            }
+        }
+        else
+        {
+            // Decelerar para detenerse si no hay input de movimiento
+            velocity = Vector2.MoveTowards(velocity, Vector2.zero, deceleration * Time.deltaTime);
+
+            //velocity -= deceleration * Time.deltaTime * velocity;
+            if (velocity.magnitude < 0.05f)
+            {
+                velocity = Vector2.zero;
+            }
+        }
+
+        GetComponent<Rigidbody>().velocity = new Vector3(velocity.x, 0, velocity.y);
+
+        // Aplicar la velocidad calculada a la posición del objeto
+        //transform.position += new Vector3(velocity.x, 0, velocity.y) * Time.deltaTime;
+
+        // Aplica la pasiva de la nave si ocurre todo el rato
+        if (playerShip.passiveAbility is StatBuffPassive)
+        {
+            playerShip.passiveAbility.Execute();
+        }
+    }
+
+    private void UpdateRotation()
+    {
+        if(rotationInput != 0)
+        {
+            if (rotationSpeed == 0)
+            {
+                rotationSpeed += initialRotationSpeed;
+            }
+            else
+            {
+                // Aumentar la velocidad de rotación con aceleración
+                rotationSpeed += rotationAcceleration * Time.deltaTime;
+
+                // Limitar la velocidad de rotación al máximo permitido
+                rotationSpeed = Mathf.Min(rotationSpeed, maxRotationSpeed);
+            }
+
+            transform.Rotate(0, rotationInput * rotationSpeed * Time.deltaTime, 0);
+
+            if (velocity.magnitude > 0.01f)
+            {
+                float angle = Vector3.Angle(transform.forward, velocity.normalized);
+
+                float reductionFactor = Mathf.Clamp01(1 - (angle / 180f));
+
+                // Multiplica el factor de reducción para hacer que el efecto sea más o menos fuerte
+                velocity *= Mathf.Lerp(1.0f, reductionFactor, reductionMultiplier);
+            }
+        }
+        else
+        {
+            rotationSpeed = 0;
+        }
+    }
+
+    //INPUT DEL JUGADOR
     public void Move()
     {
         direccionMovimiento = Vector3.forward; // Apuntar hacia adelante
@@ -131,6 +181,18 @@ public class ControladorNave : NetworkBehaviour
         AccelerateVFXClientRpc(false);
     }
 
+    public void Rotate(float input)
+    {
+        rotationInput = (int) input;
+    }
+
+    public void StopRotating()
+    {
+        rotationInput = 0;
+    }
+
+
+    // CLIENT RPC DE SFX Y VFX
     [ClientRpc]
     public void AccelerateSFXClientRpc(bool play)
     {
@@ -169,28 +231,22 @@ public class ControladorNave : NetworkBehaviour
         AudioManager.Instance.PlaySFX(collisionSFX, transform.position);
     }
 
-    public void Rotate(float input)
-    {
-        transform.Rotate(0, input * rotationSpeed * Time.deltaTime, 0);
 
-        
-        if (velocity.magnitude > 0.01f)
-        {
-            float angle = Vector3.Angle(transform.forward, velocity.normalized);
-
-            float reductionFactor = Mathf.Clamp01(1 - (angle / 180f));
-
-            // Multiplica el factor de reducción para hacer que el efecto sea más o menos fuerte
-            velocity *= Mathf.Lerp(1.0f, reductionFactor, reductionMultiplier);
-        }
-        
-    }
-
-
+    // DETECCIÖN DE COLISIONES
     private void OnCollisionEnter(Collision collision)
     {
         //COLLSION SFX
         PlayCollisionSFXClientRpc();
+
+        if (isDashing)
+        {
+            DashAbility dash = playerShip.activeAbility as DashAbility;
+            if(dash != null)
+            {
+                dash.CollidesWith(collision);
+                return;
+            }
+        }
 
         //SPEED CHANGES
         if (velocity.magnitude > maxSpeed / 3 && collision.gameObject.GetComponent<IProyectil>() == null)

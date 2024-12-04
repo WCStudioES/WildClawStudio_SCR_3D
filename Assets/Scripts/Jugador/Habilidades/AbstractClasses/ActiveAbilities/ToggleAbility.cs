@@ -10,7 +10,7 @@ public abstract class ToggleAbility : ActiveAbility
 
     private void Awake()
     {
-        type = ActiveType.TogglePassive;
+        type = ActiveType.ToggleActive;
         timerActive = true;
     }
     public override void Execute()

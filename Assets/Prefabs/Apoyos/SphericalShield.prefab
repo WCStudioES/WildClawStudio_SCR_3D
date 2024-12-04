@@ -100,11 +100,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 25
   hitColor: {r: 0.37254903, g: 1, b: 0.93096995, a: 0}
+  assetCollider: {fileID: 0}
+  assetRenderer: {fileID: 0}
   actualHealth:
     m_InternalValue: 25
   resType: 0
   resToGive:
     m_InternalValue: 0
+  destructionSFX: {fileID: 0}
+  partida: {fileID: 0}
+  destructionVFX: {fileID: 0}
   duration: 50
   owner: {fileID: 0}
   spawn: {fileID: 0}
@@ -114,5 +119,6 @@ MonoBehaviour:
   - {fileID: 8641066413166012313, guid: b17c368dd620b6b47ac3b43e6126a0e7, type: 3}
   - {fileID: 6480635285561940552, guid: 5074db0c84451844d8fef3327b2aee19, type: 3}
   - {fileID: 3116758853818261566, guid: f43a8a80c47815148afdcf188fb563bd, type: 3}
+  - {fileID: 6844373416619301954, guid: 0013f54c012fe4f4fa4bc0207a231d2b, type: 3}
   selectedModelIndex:
     m_InternalValue: 0

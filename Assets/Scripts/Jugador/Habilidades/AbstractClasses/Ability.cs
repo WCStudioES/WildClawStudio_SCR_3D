@@ -25,7 +25,8 @@ public abstract class Ability : MonoBehaviour, IAbility
         None,
         Energy,
         CoolDown,
-        Hp
+        Hp,
+        RotationSpeed
     }
 
     //Usado cuando se llama a la habilidad (pulsar tecla o Upadte() si es pasiva)
@@ -64,6 +65,7 @@ public abstract class Ability : MonoBehaviour, IAbility
     public void Start()
     {
         networkedPlayer = GetComponentInParent<NetworkedPlayer>();
+        Debug.Log("hola: " + networkedPlayer);
         InitializeVFX();
     }
 

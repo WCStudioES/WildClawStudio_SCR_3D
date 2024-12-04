@@ -358,6 +358,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 //Debug.Log("ROTANDO");
                 OnRotateServerRpc(rotationInput);
             }
+            else
+            {
+                OnStopRotatingServerRpc();
+            }
 
             //Disparos
             if (isShooting)
@@ -514,11 +518,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     
     public void GetHealPercentage(int percentage, NetworkedPlayer dueñoDaño)
     {
-        int health = Mathf.Min(actualHealth.Value + (maxHealth.Value*percentage), maxHealth.Value);
-        actualHealth.Value = health;  // Suma la cantidad de daño a la vida de la nave
-        
+        actualHealth.Value = Mathf.Min(actualHealth.Value + (maxHealth.Value * percentage / 100), maxHealth.Value); // Suma la cantidad de daño a la vida de la nave
+
         //Debug.Log("Vida actual de la nave: " + actualHealth.Value);
-        UpdateHealthBarClientRpc(health, maxHealth.Value); //Actualizar barra de vida
+        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
 
         //VFX
         if (actualHealth.Value >= maxHealth.Value / 4)
@@ -681,6 +684,12 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         nave.Rotate(input); // Llama a la función de rotación en la nave
     }
 
+    [ServerRpc]
+    private void OnStopRotatingServerRpc()
+    {
+        nave.StopRotating(); // Llama a la función de rotación en la nave
+    }
+
     // LLEVA AL JUGADOR A LA POSICIÓN DE SPAWN
     [ServerRpc]
     private void OnPlayerStartServerRpc()
@@ -791,7 +800,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             switch (ability.type)
             {
                 //HABILIDADES SOLO EJECUTADAS EN EL SERVER
-                case ActiveAbility.ActiveType.TogglePassive:
+                case ActiveAbility.ActiveType.ToggleActive:
+                case ActiveAbility.ActiveType.Dash:
                 case ActiveAbility.ActiveType.Shield:
                     playerShip.UseAbility();
                     break;
@@ -919,6 +929,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
         cuerpoNave.transform.position = Vector3.zero;
         cuerpoNave.transform.localRotation = Quaternion.identity;
+
+        //Asignar el owner a las habilidades
+        cuerpoNave.GetComponent<PlayerShip>().activeAbility.networkedPlayer = this;
+        cuerpoNave.GetComponent<PlayerShip>().passiveAbility.networkedPlayer = this;
 
         nave.AssignShip(cuerpoNave);
 
