@@ -35,9 +35,7 @@ public class SettingsManager : MonoBehaviour
         float savedSFXVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1f); // Volumen por defecto: 1
         AudioManager.Instance.SetSFXVolume(savedSFXVolume);
 
-        // Cargar el brillo al inicio
-        float savedBrightness = PlayerPrefs.GetFloat(BrightnessKey, 0f); // Volumen por defecto: 1
-        SetBrightness(savedBrightness);
+        LoadBrightness();
     }
 
     //VOLUMEN
@@ -89,6 +87,18 @@ public class SettingsManager : MonoBehaviour
 
     public float GetBrightness()
     {
-        return PlayerPrefs.GetFloat(BrightnessKey, 0f);
+        float toReturn = PlayerPrefs.GetFloat(BrightnessKey, 0f);
+        if (toReturn > 0)
+        {
+            return (-1 * toReturn);
+        }
+        return toReturn;
+    }
+
+    public void LoadBrightness()
+    {
+        // Cargar el brillo
+        float savedBrightness = PlayerPrefs.GetFloat(BrightnessKey, 0f); // Volumen por defecto: 1
+        SetBrightness(savedBrightness);
     }
 }

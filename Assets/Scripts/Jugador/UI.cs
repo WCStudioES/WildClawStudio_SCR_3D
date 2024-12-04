@@ -49,8 +49,13 @@ public class UI : NetworkBehaviour
     {
         matchmakingManager = FindAnyObjectByType<MatchmakingManager>();
         if(!IsHost && IsOwner && opcionesJugador.ActivarUI)
+        {
             ActivarUI();
+
+            //APLICAR AJUSTES DE BRILLO
             SettingsManager.Instance.brightnessPanel = brightnessPanel;
+            SettingsManager.Instance.LoadBrightness();
+        }
     }
 
     private void Update()
@@ -181,14 +186,22 @@ public class UI : NetworkBehaviour
     //HISTORIAL
     public void AbrirHistorial()
     {
-        Personalizacion.SetActive(false);
-        Historial.SetActive(true);
+        if (IsOwner)
+        {
+            Personalizacion.SetActive(false);
+            Historial.SetActive(true);
+            opcionesJugador.deshabilitarNave();
+        }
     }
 
     public void CerrarHistorial()
     {
-        Historial.SetActive(false);
-        Personalizacion.SetActive(true);
+        if (IsOwner)
+        {
+            Historial.SetActive(false);
+            Personalizacion.SetActive(true);
+            opcionesJugador.rehabilitarNave();
+        }
     }
 
     //AJUSTES
@@ -393,6 +406,7 @@ public class UI : NetworkBehaviour
         {
             Personalizacion.SetActive(false);
             Instrucciones.SetActive(true);
+            opcionesJugador.deshabilitarNave();
         }
     }
     
@@ -403,17 +417,18 @@ public class UI : NetworkBehaviour
             Instrucciones.SetActive(false);
             Instrucciones2.SetActive(false);
             Personalizacion.SetActive(true);
+            opcionesJugador.rehabilitarNave();
         }
     }
     
     public void CambiarAInstrucciones2()
+    {
+        if (IsOwner)
         {
-            if (IsOwner)
-            {
-                Instrucciones.SetActive(false);
-                Instrucciones2.SetActive(true);
-            }
+            Instrucciones.SetActive(false);
+            Instrucciones2.SetActive(true);
         }
+    }
     
     
     ////////////////////////////////////////////
@@ -426,6 +441,7 @@ public class UI : NetworkBehaviour
             AudioManager.Instance.StopMusic();
             Personalizacion.SetActive(false);
             Creditos.SetActive(true);
+            opcionesJugador.deshabilitarNave();
         }
     }
     
@@ -436,6 +452,7 @@ public class UI : NetworkBehaviour
             AudioManager.Instance.PlayMenuMusic();
             Creditos.SetActive(false);
             Personalizacion.SetActive(true);
+            opcionesJugador.rehabilitarNave();
         }
     }
 

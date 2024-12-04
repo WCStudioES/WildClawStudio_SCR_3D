@@ -294,7 +294,10 @@ public class ControladorNave : NetworkBehaviour
                 targetDirection = Vector3.Reflect(velocity.normalized, collisionNormal); // Dirección reflejada
 
                 // Actualiza la velocidad
-                velocity = targetDirection * velocity.magnitude/2;
+                velocity = targetDirection * velocity.magnitude / 2;
+
+                // Actualiza la velocidad de rotación;
+                rotationSpeed = -rotationSpeed / 2;
 
                 canBounce = false;
                 StartCoroutine("SetCanBounce", true);

@@ -456,7 +456,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
             if (actualHealth.Value <= 0 && dueñoDaño != null)
             {
-                dueñoDaño.GetXP(xp.Value);
+                dueñoDaño.GetXP(xpADar.Value);
                 //Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
             }
 
@@ -482,7 +482,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
         if (actualHealth.Value <= 0)
         {
-            dueñoDaño.GetXP(xp.Value);
+            dueñoDaño.GetXP(xpADar.Value);
             //Debug.Log("Xp de jugador: " + dueñoDaño.xp.Value);
         }
         else
@@ -539,6 +539,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     //Funcion que gestiona la obtención de xp del jugador
     public void GetXP(int xpRecibida)
     {
+        Debug.Log("Recibes experiencia por pro: " + xpRecibida);
         //Obtener nave
         PlayerShip ship = cuerpoNave.GetComponent<PlayerShip>();
         
