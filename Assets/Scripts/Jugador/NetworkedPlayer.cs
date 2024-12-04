@@ -149,6 +149,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             PlayerShip playerShip = cuerpoNave.GetComponent<PlayerShip>();
             // Se inicializan las estadísticas de la nave elegida
             playerShip.InitializeStats();
+            RemoveAllShields();
             //playerShip.ResetRonda();
 
             // Se copian dentro del NetworkedPlayer como Network Variables
@@ -181,6 +182,9 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             nave.SetToSpawn(spawnPosition, false);
             nave.velocity = Vector3.zero;
             nave.canBounce = true;
+
+            //QUITA TODOS LOS ESCUDOS QUE HAYA
+            RemoveAllShields();
 
             //RESTAURA LA VIDA DE LA NAVE
             actualHealth.Value = maxHealth.Value;
@@ -401,9 +405,9 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             {
                 actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
             }
-            else if (activeShields.Count > 0 && !activeShields[activeShields.Count-1].gameObject.activeSelf)
+            else if (activeShields.Count > 0 && activeShields[activeShields.Count-1] == null)
             {
-                activeShields.RemoveAt(activeShields.Count-1); 
+                activeShields.RemoveAt(activeShields.Count-1);
                 actualHealth.Value -= (dmg - dmg * armor.Value / 100);
             }
 
@@ -879,6 +883,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     /// Gestión de Escudos
     //////////////////////
 
+    public int GetActiveShieldCount()
+    {
+        return activeShields.Count;
+    }
     public void AddShield(Shield shield)
     {
         activeShields.Add(shield);
@@ -886,5 +894,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void RemoveShield(Shield shield)
     {
         activeShields.Remove(shield);
+    }
+
+    public void RemoveAllShields()
+    {
+        activeShields.Clear();
     }
 }

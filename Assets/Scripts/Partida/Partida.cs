@@ -349,13 +349,13 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
-        
-
         foreach (var jugador in jugadores)
         {
             if (jugador != null)
             {
-                jugador.opcionesJugador.UIJugador.pararMusica();
+                //QUITAR MÚSICA
+                jugador.opcionesJugador.UIJugador.pararMusica(); 
+
                 //ASIGNA SU NOMBRE A LA UI
                 jugador.NombreEnemigo.text = jugador.opcionesJugador.usuario.name;
             }
