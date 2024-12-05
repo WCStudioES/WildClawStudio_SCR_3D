@@ -291,8 +291,6 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         
             textoVida.text = totalHealth +  " / " + maxVida;
             
-            float shieldFill = ((float) shieldHealth)/ maxVida;
-            barraDeEscudo.fillAmount = shieldFill;
         }
         else
         {
