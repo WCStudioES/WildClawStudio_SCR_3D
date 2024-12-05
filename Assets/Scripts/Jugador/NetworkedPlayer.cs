@@ -907,7 +907,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             
             uiBoosters.SetActiveAbility(allShips[shipIndex].GetComponent<PlayerShip>().activeAbility.Sprite);
             uiBoosters.SetWeaponAbility(allProjectiles[0].GetComponent<Proyectil>().sprite);
-            uiBoosters.SetSupportAbility(allSupport[selectedSupport.Value].GetComponent<SupportItem>().suppItemSprite);
+            uiBoosters.SetSupportAbility(allSupport[supportIndex].GetComponent<SupportItem>().suppItemSprite);
             
             
             //Debug.Log($"Personalización aplicada en el cliente propietario: Nave {shipIndex}, Proyectil {projectileIndex}");
