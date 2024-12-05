@@ -297,7 +297,7 @@ public class ControladorNave : NetworkBehaviour
                 velocity = targetDirection * velocity.magnitude / 2;
 
                 // Actualiza la velocidad de rotación;
-                rotationSpeed = -rotationSpeed / 2;
+                rotationSpeed = rotationSpeed / 2;
 
                 canBounce = false;
                 StartCoroutine("SetCanBounce", true);
