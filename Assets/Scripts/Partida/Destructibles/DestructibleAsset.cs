@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -12,8 +13,8 @@ public class DestructibleAsset : Damageable
 
     [SerializeField] private GameObject destructionVFX;
     private VisualEffect destructionVFXInstance;
-    [SerializeField] private Image DebrisCDImage;
-    [SerializeField] private float DebrisCD;
+    [SerializeField] private Image ResetTimeImage;
+    [SerializeField] private float ResetTime;
 
     private void Start()
     {
@@ -72,7 +73,7 @@ public class DestructibleAsset : Damageable
 
                 case ResourceToGive.Health:
                     dueñoDaño.GetHealPercentage(resToGive.Value*2, dueñoDaño);
-                    StartCoroutine("ResetDebris");
+                    StartCoroutine("ResetAssetAfterTime");
                     break;
             }
             StopFlashingAndCleanUp(); // Detener el flashing y restaurar colores
@@ -90,17 +91,17 @@ public class DestructibleAsset : Damageable
         DisableDamageableClientRpc(); // Sincroniza la desactivación en los clientes
     }
 
-    protected IEnumerator ResetDebris()
+    protected IEnumerator ResetAssetAfterTime()
     {
-        float time = DebrisCD;
-        DebrisCDImage.gameObject.SetActive(true);
+        float time = ResetTime;
+        ResetTimeImage.gameObject.SetActive(true);
         while (time > 0)
         {
             yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
             time -= 0.1f;
-            DebrisCDImage.fillAmount = time / DebrisCD;
+            ResetTimeImage.fillAmount = time / ResetTime;
         }
-        DebrisCDImage.gameObject.SetActive(false);
+        ResetTimeImage.gameObject.SetActive(false);
         RestoreDestructibleAsset();
     }
 
