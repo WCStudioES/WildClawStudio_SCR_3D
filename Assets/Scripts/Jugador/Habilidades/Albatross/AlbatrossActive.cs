@@ -24,6 +24,7 @@ public class AlbatrossActive : ShootProjectileAbility
             proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
             proyectil.GetComponent<StormGrenade>().partida = networkedPlayer.partida;
             proyectil.GetComponent<StormGrenade>().isUpgraded = isUpgraded;
+            Debug.Log(networkedPlayer.userName + proyectil.GetComponent<StormGrenade>().isUpgraded );
             Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
             // Inicializamos el proyectil en el servidor

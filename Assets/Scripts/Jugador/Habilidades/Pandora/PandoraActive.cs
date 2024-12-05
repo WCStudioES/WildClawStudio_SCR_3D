@@ -19,8 +19,11 @@ public class PandoraActive : ToggleAbility
         networkedPlayer.dmgBalance.Value += dmgBoost;
         
         //AumentarResistencia
-        if(isUpgraded)
+        if (isUpgraded)
+        {
             networkedPlayer.armor.Value += dmgReduction;
+            Debug.Log("Pandora mejorada");
+        }
             
         networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
     }

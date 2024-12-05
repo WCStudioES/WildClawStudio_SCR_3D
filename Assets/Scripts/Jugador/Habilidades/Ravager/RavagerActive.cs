@@ -32,7 +32,10 @@ public class RavagerActive : ToggleAbility
         if (!isUpgraded)
             networkedPlayer.nave.maxSpeed += maxSpeedBuff;
         else
+        {
+            Debug.Log("Habilidad Ravager mejorada ejecutada");
             networkedPlayer.nave.maxSpeed += maxSpeedBuffUpgraded;
+        }
         
         networkedPlayer.nave.acceleration += accelerationBuff;
     }
@@ -52,7 +55,10 @@ public class RavagerActive : ToggleAbility
         if(!isUpgraded)
             networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource, Color.white);
         else
+        {
             networkedPlayer.UpdateAbilityUIClientRpc(neededResQuantity / maxResource, Color.magenta);
+            Debug.Log("Habilidad Ravager mejorada ejecutada");
+        }
         //StartCoroutine("UiUpdater");
     }
 
