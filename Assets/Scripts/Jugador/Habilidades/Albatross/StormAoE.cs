@@ -2,6 +2,7 @@ using System;
 using DefaultNamespace;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class StormAoE : AreaDmg
@@ -54,8 +55,9 @@ public class StormAoE : AreaDmg
     {
         if (isUpgraded)
         {
-            transform.localScale.Scale(new Vector3(upscaling, 1, upscaling));
-            Debug.Log(upscaling + " upgraded aaaaaaaaaaaaaaa");
+            transform.localScale+=(new Vector3(upscaling * time, 0, upscaling * time));
+            Debug.Log(upscaling + " escala " + transform.localScale);
         }
     }
+    
 }

@@ -12,9 +12,9 @@ public class PandoraActive : ToggleAbility
     public override void AbilityExecution()
     {
         if (!networkedPlayer.IsServer) return;
-
+        Debug.Log("Pandora ability before routine" + isUpgraded);
         StartCoroutine("ReduceLife");
-
+        Debug.Log("Pandora ability after routine" + isUpgraded);
         //Aumentar daño
         networkedPlayer.dmgBalance.Value += dmgBoost;
         

@@ -61,7 +61,7 @@ public class CargoQueenActive : ShieldAbility
     public override void ResetRonda()
     {
         Destroy(shieldInstance);
-
+        
         actualResQuantity = neededResQuantity;
         networkedPlayer.UpdateCDAbilityUIClientRpc(actualResQuantity/neededResQuantity, isUpgraded);
     }

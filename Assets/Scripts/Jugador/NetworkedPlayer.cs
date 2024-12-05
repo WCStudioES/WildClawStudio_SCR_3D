@@ -169,6 +169,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             canUseAbility = false;
             isSupportAvailable = false;
             
+            playerShip.activeAbility.ResetPartida();
             playerShip.ResetRonda();
 
             //Inicializar UI

@@ -94,6 +94,25 @@ public class DestructibleAsset : Damageable
     protected IEnumerator ResetAssetAfterTime()
     {
         float time = ResetTime;
+        StartCoroutine("ResetCountdownClientRpc");
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+            time -= 0.1f;
+        }
+        RestoreDestructibleAsset();
+    }
+
+
+    [ClientRpc]
+    protected void ResetCountdownClientRpc()
+    {
+        StartCoroutine("EnumeratorReset");
+    }
+
+    protected IEnumerator EnumeratorReset()
+    {
+        float time = ResetTime;
         ResetTimeImage.gameObject.SetActive(true);
         while (time > 0)
         {
@@ -102,9 +121,7 @@ public class DestructibleAsset : Damageable
             ResetTimeImage.fillAmount = time / ResetTime;
         }
         ResetTimeImage.gameObject.SetActive(false);
-        RestoreDestructibleAsset();
     }
-
     // Metodo para destruir el meteorito en el cliente
     [ClientRpc]
     public void DisableDamageableClientRpc()

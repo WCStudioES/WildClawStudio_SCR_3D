@@ -122,6 +122,7 @@ public abstract class ActiveAbility : Ability
     public virtual void ResetPartida()
     {
         Debug.Log(networkedPlayer.userName + " reseted Ability");
+        networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
         isUpgraded = false;
     }
     
