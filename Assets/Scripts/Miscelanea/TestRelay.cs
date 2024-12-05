@@ -30,6 +30,8 @@ namespace Test
         public Button botonCliente;
 
         public PublicServer publicServer = new PublicServer();
+
+        public int maxQueueSize = 2048;
         
         //public GameObject Fondo;
         private async void Start()
@@ -77,6 +79,10 @@ namespace Test
                 RelayServerData relayServerData = new RelayServerData(allocation, "wss");
                 
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+                
+                //AJUSTAMOS EL MAXIMO NUMERO DE PAQUETES QUE SE PUEDEN TENER EN COLA
+                NetworkManager.Singleton.GetComponent<UnityTransport>().MaxPacketQueueSize = 8 * maxQueueSize;
+                NetworkManager.Singleton.GetComponent<UnityTransport>().MaxSendQueueSize = 8 * maxQueueSize;
 
                 if (isHost)
                 {
@@ -89,6 +95,7 @@ namespace Test
                 codigo.text = joinCode;
                 setFrameLimit(true);
 
+                Debug.Log("Tamaño de la cola de paquetes: " + NetworkManager.Singleton.GetComponent<UnityTransport>().MaxPacketQueueSize);
             }
             catch (RelayServiceException e)
             {
@@ -117,6 +124,10 @@ namespace Test
                 
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
+                //AJUSTAMOS EL MAXIMO NUMERO DE PAQUETES QUE SE PUEDEN TENER EN COLA
+                NetworkManager.Singleton.GetComponent<UnityTransport>().MaxPacketQueueSize = 8 * maxQueueSize;
+                NetworkManager.Singleton.GetComponent<UnityTransport>().MaxSendQueueSize = maxQueueSize;
+                
                 NetworkManager.Singleton.StartClient();
                 
                 codigo.text = joinCode;
