@@ -49,10 +49,18 @@ public class IsServerAlive : NetworkBehaviour
     
     private void OnServerDisconnect()
     {
+        AudioManager.Instance.StopMusic();
         NetworkManager networkManager = GameObject.FindObjectOfType<NetworkManager>();
 
         GameObject.Destroy(networkManager.gameObject);      
 
         SceneManager.LoadScene("SampleScene");
+    }
+    
+    
+    void OnDestroy()
+    {
+        if(IsOwner)
+            OnServerDisconnect();   
     }
 }

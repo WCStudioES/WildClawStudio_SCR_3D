@@ -63,15 +63,15 @@ public class UI : NetworkBehaviour
         if (IsOwner && !IsHost)
         {
             //SE ENCARGA DE COLOCAR LA CAMARA BIEN CADA VEZ QUE ENTRAS O SALES DE LA PAGINA DE PERSONALIZACIÓN
-            if(Personalizacion.activeSelf && cameraInGame)
+            if(Personalizacion.activeSelf)
             {
                 CJugador.nave.AssignMainCamera(ControladorNave.CameraType.Customization);
-                cameraInGame = false;
+                //cameraInGame = false;
             }
-            else if(!Personalizacion.activeSelf && !cameraInGame)
+            else if(!Personalizacion.activeSelf)
             {
                 CJugador.nave.AssignMainCamera(ControladorNave.CameraType.InGame);
-                cameraInGame = true;
+                //cameraInGame = true;
             }
         }
     }
@@ -94,6 +94,7 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            opcionesJugador.rehabilitarNave();
             LogIn.SetActive(false);
             Personalizacion.SetActive(true);
         }
@@ -103,6 +104,7 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            opcionesJugador.rehabilitarNave();
             LogIn.SetActive(false);
             Personalizacion.SetActive(true);
         }
@@ -112,6 +114,7 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            opcionesJugador.deshabilitarNave();
             Personalizacion.SetActive(false);
             LogIn.SetActive(true);
         }
@@ -282,8 +285,10 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            opcionesJugador.movimientoActivado = false;
             if (partidaFinalizada)
             {
+                opcionesJugador.deshabilitarNave();
                 AudioManager.Instance.PlayMenuMusic();
                 if (ganador)
                 {
@@ -315,8 +320,8 @@ public class UI : NetworkBehaviour
         {
             EnPartida.SetActive(false);
             Victoria.SetActive(true);
-            opcionesJugador.movimientoActivado = false;
             CJugador.GameEndServerRpc();
+            opcionesJugador.deshabilitarNave();
         }
     }
     
@@ -350,8 +355,8 @@ public class UI : NetworkBehaviour
         {
             EnPartida.SetActive(false);
             Derrota.SetActive(true);
-            opcionesJugador.movimientoActivado = false;
             CJugador.GameEndServerRpc();
+            opcionesJugador.deshabilitarNave();
         }
     }
     
@@ -395,6 +400,8 @@ public class UI : NetworkBehaviour
     {
         VictoriaRonda.SetActive(false);
         DerrotaRonda.SetActive(false);
+        opcionesJugador.rehabilitarNave();
+        opcionesJugador.movimientoActivado = true;
     }
 
     ////////////////////////////////////////////    
@@ -556,6 +563,14 @@ public class UI : NetworkBehaviour
         if(IsOwner)
         {
             AudioManager.Instance.PlayGameMusic();
+        }
+    }
+    
+    public void musicaMenu()
+    {
+        if(IsOwner)
+        {
+            AudioManager.Instance.PlayMenuMusic();
         }
     }
 

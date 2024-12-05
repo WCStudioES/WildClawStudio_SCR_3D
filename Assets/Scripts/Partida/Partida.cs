@@ -170,14 +170,14 @@ public class Partida : NetworkBehaviour
     {
         //RESTAURAMOS NAVES Y METEORITOS
         prepararEscenario();
-        //MOSTRAMOS EL RESULTADO A PARTIR DE LA INTERFAZ
-        mostrarResultadoFinal();
         //DEVOLVEMOS LAS NAVES A SU ESTADO ORIGINAL
         foreach (var jugador in jugadores)
         {
             if(jugador != null)
                 jugador.opcionesJugador.resetToInitialState();
         }
+        //MOSTRAMOS EL RESULTADO A PARTIR DE LA INTERFAZ
+        mostrarResultadoFinal();
         //ELIMINAMOS LAS NAVES DE LA LISTA Y SUS PUNTUACIONES
         partidaEnMarcha = false;
         partidaFinalizada = true;
@@ -486,6 +486,8 @@ public class Partida : NetworkBehaviour
             {
                 jugador.opcionesJugador.resetToInitialState();
                 jugador.opcionesJugador.UIJugador.VolverAPersonalizacionDesdePartida();
+                jugador.opcionesJugador.UIJugador.pararMusica(); 
+                jugador.opcionesJugador.UIJugador.musicaMenu(); 
             }
         }
         //ELIMINAMOS LAS NAVES DE LA LISTA Y SUS PUNTUACIONES

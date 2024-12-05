@@ -66,6 +66,7 @@ public class Register : MonoBehaviour
         this.usuario = Usuario.DeserializeUsuario(usuario);
         UIManager.IniciarSesion();
         LimpiarPantalla();
+        ActivarPantallaDeLogIn();
         opcionesJugador.usuario = this.usuario;
     }
     

@@ -64,6 +64,7 @@ public class OpcionesJugador : NetworkBehaviour
 
     public void rehabilitarNave()
     {
+        Debug.Log("Rehabilitando la nave");
         nave.SetActive(true);
     }
 
