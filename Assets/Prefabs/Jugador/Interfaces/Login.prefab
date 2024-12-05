@@ -674,6 +674,18 @@ MonoBehaviour:
   PantallaDeRegistro: {fileID: 1360731761028022120}
   PantallaDeLogIn: {fileID: 5987626337575782880}
   BotonRegistrar: {fileID: 877783043170799137}
+  usuario:
+    name: 
+    password: 
+    historial:
+      rival: []
+      naveRival: []
+      navePropia: []
+      puntuacionPropia: 
+      puntuacionRival: 
+      ganadas: 0
+      perdidas: 0
+  opcionesJugador: {fileID: 0}
 --- !u!1 &1367255848480061039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,7 +1370,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -2187,7 +2199,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -2649,7 +2661,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -3237,6 +3249,18 @@ MonoBehaviour:
   PantallaDeRegistro: {fileID: 1360731761028022120}
   PantallaDeLogIn: {fileID: 5987626337575782880}
   BotonLogIn: {fileID: 2687363179869232915}
+  usuario:
+    name: 
+    password: 
+    historial:
+      rival: []
+      naveRival: []
+      navePropia: []
+      puntuacionPropia: 
+      puntuacionRival: 
+      ganadas: 0
+      perdidas: 0
+  opcionesJugador: {fileID: 0}
 --- !u!1 &7032559768757549603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3472,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -3781,7 +3805,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 20
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
