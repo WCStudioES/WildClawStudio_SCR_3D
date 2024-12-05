@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class DestructibleAsset : Damageable
@@ -11,6 +12,8 @@ public class DestructibleAsset : Damageable
 
     [SerializeField] private GameObject destructionVFX;
     private VisualEffect destructionVFXInstance;
+    [SerializeField] private Image DebrisCDImage;
+    [SerializeField] private float DebrisCD;
 
     private void Start()
     {
@@ -69,6 +72,7 @@ public class DestructibleAsset : Damageable
 
                 case ResourceToGive.Health:
                     dueñoDaño.GetHealPercentage(resToGive.Value*2, dueñoDaño);
+                    StartCoroutine("ResetDebris");
                     break;
             }
             StopFlashingAndCleanUp(); // Detener el flashing y restaurar colores
@@ -84,6 +88,20 @@ public class DestructibleAsset : Damageable
         yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
         SetAssetActive(false); // Desactiva el destructible en el servidor
         DisableDamageableClientRpc(); // Sincroniza la desactivación en los clientes
+    }
+
+    protected IEnumerator ResetDebris()
+    {
+        float time = DebrisCD;
+        DebrisCDImage.gameObject.SetActive(true);
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
+            time -= 0.1f;
+            DebrisCDImage.fillAmount = time / DebrisCD;
+        }
+        DebrisCDImage.gameObject.SetActive(false);
+        RestoreDestructibleAsset();
     }
 
     // Metodo para destruir el meteorito en el cliente
