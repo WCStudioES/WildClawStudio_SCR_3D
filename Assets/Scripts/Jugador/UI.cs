@@ -285,9 +285,12 @@ public class UI : NetworkBehaviour
     {
         if (IsOwner)
         {
+            VictoriaRonda.SetActive(false);
+            DerrotaRonda.SetActive(false);
             opcionesJugador.movimientoActivado = false;
             if (partidaFinalizada)
             {
+                CancelInvoke();
                 opcionesJugador.deshabilitarNave();
                 AudioManager.Instance.PlayMenuMusic();
                 if (ganador)
