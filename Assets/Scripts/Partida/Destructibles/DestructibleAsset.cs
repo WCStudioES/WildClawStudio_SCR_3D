@@ -27,7 +27,7 @@ public class DestructibleAsset : Damageable
     }
 
     // M�todo para recibir da�o en el meteorito
-    public override void GetDamage(int dmg, NetworkedPlayer dueñoDaño)
+    public override void GetDamage(int dmg, NetworkedPlayer dmgDealer)
     {
         //Debug.Log(dmg);
         if (IsServer && partida.rondaEnmarcha)
@@ -36,7 +36,7 @@ public class DestructibleAsset : Damageable
 
             if(resType == ResourceToGive.Health)
             {
-                dueñoDaño.GetHealPercentage(resToGive.Value, dueñoDaño);
+                dmgDealer.GetHealPercentage((int)((float)resToGive.Value * ((float)dmg/maxHealth)), dmgDealer);
             }
 
             //Debug.Log("Vida del coso: " + actualHealth.Value);
@@ -45,7 +45,7 @@ public class DestructibleAsset : Damageable
             if (actualHealth.Value <= 0 && !resGiven)
             {
                 resGiven = true;
-                DestroyDamageable(dueñoDaño);
+                DestroyDamageable(dmgDealer);
             }
             else
             {
@@ -58,7 +58,7 @@ public class DestructibleAsset : Damageable
     /// DESTRUIR DESTRUCTIBLE
     /// </summary>
 
-    protected override void DestroyDamageable(NetworkedPlayer dueñoDaño)
+    protected override void DestroyDamageable(NetworkedPlayer dmgDealer)
     {
         if (IsServer)
         {
@@ -68,11 +68,11 @@ public class DestructibleAsset : Damageable
                     break;
 
                 case ResourceToGive.Experience:
-                    dueñoDaño.GetXP(resToGive.Value);
+                    dmgDealer.GetXP(resToGive.Value);
                     break;
 
                 case ResourceToGive.Health:
-                    dueñoDaño.GetHealPercentage(resToGive.Value*2, dueñoDaño);
+                    //dmgDealer.GetHealPercentage(resToGive.Value*2, dmgDealer);
                     StartCoroutine("ResetAssetAfterTime");
                     break;
             }
