@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -49,12 +50,17 @@ public class IsServerAlive : NetworkBehaviour
     
     private void OnServerDisconnect()
     {
-        AudioManager.Instance.StopMusic();
-        NetworkManager networkManager = GameObject.FindObjectOfType<NetworkManager>();
+        if(!IsHost)
+        {
+            AudioManager.Instance.StopMusic();
+            NetworkManager networkManager = GameObject.FindObjectOfType<NetworkManager>();
+            NetworkManager.Singleton.DisconnectClient(networkManager.LocalClient.ClientId);
+            if(networkManager.gameObject != null)
+                GameObject.Destroy(networkManager.gameObject);      
 
-        GameObject.Destroy(networkManager.gameObject);      
-
-        SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SampleScene");
+        }
+        
     }
     
     

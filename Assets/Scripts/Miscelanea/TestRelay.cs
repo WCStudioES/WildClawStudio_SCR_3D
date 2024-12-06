@@ -38,10 +38,18 @@ namespace Test
         public float contador = 2.0f;
 
         public bool unidoAUnServidor = false;
+
+        public bool esServidorPublico = false;
+
+        public static bool EsServidorPublico = false;
         
         //public GameObject Fondo;
+        
+        public GitHubUpdater githubUpdater;
         private async void Start()
         {
+            EsServidorPublico = esServidorPublico;
+            
             contador = TiempoContador;
             publicServer.joinCode = "AAAAAA";
             try
@@ -94,7 +102,11 @@ namespace Test
                     {
                         Debug.Log(e.Message);
                     }
-                } 
+                    if (EsServidorPublico)
+                    {
+                        CreateRelay(true);
+                    }
+                }
             }
         }
 
@@ -140,6 +152,9 @@ namespace Test
 
                 Debug.Log("Tamaño de la cola de paquetes: " + NetworkManager.Singleton.GetComponent<UnityTransport>().MaxPacketQueueSize);
                 unidoAUnServidor = true;
+                
+                if(esServidorPublico)
+                    githubUpdater.actualizarCodigoServidorPublico(joinCode);
             }
             catch (RelayServiceException e)
             {
@@ -231,7 +246,7 @@ namespace Test
         
         //PETICION DE SERVIDOR PUBLICO
         public void Request()
-        {   UnityWebRequest publicServerRequest = UnityWebRequest.Get("https://jagonmes.github.io/PublicServerSCR3D/PublicServer.json");
+        {   UnityWebRequest publicServerRequest = UnityWebRequest.Get("https://scr3dpublicserver.github.io/SCR3DPublicServer/PublicServer.json" + "?timestamp=" + System.DateTime.Now.Ticks);
             publicServerRequest.SendWebRequest();
             StartCoroutine(OnResponse(publicServerRequest));
         }
@@ -246,9 +261,9 @@ namespace Test
                     StartCoroutine(OnResponse(req));
                 else
                 {
-                    if(publicServer.joinCode != "AAAAAA" && publicServer.joinCode != "")
+                    if(publicServer.joinCode != "AAAAAA" && publicServer.joinCode != ""){}
                         botonServidorPublico.enabled = true;
-                    Debug.Log("Resultado de la petición: " + req.result + ".\nCódigo del servidor público: " + publicServer.joinCode);
+                    //Debug.Log("Resultado de la petición: " + req.result + ".\nCódigo del servidor público: " + req.downloadHandler.text);
                 }
             }
             catch (Exception e)
