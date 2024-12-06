@@ -43,6 +43,7 @@ namespace Test
         private async void Start()
         {
             contador = TiempoContador;
+            publicServer.joinCode = "AAAAAA";
             try
             {
                 Request();
@@ -68,10 +69,20 @@ namespace Test
             if (!unidoAUnServidor)
             {
                 contador -= Time.deltaTime;
-                if (publicServer.joinCode != "AAAAAA")
-                    botonServidorPublico.enabled = true;
-                else
-                    botonServidorPublico.enabled = false;
+                if (publicServer != null)
+                {
+                    if (publicServer.joinCode != null)
+                    {
+                        if (publicServer.joinCode != "AAAAAA")
+                            botonServidorPublico.enabled = true;
+                        else
+                            botonServidorPublico.enabled = false;
+                    }
+                    else
+                    {
+                        botonServidorPublico.enabled = false;
+                    }
+                }
                 if (contador <= 0)
                 {
                     contador = TiempoContador;
@@ -251,7 +262,7 @@ namespace Test
     [Serializable]
     public class PublicServer
     {
-        public string joinCode;
+        public string joinCode = "AAAAAA";
 
         public PublicServer()
         {

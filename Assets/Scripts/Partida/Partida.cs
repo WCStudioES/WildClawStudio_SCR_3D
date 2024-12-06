@@ -23,7 +23,7 @@ public class Partida : NetworkBehaviour
     [SerializeField] private float maximoTiempoPorRonda = 60;
 
     //CONTROLA EL TIEMPO RESTANTE DE LA RONDA ACTUAL
-    public float tiempoDeRondaActual = 0;
+    public NetworkVariable<float> tiempoDeRondaActual = new NetworkVariable<float>(60);
     
     //JUGADORES
     [SerializeField] public List<NetworkedPlayer> jugadores;
@@ -70,7 +70,7 @@ public class Partida : NetworkBehaviour
                     finalizarRonda();
                 }
 
-                if (tiempoDeRondaActual <= 0.0f)
+                if (tiempoDeRondaActual.Value <= 0.0f)
                 {
                     //FINAL POR MUERTE SÚBITA
                     fireRing.CrearAreaDmg(null, null, IsServer);
@@ -92,10 +92,11 @@ public class Partida : NetworkBehaviour
                     //finalizarRondaPorTiempo();
                 }
 
-                tiempoDeRondaActual -= Time.deltaTime;
+                if(IsServer)
+                    tiempoDeRondaActual.Value -= Time.deltaTime;
                 foreach (var jugador in jugadores)
                 {
-                    jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual/maximoTiempoPorRonda, 0);
+                    jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual.Value/maximoTiempoPorRonda, 0);
                 }
             }
             else
@@ -432,10 +433,11 @@ public class Partida : NetworkBehaviour
     {
         fireRing.Reset();
         //RESTAURA EL TIEMPO DE LA RONDA
-        tiempoDeRondaActual = maximoTiempoPorRonda;
+        if(IsServer)
+            tiempoDeRondaActual.Value = maximoTiempoPorRonda;
         foreach (var jugador in jugadores)
         {
-            jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual/maximoTiempoPorRonda, 0);
+            jugador.Cronometro.fillAmount = Mathf.Max(tiempoDeRondaActual.Value/maximoTiempoPorRonda, 0);
             fireRing.AddPlayer(jugador.nave.transform);
         }
         //CURA A LAS NAVES Y LAS PONE EN POSICIÓN
