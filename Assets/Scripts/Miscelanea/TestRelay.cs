@@ -32,10 +32,17 @@ namespace Test
         public PublicServer publicServer = new PublicServer();
 
         public int maxQueueSize = 2048;
+
+        public float TiempoContador = 2.0f;
+        
+        public float contador = 2.0f;
+
+        public bool unidoAUnServidor = false;
         
         //public GameObject Fondo;
         private async void Start()
         {
+            contador = TiempoContador;
             try
             {
                 Request();
@@ -55,6 +62,31 @@ namespace Test
                 Debug.Log(e.Message);
             }
         }
+
+        private void Update()
+        {
+            if (!unidoAUnServidor)
+            {
+                contador -= Time.deltaTime;
+                if (publicServer.joinCode != "AAAAAA")
+                    botonServidorPublico.enabled = true;
+                else
+                    botonServidorPublico.enabled = false;
+                if (contador <= 0)
+                {
+                    contador = TiempoContador;
+                    try
+                    {
+                        Request();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Log(e.Message);
+                    }
+                } 
+            }
+        }
+
 
         [ContextMenu("CreateRelay")]
         private async void CreateRelay(bool isHost)
@@ -96,6 +128,7 @@ namespace Test
                 setFrameLimit(true);
 
                 Debug.Log("Tamaño de la cola de paquetes: " + NetworkManager.Singleton.GetComponent<UnityTransport>().MaxPacketQueueSize);
+                unidoAUnServidor = true;
             }
             catch (RelayServiceException e)
             {
@@ -133,6 +166,7 @@ namespace Test
                 codigo.text = joinCode;
                 OcultarUIServidor(false);
                 setFrameLimit(false);
+                unidoAUnServidor = true;
             }
             catch (RelayServiceException e)
             {
@@ -186,7 +220,7 @@ namespace Test
         
         //PETICION DE SERVIDOR PUBLICO
         public void Request()
-        {   UnityWebRequest publicServerRequest = UnityWebRequest.Get("https://wcstudioes.github.io/WCS_Portfolio/json/publicServer.json");
+        {   UnityWebRequest publicServerRequest = UnityWebRequest.Get("https://jagonmes.github.io/PublicServerSCR3D/PublicServer.json");
             publicServerRequest.SendWebRequest();
             StartCoroutine(OnResponse(publicServerRequest));
         }
@@ -197,8 +231,14 @@ namespace Test
             try
             {
                 publicServer = JsonUtility.FromJson<PublicServer>(req.downloadHandler.text);
-                if(publicServer.joinCode != "AAAAAA" && publicServer.joinCode != "")
-                    botonServidorPublico.enabled = true;
+                if (req.result == UnityWebRequest.Result.InProgress)
+                    StartCoroutine(OnResponse(req));
+                else
+                {
+                    if(publicServer.joinCode != "AAAAAA" && publicServer.joinCode != "")
+                        botonServidorPublico.enabled = true;
+                    Debug.Log("Resultado de la petición: " + req.result + ".\nCódigo del servidor público: " + publicServer.joinCode);
+                }
             }
             catch (Exception e)
             {
