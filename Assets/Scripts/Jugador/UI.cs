@@ -29,6 +29,9 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
     private int posicionCuentaAtras = 0;
+    
+    [SerializeField] private GameObject[] uiPantallasTutorial;
+    private int indexTutorial = 0;
 
     [SerializeField] private GameObject[] circulosAzulesVictoria;
     [SerializeField] private GameObject[] circulosRojosVictoria;
@@ -439,6 +442,47 @@ public class UI : NetworkBehaviour
             Instrucciones2.SetActive(true);
         }
     }
+    public void VolverAInstruccionesDesdeInstrucciones2()
+    {
+        if (IsOwner)
+        {
+            Instrucciones.SetActive(true);
+            Instrucciones2.SetActive(false);
+            uiPantallasTutorial[indexTutorial].SetActive(false);
+            indexTutorial = 0;
+            uiPantallasTutorial[indexTutorial].SetActive(true);
+        }
+    }
+    
+    public void CambiarPantallaTutorial(bool isNext)
+    {
+        if (IsOwner)
+        {
+            uiPantallasTutorial[indexTutorial].SetActive(false);
+            if (isNext)
+            {
+                if (indexTutorial == uiPantallasTutorial.Length - 1)
+                    indexTutorial = 0;
+                else
+                    indexTutorial++;
+                
+                uiPantallasTutorial[indexTutorial].SetActive(true);
+            }
+
+            else
+            {
+                if (indexTutorial == 0)
+                    indexTutorial = uiPantallasTutorial.Length - 1;
+                else
+                    indexTutorial--;
+                
+                uiPantallasTutorial[indexTutorial].SetActive(true);
+            }
+  
+        }
+    }
+    
+    
     
     
     ////////////////////////////////////////////

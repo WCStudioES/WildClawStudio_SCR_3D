@@ -1425,6 +1425,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8520412861616979478}
     m_Modifications:
+    - target: {fileID: 1658938363657654282, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6638038336228515080}
+    - target: {fileID: 1658938363657654282, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CambiarPantallaTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658938363657654282, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871022826380943111, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6638038336228515080}
+    - target: {fileID: 1871022826380943111, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: VolverAInstruccionesDesdeInstrucciones2
+      objectReference: {fileID: 0}
     - target: {fileID: 3411604721394736477, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1511,16 +1531,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5747113093542526089, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8127186915940767394, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6638038336228515080}
+    - target: {fileID: 8127186915940767394, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CambiarPantallaTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127186915940767394, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753238680826596980, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+--- !u!1 &373099189948314978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1385108517736074777, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1565354297875783531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 264628360571282448, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4128977375916156454 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3411604721394736477, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4516433204805695870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2934376035843883525, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5182374423935042269 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5908187747069983142, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5495171275490440686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6509850243122957973, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6473009187575367666 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5747113093542526089, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7010809110520710763 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8601315475822279952, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
+  m_PrefabInstance: {fileID: 1591291736462474107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8814330921312529570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7802394145570363353, guid: 6233c0fb964a1134a8fbdfc11781dca0, type: 3}
   m_PrefabInstance: {fileID: 1591291736462474107}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1749382930516996599
@@ -2530,6 +2607,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6068756792600550488}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: Instrucciones2
+      value: 
+      objectReference: {fileID: 6473009187575367666}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: ScriptRegister
       value: 
       objectReference: {fileID: 3945943731356098565}
@@ -2548,6 +2629,10 @@ PrefabInstance:
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: NumerosCuentaAtras.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.size
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: circulosRojosDerrota.Array.size
@@ -2577,6 +2662,34 @@ PrefabInstance:
       propertyPath: circulosAzulesVictoria.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[0]
+      value: 
+      objectReference: {fileID: 4516433204805695870}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[1]
+      value: 
+      objectReference: {fileID: 373099189948314978}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[2]
+      value: 
+      objectReference: {fileID: 1565354297875783531}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[3]
+      value: 
+      objectReference: {fileID: 8814330921312529570}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[4]
+      value: 
+      objectReference: {fileID: 7010809110520710763}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[5]
+      value: 
+      objectReference: {fileID: 5495171275490440686}
+    - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
+      propertyPath: uiPantallasTutorial.Array.data[6]
+      value: 
+      objectReference: {fileID: 5182374423935042269}
     - target: {fileID: 938684737601573286, guid: f8ee1293f58da6d47a4b65c64c09ed60, type: 3}
       propertyPath: circulosRojosDerrota.Array.data[0]
       value: 
