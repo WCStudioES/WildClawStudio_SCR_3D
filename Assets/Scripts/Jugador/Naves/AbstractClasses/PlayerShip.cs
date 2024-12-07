@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.VFX;
@@ -43,11 +44,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     public List<Transform> firePropulsors;
 
     [Header("VFX")]
-    [SerializeField] private VisualEffect firePropulsionVFX;
-    private List<VisualEffect> activeFireVFX = new List<VisualEffect>();
+    public GameObject firePropulsionVFX;
+    private List<VFXPrefab> activeFireVFX = new List<VFXPrefab>();
 
     [SerializeField] private GameObject lowHealthVFX;
-    private VisualEffect lowHealthVFXInstance;
+    private VFXPrefab lowHealthVFXInstance;
     
     [Header("Abilities")]
     public ActiveAbility activeAbility;
@@ -188,30 +189,44 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         {
             if (firePropulsionVFX != null)
             {
-                VisualEffect newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
-                newVFX.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-                activeFireVFX.Add(newVFX);
+                GameObject newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
+                VFXPrefab newVFXPrefab = newVFX.GetComponent<VFXPrefab>();
+              
+                if (newVFXPrefab != null)
+                {
+                    Debug.Log("VFXPrefab firePropulsors: Creado");
+                    activeFireVFX.Add(newVFXPrefab);
+                }
             }
+            ToggleFireVFX(false);
         }
 
         if(lowHealthVFX != null)
         {
             Debug.Log("E");
-            GameObject vfxObject = Instantiate(lowHealthVFX, transform.position, Quaternion.identity, transform);
-            lowHealthVFXInstance = vfxObject.GetComponent<VisualEffect>();
-            ToggleLowHealthVFX(false);
-        }
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+            if (firePropulsors[0] != null)
+            {
+                pos = new Vector3(transform.position.x, firePropulsors[0].transform.position.y, firePropulsors[0].transform.position.z - 0.2f);
+            }
+            GameObject vfxObject = Instantiate(lowHealthVFX, pos, Quaternion.identity, transform);
+            VFXPrefab newVFXPrefab = vfxObject.GetComponent<VFXPrefab>();
 
-        ToggleFireVFX(false);
+            if (newVFXPrefab != null)
+            { 
+                lowHealthVFXInstance = newVFXPrefab;
+            }
+        }
     }
 
     public void ToggleFireVFX(bool isActive)
     {
-        foreach (VisualEffect vfx in activeFireVFX)
+
+        foreach (VFXPrefab vfx in activeFireVFX)
         {
             if (vfx != null)
             {
-                vfx.enabled = isActive;
+                vfx.Toggle(isActive);
             }
         }
     }
@@ -221,7 +236,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         //Debug.Log(isActive + ", " + lowHealthVFXInstance.enabled);
         if (lowHealthVFXInstance != null)
         {
-            lowHealthVFXInstance.enabled = isActive;
+            lowHealthVFXInstance.Toggle(isActive);
         }
     }
 }

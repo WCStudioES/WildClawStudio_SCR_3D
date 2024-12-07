@@ -288,8 +288,8 @@ MonoBehaviour:
   - {fileID: 1416684644374192419}
   - {fileID: 7759399328691931990}
   - {fileID: 4296583410249096820}
-  firePropulsionVFX: {fileID: 3893311136088826993, guid: 6666252ccad81964bb363e626ff7c3cc, type: 3}
-  lowHealthVFX: {fileID: 6893646151893162014, guid: 797c226d724796a469aa316889d289aa, type: 3}
+  firePropulsionVFX: {fileID: 3747258433285411363, guid: 1287d6207e52f614a97d1a42d0da1539, type: 3}
+  lowHealthVFX: {fileID: 8467029253953316956, guid: 80d694d08804a984fb9eaa457d7decaa, type: 3}
   activeAbility: {fileID: -7829255381148620364}
   passiveAbility: {fileID: 4777893122438865834}
   skins:
@@ -321,6 +321,7 @@ MonoBehaviour:
   maxResource: 0
   hpThreshold: 20
   dmgBoost: 15
+  dmgReduction: 10
 --- !u!114 &4777893122438865834
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -447,8 +447,8 @@ MonoBehaviour:
   firePropulsors:
   - {fileID: 7657748933217803199}
   - {fileID: 5601893161125306074}
-  firePropulsionVFX: {fileID: 3893311136088826993, guid: 6666252ccad81964bb363e626ff7c3cc, type: 3}
-  lowHealthVFX: {fileID: 6893646151893162014, guid: 797c226d724796a469aa316889d289aa, type: 3}
+  firePropulsionVFX: {fileID: 3747258433285411363, guid: 1287d6207e52f614a97d1a42d0da1539, type: 3}
+  lowHealthVFX: {fileID: 8467029253953316956, guid: 80d694d08804a984fb9eaa457d7decaa, type: 3}
   activeAbility: {fileID: 6230050435369025426}
   passiveAbility: {fileID: -8598968886529694628}
   skins:
@@ -507,6 +507,8 @@ MonoBehaviour:
   visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 0
+  affectedArea: []
+  recievesCollisionDamage: 0
   dmg: 5
 --- !u!1001 &2586613581235835932
 PrefabInstance:

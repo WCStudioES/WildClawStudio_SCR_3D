@@ -57,6 +57,9 @@ public class ControladorNave : NetworkBehaviour
     //Si la nave está dasheando
     public bool isDashing = false;
 
+    public bool startedMoving = false;
+    public bool stoppedMoving = true;
+
     void Start()
     {
         if (IsOwner)
@@ -172,16 +175,28 @@ public class ControladorNave : NetworkBehaviour
     //INPUT DEL JUGADOR
     public void Move()
     {
+        if (!startedMoving)
+        {
+            stoppedMoving = false;
+            startedMoving = true;
+            AccelerateVFXClientRpc(true);
+        }
+
         direccionMovimiento = Vector3.forward; // Apuntar hacia adelante
         AccelerateSFXClientRpc(true);
-        AccelerateVFXClientRpc(true);
     }
 
     public void Stop()
     {
+        if (!stoppedMoving)
+        {
+            stoppedMoving = true;
+            startedMoving = false;
+            AccelerateVFXClientRpc(false);
+        }
+
         direccionMovimiento = Vector3.zero;
         AccelerateSFXClientRpc(false);
-        AccelerateVFXClientRpc(false);
     }
 
     public void Rotate(float input)
@@ -227,6 +242,7 @@ public class ControladorNave : NetworkBehaviour
             playerShip.ToggleFireVFX(active);
         }
     }
+
 
     [ClientRpc]
     public void LowHealthVFXClientRpc(bool active)

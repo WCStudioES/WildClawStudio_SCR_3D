@@ -170,8 +170,8 @@ MonoBehaviour:
   - {fileID: 3872012999097878223}
   firePropulsors:
   - {fileID: 3948793992006760331}
-  firePropulsionVFX: {fileID: 0}
-  lowHealthVFX: {fileID: 0}
+  firePropulsionVFX: {fileID: 3747258433285411363, guid: 1287d6207e52f614a97d1a42d0da1539, type: 3}
+  lowHealthVFX: {fileID: 8467029253953316956, guid: 80d694d08804a984fb9eaa457d7decaa, type: 3}
   activeAbility: {fileID: 6402942351971911753}
   passiveAbility: {fileID: 2724567983076035007}
   skins:
