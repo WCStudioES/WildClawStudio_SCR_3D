@@ -56,7 +56,11 @@ public class CustomizationManager : MonoBehaviour
     public Image selectedItem;
     public TMP_Text selectedItemName;
     public TMP_Text selectedItemDescription;
-
+    
+    //TEXTOS ABOUT
+    public TMP_Text nameAboutText;
+    public TMP_Text descriptionAboutText;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -220,6 +224,8 @@ public class CustomizationManager : MonoBehaviour
         equippedSupportImage.sprite = supportImages[equippedSupportIndex].GetComponent<SupportItem>().suppItemSprite;
 
         UpdateNetworkedPlayerEquipment();
+
+        UpdateAboutInformation();
     }
 
     private void UpdateShipStatsUI(int life, int power, int speed)
@@ -343,4 +349,10 @@ public class CustomizationManager : MonoBehaviour
         }
     }
 
+    private void UpdateAboutInformation()
+    {
+        PlayerShip playerShip = craftImages[equippedCraftIndex].GetComponent<PlayerShip>(); //nave escogida
+        nameAboutText.text = playerShip.name;
+        descriptionAboutText.text = playerShip.description + "/n" + playerShip.about;
+    }
 }

@@ -10,6 +10,7 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     [Header("Ship Information")]
     public string shipName;
     public string description;
+    public string about;
     public Sprite sprite;
 
     [Header("Base Stats")]
