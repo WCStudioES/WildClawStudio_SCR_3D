@@ -354,6 +354,7 @@ public class Partida : NetworkBehaviour
     //INICIA LA PARTIDA
     void iniciarPartida()
     {
+        _usuarios.Clear();
         foreach (var jugador in jugadores)
         {
             if (jugador != null)
