@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Partida : NetworkBehaviour
@@ -49,6 +50,9 @@ public class Partida : NetworkBehaviour
     private List<List<bool>> partidasGanadasPorJugador = new List<List<bool>>();
 
     private bool hasntAnnouncedFireRing;
+    
+    //USUARIOS
+    private List<Usuario> _usuarios = new List<Usuario>();
 
     
     //LOOP DE JUEGO
@@ -359,6 +363,11 @@ public class Partida : NetworkBehaviour
 
                 //ASIGNA SU NOMBRE A LA UI
                 jugador.NombreEnemigo.text = jugador.opcionesJugador.usuario.name;
+                
+                //ASIGNA EL USUARIO A LA LISTA
+                Usuario aux = new Usuario(jugador.opcionesJugador.usuario.name, jugador.opcionesJugador.usuario.password);
+                aux.historial = jugador.opcionesJugador.usuario.historial;
+                _usuarios.Add(aux);
             }
 
         }
@@ -489,7 +498,30 @@ public class Partida : NetworkBehaviour
                 jugador.opcionesJugador.resetToInitialState();
                 jugador.opcionesJugador.UIJugador.VolverAPersonalizacionDesdePartida();
                 jugador.opcionesJugador.UIJugador.pararMusica(); 
-                jugador.opcionesJugador.UIJugador.musicaMenu(); 
+                jugador.opcionesJugador.UIJugador.musicaMenu();
+                //GUARDAMOS EN EL HISTORIAL EL RESULTADO
+                Usuario rival = new Usuario("rival", "rival");
+                foreach (var usuario in _usuarios)
+                {
+                    if (usuario.name != jugador.opcionesJugador.usuario.name)
+                        rival = usuario;
+                }
+
+                foreach (var usuario in _usuarios)
+                {
+                    if (usuario.name == jugador.opcionesJugador.usuario.name)
+                    {
+                        jugador.opcionesJugador.UIJugador.guardarPartidaEnHistorial(rival.name, "", jugador.nave.playerShip.name, 3, 0, true);
+                    }
+                    else
+                    {
+                        if (IsServer)
+                        {
+                            rival.guardarPartidaEnHistorial(jugador.opcionesJugador.usuario.name, jugador.nave.playerShip.name, "", 0, 3, false);
+                            Usuario.GuardarUsuario(rival);
+                        }
+                    }
+                }
             }
         }
         //ELIMINAMOS LAS NAVES DE LA LISTA Y SUS PUNTUACIONES
