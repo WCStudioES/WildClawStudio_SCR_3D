@@ -148,7 +148,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipName: IronSmith
-  description: Es brutal
+  description: Ironsmith compensates its low ranged damage with its huge hammerhead
+    damage, crushing enemies once they are close enough.
+  about: The Turan Dynasty is one of the most powerful forces in the Dominion. Based
+    on Rektor, a forge planet where many of the UGE's greatest spaceships are crafted,
+    they control the ancient everstone weapon factories. Kal, heir to the Turan legacy,
+    rejected his destiny as lord of Rektor upon uncovering the atrocities committed
+    by his family on the planet. He fled the day before inheriting the crown, taking
+    with him the Ironsmith, the oldest relic of his lineage. Now branded a traitor
+    by his own kin, Kal has become one of the longest-standing and most legendary
+    champions of the Arena, as well as a major supplier of the weapons used by pirates
+    across the stars.
   sprite: {fileID: -874438192, guid: 0f080261975556647a44b83d774f2093, type: 3}
   initialHealth: 150
   initialArmor: 10
@@ -189,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Galactic Hammer
-  Description: Dashes backwards and deals damge
-  Sprite: {fileID: -1428691515, guid: d21bf239126b8e74fbb9a6a61d9e3fc8, type: 3}
+  Description: 'Dashes backwards dealing damage on collision. '
+  Sprite: {fileID: -694540940, guid: 92401f0f4ac214f4e92956a4d7550365, type: 3}
   resourceType: 2
   actualResQuantity: 15
   neededResQuantity: 15
@@ -203,6 +213,8 @@ MonoBehaviour:
   dashDamage: 25
   dashDirection: {x: 0, y: 0, z: -1}
   nave: {fileID: 0}
+  UpgradedCdReduction: 7
+  UpgradedDmgIncreased: 50
 --- !u!114 &2724567983076035007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Bonk
-  Description: If you rotate fast enough you can hit someone with the hammer
-  Sprite: {fileID: -1119241441, guid: ec8f34e67e8d377428f30a27cd83c08c, type: 3}
+  Description: Deal damage to enemies hit by the hammerhead while rotating.
+  Sprite: {fileID: 895042081, guid: 92401f0f4ac214f4e92956a4d7550365, type: 3}
   resourceType: 2
   actualResQuantity: 1
   neededResQuantity: 1

@@ -261,9 +261,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipName: Pandora
-  description: "Pandora es la elegida de la Plaga, y como tal debe conseguir la aniquilaci\xF3n
-    de sus enemigos a cualquier coste. Es un personaje capaz de causar un da\xF1o
-    devastador, pero debe saber cuando retirarse para no morir en el intento."
+  description: Pandora is an agent of destruction and, as so, it must annihilate
+    its enemies at any cost. Using its active ability at the right time is the  key
+    difference between a formidable victory or a brutal defeat.
+  about: 'A devoted member of the Gaeg Cult of Destruction, Pandora is infamous for
+    the trail of carnage and death that follows her wherever she goes. Her origins
+    remain shrouded in mystery, and her true motives for joining Space Combat Rush
+    are unknown. One thing is certain: the body count keeps rising, and Pandora shows
+    no signs of stopping.'
   sprite: {fileID: 21300000, guid: 718b7088788ba064c80d8eaa53855870, type: 3}
   initialHealth: 110
   initialArmor: 0

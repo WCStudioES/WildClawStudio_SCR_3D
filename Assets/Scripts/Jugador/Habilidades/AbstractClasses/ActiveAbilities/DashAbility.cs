@@ -58,7 +58,7 @@ public abstract class DashAbility : ActiveAbility
         IDamageable target = other.gameObject.GetComponentInParent<IDamageable>();
         if (target != null)
         {
-            target.GetDamage(dashDamage, networkedPlayer);
+            target.GetDamage((int)(dashDamage + dashDamage * ((float)networkedPlayer.dmgBalance.Value/100)), networkedPlayer);
 
             // Finalizar el dash al impactar
             nave.GetComponent<Rigidbody>().velocity = Vector3.zero;

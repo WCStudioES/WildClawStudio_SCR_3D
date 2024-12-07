@@ -23,24 +23,24 @@ public class Shield : DestructibleAsset
         actualHealth.Value = maxHealth; // Inicializar salud
 
         StartCoroutine(StartShieldTimer());
-        
-        if (this is VisualShield)
-        {
-            owner.UpdateShieldBarClientRpc(maxHealth, owner.maxHealth.Value);
-        }
     }
 
     public void SetHealth(int health)
     {
         maxHealth = health;
         actualHealth.Value = health;
+        
+        if (this is VisualShield)
+        {
+            owner.UpdateShieldBarClientRpc(health);
+        }
     }
 
     public override void GetDamage(int damage, NetworkedPlayer dmgDealer)
     {
         actualHealth.Value -= damage; // Resta vida y sincroniza con los clientes
         if (this is VisualShield)
-            owner.UpdateShieldBarClientRpc(actualHealth.Value, owner.maxHealth.Value);
+            owner.UpdateShieldBarClientRpc(actualHealth.Value);
         if(actualHealth.Value <= 0 )
         {
             DestroyDamageable(dmgDealer);

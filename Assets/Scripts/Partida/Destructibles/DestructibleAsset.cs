@@ -157,6 +157,7 @@ public class DestructibleAsset : Damageable
             actualHealth.Value = maxHealth;
             RestoreDestructibleAssetClientRpc();
             resGiven = false;
+            StopCoroutine("ResetAssetAfterTime");
         }
         SetAssetActive(true);
     }
@@ -178,6 +179,8 @@ public class DestructibleAsset : Damageable
     private void RestoreDestructibleAssetClientRpc()
     {   
         SetAssetActive(true);
+        if(resType == ResourceToGive.Health)
+            ResetTimeImage.gameObject.SetActive(false);
     }
 
     protected virtual void SetAssetActive(bool active)

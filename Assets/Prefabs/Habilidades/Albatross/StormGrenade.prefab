@@ -212,8 +212,10 @@ MonoBehaviour:
   projectileVFX: {fileID: 0}
   trailVFX: {fileID: 0}
   storm: {fileID: 5319589634363265642, guid: 6886f8808fb186646840e742cb76807e, type: 3}
+  upgradedstorm: {fileID: 1318309567174115119, guid: 22d42ea403aec544db7750c6fee55fdc, type: 3}
   stormSpawn: {fileID: 7802118543411189893}
   partida: {fileID: 0}
+  isUpgraded: 0
 --- !u!54 &8420469484000958537
 Rigidbody:
   m_ObjectHideFlags: 0

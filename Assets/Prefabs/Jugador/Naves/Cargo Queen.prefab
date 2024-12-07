@@ -177,7 +177,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipName: Cargo Queen
-  description: "Es god cabr\xF3n"
+  description: Cargo Queen is a defensive ship with great resistance. It is capable
+    of attack and defend as needed, taking the combat to her own conditions.
+  about: "Born on Arena Station, the home of the Space Combat Rush coliseum, young
+    Amalia Kor grew up surrounded by the roar of engines and the thrill of lethal
+    competition. Obsessed with mechanics and the deadly sport, she spent her days
+    repairing ships in the hangars and her nights secretly building her own vessel
+    from stolen parts: the Cargo Queen. With her masterpiece complete, it wasn\u2019t
+    long before Amalia entered the competition and earned her place among the SCR
+    fan favorites, dazzling crowds with her skill and ingenuity."
   sprite: {fileID: 21300000, guid: fd87ae39a0b3a1444b461a96cfb51212, type: 3}
   initialHealth: 110
   initialArmor: 0

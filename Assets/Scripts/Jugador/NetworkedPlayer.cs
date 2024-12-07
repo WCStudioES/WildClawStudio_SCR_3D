@@ -174,7 +174,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
-            UpdateShieldBarClientRpc(0, maxHealth.Value);
+            UpdateShieldBarClientRpc(0);
             UpdateExperienceBarClientRpc(0, 1);
         }
         uiBoosters.ResetPartida(allProjectiles[proyectilBasico].GetComponent<Proyectil>().sprite);
@@ -280,22 +280,22 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     
     //Funcion que maneja la barra de vida
     [ClientRpc]
-    public void UpdateShieldBarClientRpc(int shieldHealth, int maxVida)
+    public void UpdateShieldBarClientRpc(int shieldHealth)
     {
-        float shieldPercentage = (float) shieldHealth / (float) maxVida;
+        float shieldPercentage = (float) shieldHealth / (float) maxHealth.Value;
         
         if (IsOwner)
         {
             barraDeEscudo.fillAmount = shieldPercentage;
             int totalHealth = actualHealth.Value + shieldHealth;
-            Debug.Log(shieldHealth + " " + actualHealth.Value );
+            Debug.Log(shieldHealth + " " + actualHealth.Value + "Debug escudo");
         
-            textoVida.text = totalHealth +  " / " + maxVida;
+            textoVida.text = totalHealth +  " / " + maxHealth.Value;
             
         }
         else
         {
-            float shieldFill = ((float) shieldHealth)/ maxVida;
+            float shieldFill = ((float) shieldHealth)/ maxHealth.Value;
             circuloDeEscudoEnemigo.fillAmount = shieldFill;
         }
         
@@ -969,7 +969,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void RemoveShield(Shield shield)
     {
         activeShields.Remove(shield);
-        UpdateShieldBarClientRpc(0, maxHealth.Value);
+        UpdateShieldBarClientRpc(0);
     }
 
     public void RemoveAllShields()

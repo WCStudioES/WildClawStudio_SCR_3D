@@ -166,7 +166,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
         if(direction != null)
         {
-            transform.position += direction * speed * Time.fixedDeltaTime;
+            transform.position += direction * (speed * Time.fixedDeltaTime);
         }
 
         //if(partida != null && !partida.rondaEnmarcha)

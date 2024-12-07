@@ -423,13 +423,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipName: Ravager
-  description: "Ravager es s\xEDmbolo de velocidad, cuenta con una gran movilidad
-    para emboscar a sus enemigos y escapar recibiendo el menor da\xF1o posible."
-  about: "Robert Strauss fue uno de los grandes agentes de la UGE en la lucha contra
-    los piratas a lo largo del Dominio. Ahora, traicionado por la organizaci\xF3n
-    a la que sacrific\xF3 su vida, ha asumido el nombre de Ravager y se ha unido
-    a Space Combat Rush en busca de guerreros y riqueza para la lucha contra la opresi\xF3n
-    terr\xEDcola."
+  description: Ravager means speed in the Arena, it posseses great velocity and mobility
+    to ambush his enemies and scape suffering the least possible damage.
+  about: ' Robert Strauss was one of the great UGE agents in the fight against pirates
+    across the Dominion. Now, betrayed by the organization he sacrificed his life
+    for, he has taken the name Ravager and joined Space Combat Rush in search of
+    warriors and wealth to fight against Earthling oppression.'
   sprite: {fileID: 21300000, guid: 6e84c72135ed42c4a9b60ab96626e730, type: 3}
   initialHealth: 100
   initialArmor: 0

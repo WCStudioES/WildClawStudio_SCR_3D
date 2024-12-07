@@ -41,7 +41,6 @@ public class StormAoE : AreaDmg
 
         if (playerShip != null)
         {
-            playerShip.shipController.initialSpeed += slow;
             playerShip.shipController.maxSpeed += slow;
             playerShip = null;
         }
@@ -55,9 +54,21 @@ public class StormAoE : AreaDmg
     {
         if (isUpgraded)
         {
-            transform.localScale+=(new Vector3(upscaling * time, 0, upscaling * time));
-            Debug.Log(upscaling + " escala " + transform.localScale);
+            //transform.localScale+=new Vector3(upscaling * time, 0, upscaling * time);
+            //Debug.Log(upscaling + " escala " + transform.localScale + "daño" + dmg);
         }
     }
-    
+
+    public IEnumerator IncreaseScale()
+    {
+        if (isUpgraded)
+        {
+            while (gameObject.activeInHierarchy)
+            {
+                yield return new WaitForSecondsRealtime(1f);
+                transform.localScale+=new Vector3(upscaling , 0, upscaling);
+                Debug.Log(upscaling + " escala " + transform.localScale + "daño" + dmg);
+            }
+        }
+    }
 }

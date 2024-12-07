@@ -65,7 +65,7 @@ public class AlbatrossActive : ShootProjectileAbility
         {
             isActive = false;
             networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
-            proyectil.GetComponent<StormGrenade>().dmg = (int)(damage *  ((float)networkedPlayer.dmgBalance.Value/100f));
+            proyectil.GetComponent<StormGrenade>().dmg = (int)(damage + damage *  ((float)networkedPlayer.dmgBalance.Value/100f));
             proyectil.GetComponent<StormGrenade>().Detonar(networkedPlayer);
             Destroy(proyectil);
         }

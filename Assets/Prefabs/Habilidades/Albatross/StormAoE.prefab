@@ -55,7 +55,7 @@ MonoBehaviour:
   aoeVFX: {fileID: 0}
   slow: 3
   isUpgraded: 0
-  upscaling: 20
+  upscaling: 2
 --- !u!135 &5332781582947477204
 SphereCollider:
   m_ObjectHideFlags: 0
