@@ -5798,7 +5798,9 @@ MonoBehaviour:
   PowerPoints: []
   SpeedPoints: []
   equippedShipActiveDescription: {fileID: 0}
+  equippedShipActiveName: {fileID: 0}
   equippedShipPassiveDescription: {fileID: 0}
+  equippedShipPassiveName: {fileID: 0}
   equippedAmmoIndex: 0
   equippedSupportIndex: 0
   equippedAmmoImage: {fileID: 0}
@@ -5810,6 +5812,8 @@ MonoBehaviour:
   selectedItem: {fileID: 0}
   selectedItemName: {fileID: 0}
   selectedItemDescription: {fileID: 0}
+  nameAboutText: {fileID: 0}
+  descriptionAboutText: {fileID: 0}
 --- !u!1 &5231758754756214470
 GameObject:
   m_ObjectHideFlags: 0
@@ -6982,7 +6986,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -927236605, guid: a3d3fa7aa2ee93047abf50324def3f0b, type: 3}
+  m_Sprite: {fileID: 421796037, guid: a3d3fa7aa2ee93047abf50324def3f0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
