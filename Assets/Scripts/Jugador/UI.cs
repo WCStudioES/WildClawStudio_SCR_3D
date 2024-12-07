@@ -28,6 +28,7 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Historial;
     [SerializeField]private GameObject CuentaAtras;
     [SerializeField]private GameObject[] NumerosCuentaAtras;
+    [SerializeField]private GameObject About;
     private int posicionCuentaAtras = 0;
     
     [SerializeField] private GameObject[] uiPantallasTutorial;
@@ -527,6 +528,22 @@ public class UI : NetworkBehaviour
         if (IsOwner)
         {
             Build.SetActive(false);
+        }
+    }
+
+    public void AbrirPopUpAbout()
+    {
+        if (IsOwner)
+        {
+            About.SetActive(true);
+        }
+    }
+    
+    public void CerrarPopUpAbout()
+    {
+        if (IsOwner)
+        {
+            About.SetActive(false);
         }
     }
 

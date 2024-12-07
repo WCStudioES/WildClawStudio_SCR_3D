@@ -57,7 +57,7 @@ public class CustomizationManager : MonoBehaviour
     public TMP_Text selectedItemName;
     public TMP_Text selectedItemDescription;
     
-    //TEXTOS ABOUT
+    //PANEL ABOUT
     public TMP_Text nameAboutText;
     public TMP_Text descriptionAboutText;
     
@@ -353,6 +353,6 @@ public class CustomizationManager : MonoBehaviour
     {
         PlayerShip playerShip = craftImages[equippedCraftIndex].GetComponent<PlayerShip>(); //nave escogida
         nameAboutText.text = playerShip.name;
-        descriptionAboutText.text = playerShip.description + "/n" + playerShip.about;
+        descriptionAboutText.text = playerShip.description + "\n"  + "\n" + playerShip.about;
     }
 }
