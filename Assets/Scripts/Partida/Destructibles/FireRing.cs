@@ -13,13 +13,11 @@ public class FireRing : AreaDmg
     [SerializeField] private float shrinkDuration = 15f;   // Tiempo total para que se cierre
     [SerializeField] private List<Transform> players;          // Lista de jugadores para comprobar sus posiciones
 
-    [SerializeField] private Material ringMaterial;
+    private float checkInterval = 0.1f; // Intervalo en segundos
+    private float checkTimer = 0f;
+
     private Color safeZoneColor = new Color(0, 1, 0, 0.25f); // Color del �rea segura
     private Color dangerZoneColor = new Color(1, 0, 0, 0.25f); // Color del �rea peligrosa
-
-    private GameObject ringVisual;                         // Objeto visual para el anillo
-    private MeshFilter ringMeshFilter;                     // Componente MeshFilter del anillo
-    private MeshRenderer ringMeshRenderer;                 // Componente MeshRenderer del anillo
 
     private float currentOuterRadius;
     private float currentInnerRadius;
@@ -71,9 +69,14 @@ public class FireRing : AreaDmg
 
     private new void FixedUpdate()
     {
-        if (canHit)
+        if (canHit && IsInServidor)
         {
-            CheckPlayersInRing();
+            checkTimer += Time.fixedDeltaTime;
+            if (checkTimer >= checkInterval)
+            {
+                checkTimer = 0f;
+                CheckPlayersInRing();
+            }
         }
     }
 
@@ -132,69 +135,12 @@ public class FireRing : AreaDmg
 
     private void CreateRingVisual()
     {
-        // Crear un GameObject para la visual del anillo
-        ringVisual = new GameObject("FireRingVisual");
-        ringVisual.transform.SetParent(transform);
-        ringVisual.transform.localPosition = Vector3.zero;
 
-        // Agregar componentes necesarios
-        ringMeshFilter = ringVisual.AddComponent<MeshFilter>();
-        ringMeshRenderer = ringVisual.AddComponent<MeshRenderer>();
-        ringMeshRenderer.material = ringMaterial;
-
-        UpdateRingVisual();
     }
 
     private void UpdateRingVisual()
     {
-        if (ringMeshFilter == null || IsInServidor) return;
 
-        // Crear un anillo entre los radios
-        ringMeshFilter.mesh = GenerateRingMesh(currentInnerRadius, currentOuterRadius);
-    }
-
-    private Mesh GenerateRingMesh(float innerRadius, float outerRadius)
-    {
-        Mesh mesh = new Mesh();
-        int segments = 32; // N�mero de segmentos para suavizar el anillo
-
-        int vertexCount = segments * 2;
-        Vector3[] vertices = new Vector3[vertexCount];
-        int[] triangles = new int[segments * 6];
-        Vector2[] uv = new Vector2[vertexCount];
-
-        float angleStep = 360f / segments;
-
-        for (int i = 0; i < segments; i++)
-        {
-            float angle = Mathf.Deg2Rad * i * angleStep;
-
-            // V�rtices del radio interior
-            vertices[i * 2] = new Vector3(Mathf.Cos(angle) * innerRadius, 0, Mathf.Sin(angle) * innerRadius);
-            // V�rtices del radio exterior
-            vertices[i * 2 + 1] = new Vector3(Mathf.Cos(angle) * outerRadius, 0, Mathf.Sin(angle) * outerRadius);
-
-            // Definir UVs
-            uv[i * 2] = new Vector2(0, 0);
-            uv[i * 2 + 1] = new Vector2(1, 1);
-
-            // Crear tri�ngulos
-            int nextIndex = (i + 1) % segments;
-            triangles[i * 6] = i * 2;
-            triangles[i * 6 + 1] = nextIndex * 2;
-            triangles[i * 6 + 2] = i * 2 + 1;
-
-            triangles[i * 6 + 3] = nextIndex * 2;
-            triangles[i * 6 + 4] = nextIndex * 2 + 1;
-            triangles[i * 6 + 5] = i * 2 + 1;
-        }
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.uv = uv;
-        mesh.RecalculateNormals();
-
-        return mesh;
     }
 
     private void OnDrawGizmos()
