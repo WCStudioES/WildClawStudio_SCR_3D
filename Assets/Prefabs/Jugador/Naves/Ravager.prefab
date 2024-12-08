@@ -479,7 +479,7 @@ MonoBehaviour:
   neededResQuantity: 15
   visualEffects: []
   networkedPlayer: {fileID: 0}
-  type: 0
+  type: 3
   maxResource: 50
   maxSpeedBuff: 5
   maxSpeedBuffUpgraded: 8

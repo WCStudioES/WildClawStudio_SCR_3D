@@ -18,9 +18,7 @@ public class RavagerActive : ToggleAbility
     public int energyRecharge;  //Energia recargada por segundo
     public int energyRechargeUpgraded;  //Energia recargada por segundo
 
-    private List<VisualEffect> activeFireVFX = new List<VisualEffect>();
     [SerializeField] private List<Transform> extraFires;
-    [SerializeField] private VisualEffect firePropulsionVFX;
 
     //Metodo para activar habilidad: impulso de velocidad durante unos segundos
     public override void AbilityExecution()
@@ -184,13 +182,8 @@ public class RavagerActive : ToggleAbility
     {
         foreach (Transform spawn in extraFires)
         {
-            if (firePropulsionVFX != null)
-            {
-
-                VisualEffect newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
-                newVFX.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-                visualEffects.Add(newVFX);
-            }
+            VFXPrefab newVFX = VFXManager.Instance.SpawnVFX(VFXManager.VFXType.shipFire, spawn.position, spawn.rotation, spawn);
+            visualEffects.Add(newVFX);
         }
         ToggleVFX(false);
     }

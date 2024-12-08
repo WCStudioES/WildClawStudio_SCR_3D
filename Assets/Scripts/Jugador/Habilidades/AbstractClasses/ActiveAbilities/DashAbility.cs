@@ -19,7 +19,9 @@ public abstract class DashAbility : ActiveAbility
 
     protected IEnumerator PerformDash()
     {
-        if(nave == null)
+        networkedPlayer.ToggleAbilityVFXClientRpc(true);
+
+        if (nave == null)
         {
             nave = networkedPlayer.nave;
         }
@@ -49,7 +51,9 @@ public abstract class DashAbility : ActiveAbility
         // Restaurar velocidad original al terminar el dash
         rb.velocity = Vector3.zero;
         nave.isDashing = false;
-        
+
+        networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
+        networkedPlayer.ToggleAbilityVFXClientRpc(false);
     }
 
     public void CollidesWith(Collision other)
@@ -64,5 +68,9 @@ public abstract class DashAbility : ActiveAbility
             nave.GetComponent<Rigidbody>().velocity = Vector3.zero;
             nave.isDashing = false;
         }
+
+        networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
+
+        networkedPlayer.ToggleAbilityVFXClientRpc(false);
     }
 }

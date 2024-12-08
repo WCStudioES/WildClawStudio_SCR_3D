@@ -216,6 +216,9 @@ MonoBehaviour:
   nave: {fileID: 0}
   UpgradedCdReduction: 7
   UpgradedDmgIncreased: 50
+  extraFires:
+  - {fileID: 4867162252583620326}
+  - {fileID: 3131451247482665625}
 --- !u!114 &2724567983076035007
 MonoBehaviour:
   m_ObjectHideFlags: 0

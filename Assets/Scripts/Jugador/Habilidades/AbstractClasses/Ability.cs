@@ -14,7 +14,7 @@ public abstract class Ability : MonoBehaviour, IAbility
     public float actualResQuantity;
     public float neededResQuantity;
 
-    [SerializeField] protected List<VisualEffect> visualEffects;
+    [SerializeField] protected List<VFXPrefab> visualEffects;
 
     //Referencia al jugador, usado para restar y sumar vida
     public NetworkedPlayer networkedPlayer;
@@ -87,11 +87,11 @@ public abstract class Ability : MonoBehaviour, IAbility
 
     public virtual void ToggleVFX(bool active)
     {
-        foreach(VisualEffect effect in visualEffects)
+        foreach(VFXPrefab effect in visualEffects)
         {
             if(effect != null)
             {
-                effect.enabled = active;
+                effect.Toggle(active);
             }
         }
     }
