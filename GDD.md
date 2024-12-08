@@ -493,8 +493,14 @@ Me he encargado fundamentalmente de la lógica de conexión y desconexión entre
 Esta forma de trabajar me ha permitido trabajar sin interferir en otras áreas del desarrollo.
 
 Para las siguientes iteraciones del proyecto habría que definir en piedra los objetivos, expectativas y realidad del proyecto antes de ponerse a trabajar.
+
 #### Versión Gold
-Content
+Me he encargado fundamentalmente de mejorar la lógica de conexión y desconexión entre cliente y servidor, también me he encargado de la implementación de un servidor público al que se puede acceder sin necesidad de introducir un código. En menor medida, he arreglado bugs varios y he aumentado la fiabilidad de la gestión de los datos de usuario.
+
+Esta forma de trabajar me ha permitido trabajar sin interferir en otras áreas del desarrollo.
+
+Para las siguientes iteraciones del proyecto habría que definir mejor los objetivos finales, pero no ha habido complicaciones mayores en esta iteración.
+
 ### Jesús Bastante López
 #### Versión Alfa
 Me he encargado del game design; la programación proyectiles, la barra de vida, la experiencia y elementos varios sobre la partida; he sido coresponsable de las redes sociales y he ayudadado en la sección del portfolio en la página web.
@@ -573,3 +579,7 @@ Content
 |  1.2.0 | Implementación de los apoyos |
 |  1.3.0 | UI y mapa rehechos |
 |  1.4.0 | Implementación de nuevos niveles de mejora de armas y habilidades |
+|  2.0.0 | Cambio del motor de renderizado a URP y actualización de la UI |
+|  2.1.0 | Introducción de Aerosmith como nueva nave |
+|  2.2.0 | Mejora de las habilidades |
+|  2.3.0 | Introducción de efectos visuales en la versión |
