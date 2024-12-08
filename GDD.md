@@ -478,7 +478,10 @@ Durante el desarrollo de la beta mi trabajo ha sido la generáción de todo el d
 
 Como cosas a cambiar considero que debo probar más las cosas, previo a su subida al github, ya que a veces se me pasa probar todo para ver si mis cambios, al subir los elementos visuales al juego y ponerlos a disposición de los programadores, han afectado a algo.
 #### Versión Gold
-Content
+En la versión Gold mi trabajo ha sido principalmente la de dar apoyo en los elementos artísticos que surgieran de última hora. Entre ellos se incluye el pintado de una nueva nave (Ironsmith) con sus dos skins, nuevas interfaces necesarias (como la pantalla del lore de cada nave y la de ajustes), ajustes de UI de última hora (sticker para el botón de battle pass, modificación del color de la barra de XP, etc) y arreglos de elementos del entorno (nuevo ring más ancho, menor peso en todas las texturas sin pérdida de calidad, nuevas texturas para los satélites...). Adicionalmente he estado editando el trailer para mejorarlo, editando la página web y a cargo de generar material para las redes sociales.
+
+Considero que en esta entrega he trabajado de manera correcta y aunque ha habido pequeños malentendidos de cara a lo que me pedían mis compañeros, han sido errores mínimos que se han arreglado rápido y no han afectado al desarrollo de esta versión. Considero que hemos trabajado todos muy bien como equipo esta vez; teniendo mucha comunicación y feedback constructivo que nos hemos ido dando. Además de haber compartido conocimiento entre nosotros de las áreas que nos interesaban pero que unos no sabían de ello mientras otros sí.
+
 ### José Antonio González Mesado
 #### Versión Alfa
 Me he encargado fundamentalmente de la infraestructura de red, la lógica de la partida y los controles. En menor medida he revisado y parcheado las funcionalidades de movimiento y disparo de la nave, así como el funcionamiento y diseño de las interfaces.
@@ -518,7 +521,14 @@ Aunque el juego ha mejorado mucho y, en general, hemos conseguido los objetivos 
 
 En redes sociales, no hemos conseguido un buena recepción en la plataforma X, por lo que tendré que trabajar más en hacer que la cuenta sea más atractiva y llamar a más usuarios.
 #### Versión Gold
-Content
+Me he dedicado a redes sociales, específicamente X y texto; diseño de mecánicas, diseño del mapa e implementación de scripts varios enfocados en UI y elementos propios de la partida.
+
+Durante el desarrollo de la Golden el ritmo de trabajo se ha mantenido en buen nivel, todos hemos aportado un gran esfuerzo. Sin embargo, debido a la cantidad de tiempo que le he dedicado a juego en sí, no he podido dedicarme a mejorar la cuenta de X. Además, debo intentar mejorar mi capacidad de resolución de errores en código; ya que esto me ha tomado mucho tiempo.
+
+En cuanto a la comunicación entre el equipo, no han surgido errores durante esta iteración, lo que cuenta como una gran victoria para el equipo entero.
+
+Finalmente, respecto al juego, hemos sabido tomar el feedback de nuestros multiplos testers y mejorar el producto. Como game designer, he tenido que tomar algunas decisiones de diseño para intentar adpatar el juego a la mayoría, pero ya era muy tarde para cambiar el tipo de movimiento sin que esto supusiera un lastre muy gordo.
+
 ### Jorge Juan Xuclá Esparza
 #### Versión Alfa
 Para esta entrega, he hecho el modelo 3D de la primera nave y he programado el control de esta en ordenador, el matchmaking, la funcionalidad de la pestaña de personalización y el funcionamiento de los proyectiles básicos. También he escrito en el GDD el apartado de música y sonido, y en la página web del portfolio he hecho el footer.
@@ -530,6 +540,7 @@ Tal y como se dijo al final de la entrega anterior, para la beta he refactorizad
 Es posible que para la próxima entrega haya que volver a estructurar algunas partes del código para optimizar el juego, además de añadir una sección de ajustes y un tutorial. Pero creo que prácticamente todo lo que hemos añadido se mantendrá para la última entrega, a excepción de algunas texturas.
 #### Versión Gold
 Content
+
 ### Miguel Ángel Jiménez Montemayor
 #### Versión Alfa
 Para esta entrega, me he encargado principalmente de realizar varios conceptos de naves; además de aportar mis datos para la página web e ideas para el pase de batalla y otras interfaces. En las siguientes fases, procederé a desarrollar los modelos 3D basados en estos conceptos.
@@ -541,12 +552,18 @@ Para esta entrega, me he encargado principalmente en modelar y texturizar las na
 
 Durante esta etapa considero que me ha faltado una mejor comunicación con el equipo. Además, he tenido errores al intentar texturizar en blender por primera vez y al importar esas texturas en Unity de manera errónea haciendo que se atrase el trabajo de mis compañeros. Para la Golden no cometeré los fallos que he tenido en esta versión para conseguir el resultado que desean mis compañeros.
 #### Versión Gold
-Content
+En esta entrega, me he enfocado principalmente en corregir las texturas de Albatross Militar y Cargo Queen Ambulance. Durante esta etapa, he prestado especial atención a los problemas relacionados con las skins, esforzándome por solucionarlos de manera rápida y eficiente.
+
+Uno de los desafíos que he enfrentado ha sido gestionar ciertas controversias relacionadas con el diseño de las skins. Por ejemplo, desconocía que el uso de estrellas rojas podría infringir las normativas del copyright de la Convención de Ginebra. Además, el incluir una calavera en la bandera española podría generar conflictos.
+
+Para futuros proyectos, seré más cuidadoso al diseñar skins, verificando previamente si los elementos que deseo incorporar si son viables o si será necesario considerar alternativas.
+
 ## Trabajo colectivo realizado
 #### Versión Alfa
 Como equipo hemos sido capaces de completar la alfa incluyendo la funcionalidad base del juego para conseguir el flujo principal de este siendo, además, la primera vez en crear un juego multijugador desde cero por completo. Ello incluye toda la programación referente a la batalla interna del juego y las interfaces necesarias para acceder a esta. Además, hemos conseguido pulir la idea del juego que queremos y comprender la dirección que llevará este proyecto.
 
 Por primera vez en esta carrera hemos tenido un problema de comunicación que hemos notado en el equipo y que ha afectado al desarrollo del proyecto. Por suerte, hemos comprendido este fallo y hemos conseguido empezar a arreglarlo justo antes de la entrega del primer prototipo. Ello implica que para las siguientes entregas nos esforzaremos más de cara a mantener una comunicación más abierta y preparar una mejor planificación previa antes de comenzar cada uno de los prototipos siguientes.
+
 #### Versión Beta
 Durante el desarrollo de la Beta del juego se ha conseguido mejorar considerablemente el juego, aunque quedan elementos por pulir que se completarán en la Gold.
 
@@ -557,8 +574,18 @@ Si bien es cierto, el marketing podría haber sido mejor orientado a presentar e
 El juego, actualmente, se ha modificado también de tal forma que se pueda tener servidores privados para poder jugar con amigos. Algo que no teníamos en cuenta previamente y que, estudiando el público destino, hemos visto necesario para que estos pueda tener batallas entre amigos sin la necesidad de jugar con personas externas y donde hay pocas probabilidades de hacer match cuantos más jugadores hayan.
 
 Seguimos ante un producto que es más de nicho y es algo que juega en desventaja nuestra. Sin embargo, al mismo tiempo, para estos jugadores, tener un juego antiguo puesto en una estética más actualizada puede resultar interesante y llamativo. Por lo que se hará una campaña publicitaria en las redes sociales antes de subir la Gold donde buscaremos atraer más a los jugadores de este nicho.
+
 #### Versión Gold
-Content
+Durante la Gold, el equipo ha logrado avances significativos en el desarrollo del juego. Uno de los mayores cambios ha sido la migración a URP, que permitió la adición de VFX. Aunque surgieron fallos con esto en un principio, como la falta de soporte en WebGL de dichos VFX, se logró implementar una solución efectiva utilizando spritesheets, lo que dio una mejora visual al juego. Además, se habilitó un servidor público funcional, permitiendo a los jugadores disfrutar de partidas multijugador sin la necesidad de configurar servidores privados, lo que ha mejorado la accesibilidad al juego. También se realizaron ajustes en el balanceo de controles y ataques, junto con otras modificaciones visuales, para garantizar una experiencia más equilibrada y atractiva.
+
+El equipo, durante este periodo, ha conseguido generar una cultura interna buena, generando una sensación de familia dentro del equipo. Compartimos nuestros logros y nos apoyamos en los momentos más difíciles, lo que fue fundamental para superar obstáculos y mantener la motivación. Esta colaboración nos ha permitido no solo avanzar en el desarrollo del juego, sino darnos más unidad como empresa y ayudarnos a mejorar entre nosotros.
+
+Actualmente, el juego se encuentra listo para el público objetivo. Destaca al dar una amplia personalización y variedad en las estrategias de juego, lo que permite rejugabilidad y que los jugadores lo adapten a sus preferencias. La estética del juego combina el arcade Asteroids con un diseño modernizado y más atractivo, dando una mezcla entre nostalgia y frescura. Aunque el producto está enfocado a un nicho específico, las partidas rápidas y cortas, junto con su atractivo visual, lo hacen ideal para un público más amplio, incluyendo tanto jugadores casuales como competitivos.
+
+A partir de ahora, se pondrán todos los esfuerzos en la promoción del juego a través de las redes sociales. Se tratará de generar contenido atractivo y dinámico para captar la atención de potenciales jugadores y generar interés en probar el juego. Se busca no solo atraer usuarios nuevos, sino mantenerlos gracias a la competitividad y de poder jugar el juego en cualquier tiempo muerto del día a día.
+
+En resumen, consideramos que con esta versión del juego tenemos una alta probabilidad de tener un juego que guste al público y, por ende, un producto que pueda generar beneficios. Además de que ha servido para ser un juego a través del que, el equipo, ha sido capaz de aprender mucho de cómo gestionar un proyecto mucho más amplio e ir paso a paso hasta llegar a la meta final.
+
 
 # Control de Versionado
 -----------------------
@@ -582,4 +609,4 @@ Content
 |  2.0.0 | Cambio del motor de renderizado a URP y actualización de la UI |
 |  2.1.0 | Introducción de Aerosmith como nueva nave |
 |  2.2.0 | Mejora de las habilidades |
-|  2.3.0 | Introducción de efectos visuales en la versión |
+|  2.3.0 | Introducción de efectos visuales en la versión de WebGL|
