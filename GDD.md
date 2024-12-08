@@ -546,7 +546,9 @@ Tal y como se dijo al final de la entrega anterior, para la beta he refactorizad
 
 Es posible que para la próxima entrega haya que volver a estructurar algunas partes del código para optimizar el juego, además de añadir una sección de ajustes y un tutorial. Pero creo que prácticamente todo lo que hemos añadido se mantendrá para la última entrega, a excepción de algunas texturas.
 #### Versión Gold
-Content
+En esta entrega final, he creado todos los VFX del juego y los he implementado para que funcionen tanto en Windows como en WebGL. También he corregido varios bugs, he programado el anillo de fuego que aparece al final de cada ronda, he ajustado el movimiento de las naves y he programado la funcionalidad del menú de ajustes. Además, he modelado y programado una nueva nave para el juego y he participado en el testing para balancear las mecánicas.
+
+Lo que más me ha costado ha sido desarrollar el sistema de VFX, ya que inicialmente pensaba que los Visual Effects de Unity eran compatibles con WebGL, lo cual no era el caso. A pesar de ello, considero que el juego ha mejorado significativamente en estas semanas, tanto en el apartado artístico como en el mecánico. Creo que hemos logrado un muy buen resultado y que es un proyecto con potencial para seguir desarrollándose.
 
 ### Miguel Ángel Jiménez Montemayor
 #### Versión Alfa
