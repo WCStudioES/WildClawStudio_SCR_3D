@@ -9,19 +9,20 @@ public class StormAoE : AreaDmg
 {
     [SerializeField] private float slow;
     private PlayerShip playerShip;
-    public bool isUpgraded = false;
+    public bool isUpgraded;
     [SerializeField] private float upscaling;
     public override void OnHit(IDamageable target, NetworkedPlayer dmgDealer)
     {
         Debug.Log("Creando tormenta");
         target.GetDamage(dmg, dmgDealer);
+        Debug.Log("Storm" + isUpgraded);
     }
 
     protected override void AdditionalEffectsOnEnter(Collider other)
     {
         playerShip = other.GetComponent<PlayerShip>();
 
-        if (playerShip != null)
+        if (playerShip != null && IsInServidor)
         {
             playerShip.shipController.maxSpeed -= slow;
         }
@@ -29,7 +30,7 @@ public class StormAoE : AreaDmg
 
     private void OnDestroy()
     {
-        if (playerShip != null)
+        if (playerShip != null && IsInServidor)
         {
             playerShip.shipController.maxSpeed += slow;
             playerShip = null;
@@ -39,7 +40,7 @@ public class StormAoE : AreaDmg
     protected void OnTriggerExit(Collider other)
     {
 
-        if (playerShip != null)
+        if (playerShip != null && IsInServidor)
         {
             playerShip.shipController.maxSpeed += slow;
             playerShip = null;
@@ -55,7 +56,7 @@ public class StormAoE : AreaDmg
         if (isUpgraded)
         {
             //transform.localScale+=new Vector3(upscaling * time, 0, upscaling * time);
-            //Debug.Log(upscaling + " escala " + transform.localScale + "daño" + dmg);
+            Debug.Log("Mejroado" + isUpgraded);
         }
     }
 

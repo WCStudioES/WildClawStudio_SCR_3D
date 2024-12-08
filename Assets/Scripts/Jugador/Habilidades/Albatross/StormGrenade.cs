@@ -8,7 +8,6 @@ using UnityEngine.Serialization;
 public class StormGrenade : Proyectil
 {
     [SerializeField] private GameObject storm;
-    [SerializeField] private GameObject upgradedstorm;
     [SerializeField] private Transform stormSpawn;
     private bool activo = true; //Variable apra ver si el misil ha explotado ya
 
@@ -22,26 +21,33 @@ public class StormGrenade : Proyectil
             activo = false;
 
             Debug.Log("*Bonk* Granada en la cabeza");
-            if (isUpgraded)
+
+            var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
+            StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
+            explosionScript.dmg = dmg;
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
+            Debug.Log("Mejorado");
+
+            /*
+            else
             {
                 var stormObject = Instantiate(upgradedstorm, stormSpawn.position, Quaternion.identity);
                 StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-                explosionScript.isUpgraded = isUpgraded;
                 explosionScript.dmg = dmg;
-                explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
-                Debug.Log("Mejorado");
-            }
-            else
-            {
-                var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
-                StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
                 explosionScript.isUpgraded = isUpgraded;
-                explosionScript.dmg = dmg;
                 explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
             }
+            */
         }
     }
 
+    public void InitializeGrenade(Partida partida, int damage)
+    {
+        this.partida = partida;
+        //this.isUpgraded = isUpgraded;
+        dmg = damage;
+        Debug.Log(dmg + "Daño tormenta" + isUpgraded + "mejorado");
+    }
     public void Detonar(NetworkedPlayer dmgDealer)
     {
         if (activo)
@@ -50,30 +56,16 @@ public class StormGrenade : Proyectil
 
             Debug.Log("Granada de tormenta detonada");
 
-            if (isUpgraded)
-            {
-                var stormObject = Instantiate(upgradedstorm, stormSpawn.position, Quaternion.identity);
-                StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-                explosionScript.dmg = dmg;
-                explosionScript.isUpgraded = isUpgraded;
-                explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
-                //explosionScript.IncreaseScale();
-            
-                Destroy(GetComponent<Rigidbody>());
-                Destroy(GetComponentInChildren<Renderer>());
-            }
-            else
-            {
-                var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
-                StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
-                explosionScript.dmg = dmg;
-                explosionScript.isUpgraded = isUpgraded;
-                explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
-                //explosionScript.IncreaseScale();
-            
-                Destroy(GetComponent<Rigidbody>());
-                Destroy(GetComponentInChildren<Renderer>());
-            }
+
+            var stormObject = Instantiate(storm, stormSpawn.position, Quaternion.identity);
+            StormAoE explosionScript = stormObject.GetComponent<StormAoE>();
+            explosionScript.dmg = dmg;
+            explosionScript.CrearAreaDmg(CuerpoNaveDuena, dmgDealer, IsEnServidor, direction, partida);
+            //explosionScript.IncreaseScale();
+        
+            Destroy(GetComponent<Rigidbody>());
+            Destroy(GetComponentInChildren<Renderer>());
+  
         }
     }
     

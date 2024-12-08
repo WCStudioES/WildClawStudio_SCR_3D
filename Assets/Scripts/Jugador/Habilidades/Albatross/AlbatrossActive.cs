@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class AlbatrossActive : ShootProjectileAbility
 {
     [SerializeField] private GameObject stormGrenade;
+    [SerializeField] private GameObject upgradedStormGrenade;
     private GameObject proyectil;
     public float tiempoDeVida;
     private bool isActive;
@@ -21,20 +22,48 @@ public class AlbatrossActive : ShootProjectileAbility
             Transform spawn = GetComponentInParent<PlayerShip>().proyectileSpawns[0];
 
             //Debug.Log("Proyectil creado");
-            proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
-            proyectil.GetComponent<StormGrenade>().partida = networkedPlayer.partida;
-            proyectil.GetComponent<StormGrenade>().isUpgraded = isUpgraded;
-            Debug.Log(networkedPlayer.userName + proyectil.GetComponent<StormGrenade>().isUpgraded );
-            Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-
-            // Inicializamos el proyectil en el servidor
-            proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
-            //Debug.Log(neededResQuantity);
+            if (!isUpgraded)
+            {
+                Debug.Log("Albatross no mejorado");
+                proyectil = Instantiate(stormGrenade, spawn.position, spawn.rotation);
+                
+                Debug.Log("Albatros lanza habilidad" + proyectil.name);
+                StormGrenade storm = proyectil.GetComponent<StormGrenade>();
             
-            networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
+                storm.InitializeGrenade(networkedPlayer.partida, (int)(damage + damage *  ((float)networkedPlayer.dmgBalance.Value/100f)));
+                //Debug.Log(networkedPlayer.userName + proyectil.GetComponent<StormGrenade>().isUpgraded);
+                Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
 
-            // Programamos la destrucci�n del proyectil despu�s de 10 segundos
-            Invoke("CrearTormenta", tiempoDeVida);
+                // Inicializamos el proyectil en el servidor
+                proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
+                //Debug.Log(neededResQuantity);
+            
+                networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
+
+                // Programamos la destrucci�n del proyectil despu�s de 10 segundos
+                Invoke("CrearTormenta", tiempoDeVida);
+            }
+            else
+            {
+                Debug.Log("Albatross mejorado");
+                proyectil = Instantiate(upgradedStormGrenade, spawn.position, spawn.rotation);
+            
+                Debug.Log("Albatros lanza habilidad" + proyectil.name);
+                StormGrenade storm = proyectil.GetComponent<StormGrenade>();
+            
+                storm.InitializeGrenade(networkedPlayer.partida, (int)(damage + damage *  ((float)networkedPlayer.dmgBalance.Value/100f)));
+                //Debug.Log(networkedPlayer.userName + proyectil.GetComponent<StormGrenade>().isUpgraded);
+                Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
+
+                // Inicializamos el proyectil en el servidor
+                proyectilScript.Inicializar(spawn.forward, networkedPlayer.GetComponentInChildren<CapsuleCollider>(), networkedPlayer, networkedPlayer.IsServer);
+                //Debug.Log(neededResQuantity);
+            
+                networkedPlayer.UpdateAbilityUIClientRpc(Color.yellow);
+
+                // Programamos la destrucci�n del proyectil despu�s de 10 segundos
+                Invoke("CrearTormenta", tiempoDeVida);
+            }
         }
         else
         {
@@ -65,7 +94,6 @@ public class AlbatrossActive : ShootProjectileAbility
         {
             isActive = false;
             networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
-            proyectil.GetComponent<StormGrenade>().dmg = (int)(damage + damage *  ((float)networkedPlayer.dmgBalance.Value/100f));
             proyectil.GetComponent<StormGrenade>().Detonar(networkedPlayer);
             Destroy(proyectil);
         }

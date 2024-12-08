@@ -456,6 +456,7 @@ MonoBehaviour:
   type: 1
   maxResource: 0
   stormGrenade: {fileID: 5047976631321185189, guid: 743aabaa9ba67734caf03eefc3817bb3, type: 3}
+  upgradedStormGrenade: {fileID: 6037746621793311029, guid: 932df56190e113346b9f0d1490f11f07, type: 3}
   tiempoDeVida: 3
   damage: 5
 --- !u!114 &1475624673909171016
