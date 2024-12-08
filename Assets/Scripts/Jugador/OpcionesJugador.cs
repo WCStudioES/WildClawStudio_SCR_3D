@@ -42,6 +42,10 @@ public class OpcionesJugador : NetworkBehaviour
             deshabilitarNave();
             preguntarNombreServerRpc();
         }
+        if (IsOwner)
+        {
+            FindObjectOfType<DesconectarClienteSiServidorNoResponde>().oj = this;
+        }
     }
 
     public void desactivarMovimiento()

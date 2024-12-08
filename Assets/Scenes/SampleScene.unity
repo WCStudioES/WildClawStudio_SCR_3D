@@ -1321,6 +1321,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e441fd74a50b9b447970d901384af2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &860556331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860556325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c8b08ef2b6559488c7ded3edd1f20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contador: 5
+  contadorMax: 5
+  IniciarCuentaAtras: 0
+  oj: {fileID: 0}
 --- !u!1001 &910345524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2830,6 +2846,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 801827394}
     - target: {fileID: 5552459378764018347, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
+      propertyPath: cortafuegos
+      value: 
+      objectReference: {fileID: 860556331}
+    - target: {fileID: 5552459378764018347, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
       propertyPath: botonCliente
       value: 
       objectReference: {fileID: 1091249589}
@@ -2863,6 +2883,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7329361782861045419, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 860556329}
+    - targetCorrespondingSourceObject: {fileID: 7329361782861045419, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 860556331}
   m_SourcePrefab: {fileID: 100100000, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
 --- !u!81 &4382407014568980013
 AudioListener:
