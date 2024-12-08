@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7919427231815431109, guid: 6ea7f175d5ffadb46bd98a1e37d06c76, type: 3}
+      propertyPath: type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919427231815431109, guid: 6ea7f175d5ffadb46bd98a1e37d06c76, type: 3}
       propertyPath: ssVFX
       value: 
       objectReference: {fileID: 7587398237758322155, guid: 223ba736654709f41acf0c2ee8ca2531, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -188,17 +189,9 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     {
         foreach (Transform spawn in firePropulsors)
         {
-            if (firePropulsionVFX != null)
-            {
-                GameObject newVFX = Instantiate(firePropulsionVFX, spawn.position, Quaternion.identity, spawn);
-                VFXPrefab newVFXPrefab = newVFX.GetComponent<VFXPrefab>();
-              
-                if (newVFXPrefab != null)
-                {
-                    Debug.Log("VFXPrefab firePropulsors: Creado");
-                    activeFireVFX.Add(newVFXPrefab);
-                }
-            }
+            Debug.Log("VFXPrefab firePropulsors: Creado");
+            activeFireVFX.Add(VFXManager.Instance.SpawnVFX(VFXManager.VFXType.shipFire, spawn.position, Quaternion.identity, spawn));
+
             ToggleFireVFX(false);
         }
 
@@ -210,9 +203,8 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
             {
                 pos = new Vector3(transform.position.x, firePropulsors[0].transform.position.y, firePropulsors[0].transform.position.z - 0.2f);
             }
-            GameObject vfxObject = Instantiate(lowHealthVFX, pos, Quaternion.identity, transform);
-            VFXPrefab newVFXPrefab = vfxObject.GetComponent<VFXPrefab>();
 
+            VFXPrefab newVFXPrefab = VFXManager.Instance.SpawnVFX(VFXManager.VFXType.shipSmoke, pos, Quaternion.identity, transform);
             if (newVFXPrefab != null)
             { 
                 lowHealthVFXInstance = newVFXPrefab;

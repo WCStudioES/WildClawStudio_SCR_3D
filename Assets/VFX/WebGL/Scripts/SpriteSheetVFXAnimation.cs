@@ -11,6 +11,8 @@ public abstract class SpriteSheetVFXAnimation : MonoBehaviour
     protected Sprite[] sprites;             // Array para almacenar los sprites individuales
     protected float frameRate;              // Tiempo entre cuadros
 
+    public bool isInitialized = false;
+
     protected virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -41,11 +43,17 @@ public abstract class SpriteSheetVFXAnimation : MonoBehaviour
             }
         }
 
+        Debug.Log("Sprites cargados para animación");
+        isInitialized = true;
         return sprites;
     }
 
     public virtual void Toggle(bool active)
     {
         gameObject.SetActive(active);
+        if(active)
+        {
+            InitializeAnimation();
+        }
     }
 }

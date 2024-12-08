@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3504439786145290218}
+  - component: {fileID: 7407692861446720852}
   m_Layer: 0
   m_Name: '@VFXManager'
   m_TagString: Untagged
@@ -31,3 +32,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7407692861446720852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17908390226522613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a44d43680f2ce0459892b818845f546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partidaActual: {fileID: 0}
+  meteoriteDestructionPool:
+    prefab: {fileID: 8400469935551528979, guid: a159aa8f90eed7b478f6e4f29fa13d52, type: 3}
+    poolSize: 4
+  greenShotPool:
+    prefab: {fileID: 6479567417394560894, guid: c82fee9ea287ded4b85849dbc7d58322, type: 3}
+    poolSize: 20
+  redShotPool:
+    prefab: {fileID: 6479567417394560894, guid: 40139e53709b57a419ac8c74a990f2f1, type: 3}
+    poolSize: 30
+  orangeShotPool:
+    prefab: {fileID: 6479567417394560894, guid: 24bb5114646e3d2478c1554a6ee1bd24, type: 3}
+    poolSize: 30
+  explosionPool:
+    prefab: {fileID: 671443017356825889, guid: d9864d5c3f3b43940beb7b4253daf4b8, type: 3}
+    poolSize: 5
+  shipSmokePool:
+    prefab: {fileID: 8467029253953316956, guid: 80d694d08804a984fb9eaa457d7decaa, type: 3}
+    poolSize: 4
+  shipPropulsionPool:
+    prefab: {fileID: 3747258433285411363, guid: 1287d6207e52f614a97d1a42d0da1539, type: 3}
+    poolSize: 10

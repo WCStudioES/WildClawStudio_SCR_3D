@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
 public abstract class AreaDmg : MonoBehaviour, IProyectil
@@ -44,7 +45,13 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         //Debug.Log("Explosion creada");
         if (aoeSFX != null)
         {
-            AudioManager.Instance.PlaySFX(aoeSFX);
+            AudioManager.Instance.PlaySFX(aoeSFX, transform.position);
+        }
+
+        if (aoeVFX != null && aoeVFX.GetComponent<VFXPrefab>() != null)
+        {
+            Debug.Log("Activando vfx AoE");
+            VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
         }
 
         if (timeOfEffect > 0)
@@ -66,9 +73,15 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         IsInServidor = pIsInServidor;
 
         //Debug.Log("Explosion creada");
-        if (aoeSFX!= null)
+        if (aoeSFX != null)
         {
-            AudioManager.Instance.PlaySFX(aoeSFX);
+            AudioManager.Instance.PlaySFX(aoeSFX, transform.position);
+        }
+
+        if (aoeVFX != null && aoeVFX.GetComponent<VFXPrefab>() != null)
+        {
+            Debug.Log("Activando vfx AoE");
+            VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
         }
 
         if(timeOfEffect > 0)

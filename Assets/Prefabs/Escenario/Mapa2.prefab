@@ -1716,6 +1716,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParedDrch
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 17f0a813fe59bd04981e49bd68008210, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1750,7 +1754,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.01972782, y: 0.037088178, z: 0.3241908}
@@ -1897,6 +1901,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -8671617948439462975, guid: 448a04cfe578f174a94c1e711d0cd224, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 448a04cfe578f174a94c1e711d0cd224, type: 3}
       propertyPath: m_Name
       value: RingGordo
@@ -1904,6 +1912,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 448a04cfe578f174a94c1e711d0cd224, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 448a04cfe578f174a94c1e711d0cd224, type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2808,6 +2820,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParedBottom
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6c18bd5bef564764f9ca4df407f791ff, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2911,6 +2927,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParedIzq
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a33b3426c16c93d4c94367edf5d89c2a, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2945,7 +2965,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.020052345, y: 0.030304141, z: 0.66163105}
@@ -3479,6 +3499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParedTop
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f28a0276a02f39c4aa25dcf90c2fe3cc, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3513,7 +3537,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.019677494, y: 0.032441467, z: 0.31549826}

@@ -76,6 +76,8 @@ public class OpcionesJugador : NetworkBehaviour
     public void resetToInitialState()
     {
         desactivarMovimiento();
+        //Limpia los vfx de la partida
+        VFXManager.Instance.ReturnAllVFX();
         if (IsServer)
         {
             controladorDelJugador.ResetSupportItems();

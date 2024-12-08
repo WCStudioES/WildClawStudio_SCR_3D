@@ -56,6 +56,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1505349273, guid: 274d8db6829f5b14d9315cf5090af12e, type: 3}
+    - target: {fileID: 3393373908854227384, guid: d91dd159afe9eac4ab20ed4acf9a35cb, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6650944
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393373908854227384, guid: d91dd159afe9eac4ab20ed4acf9a35cb, type: 3}
+      propertyPath: m_Color.g
+      value: 0.90384895
+      objectReference: {fileID: 0}
+    - target: {fileID: 3393373908854227384, guid: d91dd159afe9eac4ab20ed4acf9a35cb, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7587398237758322155, guid: d91dd159afe9eac4ab20ed4acf9a35cb, type: 3}
       propertyPath: m_Name
       value: OMFWebGL

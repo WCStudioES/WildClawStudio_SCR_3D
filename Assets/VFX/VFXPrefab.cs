@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -9,15 +11,15 @@ public class VFXPrefab : MonoBehaviour
 
     // Variables para almacenar la referencia al VFX creado
     private VisualEffect visualEffectInstance;
-    private SpriteSheetVFXAnimation ssVFXInstance;
+    private Animator ssVFXInstance;
 
     // Booleano para decir si el cliente está en windows o no
     private bool isWindows;
 
     // Tipo de VFX (Simple/Loopeable) y si permanece o se elimina.
     public AnimationType animType;
+    public VFXManager.VFXType type;
     public bool isPermanent = false;
-    public bool isActive = true;
     public enum AnimationType
     {
         Loopeable,
@@ -30,17 +32,16 @@ public class VFXPrefab : MonoBehaviour
         isWindows = false; //= Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor;
         Debug.Log("IsWindows: " + isWindows);
 
-        InitializeVFX();
-
-        if (isPermanent)
+        if (isWindows)
         {
-            Debug.Log("VFXPrefab permanente desactivado");
-            DeactivateVFX(); // Desactiva solo si el VFX es permanente.
+            ssVFX = null;
         }
         else
         {
-            ActivateVFX(); // Activa por defecto si no es permanente.
+            visualEffect = null;
         }
+
+        InitializeVFX();
     }
 
     //Función para inicializar el VFX dependiendo de la plataforma y el tipo
@@ -58,6 +59,7 @@ public class VFXPrefab : MonoBehaviour
                 InitializeSpriteSheetVFXAnimation();
                 break;
         }
+        DeactivateVFX();
     }
 
     private void InitializeVisualEffect()
@@ -67,17 +69,25 @@ public class VFXPrefab : MonoBehaviour
         {
             visualEffectInstance = newVFX.GetComponent<VisualEffect>();
         }
-        ActivateVFX();
     }
 
     private void InitializeSpriteSheetVFXAnimation()
     {
         GameObject newVFX = Instantiate(ssVFX, transform);
-        if (newVFX != null && newVFX.GetComponentInChildren<SpriteSheetVFXAnimation>() != null)
+        if (newVFX != null && newVFX.GetComponentInChildren<Animator>() != null)
         {
-            ssVFXInstance = newVFX.GetComponentInChildren<SpriteSheetVFXAnimation>();
+            ssVFXInstance = newVFX.GetComponentInChildren<Animator>();
+
+            SpriteRenderer spriteRenderer = ssVFXInstance.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Color currentColor = spriteRenderer.color; // Obtén el color actual
+                currentColor.a = 0f;                       // Cambia solo el alfa
+                spriteRenderer.color = currentColor;       // Asigna el color modificado
+            }
+
+            //StartCoroutine(WaitForInitializationAndDeactivate());
         }
-        ActivateVFX();
     }
 
     // Función de TOGGLE para los VFX que la requieren
@@ -95,13 +105,11 @@ public class VFXPrefab : MonoBehaviour
 
     public void ActivateVFX()
     {
-        isActive = true;
         SetVFXState(true);
     }
 
     public void DeactivateVFX()
     {
-        isActive = false;
         SetVFXState(false);
     }
 
@@ -117,12 +125,45 @@ public class VFXPrefab : MonoBehaviour
         }
         else
         {
-            Debug.Log(ssVFXInstance == null);
+            //Debug.Log(ssVFXInstance == null);
+
             if (ssVFXInstance != null)
             {
                 Debug.Log("VFXPrefab en WebGL - " + state);
-                ssVFXInstance.Toggle(state); 
+
+                SpriteRenderer spriteRenderer = ssVFXInstance.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    Color currentColor = spriteRenderer.color; // Obtén el color actual
+                    currentColor.a = state ? 1f : 0f;          // Cambia solo el alfa
+                    spriteRenderer.color = currentColor;       // Asigna el color modificado
+                }
+
+                ssVFXInstance.enabled = state;
+
+                if (state && animType == AnimationType.Simple)
+                {
+                    StartCoroutine(ReturnVFXToPool());
+                }
             }
         }
+    }
+
+    private IEnumerator ReturnVFXToPool()
+    {
+        if (ssVFXInstance == null)
+        {
+            Debug.LogError("Animator no encontrado en ssVFXInstance.");
+            yield break; // Termina la corrutina si no hay Animator
+        }
+
+        // Espera hasta que la animación actual termine
+        while (ssVFXInstance.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && ssVFXInstance.GetCurrentAnimatorStateInfo(0).loop == false)
+        {
+            yield return null; // Espera al siguiente frame
+        }
+
+        // Devuelve el objeto al pool
+        VFXManager.Instance.ReturnVFX(gameObject, type);
     }
 }

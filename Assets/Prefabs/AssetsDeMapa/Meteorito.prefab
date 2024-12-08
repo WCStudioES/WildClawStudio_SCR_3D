@@ -158,7 +158,9 @@ MonoBehaviour:
     m_InternalValue: 200
   destructionSFX: {fileID: 8300000, guid: cde1bc76a665ee849b9e77707b579d0e, type: 3}
   partida: {fileID: 0}
-  destructionVFX: {fileID: 7659249421549392542, guid: fff546a5a7845e949b1a6c6e76acd873, type: 3}
+  destructionVFX: {fileID: 8400469935551528979, guid: a159aa8f90eed7b478f6e4f29fa13d52, type: 3}
+  ResetTimeImage: {fileID: 0}
+  ResetTime: 0
   hpMaximo: 100
   hpMinimo: 100
   escalaMaxima: 100

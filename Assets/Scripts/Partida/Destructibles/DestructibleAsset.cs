@@ -12,7 +12,7 @@ public class DestructibleAsset : Damageable
     public Partida partida;
 
     [SerializeField] private GameObject destructionVFX;
-    private VisualEffect destructionVFXInstance;
+    private VFXPrefab destructionVFXInstance;
     [SerializeField] private Image ResetTimeImage;
     [SerializeField] private float ResetTime;
 
@@ -85,7 +85,7 @@ public class DestructibleAsset : Damageable
 
     protected IEnumerator DestroyWithDelay()
     {
-        InitializeDestructionVFXClientRpc();
+        ActivateVFXClientRpc();
         yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
         SetAssetActive(false); // Desactiva el destructible en el servidor
         DisableDamageableClientRpc(); // Sincroniza la desactivación en los clientes
@@ -177,7 +177,7 @@ public class DestructibleAsset : Damageable
 
     [ClientRpc]
     private void RestoreDestructibleAssetClientRpc()
-    {   
+    {
         SetAssetActive(true);
         if(resType == ResourceToGive.Health)
             ResetTimeImage.gameObject.SetActive(false);
@@ -196,35 +196,10 @@ public class DestructibleAsset : Damageable
         }
     }
 
-    //VFX
-    public IEnumerator DestroyWhenParticlesComplete(VisualEffect vfx)
-    {
-        if (vfx == null)
-        {
-            Debug.LogWarning("VisualEffect no encontrado en el GameObject.");
-            yield break;
-        }
-
-        // Esperar hasta que no haya partículas activas
-        yield return new WaitForSeconds(0.5f);
-
-        Destroy(vfx.gameObject); // Destruye el objeto contenedor
-    }
-
     [ClientRpc]
-    public void InitializeDestructionVFXClientRpc()
+    public void ActivateVFXClientRpc()
     {
-        if (destructionVFX != null)
-        {
-            GameObject vfxObject = Instantiate(destructionVFX, transform.position, transform.rotation, transform);
-            VisualEffect vfx = vfxObject.GetComponent<VisualEffect>();
-
-            if (vfx != null)
-            {
-                Debug.Log("Iniciando VFX de proyectil");
-                vfx.enabled = true;
-                StartCoroutine(DestroyWhenParticlesComplete(vfx));
-            }
-        }
+        Debug.Log("Activando vfx de meteorito");
+        VFXManager.Instance.SpawnVFX(VFXManager.VFXType.meteorite, transform.position, Quaternion.identity);
     }
 }

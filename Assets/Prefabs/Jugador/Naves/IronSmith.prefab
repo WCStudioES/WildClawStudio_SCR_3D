@@ -159,7 +159,7 @@ MonoBehaviour:
     by his own kin, Kal has become one of the longest-standing and most legendary
     champions of the Arena, as well as a major supplier of the weapons used by pirates
     across the stars.
-  sprite: {fileID: -874438192, guid: 0f080261975556647a44b83d774f2093, type: 3}
+  sprite: {fileID: 21300000, guid: ff3c9e61d776dec49a43a3dc30200e04, type: 3}
   initialHealth: 150
   initialArmor: 10
   healthIncrement: 10
@@ -186,6 +186,7 @@ MonoBehaviour:
   passiveAbility: {fileID: 2724567983076035007}
   skins:
   - {fileID: 3460625390586875583, guid: 2ade84f678b8ed64eaa98cdc4b74ac71, type: 3}
+  - {fileID: 5470708572864709158, guid: cdc12ef4ea07d3f44b3c9fdbd46e8f08, type: 3}
 --- !u!114 &6402942351971911753
 MonoBehaviour:
   m_ObjectHideFlags: 0

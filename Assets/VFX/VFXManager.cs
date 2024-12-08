@@ -1,16 +1,97 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class VFXManager : MonoBehaviour
 {
     public static VFXManager Instance;
 
-    [Header("VFX Settings")]
-    public GameObject vfxPrefab; // Prefab genérico para los VFX
-    public int maxVFXSources = 15;
+    [System.Serializable]
+    public class VFXPool
+    {
+        public GameObject prefab; // Prefab del efecto visual.
+        public int poolSize;      // Número de instancias iniciales.
+        public Queue<GameObject> poolQueue;
+        private List<GameObject> activeObjects = new List<GameObject>(); // Lista de objetos activos.
 
-    private Queue<VFXPrefab> vfxSourcePool = new Queue<VFXPrefab>();
-    private List<VFXPrefab> activeVFXSources = new List<VFXPrefab>();
+        public void Initialize(Transform parent)
+        {
+            
+            poolQueue = new Queue<GameObject>();
+            if (prefab != null)
+            {
+                for (int i = 0; i < poolSize; i++)
+                {
+                    GameObject instance = Object.Instantiate(prefab, parent);
+                    instance.SetActive(false);
+                    poolQueue.Enqueue(instance);
+                }
+            }
+
+            Debug.Log("Pool Initialized with " + poolQueue.Count + " objects");
+        }
+
+        public VFXPrefab Get(Vector3 position, Quaternion rotation, Transform parent = null)
+        {
+            if (poolQueue.Count > 0)
+            {
+                GameObject obj = poolQueue.Dequeue();
+                obj.SetActive(true);
+
+                obj.transform.SetParent(parent); // Parentear el objeto al transform dado
+                obj.transform.position = position;
+                obj.transform.rotation = rotation;
+
+                activeObjects.Add(obj); // Añadir a la lista de activos.
+                return obj.GetComponent<VFXPrefab>();
+            }
+
+            Debug.LogWarning($"No quedan instancias en la pool de {prefab.name}. Expande el tamaño de la pool.");
+            return null;
+        }
+
+        public void ReturnToPool(GameObject obj)
+        {
+            obj.SetActive(false);
+            obj.transform.SetParent(null); // Desparentar al devolver al pool
+            activeObjects.Remove(obj); // Eliminar de la lista de activos.
+            poolQueue.Enqueue(obj);
+        }
+
+        public void ReturnAll()
+        {
+            foreach (var obj in activeObjects)
+            {
+                obj.SetActive(false);
+                obj.transform.SetParent(null);
+                poolQueue.Enqueue(obj);
+            }
+            activeObjects.Clear(); // Vaciar la lista de activos.
+        }
+    }
+
+
+    public Partida partidaActual; // Referencia a la partida en curso
+
+    [Header("VFX Pools")]
+    public VFXPool meteoriteDestructionPool;
+    public VFXPool greenShotPool;
+    public VFXPool redShotPool;
+    public VFXPool orangeShotPool;
+    public VFXPool explosionPool;
+    public VFXPool shipSmokePool;
+    public VFXPool shipPropulsionPool;
+
+    public enum VFXType
+    {
+        meteorite,
+        greenMF,
+        redMF,
+        orangeMF,
+        explosion,
+        shipSmoke,
+        shipFire
+    }
 
     private void Awake()
     {
@@ -18,126 +99,148 @@ public class VFXManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
 
-        DontDestroyOnLoad(gameObject);
-        InitializePool();
+        // Initialize all pools
+        InitializePools();
+
+        //Deja los VFX ready
+        PreloadVFX();
     }
 
-    private void InitializePool()
+    private void InitializePools()
     {
-        for (int i = 0; i < maxVFXSources; i++)
+        meteoriteDestructionPool.Initialize(transform);
+        greenShotPool.Initialize(transform);
+        redShotPool.Initialize(transform);
+        orangeShotPool.Initialize(transform);
+        explosionPool.Initialize(transform);
+        shipSmokePool.Initialize(transform);
+        shipPropulsionPool.Initialize(transform);
+    }
+
+    public VFXPrefab SpawnVFX(VFXType type, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        if (IsServer()) return null;
+
+        Debug.Log("VFXSpawned: " + type);
+
+        VFXPool pool = GetPoolByType(type);
+        if (pool != null)
         {
-            VFXPrefab newVFX = Instantiate(vfxPrefab).GetComponent<VFXPrefab>();
-            if (newVFX != null)
+            VFXPrefab toReturn = pool.Get(position, rotation, parent);
+            if (toReturn != null && toReturn.animType == VFXPrefab.AnimationType.Simple)
             {
-                newVFX.gameObject.SetActive(false);
-                vfxSourcePool.Enqueue(newVFX);
+                toReturn.ActivateVFX();
             }
+            return toReturn;
         }
+        else return null;
     }
 
-    /// <summary>
-    /// Activa un VFX en una posición específica.
-    /// </summary>
-    /// <param name="prefab">El prefab VFX a usar.</param>
-    /// <param name="position">La posición del VFX.</param>
-    /// <param name="isPermanent">Si el VFX debe permanecer activo.</param>
-    public void PlayVFX(VFXPrefab prefab, Vector3 position, bool isPermanent = false)
+    public void ReturnVFX(GameObject obj, VFXType type)
     {
-        VFXPrefab vfxInstance;
+        if (IsServer()) return;
 
-        if (vfxSourcePool.Count > 0)
+        VFXPool pool = GetPoolByType(type);
+        obj.GetComponent<VFXPrefab>().DeactivateVFX();
+
+        if (pool != null && obj != null)
         {
-            vfxInstance = vfxSourcePool.Dequeue();
+            Debug.Log(type + " Devuelto al pool de VFX");
+            pool.ReturnToPool(obj);
         }
         else
         {
-            vfxInstance = Instantiate(vfxPrefab).GetComponent<VFXPrefab>();
-        }
-
-        vfxInstance.transform.position = position;
-        vfxInstance.isPermanent = isPermanent;
-        vfxInstance.gameObject.SetActive(true);
-        vfxInstance.ActivateVFX();
-
-        activeVFXSources.Add(vfxInstance);
-
-        if (!isPermanent)
-        {
-            StartCoroutine(ReturnToPoolAfterCompletion(vfxInstance));
+            Debug.LogError($"No se encontró un pool para el tipo '{type}' al intentar devolver el VFX.");
         }
     }
 
-    /// <summary>
-    /// Activa un VFX en varias posiciones a la vez.
-    /// </summary>
-    /// <param name="prefab">El prefab VFX a usar.</param>
-    /// <param name="positions">Lista de posiciones (Transforms) donde se activará el VFX.</param>
-    /// <param name="isPermanent">Si los VFX deben permanecer activos.</param>
-    public void PlayVFXForMultipleTransforms(VFXPrefab prefab, List<Transform> positions, bool isPermanent = false)
+    public VFXPool GetPoolByType(VFXType type)
     {
-        foreach (var position in positions)
+        if (IsServer()) return null;
+
+        return type switch
         {
-            PlayVFX(prefab, position.position, isPermanent);
-        }
+            VFXType.meteorite => meteoriteDestructionPool,
+            VFXType.greenMF => greenShotPool,
+            VFXType.redMF => redShotPool,
+            VFXType.orangeMF => orangeShotPool,
+            VFXType.explosion => explosionPool,
+            VFXType.shipSmoke => shipSmokePool,
+            VFXType.shipFire => shipPropulsionPool,
+            _ => null,
+        };
     }
 
-    /// <summary>
-    /// Detiene todos los VFX que se encuentran en las posiciones dadas.
-    /// </summary>
-    /// <param name="positions">Lista de posiciones (Transforms) donde se detendrán los VFX.</param>
-    public void StopVFXForMultipleTransforms(List<Transform> positions)
+    public void ReturnAllVFX()
     {
-        foreach (var vfx in activeVFXSources)
+        if (IsServer()) return;
+
+        meteoriteDestructionPool.ReturnAll();
+        greenShotPool.ReturnAll();
+        redShotPool.ReturnAll();
+        orangeShotPool.ReturnAll();
+        explosionPool.ReturnAll();
+        shipSmokePool.ReturnAll();
+        shipPropulsionPool.ReturnAll();
+
+        Debug.Log("Todos los VFX han sido devueltos a sus pools.");
+    }
+
+    // Comprueba si un cliente pertenece a la partida actual
+    private bool EsClienteDePartida(ulong clientId)
+    {
+        if (partidaActual == null)
         {
-            foreach (var position in positions)
+            Debug.LogWarning("No hay partida actual asignada.");
+            return false;
+        }
+
+        foreach (var jugador in partidaActual.jugadores)
+        {
+            if (jugador != null && jugador.NetworkObject.OwnerClientId == clientId)
             {
-                if (Vector3.Distance(vfx.transform.position, position.position) < 0.1f)
-                {
-                    StopVFX(vfx);
-                }
+                return true;
             }
         }
+        return false;
     }
 
-    /// <summary>
-    /// Detiene un VFX específico.
-    /// </summary>
-    /// <param name="vfxInstance">El VFXPrefab a detener.</param>
-    public void StopVFX(VFXPrefab vfxInstance)
+    private bool IsServer()
     {
-        if (activeVFXSources.Contains(vfxInstance))
+        return NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer;
+    }
+
+    private void PreloadVFX()
+    {
+        // Pre-cargar los efectos visuales de cada pool
+        PreloadPool(meteoriteDestructionPool);
+        PreloadPool(greenShotPool);
+        PreloadPool(redShotPool);
+        PreloadPool(orangeShotPool);
+        PreloadPool(explosionPool);
+        PreloadPool(shipSmokePool);
+        PreloadPool(shipPropulsionPool);
+    }
+
+    private void PreloadPool(VFXPool pool)
+    {
+        if(pool.poolQueue.Count > 0)
         {
-            activeVFXSources.Remove(vfxInstance);
-            vfxInstance.DeactivateVFX();
-            vfxInstance.gameObject.SetActive(false);
-            vfxSourcePool.Enqueue(vfxInstance);
+            for (int i = 0; i < pool.poolSize; i++)
+            {
+                GameObject obj = pool.poolQueue.Dequeue();  // Extrae del pool
+                obj.SetActive(true);  // Activa el objeto para inicializarlo
+                pool.poolQueue.Enqueue(obj);  // Vuelve a meterlo en el pool
+            }
         }
-    }
-
-    /// <summary>
-    /// Detiene todos los VFX activos.
-    /// </summary>
-    public void StopAllVFX()
-    {
-        foreach (var vfx in activeVFXSources)
-        {
-            vfx.DeactivateVFX();
-            vfx.gameObject.SetActive(false);
-            vfxSourcePool.Enqueue(vfx);
-        }
-        activeVFXSources.Clear();
-    }
-
-    private System.Collections.IEnumerator ReturnToPoolAfterCompletion(VFXPrefab vfxInstance)
-    {
-        // Espera hasta que el VFX se complete (esto depende de tu lógica de tiempo).
-        yield return new WaitUntil(() => !vfxInstance.isActive);
-        StopVFX(vfxInstance);
+        Debug.Log("Pool preloaded");
     }
 }

@@ -4,10 +4,12 @@ public class SimpleVFXAnimation : SpriteSheetVFXAnimation
 {
     private int currentFrame = 0;
     private float timer = 0f;
+    public bool finished = false;
 
     protected override void InitializeAnimation()
     {
         // Reiniciar la animación cada vez que se cree el objeto
+        finished = false;
         currentFrame = 0;
         timer = 0f;
     }
@@ -32,7 +34,7 @@ public class SimpleVFXAnimation : SpriteSheetVFXAnimation
         }
         else
         {
-            Destroy(gameObject); // Destruir el objeto al final de la animación
+            finished = true;
         }
     }
 }

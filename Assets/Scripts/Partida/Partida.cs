@@ -534,5 +534,4 @@ public class Partida : NetworkBehaviour
         ronda = 1;
         partidasGanadasPorJugador.Clear();
     }
-
 }
