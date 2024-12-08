@@ -59,7 +59,7 @@ PrefabInstance:
     - target: {fileID: 6585430997046522407, guid: 16dd0924a7104de4bbcbd7df4323398a, type: 3}
       propertyPath: skinSprite
       value: 
-      objectReference: {fileID: 988735394, guid: 11e5881dd3cc56643964f7af68501c7c, type: 3}
+      objectReference: {fileID: 1564385343, guid: 25db6fbfd2540bc4bbddb31aa297d783, type: 3}
     - target: {fileID: 6585430997046522407, guid: 16dd0924a7104de4bbcbd7df4323398a, type: 3}
       propertyPath: skinMaterial
       value: 
