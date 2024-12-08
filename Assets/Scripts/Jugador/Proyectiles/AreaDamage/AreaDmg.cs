@@ -27,6 +27,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     public AudioClip aoeSFX;
     public GameObject aoeVFX;
+    public VFXPrefab aoeVFXInstance;
 
     //Crear zona de daño con direccion de avance
     public void CrearAreaDmg(CapsuleCollider pCuerpoNaveDueña, NetworkedPlayer pDmgDealer, bool pIsInServidor, Vector3 pDirection, Partida partidaActual)
@@ -50,8 +51,14 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
         if (aoeVFX != null && aoeVFX.GetComponent<VFXPrefab>() != null)
         {
-            Debug.Log("Activando vfx AoE");
-            VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
+            if (this is FireRing)
+            {
+                aoeVFXInstance = VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
+            }
+            else
+            {
+                VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
+            }
         }
 
         if (timeOfEffect > 0)
@@ -81,7 +88,14 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         if (aoeVFX != null && aoeVFX.GetComponent<VFXPrefab>() != null)
         {
             Debug.Log("Activando vfx AoE");
-            VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
+            if(this is FireRing)
+            {
+                aoeVFXInstance = VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
+            }
+            else
+            {
+                VFXManager.Instance.SpawnVFX(aoeVFX.GetComponent<VFXPrefab>().type, transform.position, transform.rotation);
+            }
         }
 
         if(timeOfEffect > 0)

@@ -23,7 +23,8 @@ public class VFXPrefab : MonoBehaviour
     public enum AnimationType
     {
         Loopeable,
-        Simple
+        Simple,
+        StaysAtEnd
     }
 
     //Al instanciarse el VFXPrefab, ya tiene pos, rot y parent

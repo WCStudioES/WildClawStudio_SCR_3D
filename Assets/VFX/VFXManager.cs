@@ -62,9 +62,12 @@ public class VFXManager : MonoBehaviour
         {
             foreach (var obj in activeObjects)
             {
-                obj.SetActive(false);
-                obj.transform.SetParent(null);
-                poolQueue.Enqueue(obj);
+                if(obj != null)
+                {
+                    obj.SetActive(false);
+                    obj.transform.SetParent(null);
+                    poolQueue.Enqueue(obj);
+                }
             }
             activeObjects.Clear(); // Vaciar la lista de activos.
         }
@@ -81,6 +84,7 @@ public class VFXManager : MonoBehaviour
     public VFXPool explosionPool;
     public VFXPool shipSmokePool;
     public VFXPool shipPropulsionPool;
+    public VFXPool fireRingPool;
 
     public enum VFXType
     {
@@ -90,7 +94,8 @@ public class VFXManager : MonoBehaviour
         orangeMF,
         explosion,
         shipSmoke,
-        shipFire
+        shipFire,
+        fireRing
     }
 
     private void Awake()
@@ -116,6 +121,8 @@ public class VFXManager : MonoBehaviour
 
     private void InitializePools()
     {
+        if (IsServer()) return;
+
         meteoriteDestructionPool.Initialize(transform);
         greenShotPool.Initialize(transform);
         redShotPool.Initialize(transform);
@@ -123,6 +130,7 @@ public class VFXManager : MonoBehaviour
         explosionPool.Initialize(transform);
         shipSmokePool.Initialize(transform);
         shipPropulsionPool.Initialize(transform);
+        fireRingPool.Initialize(transform);
     }
 
     public VFXPrefab SpawnVFX(VFXType type, Vector3 position, Quaternion rotation, Transform parent = null)
@@ -135,7 +143,7 @@ public class VFXManager : MonoBehaviour
         if (pool != null)
         {
             VFXPrefab toReturn = pool.Get(position, rotation, parent);
-            if (toReturn != null && toReturn.animType == VFXPrefab.AnimationType.Simple)
+            if (toReturn != null && toReturn.animType == VFXPrefab.AnimationType.Simple || toReturn.animType == VFXPrefab.AnimationType.StaysAtEnd)
             {
                 toReturn.ActivateVFX();
             }
@@ -175,6 +183,7 @@ public class VFXManager : MonoBehaviour
             VFXType.explosion => explosionPool,
             VFXType.shipSmoke => shipSmokePool,
             VFXType.shipFire => shipPropulsionPool,
+            VFXType.fireRing => fireRingPool,
             _ => null,
         };
     }
@@ -190,6 +199,7 @@ public class VFXManager : MonoBehaviour
         explosionPool.ReturnAll();
         shipSmokePool.ReturnAll();
         shipPropulsionPool.ReturnAll();
+        fireRingPool.ReturnAll();
 
         Debug.Log("Todos los VFX han sido devueltos a sus pools.");
     }
@@ -220,6 +230,8 @@ public class VFXManager : MonoBehaviour
 
     private void PreloadVFX()
     {
+        if (IsServer()) return;
+
         // Pre-cargar los efectos visuales de cada pool
         PreloadPool(meteoriteDestructionPool);
         PreloadPool(greenShotPool);
@@ -228,6 +240,7 @@ public class VFXManager : MonoBehaviour
         PreloadPool(explosionPool);
         PreloadPool(shipSmokePool);
         PreloadPool(shipPropulsionPool);
+        PreloadPool(fireRingPool);
     }
 
     private void PreloadPool(VFXPool pool)

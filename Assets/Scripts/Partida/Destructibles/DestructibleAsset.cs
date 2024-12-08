@@ -200,6 +200,9 @@ public class DestructibleAsset : Damageable
     public void ActivateVFXClientRpc()
     {
         Debug.Log("Activando vfx de meteorito");
-        VFXManager.Instance.SpawnVFX(VFXManager.VFXType.meteorite, transform.position, Quaternion.identity);
+        if(this is Meteorito)
+        {
+            VFXManager.Instance.SpawnVFX(VFXManager.VFXType.meteorite, transform.position, Quaternion.identity);
+        }
     }
 }

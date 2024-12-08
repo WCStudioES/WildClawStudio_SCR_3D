@@ -28,8 +28,6 @@ public class FireRing : AreaDmg
     {
         currentOuterRadius = startOuterRadius;
         currentInnerRadius = startInnerRadius;
-
-        CreateRingVisual();
     }
 
     private void Update()
@@ -38,8 +36,6 @@ public class FireRing : AreaDmg
         {
             ShrinkRing();
         }
-
-        UpdateRingVisual();
     }
 
     private void ShrinkRing()
@@ -124,23 +120,17 @@ public class FireRing : AreaDmg
     {
         ClearPlayers();
         
+        if(aoeVFXInstance != null)
+        {
+            VFXManager.Instance.ReturnVFX(aoeVFXInstance.gameObject, VFXManager.VFXType.fireRing);
+            aoeVFXInstance = null;
+        }
+
         isShrinking = false;
         elapsedTime = 0f;
 
         currentOuterRadius = startOuterRadius;
         currentInnerRadius = startOuterRadius;
-
-        UpdateRingVisual();
-    }
-
-    private void CreateRingVisual()
-    {
-
-    }
-
-    private void UpdateRingVisual()
-    {
-
     }
 
     private void OnDrawGizmos()

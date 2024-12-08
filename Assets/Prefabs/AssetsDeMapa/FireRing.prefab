@@ -49,13 +49,11 @@ MonoBehaviour:
   ticksPerSecond: 2
   speed: 0
   aoeSFX: {fileID: 0}
-  aoeVFX: {fileID: 0}
+  aoeVFX: {fileID: 4003804296936661610, guid: 76a038011b34be84d99fb00577d3d598, type: 3}
   startOuterRadius: 35
   startInnerRadius: 35
   endOuterRadius: 35
   endInnerRadius: 0.5
   shrinkDuration: 15
   players: []
-  ringMaterial: {fileID: 2100000, guid: c765dc1bccb28a144bba207fe626507e, type: 2}
-  fireSprite: {fileID: 21300000, guid: f6a368258e5365a49870652addfff284, type: 3}
   isShrinking: 0

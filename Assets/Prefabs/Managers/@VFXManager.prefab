@@ -66,3 +66,6 @@ MonoBehaviour:
   shipPropulsionPool:
     prefab: {fileID: 3747258433285411363, guid: 1287d6207e52f614a97d1a42d0da1539, type: 3}
     poolSize: 10
+  fireRingPool:
+    prefab: {fileID: 4003804296936661610, guid: 76a038011b34be84d99fb00577d3d598, type: 3}
+    poolSize: 3
