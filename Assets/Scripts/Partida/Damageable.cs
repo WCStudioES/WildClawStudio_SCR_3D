@@ -34,6 +34,10 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
         Experience
     }
 
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
     public abstract void GetDamage(int damage, NetworkedPlayer dmgDealer);
 
     [ClientRpc]

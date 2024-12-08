@@ -30,10 +30,10 @@ public class Shield : DestructibleAsset
         maxHealth = health;
         actualHealth.Value = health;
         
-        if (this is VisualShield)
-        {
-            owner.UpdateShieldBarClientRpc(health);
-        }
+        //if (this is VisualShield)
+        //{
+        //    owner.UpdateShieldBarClientRpc(health);
+        //}
     }
 
     public override void GetDamage(int damage, NetworkedPlayer dmgDealer)

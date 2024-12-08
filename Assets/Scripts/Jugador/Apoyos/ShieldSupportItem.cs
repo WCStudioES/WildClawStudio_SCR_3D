@@ -19,13 +19,17 @@ public class ShieldSupportItem : SupportItem
         var networkObject = shieldInstance.GetComponent<NetworkObject>();
         networkObject.Spawn();
 
-        // Aseguramos que el escudo esté bajo el transform de la nave
+        // Aseguramos que el escudo estï¿½ bajo el transform de la nave
         shieldInstance.transform.SetParent(owner.transform);
 
-        // Inicializamos el escudo con el propietario y posición
+        // Inicializamos el escudo con el propietario y posiciï¿½n
         var shieldScript = shieldInstance.GetComponent<VisualShield>();
         shieldScript.Initialize(owner, owner.cuerpoNave.GetComponent<PlayerShip>().transform, owner.selectedShip.Value+1);
 
-        // NOTA: El modelo visual será configurado por el ClientRpc O NO
+        // NOTA: El modelo visual serï¿½ configurado por el ClientRpc O NO
+        if (shieldScript is VisualShield)
+        {
+            owner.UpdateShieldBarClientRpc(shieldScript.GetMaxHealth());
+        }
     }
 }
