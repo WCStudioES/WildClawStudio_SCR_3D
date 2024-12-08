@@ -252,6 +252,13 @@ Las skins que tienen siguen esta representación sencilla en la UI (son 3 skins 
  <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/SkinsSymbols.png"> <br>
 </p>
 
+Durante el desarollo del juego, se han añadido elementos como una nueva nave (Ironsmith) y se han modificado y añadido skins por probelmas o la necesidad del juego. Estas nuevas modificaciones se pueden ver a continuación:
+
+<p align="center">
+ <img width=300 heigth=300 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Avatares/IronsmithAVATAR.png">
+ <img width=600 heigth=600 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Avatares/TodasSkinsFinales.png"> <br>
+</p>
+
 # Sonido
 Para el apartado sonoro del juego, se buscará que todos los elementos de sonido tengan coherencia dentro del tema espacial. Ello buscará transmitir las sensaciones del espacio para dar una mejor inmersión al jugador. Para ello, a continuación, se describen las prinipales melodías y los efectos sonoros planteados para el juego.
 
