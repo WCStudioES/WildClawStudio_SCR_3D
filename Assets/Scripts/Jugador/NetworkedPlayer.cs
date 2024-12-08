@@ -634,18 +634,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
         
     }
-
-    IEnumerator DisableLvlUpImage()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        LvlUpImage.gameObject.SetActive(false);
-    }
     
-    IEnumerator DisableLvlUpEnemigoImage()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        LvlUpImageEnemigo.gameObject.SetActive(false);
-    }
     
     [ClientRpc]
     private void DesbloquearHabilidadClientRpc()
