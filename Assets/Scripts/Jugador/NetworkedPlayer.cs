@@ -80,8 +80,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] private TextMeshProUGUI textoExperiencia; //Texto dentro de la barra de experiencia
     
     [SerializeField] private TextMeshProUGUI textoNivel; //Texto que muestra el nivel de la nave
-    [SerializeField] private Image LvlUpImage;
-    [SerializeField] private Image LvlUpImageEnemigo;
+    [SerializeField] private Animator LvlUpImage;
+    [SerializeField] private Animator LvlUpImageEnemigo;
     public UIBoosters uiBoosters;
     
     [SerializeField] private Animator animator;
@@ -174,7 +174,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
             //Inicializar UI
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
-            UpdateShieldBarClientRpc(0);
+            UpdateShieldBarClientRpc(0, false);
             UpdateExperienceBarClientRpc(0, 1);
         }
         uiBoosters.ResetPartida(allProjectiles[proyectilBasico].GetComponent<Proyectil>().sprite);
@@ -198,17 +198,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             actualHealth.Value = maxHealth.Value;
             cuerpoNave.GetComponent<PlayerShip>().ResetRonda();
 
-            if(isSupportAvailable)
-                ApplySuppItem();
+            UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
+            if (isSupportAvailable)
+            {
+                ApplySuppItem(true);
+            }
 
             //VFX
             nave.LowHealthVFXClientRpc(false);
         }
-        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
     }
     
 
-    public void ApplySuppItem()
+    public void ApplySuppItem(bool isReset)
     {
         allSupport[selectedSupport.Value].GetComponent<SupportItem>().owner = this;
 
@@ -223,6 +225,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
 
                 // Aplica el nuevo escudo en el servidor
                 allSupport[selectedSupport.Value].GetComponent<SupportItem>().AddToPlayer();
+                UpdateShieldBarClientRpc(25, isReset);
                 break;
 
             case 1:
@@ -278,16 +281,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         //Debug.Log(healthPercentage);
     }
     
-    //Funcion que maneja la barra de vida
+    //Funcion que maneja la barra de escudo
     [ClientRpc]
-    public void UpdateShieldBarClientRpc(int shieldHealth)
+    public void UpdateShieldBarClientRpc(int shieldHealth, bool isReset)
     {
         float shieldPercentage = (float) shieldHealth / (float) maxHealth.Value;
-        
+        int totalHealth;
         if (IsOwner)
         {
             barraDeEscudo.fillAmount = shieldPercentage;
-            int totalHealth = actualHealth.Value + shieldHealth;
+            if(!isReset)
+                totalHealth = actualHealth.Value + shieldHealth;
+            else
+                totalHealth = maxHealth.Value + shieldHealth;
             Debug.Log(shieldHealth + " " + actualHealth.Value + "Debug escudo");
         
             textoVida.text = totalHealth +  " / " + maxHealth.Value;
@@ -299,8 +305,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             circuloDeEscudoEnemigo.fillAmount = shieldFill;
         }
         
-        
     }
+    
     //Funcion que maneja la barra de experiencia
     [ClientRpc]
     public void UpdateExperienceBarClientRpc(int experience, int lvl)
@@ -538,6 +544,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     //Funcion que gestiona la obtención de xp del jugador
     public void GetXP(int xpRecibida)
     {
+        bool supportBool = false;
         Debug.Log("Recibes experiencia por pro: " + xpRecibida);
         //Obtener nave
         PlayerShip ship = cuerpoNave.GetComponent<PlayerShip>();
@@ -583,9 +590,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                     break;
                 case 4:
                     isSupportAvailable = true;
-                    ApplySuppItem();
+                    supportBool = true;
                     DesbloquearApoyoClientRpc();
-                    UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
+                    //UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
+                    //UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
                     break;
                 
                 case 5:
@@ -601,6 +609,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         
         // Actualizar barras
         UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); 
+        if(supportBool)
+            ApplySuppItem(false);
         UpdateExperienceBarClientRpc(xp.Value, lvl.Value);  //Actualizar barra de experiencia
 
     }
@@ -612,28 +622,19 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             animator2.SetTrigger("SubidaNivel");
             animator.SetTrigger("SubidaNivel");
+            LvlUpImage.SetTrigger("LvlUp");
             LvlUpImage.gameObject.SetActive(true);
-            StartCoroutine("DisableLvlUpImage");
+            //StartCoroutine("DisableLvlUpImage");
         }
         else
         {
             LvlUpImageEnemigo.gameObject.SetActive(true);
-            StartCoroutine("DisableLvlUpEnemigoImage");
+            LvlUpImageEnemigo.SetTrigger("LvlUp");
+            //StartCoroutine("DisableLvlUpEnemigoImage");
         }
         
     }
-
-    IEnumerator DisableLvlUpImage()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        LvlUpImage.gameObject.SetActive(false);
-    }
     
-    IEnumerator DisableLvlUpEnemigoImage()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        LvlUpImageEnemigo.gameObject.SetActive(false);
-    }
     
     [ClientRpc]
     private void DesbloquearHabilidadClientRpc()
@@ -969,7 +970,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     public void RemoveShield(Shield shield)
     {
         activeShields.Remove(shield);
-        UpdateShieldBarClientRpc(0);
+        UpdateShieldBarClientRpc(0, false);
     }
 
     public void RemoveAllShields()

@@ -278,7 +278,7 @@ MonoBehaviour:
   dmgIncrement: 5
   maxSpeed: 10
   initialSpeed: 2
-  lifeUi: 3
+  lifeUi: 4
   powerUi: 4
   speedUi: 3
   maxLevel: 6

@@ -40,7 +40,7 @@ public class Shield : DestructibleAsset
     {
         actualHealth.Value -= damage; // Resta vida y sincroniza con los clientes
         if (this is VisualShield)
-            owner.UpdateShieldBarClientRpc(actualHealth.Value);
+            owner.UpdateShieldBarClientRpc(actualHealth.Value, false);
         if(actualHealth.Value <= 0 )
         {
             DestroyDamageable(dmgDealer);

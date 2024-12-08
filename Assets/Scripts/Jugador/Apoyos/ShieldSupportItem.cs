@@ -27,9 +27,9 @@ public class ShieldSupportItem : SupportItem
         shieldScript.Initialize(owner, owner.cuerpoNave.GetComponent<PlayerShip>().transform, owner.selectedShip.Value+1);
 
         // NOTA: El modelo visual ser� configurado por el ClientRpc O NO
-        if (shieldScript is VisualShield)
+        if (shieldScript != null)
         {
-            owner.UpdateShieldBarClientRpc(shieldScript.GetMaxHealth());
+            owner.UpdateShieldBarClientRpc(shieldScript.GetMaxHealth(), false);
         }
     }
 }
