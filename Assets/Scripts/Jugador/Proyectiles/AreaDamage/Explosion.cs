@@ -10,11 +10,5 @@ namespace DefaultNamespace.Proyectiles
             Debug.Log("ALGUIEN RECIBE POR EXPLOSIÖN");
             target.GetDamage(dmg, dmgDealer);
         }
-
-        protected override void AdditionalEffectsOnEnter(Collider other)
-        { }
-
-        protected override void AdditionalEffectsOnStay(Collider other)
-        { }
     }
 }

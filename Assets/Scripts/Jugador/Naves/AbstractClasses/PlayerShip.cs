@@ -232,4 +232,10 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
             lowHealthVFXInstance.Toggle(isActive);
         }
     }
+
+    private void OnDestroy()
+    {
+        lowHealthVFXInstance = null;
+        activeFireVFX.Clear();
+    }
 }

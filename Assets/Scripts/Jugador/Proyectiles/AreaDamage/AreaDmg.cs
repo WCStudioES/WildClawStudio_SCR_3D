@@ -14,10 +14,12 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     private bool isDestroyed = false; // Bandera para evitar múltiples destrucciones
 
     protected bool canHit = true;
-    protected bool isResetting = false;
+    protected bool isTicking = false;
+
+    protected List<IDamageable> damageablesInArea = new List<IDamageable>(); // Lista de objetos dañables
 
     public float speed; // Velocidad a la que se mueve el efecto (si se mueve)
-    protected Vector3 direction;
+    protected Vector3 direction = Vector3.zero;
 
     protected CapsuleCollider CuerpoNaveDueña;  // Gameobject con collider de la nave, evita autohit
     protected NetworkedPlayer ControladorNaveDueña; // Controlador de la nave a la que pertenece
@@ -65,6 +67,8 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         {
             DestroyAoE(timeOfEffect);
         }
+
+        StartCoroutine(ApplyAoETicks());
     }
     
     //Crear zona de daño sin direccion de avance
@@ -106,56 +110,62 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     public abstract void OnHit(IDamageable target, NetworkedPlayer dmgDealer);
 
+    //Efectos adicionales que hace en el OnTriggerStay
+    protected virtual void AdditionalEffectsOnEnter(IDamageable target) { return; }
+
+    //Efectos adicionales que hace en el OnTriggerStay
+    protected virtual void AdditionalEffectsOnStay(IDamageable target) { return; }
+
+    //Efectos adicionales que hace en el OnTriggerStay
+    protected virtual void AdditionalEffectsOnExit(IDamageable target) { return; }
+
     protected void OnTriggerEnter(Collider other)
     {
-        //Si el otro gameobject no es el mismo, compueba si puede hacer daño
-        if (!IsChildOfOwner(other.transform) && canHit)
+        if (!IsInServidor) return;
+
+        // Verificar si el objeto tiene el componente IDamageable
+        if (!IsChildOfOwner(other.transform))
         {
-            //Al colisionar comprueba si el otro ente puede recibir daño
             IDamageable target = other.GetComponentInParent<IDamageable>();
-            Debug.Log(target);
-
-            //Si puede hacer daño, hace daño en el servidor
-            if (target != null && IsInServidor)
+            if (target != null && !damageablesInArea.Contains(target))
             {
-                canHit = false;
-                OnHit(target, ControladorNaveDueña);
-                //tickTimer = 0;
-                StartCoroutine(ResetHitCooldown());
+                damageablesInArea.Add(target);
+                AdditionalEffectsOnEnter(target);
             }
-            
-            AdditionalEffectsOnEnter(other);
         }
     }
 
-    //Efectos adicionales que hace en el OnTriggerStay
-    protected abstract void AdditionalEffectsOnEnter(Collider other);
-    protected void OnTriggerStay(Collider other)
+    //protected void OnTriggerStay(Collider other)
+    //{
+    //    if (!IsInServidor) return;
+
+    //    // Asegurarse de agregar objetos que permanezcan en el área
+    //    if (!IsChildOfOwner(other.transform))
+    //    {
+    //        IDamageable target = other.GetComponentInParent<IDamageable>();
+    //        if (target != null && !damageablesInArea.Contains(target))
+    //        {
+    //            damageablesInArea.Add(target);
+    //        }
+    //        AdditionalEffectsOnStay(other);
+
+    //    }
+    //}
+
+    private void OnTriggerExit(Collider other)
     {
-        if (canHit && !isResetting) // Asegurarse de no estar ya en proceso de reinicio
+        if (!IsInServidor) return;
+
+        if (!IsChildOfOwner(other.transform))
         {
-            canHit = false;
-
-            if (!IsChildOfOwner(other.transform))
+            IDamageable target = other.GetComponentInParent<IDamageable>();
+            if (target != null && damageablesInArea.Contains(target))
             {
-                // Al colisionar comprueba si el otro ente puede recibir daño
-                IDamageable target = other.GetComponentInParent<IDamageable>();
-                Debug.Log("Dmg over time is being done");
-
-                // Si puede hacer daño, lo hace en el servidor
-                if (target != null && IsInServidor)
-                {
-                    OnHit(target, ControladorNaveDueña);
-                    StartCoroutine(ResetHitCooldown());
-                }
+                damageablesInArea.Remove(target);
+                AdditionalEffectsOnExit(target);
             }
         }
-
-        AdditionalEffectsOnStay(other);
     }
-
-    //Efectos adicionales que hace en el OnTriggerStay
-    protected abstract void AdditionalEffectsOnStay(Collider other);
 
     public bool IsChildOfOwner(Transform target)
     {
@@ -176,14 +186,22 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     }
 
     // Corrutina para manejar el cooldown del golpe
-    protected IEnumerator ResetHitCooldown()
+    private IEnumerator ApplyAoETicks()
     {
-        isResetting = true; // Bloquea nuevas ejecuciones mientras el cooldown está activo
-        float time = 1/ (float)ticksPerSecond;
-        //Debug.Log(time);
-        yield return new WaitForSeconds(time);
-        canHit = true;
-        isResetting = false; // Libera el bloqueo
+        isTicking = true;
+        float tickInterval = 1f / ticksPerSecond; // Calcula el intervalo de daño por tick
+
+        while (isTicking)
+        {
+            foreach (var target in damageablesInArea)
+            {
+                if (target != null) // Verificar que el objeto siga existiendo
+                {
+                    OnHit(target, ControladorNaveDueña); // Aplica el daño
+                }
+            }
+            yield return new WaitForSeconds(tickInterval); // Espera antes del próximo tick
+        }
     }
 
     public void FixedUpdate()
@@ -191,7 +209,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         //Comportamiento extra del AoE (Crecer, cambiar dirección, etc...)
         ExtraBehaviour(Time.fixedDeltaTime);
 
-        if(direction != null)
+        if(direction != Vector3.zero)
         {
             transform.position += direction * (speed * Time.fixedDeltaTime);
         }
@@ -202,23 +220,40 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         //    DestroyAoE();
         //}
     }
+    public virtual void ExtraBehaviour(float tiempo)
+    {
+        return;
+    }
 
-    public void DestroyAoE(float tiempo = 0f)
+    public virtual void DestroyAoE(float tiempo = 0f)
     {
         if (isDestroyed)
         {
             Debug.LogWarning($"DestroyAoE ya fue llamado. Ignorando llamada en {Time.time}");
             return;
         }
-
-        isDestroyed = true;
         Debug.Log($"DestroyAoE llamado. Destruyendo en {tiempo} segundos. Tiempo actual: {Time.time}");
+
         Destroy(gameObject, tiempo);
     }
 
-    public virtual void ExtraBehaviour(float tiempo)
+
+    private void OnDestroy()
     {
-        return;
+        if(damageablesInArea.Count > 0)
+        {
+            foreach (var target in damageablesInArea)
+            {
+                AdditionalEffectsOnExit(target);
+                damageablesInArea.Remove(target);
+            }
+        }
+
+        isDestroyed = true;
+        isTicking = false;
+
+        damageablesInArea.Clear();
+        StopAllCoroutines();
     }
 
 }

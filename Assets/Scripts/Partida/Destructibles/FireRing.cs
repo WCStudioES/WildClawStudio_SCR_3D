@@ -53,19 +53,9 @@ public class FireRing : AreaDmg
         }
     }
 
-    protected override void AdditionalEffectsOnEnter( Collider other)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void AdditionalEffectsOnStay(Collider other)
-    {
-        throw new System.NotImplementedException();
-    }
-
     private new void FixedUpdate()
     {
-        if (canHit && IsInServidor)
+        if (IsInServidor && isShrinking)
         {
             checkTimer += Time.fixedDeltaTime;
             if (checkTimer >= checkInterval)
@@ -84,19 +74,21 @@ public class FireRing : AreaDmg
 
             float distance = Vector3.Distance(player.position, transform.position);
             //Debug.Log(distance + ", " + currentInnerRadius + ", " + currentOuterRadius);
+            
+            IDamageable target = player.GetComponent<IDamageable>();
+            Debug.Log("FireRing target: " + target);
 
             // Est� en la zona peligrosa (fuera del anillo seguro, pero dentro del exterior)
             if (distance > currentInnerRadius && distance <= currentOuterRadius)
             {
-                IDamageable target = player.GetComponentInParent<IDamageable>();
-                //Debug.Log("Target: " + target);
-
-                if (target != null && IsInServidor)
+                if (target != null && IsInServidor && !damageablesInArea.Contains(target))
                 {
-                    canHit = false;
-                    OnHit(target, ControladorNaveDueña);
-                    StartCoroutine(ResetHitCooldown());
+                    damageablesInArea.Add(target);
                 }
+            }
+            else if(damageablesInArea.Contains(target))
+            {
+                damageablesInArea.Remove(player.GetComponent<IDamageable>());
             }
         }
     }
@@ -119,6 +111,7 @@ public class FireRing : AreaDmg
     public void Reset()
     {
         ClearPlayers();
+        damageablesInArea.Clear();
         
         if(aoeVFXInstance != null)
         {

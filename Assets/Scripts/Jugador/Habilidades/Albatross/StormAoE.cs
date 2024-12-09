@@ -18,58 +18,49 @@ public class StormAoE : AreaDmg
         Debug.Log("Storm" + isUpgraded);
     }
 
-    protected override void AdditionalEffectsOnEnter(Collider other)
+    protected override void AdditionalEffectsOnEnter(IDamageable other)
     {
-        playerShip = other.GetComponent<PlayerShip>();
-
-        if (playerShip != null && IsInServidor)
+        if(other is NetworkedPlayer)
         {
-            playerShip.shipController.maxSpeed -= slow;
+            NetworkedPlayer player = other as NetworkedPlayer;
+            if (player.nave != null && IsInServidor)
+            {
+                player.nave.maxSpeed -= slow;
+            }
         }
     }
 
-    private void OnDestroy()
+    protected override void AdditionalEffectsOnExit(IDamageable other)
     {
-        if (playerShip != null && IsInServidor)
+        if (other != null && other is NetworkedPlayer)
         {
-            playerShip.shipController.maxSpeed += slow;
-            playerShip = null;
+            NetworkedPlayer player = other as NetworkedPlayer;
+            if (player.nave != null && IsInServidor)
+            {
+                player.nave.maxSpeed += slow;
+            }
         }
-    }
-
-    protected void OnTriggerExit(Collider other)
-    {
-
-        if (playerShip != null && IsInServidor)
-        {
-            playerShip.shipController.maxSpeed += slow;
-            playerShip = null;
-        }
-    }
-
-    protected override void AdditionalEffectsOnStay(Collider other)
-    {
     }
 
     public override void ExtraBehaviour(float time)
     {
         if (isUpgraded)
         {
-            //transform.localScale+=new Vector3(upscaling * time, 0, upscaling * time);
+            transform.localScale += new Vector3(upscaling * time, 0, upscaling * time);
             Debug.Log("Mejroado" + isUpgraded);
         }
     }
 
-    public IEnumerator IncreaseScale()
-    {
-        if (isUpgraded)
-        {
-            while (gameObject.activeInHierarchy)
-            {
-                yield return new WaitForSecondsRealtime(1f);
-                transform.localScale+=new Vector3(upscaling , 0, upscaling);
-                Debug.Log(upscaling + " escala " + transform.localScale + "daño" + dmg);
-            }
-        }
-    }
+    //public IEnumerator IncreaseScale()
+    //{
+    //    if (isUpgraded)
+    //    {
+    //        while (gameObject.activeInHierarchy)
+    //        {
+    //            yield return new WaitForSecondsRealtime(1f);
+    //            transform.localScale+=new Vector3(upscaling , 0, upscaling);
+    //            Debug.Log(upscaling + " escala " + transform.localScale + "daño" + dmg);
+    //        }
+    //    }
+    //}
 }

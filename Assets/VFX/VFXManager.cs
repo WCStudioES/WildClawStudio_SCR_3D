@@ -143,7 +143,7 @@ public class VFXManager : MonoBehaviour
         if (pool != null)
         {
             VFXPrefab toReturn = pool.Get(position, rotation, parent);
-            if (toReturn != null && toReturn.animType == VFXPrefab.AnimationType.Simple || toReturn.animType == VFXPrefab.AnimationType.StaysAtEnd)
+            if (toReturn != null && (toReturn.animType == VFXPrefab.AnimationType.Simple || toReturn.animType == VFXPrefab.AnimationType.StaysAtEnd))
             {
                 toReturn.ActivateVFX();
             }

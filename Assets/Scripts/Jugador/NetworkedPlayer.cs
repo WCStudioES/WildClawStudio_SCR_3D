@@ -925,6 +925,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     {
         if (cuerpoNave != null)
         {
+            VFXManager.Instance.ReturnAllVFX();
             Destroy(cuerpoNave); // Destruye la nave anterior si existe
         }
         cuerpoNave = Instantiate(navePrefab, nave.transform.position, nave.transform.rotation);

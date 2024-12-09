@@ -397,6 +397,7 @@ public class ControladorNave : NetworkBehaviour
 
                 case CameraType.Customization:
                     actualCamera = CameraPositionCustomization;
+                    CameraPositionCustomization.GetComponent<CustomizationCamPos>().SetCustomizationCamPos(opcionesJugador.controladorDelJugador.selectedShip.Value);
 
                     VC.m_Lens.Orthographic = false;
 
