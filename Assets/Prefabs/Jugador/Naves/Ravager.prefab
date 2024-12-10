@@ -481,6 +481,7 @@ MonoBehaviour:
   networkedPlayer: {fileID: 0}
   type: 3
   maxResource: 50
+  upgradeDescription: 'Upgrade(lvl 6): Increased speed and energy recovery'
   maxSpeedBuff: 5
   maxSpeedBuffUpgraded: 8
   accelerationBuff: 10
@@ -489,7 +490,6 @@ MonoBehaviour:
   extraFires:
   - {fileID: 2234497262354916050}
   - {fileID: 8645789174331922093}
-  firePropulsionVFX: {fileID: 3893311136088826993, guid: 6666252ccad81964bb363e626ff7c3cc, type: 3}
 --- !u!114 &-8598968886529694628
 MonoBehaviour:
   m_ObjectHideFlags: 0

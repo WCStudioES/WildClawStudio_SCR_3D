@@ -238,6 +238,7 @@ MonoBehaviour:
   networkedPlayer: {fileID: 0}
   type: 2
   maxResource: 0
+  upgradeDescription: 'Upgrade(lvl 6): Increased hp and duration.'
   shield: {fileID: 7244499277988380073, guid: 1d4383f3a83397f478a6557dde93ffa1, type: 3}
   shieldSpawn: {fileID: 5052207521094992759}
   health: 50

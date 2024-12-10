@@ -455,6 +455,8 @@ MonoBehaviour:
   networkedPlayer: {fileID: 0}
   type: 1
   maxResource: 0
+  upgradeDescription: 'Upgrade(Lvl 6): The storm is bigger and increases its size
+    over time'
   stormGrenade: {fileID: 5047976631321185189, guid: 743aabaa9ba67734caf03eefc3817bb3, type: 3}
   upgradedStormGrenade: {fileID: 6037746621793311029, guid: 932df56190e113346b9f0d1490f11f07, type: 3}
   tiempoDeVida: 3

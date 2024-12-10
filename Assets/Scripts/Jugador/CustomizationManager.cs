@@ -215,7 +215,7 @@ public class CustomizationManager : MonoBehaviour
         equippedShipActive.sprite = playerShip.activeAbility.Sprite;
         equippedShipPassive.sprite = playerShip.passiveAbility.Sprite;
 
-        equippedShipActiveDescription.text = playerShip.activeAbility.Description;
+        equippedShipActiveDescription.text = playerShip.activeAbility.Description + "\n" + playerShip.activeAbility.upgradeDescription;
         equippedShipActiveName.text = playerShip.activeAbility.Name;
         equippedShipPassiveDescription.text = playerShip.passiveAbility.Description;
         equippedShipPassiveName.text = playerShip.passiveAbility.Name;
@@ -302,7 +302,7 @@ public class CustomizationManager : MonoBehaviour
 
         selectedItem.sprite = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().sprite;
         selectedItemName.text = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().weaponName;
-        selectedItemDescription.text = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().description;
+        selectedItemDescription.text = ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().description + "\n" +ammoImages[equippedAmmoIndex].GetComponent<Proyectil>().Upgradedescription ;
     }
 
     private void UpdatePopUpSupport(List<Image> popUpImages, List<GameObject> equipmentImages, int equippedIndex)

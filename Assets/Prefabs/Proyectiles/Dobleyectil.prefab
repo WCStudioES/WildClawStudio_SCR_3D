@@ -48,7 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -1994235387, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Double laser
-  description: You shoot 2 lasers per shot. At level 6 fires 3 lasers.
+  description: You shoot 2 lasers per shot.
+  Upgradedescription: 'Upgrade(lvl 5): Shoot 3 lasers per shot.'
   mostrarEnSeleccion: 1
   dmg: 10
   speed: 50

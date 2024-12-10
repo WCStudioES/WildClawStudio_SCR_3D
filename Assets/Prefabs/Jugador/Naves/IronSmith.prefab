@@ -166,11 +166,11 @@ MonoBehaviour:
   armorIncrement: 2
   dmgBalance: 80
   dmgIncrement: 3
-  maxSpeed: 10
+  maxSpeed: 9
   initialSpeed: 2
-  lifeUi: 6
-  powerUi: 5
-  speedUi: 3
+  lifeUi: 5
+  powerUi: 4
+  speedUi: 2
   maxLevel: 8
   xpByLvl: 
   shipController: {fileID: 0}
@@ -209,6 +209,7 @@ MonoBehaviour:
   networkedPlayer: {fileID: 0}
   type: 4
   maxResource: 0
+  upgradeDescription: 'Upgrade(Lvl 6): Reduced cooldown and increased damage.'
   dashSpeed: 20
   dashDuration: 0.5
   dashDamage: 25

@@ -6,6 +6,7 @@ public abstract class ActiveAbility : Ability
 {
     public ActiveType type;
     public int maxResource;
+    public string upgradeDescription;
     protected bool isUpgraded = false;
     public enum ActiveType
     {

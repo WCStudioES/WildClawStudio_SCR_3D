@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 1741567171, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Missile
-  description: Creates a high damage explosion when it hits a target.  At level 6
-    upgrades its shotrate and speed.
+  description: 'Creates a high damage explosion when it hits a target. '
+  Upgradedescription: 'Upgrade(lvl 5): Upgraded shotrate and speed.'
   mostrarEnSeleccion: 1
   dmg: 40
   speed: 30
