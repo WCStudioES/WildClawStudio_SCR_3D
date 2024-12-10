@@ -14,7 +14,6 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject Personalizacion;
     [SerializeField]private GameObject Settings;
     public Image brightnessPanel;
-    private bool cameraInGame = false;
     [SerializeField]private GameObject BuscandoPartida;
     [SerializeField]private GameObject Instrucciones;
     [SerializeField]private GameObject Instrucciones2;

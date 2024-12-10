@@ -32,8 +32,14 @@ public class FireRing : AreaDmg
 
     private void Update()
     {
-        if (isShrinking)
+        if (IsInServidor && isShrinking)
         {
+            checkTimer += Time.deltaTime;
+            if (checkTimer >= checkInterval)
+            {
+                checkTimer = 0f;
+                CheckPlayersInRing();
+            }
             ShrinkRing();
         }
     }
@@ -53,19 +59,6 @@ public class FireRing : AreaDmg
         }
     }
 
-    private new void FixedUpdate()
-    {
-        if (IsInServidor && isShrinking)
-        {
-            checkTimer += Time.fixedDeltaTime;
-            if (checkTimer >= checkInterval)
-            {
-                checkTimer = 0f;
-                CheckPlayersInRing();
-            }
-        }
-    }
-
     private void CheckPlayersInRing()
     {
         foreach (var player in players)
@@ -75,8 +68,8 @@ public class FireRing : AreaDmg
             float distance = Vector3.Distance(player.position, transform.position);
             //Debug.Log(distance + ", " + currentInnerRadius + ", " + currentOuterRadius);
             
-            IDamageable target = player.GetComponent<IDamageable>();
-            Debug.Log("FireRing target: " + target);
+            IDamageable target = player.GetComponentInParent<IDamageable>();
+            //Debug.Log("FireRing target: " + target != null);
 
             // Est� en la zona peligrosa (fuera del anillo seguro, pero dentro del exterior)
             if (distance > currentInnerRadius && distance <= currentOuterRadius)
@@ -88,7 +81,7 @@ public class FireRing : AreaDmg
             }
             else if(damageablesInArea.Contains(target))
             {
-                damageablesInArea.Remove(player.GetComponent<IDamageable>());
+                damageablesInArea.Remove(player.GetComponentInParent<IDamageable>());
             }
         }
     }
@@ -124,6 +117,8 @@ public class FireRing : AreaDmg
 
         currentOuterRadius = startOuterRadius;
         currentInnerRadius = startOuterRadius;
+
+        StopAllCoroutines();
     }
 
     private void OnDrawGizmos()

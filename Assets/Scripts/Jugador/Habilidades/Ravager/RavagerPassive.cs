@@ -6,7 +6,6 @@ using UnityEngine;
 public class RavagerPassive : OnCollisionPassive
 {
     public int dmg = 5;
-    private bool isUpgraded = false;
     public override void AbilityExecution()
     {
         Debug.Log("Ravager tankea el golpe porque es dios");

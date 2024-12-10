@@ -52,7 +52,7 @@ public class ControladorNave : NetworkBehaviour
     public float minVerticalAngle = 10f;
     public float maxVerticalAngle = 80f;
 
-    private bool isOrbiting = false;
+    //private bool isOrbiting = false;
 
     //Si la nave está dasheando
     public bool isDashing = false;
@@ -392,7 +392,7 @@ public class ControladorNave : NetworkBehaviour
                     VC.Follow = actualCamera;
                     VC.LookAt = this.transform;
 
-                    isOrbiting = false;
+                    //isOrbiting = false;
                     break;
 
                 case CameraType.Customization:
@@ -407,7 +407,7 @@ public class ControladorNave : NetworkBehaviour
                     // Ajusta la posición inicial de la cámara
                     VC.transform.position = CameraPositionCustomization.transform.position;
 
-                    isOrbiting = true;
+                    //isOrbiting = true;
                     break;
             }
         }

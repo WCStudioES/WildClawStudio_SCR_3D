@@ -106,6 +106,9 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         {
             DestroyAoE(timeOfEffect);
         }
+
+        StartCoroutine(ApplyAoETicks());
+
     }
 
     public abstract void OnHit(IDamageable target, NetworkedPlayer dmgDealer);
@@ -195,6 +198,7 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         {
             foreach (var target in damageablesInArea)
             {
+                Debug.Log(tickInterval + ", " + dmg);
                 if (target != null) // Verificar que el objeto siga existiendo
                 {
                     OnHit(target, ControladorNaveDueña); // Aplica el daño
@@ -240,12 +244,17 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
 
     private void OnDestroy()
     {
-        if(damageablesInArea.Count > 0)
+        if (damageablesInArea.Count > 0)
         {
-            foreach (var target in damageablesInArea)
+            var targetsToProcess = new List<IDamageable>(damageablesInArea); // Copia la lista
+
+            foreach (var target in targetsToProcess)
             {
-                AdditionalEffectsOnExit(target);
-                damageablesInArea.Remove(target);
+                if (target != null)
+                {
+                    AdditionalEffectsOnExit(target);
+                    damageablesInArea.Remove(target); // Modifica la lista original sin afectar la iteración
+                }
             }
         }
 

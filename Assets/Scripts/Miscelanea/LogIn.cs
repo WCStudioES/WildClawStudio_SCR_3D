@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LogIn : MonoBehaviour
 {
     [SerializeField] private UI UIManager;
-    [SerializeField]private TMP_InputField name;
+    [SerializeField]private TMP_InputField userName;
     [SerializeField]private TMP_InputField password;
     [SerializeField] private GameObject MensajeDeError;
     [SerializeField]private GameObject PantallaDeRegistro;
@@ -29,8 +29,8 @@ public class LogIn : MonoBehaviour
     public void IniciarSesion()
     {
             BotonLogIn.enabled = false;
-            if(name.text != "")
-                UIManager.ComprobarUsuarioServerRpc(name.text, password.text);
+            if(userName.text != "")
+                UIManager.ComprobarUsuarioServerRpc(userName.text, password.text);
             else
                 UsuarioInvalido();
     }
@@ -39,7 +39,7 @@ public class LogIn : MonoBehaviour
     void LimpiarPantalla()
     {
         MensajeDeError.SetActive(false);
-        name.text = "";
+        userName.text = "";
         password.text = "";
         BotonLogIn.enabled = true;
     }

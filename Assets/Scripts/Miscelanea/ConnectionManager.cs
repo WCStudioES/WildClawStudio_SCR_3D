@@ -4,7 +4,6 @@ using UnityEngine;
 
 using System;
 using Test;
-using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 

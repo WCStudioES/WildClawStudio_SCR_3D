@@ -78,7 +78,7 @@ public class Partida : NetworkBehaviour
                     finalizarRonda();
                 }
 
-                if (tiempoDeRondaActual.Value <= 0.0f && fireRing.aoeVFXInstance == null)
+                if (tiempoDeRondaActual.Value <= 0.0f && !fireRing.isShrinking)
                 {
                     //FINAL POR MUERTE SÚBITA
                     fireRing.CrearAreaDmg(null, null, IsServer);

@@ -602,6 +602,7 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 
                 case 6:
                     cuerpoNave.GetComponent<PlayerShip>().UpgradeAbility();
+                    UpgradeAbilityClientRpc();
                     break;
                 //...
             }
@@ -642,7 +643,14 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         //activa la UI
         uiBoosters.activeAbility.gameObject.SetActive(true);
     }
-    
+
+    [ClientRpc]
+    private void UpgradeAbilityClientRpc()
+    {
+        cuerpoNave.GetComponent<PlayerShip>().UpgradeAbility();
+    }
+
+
     private void CambiarArma(int proyectilNuevo)
     {
         //Debug.Log("Cambiando arma: " + proyectilNuevo);

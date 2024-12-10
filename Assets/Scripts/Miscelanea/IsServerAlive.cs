@@ -64,7 +64,7 @@ public class IsServerAlive : NetworkBehaviour
     }
     
     
-    void OnDestroy()
+    public override void OnDestroy()
     {
         if(IsOwner)
             OnServerDisconnect();   

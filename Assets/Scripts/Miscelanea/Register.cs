@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Register : MonoBehaviour
 {
     [SerializeField]private UI UIManager;
-    [SerializeField]private TMP_InputField name;
+    [SerializeField]private TMP_InputField UserName;
     [SerializeField]private TMP_InputField password1;
     [SerializeField]private TMP_InputField password2;
     [SerializeField]private GameObject MensajeDeError1;
@@ -30,14 +30,14 @@ public class Register : MonoBehaviour
         BotonRegistrar.enabled = false;
         MensajeDeError1.SetActive(false);
         MensajeDeError2.SetActive(false);
-        if(name.text == "")
+        if(UserName.text == "")
             UsuarioInvalido();
         else
         {
             if (password1.text == password2.text && password1.text != "")
             {
                 
-                UIManager.CrearUsuarioServerRpc(name.text, password1.text);
+                UIManager.CrearUsuarioServerRpc(UserName.text, password1.text);
             }
             else
             {
@@ -53,7 +53,7 @@ public class Register : MonoBehaviour
     {
         MensajeDeError1.SetActive(false);
         MensajeDeError2.SetActive(false);
-        name.text = "";
+        UserName.text = "";
         password1.text = "";
         password2.text = "";
     }

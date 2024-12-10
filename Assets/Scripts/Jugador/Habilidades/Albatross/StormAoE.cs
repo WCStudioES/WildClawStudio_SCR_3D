@@ -47,7 +47,7 @@ public class StormAoE : AreaDmg
         if (isUpgraded)
         {
             transform.localScale += new Vector3(upscaling * time, 0, upscaling * time);
-            Debug.Log("Mejroado" + isUpgraded);
+            Debug.Log("Mejorado" + isUpgraded);
         }
     }
 

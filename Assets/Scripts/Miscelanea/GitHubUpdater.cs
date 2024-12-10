@@ -4,7 +4,6 @@ using UnityEngine;
 
 using System;
 using System.Text;
-using UnityEngine;
 using UnityEngine.Networking;
 
 public class GitHubUpdater : MonoBehaviour

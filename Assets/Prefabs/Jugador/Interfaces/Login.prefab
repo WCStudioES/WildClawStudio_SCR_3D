@@ -666,7 +666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManager: {fileID: 0}
-  name: {fileID: 7379540565485053447}
+  UserName: {fileID: 7379540565485053447}
   password1: {fileID: 7242461395866572034}
   password2: {fileID: 7610280290635397304}
   MensajeDeError1: {fileID: 7032559768757549603}
@@ -3243,7 +3243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIManager: {fileID: 0}
-  name: {fileID: 3497646082665810959}
+  userName: {fileID: 3497646082665810959}
   password: {fileID: 4280062422380171484}
   MensajeDeError: {fileID: 4793448341014061161}
   PantallaDeRegistro: {fileID: 1360731761028022120}
