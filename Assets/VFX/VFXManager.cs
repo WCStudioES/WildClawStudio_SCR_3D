@@ -1,10 +1,24 @@
+using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
 public class VFXManager : MonoBehaviour
 {
     public static VFXManager Instance;
+    private bool isReturningAllVFX = false;
+    private int gameID;
+
+    public void SetGameID(int pGameID)
+    {
+        gameID = pGameID;
+    }
+
+    public int GetGameID()
+    {
+        return gameID;
+    }
 
     [System.Serializable]
     public class VFXPool
@@ -22,7 +36,7 @@ public class VFXManager : MonoBehaviour
             {
                 for (int i = 0; i < poolSize; i++)
                 {
-                    GameObject instance = Object.Instantiate(prefab, parent);
+                    GameObject instance = Instantiate(prefab, parent);
                     instance.SetActive(false);
                     poolQueue.Enqueue(instance);
                 }
@@ -85,6 +99,10 @@ public class VFXManager : MonoBehaviour
     public VFXPool shipSmokePool;
     public VFXPool shipPropulsionPool;
     public VFXPool fireRingPool;
+    public VFXPool getHealPool;
+    public VFXPool getPassiveDamagePool;
+
+    public int GameID { get => gameID; set => gameID = value; }
 
     public enum VFXType
     {
@@ -95,7 +113,9 @@ public class VFXManager : MonoBehaviour
         explosion,
         shipSmoke,
         shipFire,
-        fireRing
+        fireRing,
+        getHeal,
+        getPassiveDamage
     }
 
     private void Awake()
@@ -131,11 +151,15 @@ public class VFXManager : MonoBehaviour
         shipSmokePool.Initialize(transform);
         shipPropulsionPool.Initialize(transform);
         fireRingPool.Initialize(transform);
+        getHealPool.Initialize(transform);
+        getPassiveDamagePool.Initialize(transform);
     }
 
-    public VFXPrefab SpawnVFX(VFXType type, Vector3 position, Quaternion rotation, Transform parent = null)
+    public VFXPrefab SpawnVFX(VFXType type, Vector3 position, Quaternion rotation, int pGameID, Transform parent = null)
     {
         if (IsServer()) return null;
+
+        if(gameID != pGameID) return null;
 
         Debug.Log("VFXSpawned: " + type);
 
@@ -143,6 +167,8 @@ public class VFXManager : MonoBehaviour
         if (pool != null)
         {
             VFXPrefab toReturn = pool.Get(position, rotation, parent);
+            toReturn.gameID = gameID;
+
             if (toReturn != null && (toReturn.animType == VFXPrefab.AnimationType.Simple || toReturn.animType == VFXPrefab.AnimationType.StaysAtEnd))
             {
                 toReturn.ActivateVFX();
@@ -152,9 +178,12 @@ public class VFXManager : MonoBehaviour
         else return null;
     }
 
-    public void ReturnVFX(GameObject obj, VFXType type)
+
+    public void ReturnVFX(GameObject obj, VFXType type, int pGameID)
     {
         if (IsServer()) return;
+
+        if (gameID != pGameID) return;
 
         VFXPool pool = GetPoolByType(type);
         obj.GetComponent<VFXPrefab>().DeactivateVFX();
@@ -184,6 +213,8 @@ public class VFXManager : MonoBehaviour
             VFXType.shipSmoke => shipSmokePool,
             VFXType.shipFire => shipPropulsionPool,
             VFXType.fireRing => fireRingPool,
+            VFXType.getHeal => getHealPool,
+            VFXType.getPassiveDamage => getPassiveDamagePool,
             _ => null,
         };
     }
@@ -191,6 +222,8 @@ public class VFXManager : MonoBehaviour
     public void ReturnAllVFX()
     {
         if (IsServer()) return;
+
+        isReturningAllVFX = true;
 
         meteoriteDestructionPool.ReturnAll();
         greenShotPool.ReturnAll();
@@ -200,7 +233,10 @@ public class VFXManager : MonoBehaviour
         shipSmokePool.ReturnAll();
         shipPropulsionPool.ReturnAll();
         fireRingPool.ReturnAll();
+        getHealPool.ReturnAll();
+        getPassiveDamagePool.ReturnAll();
 
+        isReturningAllVFX = false;
         Debug.Log("Todos los VFX han sido devueltos a sus pools.");
     }
 
@@ -241,6 +277,8 @@ public class VFXManager : MonoBehaviour
         PreloadPool(shipSmokePool);
         PreloadPool(shipPropulsionPool);
         PreloadPool(fireRingPool);
+        PreloadPool(getHealPool);
+        PreloadPool(getPassiveDamagePool);
     }
 
     private void PreloadPool(VFXPool pool)
