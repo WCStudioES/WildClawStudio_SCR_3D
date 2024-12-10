@@ -47,25 +47,31 @@ MonoBehaviour:
   partidaActual: {fileID: 0}
   meteoriteDestructionPool:
     prefab: {fileID: 8400469935551528979, guid: a159aa8f90eed7b478f6e4f29fa13d52, type: 3}
-    poolSize: 4
+    poolSize: 10
   greenShotPool:
     prefab: {fileID: 6479567417394560894, guid: c82fee9ea287ded4b85849dbc7d58322, type: 3}
     poolSize: 20
   redShotPool:
     prefab: {fileID: 6479567417394560894, guid: 40139e53709b57a419ac8c74a990f2f1, type: 3}
-    poolSize: 30
+    poolSize: 50
   orangeShotPool:
     prefab: {fileID: 6479567417394560894, guid: 24bb5114646e3d2478c1554a6ee1bd24, type: 3}
-    poolSize: 30
+    poolSize: 50
   explosionPool:
     prefab: {fileID: 671443017356825889, guid: d9864d5c3f3b43940beb7b4253daf4b8, type: 3}
-    poolSize: 5
+    poolSize: 10
   shipSmokePool:
     prefab: {fileID: 8467029253953316956, guid: 80d694d08804a984fb9eaa457d7decaa, type: 3}
-    poolSize: 4
+    poolSize: 10
   shipPropulsionPool:
     prefab: {fileID: 3747258433285411363, guid: 1287d6207e52f614a97d1a42d0da1539, type: 3}
-    poolSize: 10
+    poolSize: 30
   fireRingPool:
     prefab: {fileID: 4003804296936661610, guid: 76a038011b34be84d99fb00577d3d598, type: 3}
-    poolSize: 3
+    poolSize: 6
+  getHealPool:
+    prefab: {fileID: 2369288364010192546, guid: f59850826882a1b4686c8eebc35e6fec, type: 3}
+    poolSize: 10
+  getPassiveDamagePool:
+    prefab: {fileID: 5693236288314035472, guid: c77abdd271518f14ca8ca1c8cbca6705, type: 3}
+    poolSize: 5

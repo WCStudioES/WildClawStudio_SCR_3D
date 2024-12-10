@@ -37,6 +37,7 @@ public class DestructibleAsset : Damageable
             if(resType == ResourceToGive.Health)
             {
                 dmgDealer.GetHealPercentage((int)((float)resToGive.Value * ((float)dmg/maxHealth)), dmgDealer);
+                //ActivateGetHealVFXClientRpc();
             }
 
             //Debug.Log("Vida del coso: " + actualHealth.Value);
@@ -204,5 +205,11 @@ public class DestructibleAsset : Damageable
         {
             VFXManager.Instance.SpawnVFX(VFXManager.VFXType.meteorite, transform.position, Quaternion.identity);
         }
+    }
+
+    [ClientRpc]
+    public void ActivateGetHealVFXClientRpc()
+    {
+        
     }
 }
