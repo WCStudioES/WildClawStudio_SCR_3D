@@ -8,28 +8,45 @@ public class DestructibleContainer : NetworkBehaviour
 {
     public DestructibleAsset[] destructibles;
     public GameObject[] containers;
-    void Start()
+    
+    public void ActivarContenedores()
     {
-        destructibles = GetComponentsInChildren<DestructibleAsset>();
+        
+        destructibles = GetComponentsInChildren<DestructibleAsset>(true);
+        Debug.Log(destructibles.Length + " Destructibles "+ IsServer);
+        
     }
 
     public void Activation(bool mode)
     {
+        //destructibles = GetComponentsInChildren<DestructibleAsset>();
+        //Debug.Log(destructibles.Length + " Destructibles "+ IsServer);
         if (IsServer)
         {
-            ActivationClientRpc(mode);
-            if (mode)
+            Debug.Log(gameObject.name + " is activated");
+            if (IsServer)
             {
-                foreach (var a in containers)
+                ActivationClientRpc(mode);
+                if (mode)
                 {
-                    a.SetActive(true);
+                    Debug.Log(gameObject.name + " is activated");
+                    foreach (var a in containers)
+                    {
+                        a.SetActive(true);
+                    }
+                
+                    //destructibles = GetComponentsInChildren<DestructibleAsset>();
+                    //Debug.Log(destructibles.Length + " Destructibles "+ IsServer);
                 }
-            }
-            else
-            {
-                foreach (var a in containers)
+                else
                 {
-                    a.SetActive(false);
+                    Debug.Log(gameObject.name + " is deactivated");
+                    foreach (var a in containers)
+                    {
+                        a.SetActive(false);
+                    }
+                    //destructibles = GetComponentsInChildren<DestructibleAsset>();
+                    //Debug.Log(destructibles.Length + " Destructibles "+ IsServer);
                 }
             }
         }

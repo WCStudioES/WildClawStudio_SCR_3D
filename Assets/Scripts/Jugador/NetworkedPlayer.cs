@@ -623,17 +623,26 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         {
             animator2.SetTrigger("SubidaNivel");
             animator.SetTrigger("SubidaNivel");
-            LvlUpImage.SetTrigger("LvlUp");
             LvlUpImage.gameObject.SetActive(true);
-            //StartCoroutine("DisableLvlUpImage");
+            LvlUpImage.SetTrigger("LvlUp");
+            StartCoroutine("DisableLvlUpImage", false);
         }
         else
         {
             LvlUpImageEnemigo.gameObject.SetActive(true);
             LvlUpImageEnemigo.SetTrigger("LvlUp");
-            //StartCoroutine("DisableLvlUpEnemigoImage");
+            StartCoroutine("DisableLvlUpImage", true);
         }
         
+    }
+    
+    private IEnumerator DisableLvlUpImage(bool isEnemy)
+    {
+        yield return new WaitForSeconds(1.5f);
+        if(isEnemy)
+            LvlUpImageEnemigo.gameObject.SetActive(false);
+        else 
+            LvlUpImage.gameObject.SetActive(false);
     }
     
     

@@ -38,7 +38,7 @@ public class Partida : NetworkBehaviour
     //[SerializeField] public Debris[] debris; //Lista con los meteoritos
     
     //OBJETOS DE MAPA
-    public GameObject[] poolObjetosRonda;
+    public DestructibleContainer[] poolObjetosRonda;
     public DestructibleAsset[] destructibles;
     
     //RONDAS GANADAS
@@ -164,48 +164,61 @@ public class Partida : NetworkBehaviour
     */
     void restaurarDestructibles()
     {
-        if (ronda == 1)
+        if (IsServer)
         {
-            Debug.Log("Ronda 1");
-            poolObjetosRonda[poolObjetosRonda.Length-1].GetComponent<DestructibleContainer>().Activation(false);
-        }
-        else
-        {
-            Debug.Log("Ronda " + ronda);
-            poolObjetosRonda[ronda-2].GetComponent<DestructibleContainer>().Activation(false);
-        }
-        DestructibleContainer container = poolObjetosRonda[ronda-1].GetComponent<DestructibleContainer>();
-        container.Activation(true);
-        destructibles = container.destructibles;
-        foreach (var destructible in destructibles)
-        {
-            destructible.partida = this;
-            if (destructible is Meteorito)
+            //if (ronda == 1)
+            //{
+            //    Debug.Log("Ronda 1 restaurarDestructibles ");
+            //    for (int i = poolObjetosRonda.Length - 1; i > 0; i--)
+            //    {
+            //        poolObjetosRonda[i].Activation(false);
+            //    }
+            //}
+            //else
+            //{
+            //    Debug.Log("Ronda " + ronda + " restaurarDestructibles");
+            //    poolObjetosRonda[ronda - 2].Activation(false);
+            //}
+
+            foreach (DestructibleContainer a in poolObjetosRonda)
             {
-                switch (ronda)
+                a.Activation(false);
+            }
+
+            DestructibleContainer container = poolObjetosRonda[ronda - 1];
+            container.Activation(true);
+            destructibles = container.destructibles;
+            foreach (var destructible in destructibles)
+            {
+                destructible.partida = this;
+                Debug.Log(destructible.partida + "DESTRUCTIBLE PARTIDA");
+                if (destructible is Meteorito)
                 {
-                    case 1: 
-                        destructible.RestoreDestructibleAsset(50);
-                        break;
-                    case 2:
-                        destructible.RestoreDestructibleAsset(75);
-                        break;
-                    case 3:
-                        destructible.RestoreDestructibleAsset(100);
-                        break;
-                
-                    default:
-                        Debug.Log("AVISO: NUMERO DE RONDA NO ES 1, 2 O 3");
-                        break;
+                    switch (ronda)
+                    {
+                        case 1:
+                            destructible.RestoreDestructibleAsset(50);
+                            break;
+                        case 2:
+                            destructible.RestoreDestructibleAsset(75);
+                            break;
+                        case 3:
+                            destructible.RestoreDestructibleAsset(100);
+                            break;
+
+                        default:
+                            Debug.Log("AVISO: NUMERO DE RONDA NO ES 1, 2 O 3");
+                            break;
+                    }
                 }
-            }
-            else if(destructible is Debris)
-            {
-                destructible.RestoreDestructibleAsset();
-            }
-            else
-            {
-                Debug.Log("DESTRUCTIBLE MAL");
+                else if (destructible is Debris)
+                {
+                    destructible.RestoreDestructibleAsset();
+                }
+                else
+                {
+                    Debug.Log("DESTRUCTIBLE MAL");
+                }
             }
         }
     }
@@ -225,7 +238,7 @@ public class Partida : NetworkBehaviour
     //}
     private void OcultarDestructibles()
     {
-        poolObjetosRonda[ronda].GetComponent<DestructibleContainer>().Activation(false);
+        poolObjetosRonda[ronda].Activation(false);
     }
 
     //FINALIZA LA PARTIDA
@@ -440,6 +453,11 @@ public class Partida : NetworkBehaviour
         foreach (var VARIABLE in jugadores)
         {
             partidasGanadasPorJugador.Add(new List<bool>(maximoNumeroDeRondas));
+        }
+
+        for (int i = 0; i < poolObjetosRonda.Length; i++)
+        {
+            poolObjetosRonda[i].ActivarContenedores();
         }
         
         //Obtener todos los meteoritos del propio mapa

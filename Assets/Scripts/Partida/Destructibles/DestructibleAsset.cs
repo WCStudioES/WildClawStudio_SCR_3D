@@ -29,7 +29,7 @@ public class DestructibleAsset : Damageable
     // M�todo para recibir da�o en el meteorito
     public override void GetDamage(int dmg, NetworkedPlayer dmgDealer)
     {
-        //Debug.Log(dmg);
+        Debug.Log(IsServer + " " + partida.rondaEnmarcha + " RONDAENMARCHAAAAAAAAAA");
         if (IsServer && partida.rondaEnmarcha)
         {
             actualHealth.Value -= dmg;
@@ -154,7 +154,7 @@ public class DestructibleAsset : Damageable
         if (IsServer)
         {
             maxHealth = health;
-            actualHealth.Value = maxHealth;
+            actualHealth.Value = health;
             RestoreDestructibleAssetClientRpc();
             resGiven = false;
             StopCoroutine("ResetAssetAfterTime");
