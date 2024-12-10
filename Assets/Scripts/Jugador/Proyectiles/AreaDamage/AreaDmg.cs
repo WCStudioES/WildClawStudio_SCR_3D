@@ -138,22 +138,22 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
         }
     }
 
-    //protected void OnTriggerStay(Collider other)
-    //{
-    //    if (!IsInServidor) return;
+    protected void OnTriggerStay(Collider other)
+    {
+        if (!IsInServidor) return;
 
-    //    // Asegurarse de agregar objetos que permanezcan en el área
-    //    if (!IsChildOfOwner(other.transform))
-    //    {
-    //        IDamageable target = other.GetComponentInParent<IDamageable>();
-    //        if (target != null && !damageablesInArea.Contains(target))
-    //        {
-    //            damageablesInArea.Add(target);
-    //        }
-    //        AdditionalEffectsOnStay(other);
+        // Asegurarse de agregar objetos que permanezcan en el área
+        if (!IsChildOfOwner(other.transform))
+        {
+            IDamageable target = other.GetComponentInParent<IDamageable>();
+            if (target != null && !damageablesInArea.Contains(target))
+            {
+                damageablesInArea.Add(target);
+            }
+            AdditionalEffectsOnStay(target);
 
-    //    }
-    //}
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
@@ -192,19 +192,43 @@ public abstract class AreaDmg : MonoBehaviour, IProyectil
     private IEnumerator ApplyAoETicks()
     {
         isTicking = true;
-        float tickInterval = 1f / ticksPerSecond; // Calcula el intervalo de daño por tick
+        float tickInterval;
+
+        if (ticksPerSecond > 0)
+        {
+            tickInterval = 1f / ticksPerSecond; // Calcula el intervalo de daño por tick
+        }
+        else
+        {
+            tickInterval = -1f;
+        }
 
         while (isTicking)
         {
-            foreach (var target in damageablesInArea)
+            if(damageablesInArea.Count > 0)
             {
-                Debug.Log(tickInterval + ", " + dmg);
-                if (target != null) // Verificar que el objeto siga existiendo
+                foreach (var target in damageablesInArea)
                 {
-                    OnHit(target, ControladorNaveDueña); // Aplica el daño
+                    Debug.Log(tickInterval + ", " + dmg);
+                    if (target != null) // Verificar que el objeto siga existiendo
+                    {
+                        OnHit(target, ControladorNaveDueña); // Aplica el daño
+                    }
+                }
+
+                if(tickInterval > 0)
+                {
+                    yield return new WaitForSeconds(tickInterval); // Espera antes del próximo tick
+                }
+                else
+                {
+                    isTicking = false;
                 }
             }
-            yield return new WaitForSeconds(tickInterval); // Espera antes del próximo tick
+            else
+            {
+                yield return new WaitForSeconds(0.05f); // Espera antes del próximo tick
+            }
         }
     }
 
