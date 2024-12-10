@@ -30,12 +30,16 @@ public class Partida : NetworkBehaviour
     [SerializeField] public List<NetworkedPlayer> jugadores;
     
     //METEORITOS
-    public GameObject EmptyContenedorDeMeteoritos; //Empty contenedor de los meteoritos en la escena
-    public Meteorito[] meteoritos; //Lista con los meteoritos
+    //public GameObject EmptyContenedorDeMeteoritos; //Empty contenedor de los meteoritos en la escena
+    //public Meteorito[] meteoritos; //Lista con los meteoritos
     
     //Debris
-    public GameObject EmptyContenedorDeDebris; //Empty contenedor de los meteoritos en la escena
-    [SerializeField] public Debris[] debris; //Lista con los meteoritos
+    //public GameObject EmptyContenedorDeDebris; //Empty contenedor de los meteoritos en la escena
+    //[SerializeField] public Debris[] debris; //Lista con los meteoritos
+    
+    //OBJETOS DE MAPA
+    public GameObject[] poolObjetosRonda;
+    public DestructibleAsset[] destructibles;
     
     //RONDAS GANADAS
     [SerializeField] public int[] rondasGanadas;
@@ -126,12 +130,13 @@ public class Partida : NetworkBehaviour
         }
     }
 
+    /*
     //RESTAURA LA VIDA DE LOS METEORITOS Y LOS REHABILITA
     void restaurarDestructibles()
     {
         foreach (var meteorito in meteoritos)
         {
-            meteorito.RestoreDestructibleAsset();
+            //meteorito.RestoreDestructibleAsset();
             switch (ronda)
             {
                 case 1: 
@@ -156,25 +161,76 @@ public class Partida : NetworkBehaviour
             unDebris.RestoreDestructibleAsset();
         }
     }
+    */
+    void restaurarDestructibles()
+    {
+        if (ronda == 1)
+        {
+            Debug.Log("Ronda 1");
+            poolObjetosRonda[poolObjetosRonda.Length-1].GetComponent<DestructibleContainer>().Activation(false);
+        }
+        else
+        {
+            Debug.Log("Ronda " + ronda);
+            poolObjetosRonda[ronda-2].GetComponent<DestructibleContainer>().Activation(false);
+        }
+        DestructibleContainer container = poolObjetosRonda[ronda-1].GetComponent<DestructibleContainer>();
+        container.Activation(true);
+        destructibles = container.destructibles;
+        foreach (var destructible in destructibles)
+        {
+            destructible.partida = this;
+            if (destructible is Meteorito)
+            {
+                switch (ronda)
+                {
+                    case 1: 
+                        destructible.RestoreDestructibleAsset(50);
+                        break;
+                    case 2:
+                        destructible.RestoreDestructibleAsset(75);
+                        break;
+                    case 3:
+                        destructible.RestoreDestructibleAsset(100);
+                        break;
+                
+                    default:
+                        Debug.Log("AVISO: NUMERO DE RONDA NO ES 1, 2 O 3");
+                        break;
+                }
+            }
+            else if(destructible is Debris)
+            {
+                destructible.RestoreDestructibleAsset();
+            }
+            else
+            {
+                Debug.Log("DESTRUCTIBLE MAL");
+            }
+        }
+    }
+    
 
+    //private void OcultarDestructibles()
+    //{
+    //    foreach (var meteorito in meteoritos)
+    //    {
+    //        meteorito.DisableDamageableClientRpc();
+    //    }
+//
+    //    foreach (var unDebris in debris)
+    //    {
+    //        unDebris.DisableDamageableClientRpc();
+    //    }
+    //}
     private void OcultarDestructibles()
     {
-        foreach (var meteorito in meteoritos)
-        {
-            meteorito.DisableDamageableClientRpc();
-        }
-
-        foreach (var unDebris in debris)
-        {
-            unDebris.DisableDamageableClientRpc();
-        }
+        poolObjetosRonda[ronda].GetComponent<DestructibleContainer>().Activation(false);
     }
 
     //FINALIZA LA PARTIDA
     void finalizarPartida()
     {
-        //RESTAURAMOS NAVES Y METEORITOS
-        prepararEscenario();
         //DEVOLVEMOS LAS NAVES A SU ESTADO ORIGINAL
         foreach (var jugador in jugadores)
         {
@@ -190,6 +246,10 @@ public class Partida : NetworkBehaviour
         rondasGanadas[0] = 0;
         rondasGanadas[1] = 0;
         ronda = 1;
+        
+        //RESTAURAMOS NAVES Y METEORITOS
+        prepararEscenario();
+        
         partidasGanadasPorJugador.Clear();
     }
 
@@ -215,6 +275,8 @@ public class Partida : NetworkBehaviour
             }
         }
 
+        //poolObjetosRonda[ronda].GetComponent<DestructibleContainer>().Activation(false);
+        
         //SI UN JUGADOR HA GANADO MÁS DE LA MITAD DE LAS PARTIDAS, SE FINALIZA LA PARTIDA
         if (rondasGanadas[0] > maximoNumeroDeRondas / 2 || rondasGanadas[1] > maximoNumeroDeRondas / 2)
         {
@@ -227,8 +289,8 @@ public class Partida : NetworkBehaviour
             if (ronda < maximoNumeroDeRondas)
             {
                 mostrarResultado();
-                Invoke("iniciarRonda", 3.0f);
                 ronda++;
+                Invoke("iniciarRonda", 3.0f);
             }
             else
             {
@@ -269,6 +331,8 @@ public class Partida : NetworkBehaviour
             jugadores[0].opcionesJugador.deshabilitarNave();
             jugadores[1].opcionesJugador.deshabilitarNave();
         }
+        
+        poolObjetosRonda[ronda].GetComponent<DestructibleContainer>().Activation(false);
         
         //SI UN JUGADOR HA GANADO MÁS DE LA MITAD DE LAS PARTIDAS, SE FINALIZA LA PARTIDA
         if (rondasGanadas[0] > maximoNumeroDeRondas / 2 || rondasGanadas[1] > maximoNumeroDeRondas / 2)
@@ -379,20 +443,20 @@ public class Partida : NetworkBehaviour
         }
         
         //Obtener todos los meteoritos del propio mapa
-        meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
-
-        foreach (var meteorito in meteoritos)
-        {
-            meteorito.partida = this;
-        }
+        //meteoritos = EmptyContenedorDeMeteoritos.GetComponentsInChildren<Meteorito>();
+//
+        //foreach (var meteorito in meteoritos)
+        //{
+        //    meteorito.partida = this;
+        //}
         
-        //Obtener todos los meteoritos del propio mapa
-        debris = EmptyContenedorDeDebris.GetComponentsInChildren<Debris>();
-        
-        foreach (var resto in debris)
-        {
-            resto.partida = this;
-        }
+        ////Obtener todos los meteoritos del propio mapa
+        //debris = EmptyContenedorDeDebris.GetComponentsInChildren<Debris>();
+        //
+        //foreach (var resto in debris)
+        //{
+        //    resto.partida = this;
+        //}
         
         //Debug.Log(meteoritos.Length);
         
@@ -488,7 +552,7 @@ public class Partida : NetworkBehaviour
     void finalizarPartidaPorDesconexion()
     {
         //RESTAURAMOS NAVES Y METEORITOS
-        prepararEscenario();
+        //prepararEscenario();
         //MOSTRAMOS EL RESULTADO A PARTIR DE LA INTERFAZ
         //mostrarResultadoFinal();
         //DEVOLVEMOS LAS NAVES A SU ESTADO ORIGINAL
@@ -532,6 +596,10 @@ public class Partida : NetworkBehaviour
         rondasGanadas[0] = 0;
         rondasGanadas[1] = 0;
         ronda = 1;
+        
+        //RESTAURAMOS NAVES Y METEORITOS
+        prepararEscenario();
+        
         partidasGanadasPorJugador.Clear();
     }
 }
