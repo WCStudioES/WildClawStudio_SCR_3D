@@ -33,11 +33,13 @@ public abstract class ToggleAbility : ActiveAbility
     public override bool CheckAvailability()
     {
         //Debug.Log("Toogle llamada");
+        Debug.Log("Toggle Ability Check Availability");
         return true;
     }
 
     public void Toggle()
     {
+        Debug.Log("Toggle Toggle  Availability");
         if (timerActive)
         {
             timerActive = false;

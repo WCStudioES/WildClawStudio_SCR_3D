@@ -64,6 +64,7 @@ public class OpcionesJugador : NetworkBehaviour
     public void deshabilitarNave()
     {
         nave.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //nave.GetComponent<PlayerShip>().ResetRonda();
         nave.SetActive(false);
     }
 

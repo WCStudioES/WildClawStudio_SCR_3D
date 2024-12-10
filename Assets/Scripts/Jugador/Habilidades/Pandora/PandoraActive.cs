@@ -50,8 +50,9 @@ public class PandoraActive : ToggleAbility
         Debug.Log("ResetRonda");
         if (active)
         {
-            Toggle();
+            Stop();
         }
+        timerActive = true;
     }
 
     public override void Stop()

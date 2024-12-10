@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381e049a6ce6e6c409e82466c0db2f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Galactic Hammer
+  Name: Crushing hammer
   Description: 'Dashes backwards dealing damage on collision. '
   Sprite: {fileID: -694540940, guid: 92401f0f4ac214f4e92956a4d7550365, type: 3}
   resourceType: 2
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d252b52fb099f2542bc0d72614231911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Bonk
+  Name: Hammerhead
   Description: Deal damage to enemies hit by the hammerhead while rotating.
   Sprite: {fileID: 895042081, guid: 92401f0f4ac214f4e92956a4d7550365, type: 3}
   resourceType: 2
