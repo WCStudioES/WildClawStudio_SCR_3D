@@ -51,11 +51,11 @@ MonoBehaviour:
   dmg: 5
   timeOfEffect: 5
   ticksPerSecond: 2
-  speed: 3
+  speed: 0
   aoeSFX: {fileID: 0}
   aoeVFX: {fileID: 0}
   aoeVFXInstance: {fileID: 0}
-  slow: 3
+  slow: 4
   isUpgraded: 0
   upscaling: 2
 --- !u!135 &5332781582947477204

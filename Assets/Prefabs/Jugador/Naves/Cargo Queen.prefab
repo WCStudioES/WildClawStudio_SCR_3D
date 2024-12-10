@@ -229,7 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Frontal shield
-  Description: Generates a frontal shield barrier that blocks projectiles.(25s)
+  Description: Generates a frontal shield barrier that blocks projectiles. It recharges
+    afer a time of cooldown.
   Sprite: {fileID: 1042113909, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 25
