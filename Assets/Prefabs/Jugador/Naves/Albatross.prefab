@@ -449,8 +449,8 @@ MonoBehaviour:
     grenade on the spot. Recharges with cooldown.
   Sprite: {fileID: -1705088866, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
-  actualResQuantity: 15
-  neededResQuantity: 15
+  actualResQuantity: 6
+  neededResQuantity: 6
   visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 1

@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Living Ship
-  Description: Recover health each second-
+  Description: Recover health each second.
   Sprite: {fileID: -2013914438, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0

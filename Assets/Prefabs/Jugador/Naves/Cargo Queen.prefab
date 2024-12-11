@@ -233,8 +233,8 @@ MonoBehaviour:
     with cooldown.
   Sprite: {fileID: 1042113909, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
-  actualResQuantity: 25
-  neededResQuantity: 25
+  actualResQuantity: 7
+  neededResQuantity: 7
   visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 2

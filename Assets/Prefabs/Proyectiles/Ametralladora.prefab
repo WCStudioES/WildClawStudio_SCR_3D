@@ -49,7 +49,7 @@ MonoBehaviour:
   sprite: {fileID: 1225455163, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Machine gun
   description: 'Low damage but high attack speed. '
-  Upgradedescription: 'Upgrade(lvl 5): Increased damage.'
+  Upgradedescription: 'Upgrade(lvl 5): Increased shotrate.'
   mostrarEnSeleccion: 1
   dmg: 10
   speed: 55

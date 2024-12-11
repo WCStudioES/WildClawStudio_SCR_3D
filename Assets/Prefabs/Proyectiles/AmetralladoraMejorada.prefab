@@ -51,7 +51,7 @@ MonoBehaviour:
   description: Low damage but high attack speed
   Upgradedescription: 
   mostrarEnSeleccion: 0
-  dmg: 12
+  dmg: 10
   speed: 55
   cadencia: 0.2
   type: 0
