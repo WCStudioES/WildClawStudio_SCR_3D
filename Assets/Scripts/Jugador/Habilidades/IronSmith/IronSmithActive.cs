@@ -18,7 +18,7 @@ public class IronSmithActiva : DashAbility
     {
         isUpgraded = true;
         networkedPlayer.UpdateAbilityUIClientRpc(Color.magenta);
-        neededResQuantity-= UpgradedCdReduction ;
+        neededResQuantity = 5;
         dashDamage += UpgradedDmgIncreased;
         Debug.Log(dashDamage);
     }
@@ -30,7 +30,7 @@ public class IronSmithActiva : DashAbility
         if (isUpgraded)
         {
             isUpgraded = false;
-            neededResQuantity+= UpgradedCdReduction ;
+            neededResQuantity = 7;
             dashDamage -= UpgradedDmgIncreased ;
         }
     }

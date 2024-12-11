@@ -40,7 +40,7 @@ public abstract class Ability : MonoBehaviour, IAbility
             {
                 case ResourceType.CoolDown:
                     actualResQuantity = 0;
-                    StartCoroutine(CooldownCoroutine());
+                    //StartCoroutine(CooldownCoroutine());
                     break;
 
                 default:

@@ -686,7 +686,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [ClientRpc]
     private void UpgradeAbilityClientRpc()
     {
-        cuerpoNave.GetComponent<PlayerShip>().UpgradeAbility();
+        if (!IsOwnedByServer)
+        {
+            cuerpoNave.GetComponent<PlayerShip>().UpgradeAbility();
+        }
     }
 
 

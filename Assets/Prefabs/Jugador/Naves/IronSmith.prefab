@@ -203,8 +203,8 @@ MonoBehaviour:
   Description: 'Dashes backwards dealing damage on collision. '
   Sprite: {fileID: -694540940, guid: 92401f0f4ac214f4e92956a4d7550365, type: 3}
   resourceType: 2
-  actualResQuantity: 15
-  neededResQuantity: 15
+  actualResQuantity: 7
+  neededResQuantity: 7
   visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 4

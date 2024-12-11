@@ -69,4 +69,14 @@ public abstract class DashAbility : ActiveAbility
             nave.isDashing = false;
         }
     }
+
+    public override bool CheckAvailability()
+    {
+        if (actualResQuantity < neededResQuantity)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
