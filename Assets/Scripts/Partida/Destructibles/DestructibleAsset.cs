@@ -37,7 +37,7 @@ public class DestructibleAsset : Damageable
             if(resType == ResourceToGive.Health)
             {
                 dmgDealer.GetHealPercentage((int)((float)resToGive.Value * ((float)dmg/maxHealth)), dmgDealer);
-                //ActivateGetHealVFXClientRpc();
+                ActivateGetHealVFXForMatchPlayers(dmgDealer);
             }
 
             //Debug.Log("Vida del coso: " + actualHealth.Value);
@@ -86,7 +86,7 @@ public class DestructibleAsset : Damageable
 
     protected IEnumerator DestroyWithDelay()
     {
-        ActivateVFXClientRpc();
+        ActivateDestructionVFXForMatchPlayers();
         yield return new WaitForSeconds(0.1f); // Delay de 0.1 segundos
         SetAssetActive(false); // Desactiva el destructible en el servidor
         DisableDamageableClientRpc(); // Sincroniza la desactivación en los clientes
@@ -197,19 +197,64 @@ public class DestructibleAsset : Damageable
         }
     }
 
+
+    private void ActivateDestructionVFXForMatchPlayers()
+    {
+        if (IsServer)
+        {
+            // Crear la lista de clientes objetivo
+            List<ulong> targetClientIds = new List<ulong>();
+            foreach (var player in partida.jugadores)
+            {
+                targetClientIds.Add(player.OwnerClientId);
+            }
+
+            // Configurar los ClientRpcParams
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = targetClientIds.ToArray()
+                }
+            };
+
+            // Llamar al ClientRpc con los parámetros personalizados
+            ActivateDestructionVFXClientRpc(clientRpcParams);
+        }
+    }
+
+    private void ActivateGetHealVFXForMatchPlayers(NetworkedPlayer jugador)
+    {
+        if (IsServer)
+        {
+            // Crear la lista de clientes objetivo
+            List<ulong> targetClientIds = new List<ulong>();
+            foreach (var player in partida.jugadores)
+            {
+                targetClientIds.Add(player.OwnerClientId);
+            }
+
+            // Configurar los ClientRpcParams
+            ClientRpcParams clientRpcParams = new ClientRpcParams
+            {
+                Send = new ClientRpcSendParams
+                {
+                    TargetClientIds = targetClientIds.ToArray()
+                }
+            };
+
+            // Llamar al ClientRpc con los parámetros personalizados
+            jugador.ActivateGetHealVFXClientRpc(clientRpcParams);
+        }
+    }
+
     [ClientRpc]
-    public void ActivateVFXClientRpc()
+    public void ActivateDestructionVFXClientRpc(ClientRpcParams clientRpcParams = default)
     {
         Debug.Log("Activando vfx de meteorito");
         if(this is Meteorito)
         {
             VFXManager.Instance.SpawnVFX(VFXManager.VFXType.meteorite, transform.position, Quaternion.identity);
         }
-    }
-
-    [ClientRpc]
-    public void ActivateGetHealVFXClientRpc()
-    {
-        
     }
 }

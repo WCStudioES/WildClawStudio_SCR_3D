@@ -53,6 +53,7 @@ public class PandoraActive : ToggleAbility
             Stop();
         }
         timerActive = true;
+        networkedPlayer.actualHealth.Value = networkedPlayer.maxHealth.Value;
     }
 
     public override void Stop()

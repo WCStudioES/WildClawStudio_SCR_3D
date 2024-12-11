@@ -18,6 +18,7 @@ public class Shield : DestructibleAsset
         Debug.Log("Inicializando escudo");
         owner = pOwner;
         spawn = pSpawn;
+        partida = pOwner.partida;
 
         // Esto podr�a ocurrir solo en el servidor
         actualHealth.Value = maxHealth; // Inicializar salud
@@ -43,12 +44,12 @@ public class Shield : DestructibleAsset
             owner.UpdateShieldBarClientRpc(actualHealth.Value, false);
         if(actualHealth.Value <= 0 )
         {
-            DestroyDamageable(dmgDealer);
-
             if(this is VisualShield)
             {
                 owner.RemoveShield(this);
             }
+
+            DestroyDamageable(dmgDealer);
         }
         else
         {

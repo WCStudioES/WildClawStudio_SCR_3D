@@ -64,7 +64,6 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
     {
         SetLevels();
         InitializeStats();
-        InitializeVFX();
     }
 
     protected void Update()
@@ -185,8 +184,11 @@ public abstract class PlayerShip : MonoBehaviour, IPlayerShip
         }
     }
 
-    private void InitializeVFX()
+    public void InitializeVFX()
     {
+        activeAbility.InitializeVFX();
+        passiveAbility.InitializeVFX();
+
         foreach (Transform spawn in firePropulsors)
         {
             Debug.Log("VFXPrefab firePropulsors: Creado");

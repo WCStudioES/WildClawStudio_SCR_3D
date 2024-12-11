@@ -33,7 +33,7 @@ public abstract class Ability : MonoBehaviour, IAbility
     //Usado cuando se llama a la habilidad (pulsar tecla o Upadte() si es pasiva)
     public virtual void Execute()
     {
-        if (CheckAvailability())
+        if (CheckAvailability() && gameObject.activeInHierarchy)
         {
             AbilityExecution();
             switch(resourceType)
@@ -76,8 +76,6 @@ public abstract class Ability : MonoBehaviour, IAbility
     public void Start()
     {
         networkedPlayer = GetComponentInParent<NetworkedPlayer>();
-        Debug.Log("hola: " + networkedPlayer);
-        InitializeVFX();
     }
 
     public virtual void InitializeVFX()

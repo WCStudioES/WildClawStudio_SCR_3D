@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Partida : NetworkBehaviour
 {
-    
     //CONTROLA QUE LA PARTIDA ESTE ACTIVA
     public bool partidaEnMarcha = false;
     
@@ -238,7 +237,8 @@ public class Partida : NetworkBehaviour
     //}
     private void OcultarDestructibles()
     {
-        poolObjetosRonda[ronda].Activation(false);
+        Debug.Log(ronda + ", " + poolObjetosRonda.Length);
+        poolObjetosRonda[ronda-1].Activation(false);
     }
 
     //FINALIZA LA PARTIDA

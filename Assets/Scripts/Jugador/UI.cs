@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UI : NetworkBehaviour
@@ -13,6 +14,7 @@ public class UI : NetworkBehaviour
     [SerializeField]private GameObject LogIn;
     [SerializeField]private GameObject Personalizacion;
     [SerializeField]private GameObject Settings;
+    [SerializeField]private GameObject SettingsLogIn;
     public Image brightnessPanel;
     [SerializeField]private GameObject BuscandoPartida;
     [SerializeField]private GameObject Instrucciones;
@@ -221,6 +223,18 @@ public class UI : NetworkBehaviour
     {
         //Debug.Log("Hola");
         Settings.SetActive(false);
+    }
+
+    public void AbrirSettingsLogIn()
+    {
+        //Debug.Log("Hola");
+        SettingsLogIn.SetActive(true);
+    }
+
+    public void CerrarSettingsLogIn()
+    {
+        //Debug.Log("Hola");
+        SettingsLogIn.SetActive(false);
     }
 
     //GUARDA UNA PARTIDA EN EL HISTORIAL DE PARTIDAD
@@ -571,21 +585,79 @@ public class UI : NetworkBehaviour
     {
         if (IsServer)
         {
-            MatchmakingManager.ListaDePartidas[IDPartida].jugadores.Add(opcionesJugador.controladorDelJugador);
-            MeterJugadorEnLaPartidaClientRpc(IDPartida);
+            // Añadir el jugador actual al servidor
+            var jugadorActual = opcionesJugador.controladorDelJugador;
+            MatchmakingManager.ListaDePartidas[IDPartida].jugadores.Add(jugadorActual);
+
+            // Crear la lista de clientes objetivo
+            List<ulong> jugadoresIds = new List<ulong>();
+            foreach (var jugador in MatchmakingManager.ListaDePartidas[IDPartida].jugadores)
+            {
+                jugadoresIds.Add(jugador.OwnerClientId); // Obtener los IDs de los jugadores en la partida
+            }
+
+            // Obtener el rival (solo funciona si hay exactamente dos jugadores en la partida)
+            var rival = MatchmakingManager.ListaDePartidas[IDPartida].jugadores
+                .Find(j => j.OwnerClientId != jugadorActual.OwnerClientId);
+
+            if (rival != null)
+            {
+                // Enviar el ClientRpc a ambos jugadores
+                MeterJugadorEnLaPartidaClientRpc(
+                    IDPartida,
+                    jugadorActual.OwnerClientId,
+                    rival.OwnerClientId,
+                    new ClientRpcParams
+                    {
+                        Send = new ClientRpcSendParams
+                        {
+                            TargetClientIds = jugadoresIds.ToArray()
+                        }
+                    });
+            }
         }
     }
     
     [ClientRpc]
-    public void MeterJugadorEnLaPartidaClientRpc(int IDPartida)
+    public void MeterJugadorEnLaPartidaClientRpc(int IDPartida, ulong myID, ulong rivalID, ClientRpcParams clientRpcParams = default)
     {
         Debug.Log("Meter jugador en partida (Client)");
-        if (IsClient && !IsHost)
+        if (IsClient)
         {
-            MatchmakingManager.ListaDePartidas[IDPartida].jugadores.Add(opcionesJugador.controladorDelJugador);
+            // Obtener la partida localmente
+            var partida = MatchmakingManager.ListaDePartidas[IDPartida];
+
+            // Añadir el jugador actual (si no está ya en la lista)
+            if (!partida.jugadores.Exists(j => j.OwnerClientId == myID))
+            {
+                partida.jugadores.Add(opcionesJugador.controladorDelJugador);
+                opcionesJugador.controladorDelJugador.partida = partida;
+                VFXManager.Instance.SetGameID(IDPartida);
+            }
+
+            // Añadir al rival (si no está ya en la lista)
+            var jugadorRival = FindJugadorById(rivalID);
+            if (jugadorRival != null && !partida.jugadores.Exists(j => j.OwnerClientId == rivalID))
+            {
+                jugadorRival.partida = partida;
+                partida.jugadores.Add(jugadorRival);
+            }
         }
     }
-    
+
+    // Método auxiliar para encontrar un jugador por su ID (NetworkedPlayer)
+    private NetworkedPlayer FindJugadorById(ulong id)
+    {
+        foreach (var player in FindObjectsOfType<NetworkedPlayer>())
+        {
+            if (player.OwnerClientId == id) // Comparar con el ClientId del jugador
+            {
+                return player;
+            }
+        }
+        return null; // No se encontró el jugador
+    }
+
     //CUENTA ATRAS///////////////////////////////
     public void iniciarCuentaAtras()
     {

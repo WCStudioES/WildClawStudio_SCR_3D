@@ -46,6 +46,7 @@ public class FireRing : AreaDmg
 
     private void ShrinkRing()
     {
+        Debug.Log("FireRing Shrinks");
         // Calculamos el progreso del cierre del anillo
         elapsedTime += Time.deltaTime;
         float t = Mathf.Clamp01(elapsedTime / shrinkDuration);
@@ -61,6 +62,7 @@ public class FireRing : AreaDmg
 
     private void CheckPlayersInRing()
     {
+        Debug.Log("FireRing checks for players inside it");
         foreach (var player in players)
         {
             if (player == null) continue;
@@ -88,6 +90,7 @@ public class FireRing : AreaDmg
 
     public void AddPlayer(Transform player)
     {
+        Debug.Log("FireRing adds player");
         players.Add(player);
     }
     
@@ -119,6 +122,8 @@ public class FireRing : AreaDmg
         currentInnerRadius = startOuterRadius;
 
         StopAllCoroutines();
+
+        Debug.Log("FireRing Reset");
     }
 
     private void OnDrawGizmos()

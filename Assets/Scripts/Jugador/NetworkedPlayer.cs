@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using UnityEngine.Windows;
 using Image = UnityEngine.UI.Image;
 
 public class NetworkedPlayer : NetworkBehaviour, IDamageable
@@ -17,7 +18,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
     [SerializeField] public ControladorNave nave;
     public GameObject cuerpoNave;  //Gameobject con el collider de la nave, evita autohit
     public Partida partida;
-    
+    private ulong[] rivalClientIds;
+
     //INFORMACIÓN DEL USUARIO
     public string userName;
     public int battlePassLevel;
@@ -176,6 +178,10 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value);
             UpdateShieldBarClientRpc(0, false);
             UpdateExperienceBarClientRpc(0, 1);
+        }
+        else
+        {
+            nave.playerShip.InitializeVFX();
         }
         uiBoosters.ResetPartida(allProjectiles[proyectilBasico].GetComponent<Proyectil>().sprite);
     }
@@ -453,11 +459,15 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
                 actualHealth.Value -= (dmg - dmg * armor.Value / 100);  // Resta la cantidad de daño a la vida de la nave
                 UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
             }
-            else if (activeShields.Count > 0 && activeShields[activeShields.Count-1] == null)
+            else if (activeShields.Count > 0 && (activeShields[activeShields.Count-1] == null || activeShields[activeShields.Count-1].actualHealth.Value <= 0))
             {
                 activeShields.RemoveAt(activeShields.Count-1);
                 actualHealth.Value -= (dmg - dmg * armor.Value / 100);
                 UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
+            }
+            else if(activeShields.Count > 0 && activeShields[activeShields.Count- 1] != null)
+            {
+                activeShields[activeShields.Count-1].GetDamage(dmg, dueñoDaño);
             }
 
             // Si la vida llega a 0, destruye la nave (puedes modificar esto para otro comportamiento)
@@ -542,7 +552,13 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             nave.LowHealthVFXClientRpc(false);
         }
     }
-    
+
+    [ClientRpc]
+    public void ActivateGetHealVFXClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        VFXManager.Instance.SpawnVFX(VFXManager.VFXType.getHeal, nave.transform.position, Quaternion.identity);
+    }
+
     //Funcion que gestiona la obtención de xp del jugador
     public void GetXP(int xpRecibida)
     {

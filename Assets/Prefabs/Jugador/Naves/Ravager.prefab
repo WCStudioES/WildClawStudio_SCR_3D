@@ -505,9 +505,9 @@ MonoBehaviour:
   Name: Antikinetic Shield
   Description: "The ship doesn\xB4t get damage from any kind of collision"
   Sprite: {fileID: 1285309978, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
-  resourceType: 0
-  actualResQuantity: 0
-  neededResQuantity: 0
+  resourceType: 2
+  actualResQuantity: 1
+  neededResQuantity: 1
   visualEffects: []
   networkedPlayer: {fileID: 0}
   type: 0

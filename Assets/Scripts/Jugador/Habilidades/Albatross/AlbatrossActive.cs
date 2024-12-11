@@ -16,7 +16,7 @@ public class AlbatrossActive : ShootProjectileAbility
     {
         Debug.Log("Albatros lanza habilidad");
 
-        if (!isActive)
+        if (!isActive && gameObject.activeInHierarchy)
         {
             isActive = true;
             Transform spawn = GetComponentInParent<PlayerShip>().proyectileSpawns[0];

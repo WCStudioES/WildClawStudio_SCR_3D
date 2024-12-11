@@ -44,11 +44,11 @@ public class StormAoE : AreaDmg
 
     public override void ExtraBehaviour(float time)
     {
-        if (isUpgraded)
-        {
-            transform.localScale += new Vector3(upscaling * time, 0, upscaling * time);
-            Debug.Log("Mejorado" + isUpgraded);
-        }
+        //if (isUpgraded)
+        //{
+        //    transform.localScale += new Vector3(upscaling * time, 0, upscaling * time);
+        //    Debug.Log("Mejorado" + isUpgraded);
+        //}
     }
 
     //public IEnumerator IncreaseScale()

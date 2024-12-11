@@ -71,6 +71,7 @@ public class VisualShield : Shield
         if (index >= 0 && index < instantiatedModels.Count)
         {
             instantiatedModels[index].SetActive(true);
+            instantiatedModels[index].GetComponent<MeshCollider>().enabled = false;
         }
     }
 

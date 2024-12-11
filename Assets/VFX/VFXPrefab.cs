@@ -142,7 +142,7 @@ public class VFXPrefab : MonoBehaviour
 
                 ssVFXInstance.enabled = state;
 
-                if (state && animType == AnimationType.Simple)
+                if (gameObject.activeInHierarchy && state && animType == AnimationType.Simple)
                 {
                     StartCoroutine(ReturnVFXToPool());
                 }

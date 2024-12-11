@@ -21,6 +21,13 @@ public class RavagerPassive : OnCollisionPassive
 
     public override bool CheckAvailability()
     {
-        return true;
+        if(actualResQuantity > neededResQuantity)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
