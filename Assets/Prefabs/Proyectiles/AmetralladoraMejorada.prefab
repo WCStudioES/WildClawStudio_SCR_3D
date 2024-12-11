@@ -49,8 +49,9 @@ MonoBehaviour:
   sprite: {fileID: 1225455163, guid: 34ab60401f9c7804ca6b562ec39cee6b, type: 3}
   weaponName: Machine gun
   description: Low damage but high attack speed
+  Upgradedescription: 
   mostrarEnSeleccion: 0
-  dmg: 15
+  dmg: 12
   speed: 55
   cadencia: 0.2
   type: 0

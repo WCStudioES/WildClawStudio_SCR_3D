@@ -445,9 +445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Storm Grenade
-  Description: Throws a grenade that creates a storm that damages any ship within
-    its area. Reactivation detonates the grenade on the spot. It recharges after
-    a time of cooldown.
+  Description: Throws a grenade that creates a storm. Reactivation detonates the
+    grenade on the spot. Recharges with cooldown.
   Sprite: {fileID: -1705088866, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 2
   actualResQuantity: 15
@@ -461,7 +460,7 @@ MonoBehaviour:
   stormGrenade: {fileID: 5047976631321185189, guid: 743aabaa9ba67734caf03eefc3817bb3, type: 3}
   upgradedStormGrenade: {fileID: 6037746621793311029, guid: 932df56190e113346b9f0d1490f11f07, type: 3}
   tiempoDeVida: 3
-  damage: 5
+  damage: 8
 --- !u!114 &1475624673909171016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,8 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Executioner
-  Description: Projectile damage is increased % to enemies with less than 30% of
-    ther life.
+  Description: Projectile damage is increased to enemies with less than 30% of ther
+    life.
   Sprite: {fileID: 2094948976, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0

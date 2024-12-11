@@ -327,7 +327,7 @@ MonoBehaviour:
   upgradeDescription: 'Upgrade(Lvl 6): The state also reduces 10% of the incoming
     damage.'
   hpThreshold: 20
-  dmgBoost: 15
+  dmgBoost: 40
   dmgReduction: 10
 --- !u!114 &4777893122438865834
 MonoBehaviour:
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Living Ship
-  Description: The ships recovers health each second.
+  Description: Recover health each second-
   Sprite: {fileID: -2013914438, guid: f8315c85e97af214c90cda0a3a826762, type: 3}
   resourceType: 0
   actualResQuantity: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   networkedPlayer: {fileID: 0}
   type: 0
   buffedStat: 0
-  buffQuantity: 1
+  buffQuantity: 2
 --- !u!1 &6484503722791537797
 GameObject:
   m_ObjectHideFlags: 0
