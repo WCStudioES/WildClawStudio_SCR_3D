@@ -44,6 +44,8 @@ namespace Test
         public static bool EsServidorPublico = false;
         
         //public GameObject Fondo;
+
+        public DesconectarClienteSiServidorNoResponde desconectarCliente;
         
         public GitHubUpdater githubUpdater;
         private async void Start()
@@ -155,6 +157,8 @@ namespace Test
                 
                 if(esServidorPublico)
                     githubUpdater.actualizarCodigoServidorPublico(joinCode);
+
+                desconectarCliente.IniciarCuentaAtras = true;
             }
             catch (RelayServiceException e)
             {
@@ -193,6 +197,8 @@ namespace Test
                 OcultarUIServidor(false);
                 setFrameLimit(false);
                 unidoAUnServidor = true;
+                
+                desconectarCliente.IniciarCuentaAtras = true;
             }
             catch (RelayServiceException e)
             {

@@ -476,7 +476,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 479509251439672668, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 641862681022355304, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -512,11 +512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3054152433475254840, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3137963396582892628, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3681268103178545079, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_Pivot.x
@@ -606,10 +606,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -126.20007
       objectReference: {fileID: 0}
-    - target: {fileID: 5236987278779206989, guid: b4541b38afed1f645b94996157e460b0, type: 3}
-      propertyPath: m_text
-      value: 2.4.8
-      objectReference: {fileID: 0}
     - target: {fileID: 5287722716828135225, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -672,7 +668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7844458764332578581, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8787796147782397587, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_Enabled
@@ -4341,6 +4337,10 @@ PrefabInstance:
       propertyPath: esServidorPublico
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5552459378764018347, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
+      propertyPath: desconectarCliente
+      value: 
+      objectReference: {fileID: 860556331}
     - target: {fileID: 5552459378764018347, guid: 3e42ffa9ce86bd64aa7f5cc8d91be37f, type: 3}
       propertyPath: botonServidorPublico
       value: 

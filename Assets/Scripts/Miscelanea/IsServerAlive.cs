@@ -54,7 +54,7 @@ public class IsServerAlive : NetworkBehaviour
         {
             AudioManager.Instance.StopMusic();
             NetworkManager networkManager = GameObject.FindObjectOfType<NetworkManager>();
-            NetworkManager.Singleton.DisconnectClient(networkManager.LocalClient.ClientId);
+            NetworkManager.Singleton.Shutdown();
             if(networkManager.gameObject != null)
                 GameObject.Destroy(networkManager.gameObject);      
 
