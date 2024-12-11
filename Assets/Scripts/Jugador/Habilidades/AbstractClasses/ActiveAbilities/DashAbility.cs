@@ -40,7 +40,7 @@ public abstract class DashAbility : ActiveAbility
 
         float elapsedTime = 0f;
 
-        while (elapsedTime < dashDuration)
+        while (elapsedTime < dashDuration && nave.isDashing)
         {
             elapsedTime += Time.deltaTime;
 
@@ -68,9 +68,5 @@ public abstract class DashAbility : ActiveAbility
             nave.GetComponent<Rigidbody>().velocity = Vector3.zero;
             nave.isDashing = false;
         }
-
-        networkedPlayer.UpdateCDAbilityUIClientRpc(neededResQuantity, isUpgraded);
-
-        networkedPlayer.ToggleAbilityVFXClientRpc(false);
     }
 }

@@ -167,6 +167,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             // Otras inicializaciones
             xp.Value = 0;
             lvl.Value = 1;
+            xpADar.Value = 200;
+
             projectile.Value = proyectilBasico;
             canUseAbility = false;
             isSupportAvailable = false;
@@ -509,7 +511,17 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
         }
 
         //Debug.Log("Vida actual de la nave: " + actualHealth);
-        UpdateHealthBarClientRpc(actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
+
+        //Suma la vida de los escudos para que aparezca bien en la UI
+        int shieldsHP = 0;
+        foreach(Shield shield in activeShields)
+        {
+            if(shield != null)
+            {
+                shieldsHP += shield.actualHealth.Value;
+            }
+        }
+        UpdateHealthBarClientRpc(shieldsHP + actualHealth.Value, maxHealth.Value); //Actualizar barra de vida
 
         //VFX
         if (actualHealth.Value < maxHealth.Value / 4)

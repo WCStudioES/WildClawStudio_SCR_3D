@@ -43,7 +43,10 @@ public abstract class Damageable : NetworkBehaviour, IDamageable
     [ClientRpc]
     protected void ChangeMaterialColorClientRpc(float duration)
     {
-        StartCoroutine(FlashMaterialsInChildren(duration));
+        if (assetCollider.enabled)
+        {
+            StartCoroutine(FlashMaterialsInChildren(duration));
+        }
     }
 
     protected IEnumerator FlashMaterialsInChildren(float duration)
