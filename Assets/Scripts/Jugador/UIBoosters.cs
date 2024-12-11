@@ -132,6 +132,8 @@ public class UIBoosters : MonoBehaviour
             weaponAbility.sprite = weapon;
             activeAbility.color = Color.white;
             weaponAbility.color = Color.white;
+            weaponAbility.fillAmount = 1f;
+            activeAbility.fillAmount = 1f;
         }
     }
     

@@ -322,6 +322,8 @@ public class NetworkedPlayer : NetworkBehaviour, IDamageable
             else
             {
                 float maxExperience = (float) cuerpoNave.GetComponent<PlayerShip>().xpByLvl[lvl - 1];
+                if (experience > maxExperience)
+                    experience -=(int) maxExperience;
                 float xpPercentage = experience / maxExperience;
                 textoExperiencia.text = experience.ToString() + " / " + maxExperience.ToString();
                 barraDeExperiencia.fillAmount = xpPercentage;
