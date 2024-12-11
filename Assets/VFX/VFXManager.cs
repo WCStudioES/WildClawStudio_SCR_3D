@@ -139,9 +139,37 @@ public class VFXManager : MonoBehaviour
         PreloadVFX();
     }
 
+    public bool IsWebGLOnMobile()
+    {
+        // Verificar si es WebGL y un dispositivo móvil
+        return Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform;
+    }
+
+    private void ReduceVFXPoolSize()
+    {
+        // Aquí reduces el tamaño de las pools de VFX o ajustas configuraciones
+        // Ejemplo:
+        VFXManager.Instance.meteoriteDestructionPool.poolSize = 4; // Cambia según tu sistema de VFX
+        VFXManager.Instance.greenShotPool.poolSize = 8;
+        VFXManager.Instance.redShotPool.poolSize = 10;
+        VFXManager.Instance.orangeShotPool.poolSize = 8;
+        VFXManager.Instance.explosionPool.poolSize = 4;
+        VFXManager.Instance.shipSmokePool.poolSize = 3;
+        VFXManager.Instance.shipPropulsionPool.poolSize = 4;
+        VFXManager.Instance.fireRingPool.poolSize = 3;
+        VFXManager.Instance.getHealPool.poolSize = 4;
+        VFXManager.Instance.getPassiveDamagePool.poolSize = 1;
+    }
+
     private void InitializePools()
     {
         if (IsServer()) return;
+
+        if (IsWebGLOnMobile())
+        {
+            Debug.Log("El juego está corriendo en un navegador de móvil. Ajustando configuraciones...");
+            ReduceVFXPoolSize();
+        }
 
         meteoriteDestructionPool.Initialize(transform);
         greenShotPool.Initialize(transform);
@@ -153,6 +181,8 @@ public class VFXManager : MonoBehaviour
         fireRingPool.Initialize(transform);
         getHealPool.Initialize(transform);
         getPassiveDamagePool.Initialize(transform);
+        Debug.Log("El juego no está corriendo en un navegador de móvil.");
+
     }
 
     public VFXPrefab SpawnVFX(VFXType type, Vector3 position, Quaternion rotation, Transform parent = null)//, int pGameID, Transform parent = null)
