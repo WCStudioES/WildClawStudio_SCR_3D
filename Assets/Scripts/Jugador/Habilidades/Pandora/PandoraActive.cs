@@ -15,6 +15,7 @@ public class PandoraActive : ToggleAbility
         Debug.Log("Pandora ability before routine" + isUpgraded);
         StartCoroutine("ReduceLife");
         Debug.Log("Pandora ability after routine" + isUpgraded);
+
         //Aumentar daño
         networkedPlayer.dmgBalance.Value += dmgBoost;
         
@@ -62,14 +63,21 @@ public class PandoraActive : ToggleAbility
 
         Debug.Log("AcabarHabilidadIf");
 
-        //Disminuir daño
-        networkedPlayer.dmgBalance.Value -= dmgBoost;
-        if (isUpgraded)
+        PlayerShip ship = gameObject.GetComponent<PlayerShip>();
+
+        if(ship != null)
         {
-            networkedPlayer.armor.Value -= dmgReduction;
-            networkedPlayer.UpdateAbilityUIClientRpc(Color.magenta);
+            //Disminuir daño
+            networkedPlayer.dmgBalance.Value = ship.dmgBalance + ship.dmgIncrement * networkedPlayer.lvl.Value;
+            if (isUpgraded)
+            {
+                networkedPlayer.armor.Value = ship.initialArmor + ship.armorIncrement * networkedPlayer.lvl.Value;
+                networkedPlayer.UpdateAbilityUIClientRpc(Color.magenta);
+            }
+            else
+                networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
+
         }
-        else
-            networkedPlayer.UpdateAbilityUIClientRpc(Color.white);
+
     }
 }
