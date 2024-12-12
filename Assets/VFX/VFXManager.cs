@@ -24,7 +24,7 @@ public class VFXManager : MonoBehaviour
     public class VFXPool
     {
         public GameObject prefab; // Prefab del efecto visual.
-        public int poolSize;      // Número de instancias iniciales.
+        public int poolSize;      // Nï¿½mero de instancias iniciales.
         public Queue<GameObject> poolQueue;
         private List<GameObject> activeObjects = new List<GameObject>(); // Lista de objetos activos.
 
@@ -56,11 +56,11 @@ public class VFXManager : MonoBehaviour
                 obj.transform.position = position;
                 obj.transform.rotation = rotation;
 
-                activeObjects.Add(obj); // Añadir a la lista de activos.
+                activeObjects.Add(obj); // Aï¿½adir a la lista de activos.
                 return obj.GetComponent<VFXPrefab>();
             }
 
-            Debug.LogWarning($"No quedan instancias en la pool de {prefab.name}. Expande el tamaño de la pool.");
+            Debug.LogWarning($"No quedan instancias en la pool de {prefab.name}. Expande el tamaï¿½o de la pool.");
             return null;
         }
 
@@ -141,21 +141,21 @@ public class VFXManager : MonoBehaviour
 
     public bool IsWebGLOnMobile()
     {
-        // Verificar si es WebGL y un dispositivo móvil
+        // Verificar si es WebGL y un dispositivo mï¿½vil
         return Application.platform == RuntimePlatform.WebGLPlayer && Application.isMobilePlatform;
     }
 
     private void ReduceVFXPoolSize()
     {
-        // Aquí reduces el tamaño de las pools de VFX o ajustas configuraciones
+        // Aquï¿½ reduces el tamaï¿½o de las pools de VFX o ajustas configuraciones
         // Ejemplo:
-        VFXManager.Instance.meteoriteDestructionPool.poolSize = 4; // Cambia según tu sistema de VFX
+        VFXManager.Instance.meteoriteDestructionPool.poolSize = 4; // Cambia segï¿½n tu sistemaï¿½deï¿½VFX
         VFXManager.Instance.greenShotPool.poolSize = 8;
         VFXManager.Instance.redShotPool.poolSize = 10;
         VFXManager.Instance.orangeShotPool.poolSize = 8;
         VFXManager.Instance.explosionPool.poolSize = 4;
         VFXManager.Instance.shipSmokePool.poolSize = 3;
-        VFXManager.Instance.shipPropulsionPool.poolSize = 4;
+        VFXManager.Instance.shipPropulsionPool.poolSize = 10;
         VFXManager.Instance.fireRingPool.poolSize = 3;
         VFXManager.Instance.getHealPool.poolSize = 4;
         VFXManager.Instance.getPassiveDamagePool.poolSize = 1;
@@ -167,7 +167,7 @@ public class VFXManager : MonoBehaviour
 
         if (IsWebGLOnMobile())
         {
-            Debug.Log("El juego está corriendo en un navegador de móvil. Ajustando configuraciones...");
+            Debug.Log("El juego estï¿½ corriendo en un navegador de mï¿½vil. Ajustando configuraciones...");
             ReduceVFXPoolSize();
         }
 
@@ -181,7 +181,7 @@ public class VFXManager : MonoBehaviour
         fireRingPool.Initialize(transform);
         getHealPool.Initialize(transform);
         getPassiveDamagePool.Initialize(transform);
-        Debug.Log("El juego no está corriendo en un navegador de móvil.");
+        Debug.Log("El juego no estï¿½ corriendo en un navegador de mï¿½vil.");
 
     }
 
@@ -225,7 +225,7 @@ public class VFXManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"No se encontró un pool para el tipo '{type}' al intentar devolver el VFX.");
+            Debug.LogError($"No se encontrï¿½ un pool para el tipo '{type}' al intentar devolver el VFX.");
         }
     }
 
