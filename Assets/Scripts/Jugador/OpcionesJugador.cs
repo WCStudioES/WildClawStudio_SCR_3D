@@ -53,6 +53,7 @@ public class OpcionesJugador : NetworkBehaviour
         movimientoActivado = false;
         networkTransformNave.Interpolate = false;
         nave.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        VFXManager.Instance.ReturnAllRoundVFX();
     }
     
     public void reactivarMovimiento()

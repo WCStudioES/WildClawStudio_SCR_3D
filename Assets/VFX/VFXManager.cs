@@ -269,6 +269,21 @@ public class VFXManager : MonoBehaviour
         isReturningAllVFX = false;
         Debug.Log("Todos los VFX han sido devueltos a sus pools.");
     }
+    
+    public void ReturnAllRoundVFX()
+    {
+        if (IsServer()) return;
+
+        meteoriteDestructionPool.ReturnAll();
+        greenShotPool.ReturnAll();
+        redShotPool.ReturnAll();
+        orangeShotPool.ReturnAll();
+        explosionPool.ReturnAll();
+        getHealPool.ReturnAll();
+        getPassiveDamagePool.ReturnAll();
+        
+        //Debug.Log("Todos los VFX han sido devueltos a sus pools.");
+    }
 
     // Comprueba si un cliente pertenece a la partida actual
     private bool EsClienteDePartida(ulong clientId)
