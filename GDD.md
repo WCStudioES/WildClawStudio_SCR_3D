@@ -96,11 +96,12 @@ Mecánicas prepartida:
 
 Mecánicas en partida:
 1. La victoria de la partida consiste en ganar un mejor de 3 rondas.
-2. Cada ronda dura 60 segundos y la gana quién destruya la nave del rival o tenga más vida al acabar el tiempo.
-3. Los jugadores comienzan en extremos opuestos de la arena.
-4. Los jugadores usan su arma para destruir al rival y los meteoritos distribuidos en la arena (ambas les dan experiencia).
-5. La experiencia se traduce en subidas de nivel y este nivel, de cada jugador, se comparte entre rondas.
-6. Las subidas de nivel aportan mejoras de estadísticas, desbloquean habilidades y desbloquean las mejoras elegidas en la pantalla prepartida.
+2. Cada ronda el ganador es el jugador superviviente.
+3. Cada ronda dura 60 segundos, tras ello se genera un aro de fuego que hace daño, el cual se va cerrando poco a poco hasta que un jugador muera
+4. Los jugadores comienzan en extremos opuestos de la arena.
+5. Los jugadores usan su arma para destruir al rival, los meteoritos distribuidos en la arena (ambas les dan experiencia) y los satélites que restauran vida al jugador.
+6. La experiencia se traduce en subidas de nivel y este nivel, de cada jugador, se comparte entre rondas.
+7. Las subidas de nivel aportan mejoras de estadísticas, desbloquean habilidades y desbloquean las mejoras elegidas en la pantalla prepartida.
 
 ## Controles
 Para el movimieto de la nave, en versión dispositivo con teclado, se usarán WAD (donde W es para acelerar y AD es para el control de la dirección, no se puede volar hacia atrás). Para la versión en móvil se utilzan dos botones táctiles para girar a izquierda y derecha y un tercer botón para acelerar. 
@@ -114,18 +115,20 @@ Y, finalmente, para navegar entre las distintas pantallas, se utilizará el rat�
 El objetivo en este juego es simple, conseguir matar a todo jugador al que te enfrentes para ascender en el ranking que se visualizará al terminar una partida. Se apelará a la competitividad de los jugadores para que busquen conseguir estar en el top entre todos los usuarios.
 
 ## Elementos del mapa
+Los elementos del mapa cambian de posición cada ronda.
+
 ### Meteoritos
 Los meteoritos son objetos distribuidos por el mapa que, al destruirlos, dan experiencia al que haya dado el disparo final.
 
-### Debris espacial
+### Satélites
 El debris espacial son una pequeña cantidad de objetos distribuido por el mapa. Al hacerles daño regenera vida al jugador, y al destruirlo, da una curación mayor.
 
 ## Mapas
 ### Centro del Coliseo
 
-Mapa básico del juego. Consiste en una arena circular con meteoritos en los laterales y varios debris en el centro del mapa.
+Mapa básico del juego. Consiste en una arena circular con meteoritos y varios satélites distribuidos mapa.
 
-La ambientación de la zona es una arena en medio de una gran estación, con gradas y personas en los laterales.
+La ambientación de la zona es una arena en medio de una gran estación espacial con una cupula espacial.
 
 ### Hangares
 <img width=800 heigth=800 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/LayoutHangares.png">
@@ -160,6 +163,13 @@ Albatross es una nave con un gran control en largas distancias, evita que sus en
 
 - **Pasiva.** Ejecutor: si el enemigo tiene menos de 30% de vida, sus proyectiles y habilidad le aplican más daño.
 - **Activa.** Granada de tormenta: lanza una granada que estalla en un circulo de rayos que daña cada segundo que alguien está dentro.
+
+### Ironsmith
+Ironsmith posee poco daño a distancia; sin embargo posee un gran pode ren combate cercano gracias a la cabeza de martillo, aplastando a rivales cercanos.
+
+- **Pasiva.** Cabeza de martillo: hace daño con la cabeza de martillo mientras rota.
+- **Activa.** Martillo arrasador: hace un deslizamiento hacia atrás haciendo daño en el camino.
+
 ## Objetos, armas y power ups
 
 **Componentes de arma**
@@ -168,9 +178,8 @@ Albatross es una nave con un gran control en largas distancias, evita que sus en
 - **Lanzamisiles:** Cañón de baja cadencia de disparo que lanza misiles de gran daño.
 
 **Componentes de apoyo**
-- **Rotador mejorado:** la nave girar sobre sí misma más rápido.
+- **Reductor:** reduce el recurso necesario que consume una habilidad un 10%.
 - **Escudo:** incorpora un escudo que actua como vida adicional no recargable.
-- **Motor mejorado:** incrementa la velocidad de movimiento de la nave.
     
 
 # Arte
