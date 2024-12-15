@@ -45,7 +45,10 @@ LinkTree con los enlaces del proyecto:(https://linktr.ee/wildclawstudio)
      * [Estimación temporal del desarrollo](#estimación-temporal-del-desarrollo)
      * [Costes asociados](#costes-asociados)
      * [Hoja de ruta del desarrollo](#hoja-de-ruta-del-desarrollo)
- 18. [Post mortem (lecciones aprendidas)](#post-mortem-lecciones-aprendidas)
+ 17. [Marketing](#marketing)
+     * [Redes sociales](#redes-sociales)
+     * [Porfolio](#porfolio)
+ 19. [Post mortem (lecciones aprendidas)](#post-mortem-lecciones-aprendidas)
      * [Trabajo individual realizado](#trabajo-individual-realizado)
          * [Anastasia Ihnatsenka Shakhova](#anastasia-ihnatsenka-shakhova)
          * [José Antonio González Mesado](#josé-antonio-gonzález-mesado)
@@ -457,6 +460,72 @@ El coste del desarrollo se estima en unos **50.000€**. Esto equivaldría a 4 m
 | Publicidad | 5.000€ |
 | **Total** | **50.000€** |
 
+# Marketing
+---
+En este apartado se detalla el trabajo de cara a la publicidad de la empresa y el juego que acontece: Space Combat Rush 3D. Uno de los elementos principales a tener en cuenta es la imagen que buscamos transmitir; por un lado de la propia empresa Wild Claw Studio y, por otro, del juego.
+
+Comencemos por la imagen de la empresa. Como empresa, contamos con una serie de valores que siempre queremos que se asocien a nosotros: familia, fuerza, determinación y libertad. Por ello, una de las claves para diseñar nuestra huella, es comprender qué colores nos vamos a asociar y las figuras o formas predomintantes.
+
+Nuestros colores principales serán el rojo, el negro y el blanco, combinados con una mezcla equilibrada de formas redondeadas y picudas como base de nuestra esencia. En cuanto a los colores, buscamos un contraste muy marcado entre el blanco y el negro: el negro aporta elegancia y estabilidad a la imagen, mientras que el blanco proporciona legibilidad y transmite pureza o inocencia. Por su parte, el rojo añade un toque de poder, pasión y atracción visual.
+
+Estas tonalidades, combinadas con las formas (por ejemplo, en el logotipo), evocan diferentes conceptos. Las letras redondeadas, como la D, la C o la O, que son casi círculos perfectos, sugieren niñez, suavidad y amabilidad. Sin embargo, las serifas de estas mismas letras aportan elegancia gracias a sus trazos terminados, mientras que el zarpazo detrás de las letras refuerza la idea de poder y agresividad.
+
+Con esta combinación, transmitimos que somos fieros al proteger lo que es nuestro y fuertes al luchar por lo que queremos. Sin embargo, al igual que los animales —con la zarpa como símbolo identificativo de nuestra marca—, cuidamos de nuestra familia y, por ende, de nuestro producto.
+
+Además, los daños visibles en las letras, provocados por el zarpazo, reflejan que somos un equipo que siempre busca superarse a sí mismo, sin temor a salir de nuestra zona de confort y explorar nuevos caminos. Tal como una mariposa que se transforma al salir de la crisálida, nosotros evolucionamos constantemente para alcanzar nuevas metas.
+
+Esta filosofía queda reflejada en el logotipo de nuestra empresa, que podéis ver a continuación:
+
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/WildClawLogo2.png"> <br>
+</p>
+
+Toda esta idea se transmite a nuestra pagina web y todas nuestras redes sociales cuando hablamos de nosotros.
+
+En cuanto al propio juego, se trata de un juego de naves inspirado en el clásico arcade Asteroids, pero renovado con una estética 3D más actual. El diseño se centra en ofrecer una gran libertad de personalización a los jugadores, así como partidas cortas y dinámicas. Por ello, la imagen que buscamos transmitir es la de un juego intenso, rápido y emocionante.
+
+La estética del juego es futurista, limpia y minimalista, con una paleta de colores basada en negro, azul y rojo como principales. Estos colores están presentes en las dos naves más representativas del juego: Pandora (roja) y Ravager (azul). El negro actúa como contenedor y base para todos los demás colores (similar a la esencia visual de la empresa). Por otro lado, los tonos azules metálicos y los rojos intensos aportan una sensación de futurismo, agresividad y dinamismo, elementos que reflejan perfectamente la esencia que queremos evocar con este proyecto.
+
+Además, queremos que este juego sea percibido como accesible y atractivo para todos los públicos, especialmente dentro de nuestro rango de edad objetivo (12-18 años). Para reforzar esta percepción, hemos elegido una tipografía de estilo "pizarra" (chalky/gredoso) para la presencia visual inicial del juego. Este tipo de letra transmite cercanía y un aire juvenil, evocando recuerdos de pizarras antiguas y escritura con tiza.
+
+En contraste, dentro del propio juego, las tipografías utilizadas tienden a ser más impactantes y futuristas, alineándose con la estética de expansión y guerra galáctica. La letra de tiza se reserva exclusivamente para atraer a los jugadores y transmitirles la sensación de que son bienvenidos, mientras que las tipografías futuristas refuerzan la experiencia inmersiva de tomar el control de naves espaciales y asumir decisiones importantes.
+
+Entendida la imagen que deseamos proyectar tanto para la empresa como para el juego, procedemos a analizar el trabajo realizado en los apartados de redes sociales y portfolio.
+
+## Redes sociales
+
+De cara a las redes sociales, hemos establecido un plan de publicación mínimo de dos posts semanales, los martes y los sábados. Aunque sabemos que los lunes y jueves suelen ser los días con más visualizaciones, priorizamos la calidad del contenido y el tiempo necesario para producirlo en paralelo con el desarrollo del juego. Las publicaciones se programan en horarios cercanos al mediodía y la tarde, considerando que las horas pico de actividad suelen ser las 3 p.m. y las 8 p.m.
+
+Además, hemos implementado la Estrategia de Objetivos SMART, la cual detallamos a continuación:
+
+- **Specific:** nuestro objetivo es construir una base mínima de jugadores para garantizar partidas fluidas en línea. Para ello, buscamos que al menos 50 personas visualicen el juego, aumentando así las probabilidades de coincidencias entre jugadores. Asimismo, buscamos incrementar la cantidad de seguidores en redes sociales en al menos un 5%, un objetivo asequible considerando que somos una empresa indie en crecimiento.
+- **Measurable:** medimos los resultados utilizando las métricas disponibles en Instagram e Itch.io, y evaluamos el progreso de la siguiente manera:
+  - **Instragram:** hemos registrado un incremento del 60% en el número de seguidores, pasando de 36 seguidores iniciales a 58 seguidores tras la campaña del juego. En cuanto a las visualizaciones, alcanzamos una media de 216 visualizaciones por publicación, con picos que llegan a las 886 visualizaciones.
+  - **Twitter/X:** reconocemos que nuestra presencia en esta plataforma ha sido limitada, con poca interacción con el contenido. En consecuencia, hemos decidido enfocar nuestros esfuerzos en Instagram, mientras evaluamos estrategias para mejorar nuestra presencia en Twitter/X de cara al futuro.
+  - **Itchi.io:** la plataforma ha mostrado un aumento de interés, con picos notables asociados a las publicaciones de nuevas versiones. No obstante, se detecta una menor interacción posterior al lanzamiento final del juego, probablemente debido a la irregularidad en las campañas de marketing posteriores. Este problema podría resolverse con una dedicación exclusiva al marketing, algo que consideraremos al crecer como empresa en un futuro. Estas estadísticas se pueden ver a continuación:
+ 
+<p align="center">
+ <img width=500 heigth=500 src="https://github.com/jagonmes/Imagenes-JeR/blob/main/Captura%20de%20pantalla%20(133).png"> <br>
+</p>
+
+- **Achievable:** este proyecto fortalece nuestro posicionamiento como desarrolladores de videojuegos interesantes y comprometidos con la experiencia de los jugadores. Todos nuestros enlaces oficiales (a otros juegos, YouTube y nuestra página web) están disponibles en el perfil de Instagram y nuestra página web, facilitando el acceso a nuestros contenidos. También hemos promocionado el Discord del juego mediante QR, con la intención de adaptarlo en el futuro a un servidor de empresa.
+- **Timely:** hemos establecido plazos claros para la promoción del juego, publicando un mínimo de dos veces por semana. Los posts incluyen avances del proyecto y presentaciones de nuestra comunidad interna (nuestros integrantes), un aspecto esencial para reflejar los valores de nuestra empresa. Esto nos ha permitido, en un plazo relativamente corto, aumentar el número de seguidores y el alcance de nuestras cuentas.
+
+De esta manera, hemos logrado un incremento significativo de nuestra presencia en redes sociales, tanto para el juego como para la empresa. Sin embargo, también identificamos áreas con menor impacto, como Twitter y YouTube (únicamente usado actualmente para comunicados importantes como trailers). Esto nos proporciona una dirección clara sobre las áreas a mejorar como empresa.
+
+## Porfolio
+De cara al portfolio, buscábamos una página web simple y atractiva que reflejara la imagen de la empresa descrita al inicio de esta sección. Por ello, los colores empleados son siempre negro, blanco y rojo. La tipografía utilizada (sin serifas) difiere de la de nuestro logotipo, ya que está demostrado que las serifas dificultan la legibilidad y aumentan el tiempo de lectura. Nosotros buscamos transmitir que somos una empresa ágil, capaz de adaptarse rápidamente. No obstante, la tipografía sigue siendo formal y con un estilo de letras redondeadas. Además, hemos añadido pequeños símbolos, como líneas con estrellas, para reforzar esa sensación de niñez y amabilidad.
+
+La estructura definida para el portfolio consta de dos páginas HTML principales: una para la página principal y otra (o varias en el futuro) para el contenido de lectura. De esta manera, se diferencia claramente el contenido relacionado con la empresa del relacionado con el juego que estamos desarrollando actualmente.
+
+Las secciones elegidas para mostrar son: Noticias, Portfolio, Nuestro Equipo y Sobre Nosotros. La primera tiene como objetivo generar interés por el juego actual mientras se lleva a cabo su campaña de publicidad (más adelante, se valorará la opción de moverla a otro lugar). La segunda sección está destinada a informar al jugador sobre los juegos que tenemos como empresa, mostrando pequeñas imágenes o vídeos de cada juego, junto con descripciones para que el jugador sepa de qué trata cada uno, además de un enlace para su descarga. La tercera sección, Nuestro equipo, permite conocer a cada integrante de la empresa y refleja que nos cuidamos como una familia, razón por la cual esta sección es tan importante. Por último, la sección Sobre nosotros refuerza la sensación de equipo, ya que no hablamos de cada integrante por separado, sino de la empresa como un grupo unido.
+
+Otro elemento visual clave que hemos incorporado es el banner con pequeños fragmentos de nuestros juegos. Esta idea la hemos tomado como referencia de las páginas web de empresas reconocidas y consolidadas, como Guerrilla Games. Como empresa emergente, es fundamental realizar un estudio de mercado y comprender qué herramientas y estrategias ya funcionan. Una página visualmente atractiva y sencilla, como la de Guerrilla Games, es una de esas herramientas clave.
+
+Finalmente, en cuanto al contacto, hemos decidido, por ahora, permitir el acceso a todas nuestras redes sociales, pero no al correo empresarial. Esto se debe a que, en primer lugar, queremos centrarnos en establecer una imagen adecuada de la empresa, evitando mensajes no deseados (como trolls o spam). Y ya, una vez consideremos que es el momento adecuado, añadiremos el correo empresarial en el footer de la página.
+
+Además, es importante resaltar que buscamos ser una empresa más internacional. Por ello, nos hemos centrado en comunicar todo en inglés. Sin embargo, durante el próximo año, planeamos añadir el español y anunciarlo a todos nuestros seguidores como parte de una campaña titulada "Nuestras raíces". De esta forma, queremos que nuestros usuarios y seguidores vean que estamos orgullosos de dónde venimos y del camino que hemos recorrido, para inspirarlos con nuestra historia.
+
 # Hoja de ruta del desarrollo
 ---
 A continuación se detallan las fechas estimadas.
@@ -480,6 +549,7 @@ A continuación se detallan las fechas estimadas.
 | 01/07/2026 | Lanzamiento del séptimo battle pass |
 | 01/10/2026 | Lanzamiento del octavo battle pass |
 | 15/12/2026 - 31/12/2026 | Cuarto Torneo de SCR 3D |
+
 # Post mortem (lecciones aprendidas)
 ---
 ## Trabajo individual realizado
