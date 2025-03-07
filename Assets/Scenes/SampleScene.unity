@@ -608,9 +608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5236987278779206989, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_text
-      value: '2.4.13
-
-'
+      value: 2.4.14
       objectReference: {fileID: 0}
     - target: {fileID: 5287722716828135225, guid: b4541b38afed1f645b94996157e460b0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

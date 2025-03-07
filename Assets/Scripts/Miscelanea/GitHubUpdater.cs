@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 public class GitHubUpdater : MonoBehaviour
 {
     private string repoUrl = "https://api.github.com/repos/SCR3DPublicServer/SCR3DPublicServer/contents/PublicServer.json";
-    private string token = "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"; // Nunca lo incluyas directamente en producción.
+    private string token = ""; // Nunca lo incluyas directamente en producción.
 
     [Serializable]
     public class GitHubContent
